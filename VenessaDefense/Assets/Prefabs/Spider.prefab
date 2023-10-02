@@ -140,7 +140,7 @@ MonoBehaviour:
   meleeAttackKnockback: 4
   meleeAttackCooldown: 0.5
   rangedAttackRange: 5
-  rangedProjectilePrefab: {fileID: 1560162543912533379, guid: 7658b8162156b0142938badc011cf707, type: 3}
+  rangedProjectilePrefab: {fileID: 3274767102180625840, guid: fc59a9ee6f201554a8b738fe7da508ea, type: 3}
   rangedAttackCooldown: 1.2
   defaultState: 0
   aggroRadius: 5

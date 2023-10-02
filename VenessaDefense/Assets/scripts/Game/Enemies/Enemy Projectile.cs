@@ -32,7 +32,11 @@ public class EnemyProjectile : MonoBehaviour
     private Vector2 startingPosition;
     private bool isActive = true;
 
+    private float hitBoxLast = 5f;
+    private float trackerForHitBoxTime = 0.0f;
+    private Camera cam;
 
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -44,7 +48,16 @@ public class EnemyProjectile : MonoBehaviour
 
         isActive = true;
         startingPosition = transform.position;
+
+       // moveSpeed = 10f;
     } //end Start()
+
+
+    private void Awake()
+    {
+        cam = Camera.main;
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -56,29 +69,11 @@ public class EnemyProjectile : MonoBehaviour
         //Check distance vs range
         if (Vector2.Distance(transform.position, startingPosition) > range && isActive)
             Impact();
+
+        DestroyWhenOffScreen();
     } //end Update()
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            //Hit a player
-            //If it's a player, deal melee damage to it
-            //Player script = other.gameObject.GetComponent<Player>();
-
-            //Calculate the direction of force
-            Vector2 hitForce = (other.transform.position - transform.position).normalized * knockback * 10.0f;
-
-            //Apply Knockback and damage to player
-         //   script.Hit(damage, hitForce);
-
-            Impact();
-        }
-        else if (other.name.Contains("Blocking"))
-        {
-            Impact();
-        }
-    }//end OnTriggerEnter2D
+    
 
     public void Impact()
     {
@@ -102,11 +97,57 @@ public class EnemyProjectile : MonoBehaviour
     private void FixedUpdate()
     {
         if (isActive)
-            body.MovePosition(transform.position + transform.right * moveSpeed * Time.deltaTime);
+                body.MovePosition(transform.position + transform.right * moveSpeed * Time.deltaTime);
+
+        trackerForHitBoxTime += Time.deltaTime;
+
+        if(trackerForHitBoxTime > hitBoxLast)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     public void Delete()
     {
         Destroy(this.gameObject);
     }
+
+
+    private void DestroyWhenOffScreen()
+    {
+        Vector2 screenPosition = cam.WorldToScreenPoint(transform.position);
+
+        if (screenPosition.x < 0 ||
+           screenPosition.x > cam.pixelWidth ||
+            screenPosition.y < 0 ||
+            screenPosition.y > cam.pixelHeight)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+     //   Debug.Log("True");
+        if (other.CompareTag("Player"))
+        {
+            Delete();
+            Debug.Log("True");
+            //Hit a player
+            //If it's a player, deal melee damage to it
+            //Player script = other.gameObject.GetComponent<Player>();
+
+            //Calculate the direction of force
+            //  Vector2 hitForce = (other.transform.position - transform.position).normalized * knockback * 10.0f;
+
+            //Apply Knockback and damage to player
+            //   script.Hit(damage, hitForce);
+
+            Impact();
+        }
+        //else if (other.name.Contains("Blocking"))
+        //{
+        //  Impact();
+        //}
+    }//end OnTriggerEnter2D
 }

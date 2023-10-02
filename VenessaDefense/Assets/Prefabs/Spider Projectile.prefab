@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 7863656851115342399}
   - component: {fileID: 2448865615371237071}
   - component: {fileID: 1552028870248652932}
-  - component: {fileID: 1521374676061845207}
   - component: {fileID: 2963660119794121741}
+  - component: {fileID: 4910056935067240145}
   m_Layer: 0
   m_Name: Spider Projectile
   m_TagString: Untagged
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2, y: 2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -64,11 +64,11 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1}
+  m_Offset: {x: 0.012197971, y: 0}
+  m_Size: {x: 3.6958342, y: 3.6958342}
   m_Direction: 0
 --- !u!212 &1552028870248652932
 SpriteRenderer:
@@ -111,7 +111,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 38f0b650d5b8f05449a0522a9d70c2b2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7038010882c7f8a4bbf332673ea09c3e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -122,7 +122,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &1521374676061845207
+--- !u!114 &2963660119794121741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3274767102180625840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2396b7ceb3f418841b63f5dcb2cd64c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 8
+  damage: 15
+  knockback: 6
+  range: 10
+  hasImpactAnimation: 0
+  offsetY: -0.3
+--- !u!50 &4910056935067240145
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -149,21 +167,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2963660119794121741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3274767102180625840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2396b7ceb3f418841b63f5dcb2cd64c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 8
-  damage: 15
-  knockback: 6
-  range: 10
-  hasImpactAnimation: 1
-  offsetY: -0.3
