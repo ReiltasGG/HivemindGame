@@ -17,6 +17,9 @@ public class AtttributesManager : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
     }
 
+    public int getDamage()
+        { return attackDamage; }
+
     public void takeDamage(int amount)
     {
         health -= amount;
