@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindWithTag("Player");
-        var atm = player.GetComponent<AtttributesManager>();
+        var atm = player.GetComponent<AttributesManager>();
         damage = atm.getDamage();
     }
 
@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
-        var atm = player.GetComponent<AtttributesManager>();
+        var atm = player.GetComponent<AttributesManager>();
         damage = atm.attackDamage;
 
         DestroyWhenOffScreen();
@@ -35,7 +35,7 @@ public class Bullet : MonoBehaviour
 
         if (collision.CompareTag("Enemy"))
         {
-            var joe = collision.GetComponent<AtttributesManager>();
+            var joe = collision.GetComponent<AttributesManager>();
 
             if (joe != null) //Ensures theres a leathbar attached to it
             {
