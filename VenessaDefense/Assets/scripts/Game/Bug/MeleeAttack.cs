@@ -7,6 +7,8 @@ public class EnemyMeleeAttack : MonoBehaviour
 {
     public float attackDelay;
     private float timeBetweenAttack = 0;
+    private bool isCollidingWithPlayer = false;
+    private Collider2D playerCollider;
 
     public AttributesManager SelfAttributesManager;
     
@@ -17,6 +19,8 @@ public class EnemyMeleeAttack : MonoBehaviour
     void Update()
     {
          timeBetweenAttack -= Time.deltaTime;
+        if (isCollidingWithPlayer)
+            Attack(playerCollider);
     }
 
     private void Attack(Collider2D playerCollider)
@@ -24,15 +28,9 @@ public class EnemyMeleeAttack : MonoBehaviour
         if (playerCollider is null) throw new ArgumentNullException("Player collider passed to Attack must not be null");
         if (timeBetweenAttack > 0) return;
 
-        AttributesManager playerAttributeManager = playerCollider.GetComponent<AttributesManager>();
-
         SelfAttributesManager.dealDamage(playerCollider.gameObject);
         timeBetweenAttack = attackDelay;
-
-        Debug.Log(playerAttributeManager.health);
-        Debug.Log(playerAttributeManager.healthBar.GetHealth());
     }
-
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -40,8 +38,19 @@ public class EnemyMeleeAttack : MonoBehaviour
 
         if (collider != null && collider.CompareTag("Player"))
         {
-            Attack(collider);
+            isCollidingWithPlayer = true;
+            playerCollider = collider;
         }
+    }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        Collider2D collider = collision.gameObject.GetComponent<Collider2D>();
+
+        if (collider != null && collider.CompareTag("Player"))
+        {
+            isCollidingWithPlayer = false;
+            playerCollider = null;
+        }
     }
 }
