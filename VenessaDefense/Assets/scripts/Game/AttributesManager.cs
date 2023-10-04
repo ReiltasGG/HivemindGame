@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AtttributesManager : MonoBehaviour
+public class AttributesManager : MonoBehaviour
 {
     public int health;
     public int maxHealth = 100;
     public int attackDamage;
 
     public HealthBar healthBar;
-
 
     private void Start()
     {
@@ -29,7 +28,7 @@ public class AtttributesManager : MonoBehaviour
 
     public void dealDamage(GameObject target)
     {
-        var atm = target.GetComponent<AtttributesManager>();
+        var atm = target.GetComponent<AttributesManager>();
 
         if(atm != null)
         {
