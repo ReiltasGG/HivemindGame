@@ -35,32 +35,33 @@ public class Waves : MonoBehaviour
         public int beetles;
         public int explodingAnt;
         public int explodingBeetle;
+        public int spider;
         public int totalEnemies;
         // Add more enemy types as needed
     }
 
     public List<EnemyWave> waves = new List<EnemyWave>
 {
-    new EnemyWave { waveNumber = 1, ants = 4, beetles = 2, explodingAnt = 0, explodingBeetle = 0, totalEnemies = 6},
-    new EnemyWave { waveNumber = 2, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, totalEnemies = 7},
-    new EnemyWave { waveNumber = 3, ants = 7, beetles = 0, explodingAnt = 0, explodingBeetle = 0, totalEnemies = 10},
-    new EnemyWave { waveNumber = 4, ants = 6, beetles = 2, explodingAnt = 0, explodingBeetle = 0, totalEnemies = 12},
-    new EnemyWave { waveNumber = 5, ants = 4, beetles = 0, explodingAnt = 0, explodingBeetle = 0, totalEnemies = 5},
-    new EnemyWave { waveNumber = 6, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, totalEnemies = 7},
-    new EnemyWave { waveNumber = 7, ants = 7, beetles = 0, explodingAnt = 0, explodingBeetle = 0, totalEnemies = 10},
-    new EnemyWave { waveNumber = 8, ants = 6, beetles = 2, explodingAnt = 0, explodingBeetle = 0, totalEnemies = 12},
-    new EnemyWave { waveNumber = 9, ants = 4, beetles = 0, explodingAnt = 0, explodingBeetle = 0, totalEnemies = 5},
-    new EnemyWave { waveNumber = 10, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, totalEnemies = 7},
-    new EnemyWave { waveNumber = 11, ants = 7, beetles = 0, explodingAnt = 0, explodingBeetle = 0, totalEnemies = 10},
-    new EnemyWave { waveNumber = 12, ants = 6, beetles = 2, explodingAnt = 0, explodingBeetle = 0, totalEnemies = 12},
-    new EnemyWave { waveNumber = 13, ants = 4, beetles = 0, explodingAnt = 0, explodingBeetle = 0, totalEnemies = 5},
-    new EnemyWave { waveNumber = 14, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, totalEnemies = 7},
-    new EnemyWave { waveNumber = 15, ants = 7, beetles = 0, explodingAnt = 0, explodingBeetle = 0, totalEnemies = 10},
-    new EnemyWave { waveNumber = 16, ants = 6, beetles = 2, explodingAnt = 0, explodingBeetle = 0, totalEnemies = 12},
-    new EnemyWave { waveNumber = 17, ants = 4, beetles = 0, explodingAnt = 0, explodingBeetle = 0, totalEnemies = 5},
-    new EnemyWave { waveNumber = 18, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, totalEnemies = 7},
-    new EnemyWave { waveNumber = 19, ants = 7, beetles = 0, explodingAnt = 0, explodingBeetle = 0, totalEnemies = 10},
-    new EnemyWave { waveNumber = 20, ants = 6, beetles = 2, explodingAnt = 0, explodingBeetle = 0, totalEnemies = 12},
+    new EnemyWave { waveNumber = 1, ants = 4, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 6},
+    new EnemyWave { waveNumber = 2, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 7},
+    new EnemyWave { waveNumber = 3, ants = 7, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 10},
+    new EnemyWave { waveNumber = 4, ants = 6, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 12},
+    new EnemyWave { waveNumber = 5, ants = 4, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 5},
+    new EnemyWave { waveNumber = 6, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 7},
+    new EnemyWave { waveNumber = 7, ants = 7, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0,  totalEnemies = 10},
+    new EnemyWave { waveNumber = 8, ants = 6, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 12},
+    new EnemyWave { waveNumber = 9, ants = 4, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 5},
+    new EnemyWave { waveNumber = 10, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 7},
+    new EnemyWave { waveNumber = 11, ants = 7, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0,totalEnemies = 10},
+    new EnemyWave { waveNumber = 12, ants = 6, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 12},
+    new EnemyWave { waveNumber = 13, ants = 4, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 5},
+    new EnemyWave { waveNumber = 14, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 7},
+    new EnemyWave { waveNumber = 15, ants = 7, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 10},
+    new EnemyWave { waveNumber = 16, ants = 6, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 12},
+    new EnemyWave { waveNumber = 17, ants = 4, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 5},
+    new EnemyWave { waveNumber = 18, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 7},
+    new EnemyWave { waveNumber = 19, ants = 7, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 10},
+    new EnemyWave { waveNumber = 20, ants = 6, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 12},
     // Define more waves as needed
 };
 
@@ -81,7 +82,7 @@ public class Waves : MonoBehaviour
 
         if (spawning && !waveCompleted)
         {
-            Debug.Log(enemiesDead);
+            Debug.Log(enemiesDead + " :)");
             int currentWaveTemp = currentWave - 1;
 
             timeSinceLastSpawn += Time.deltaTime;
@@ -111,6 +112,12 @@ public class Waves : MonoBehaviour
                     SpawnEnemy(3);
                     timeSinceLastSpawn = 0f;
                 }
+                else if (waves[currentWaveTemp].spider != 0)
+                {
+                    waves[currentWaveTemp].spider = waves[currentWaveTemp].explodingAnt - 1;
+                    SpawnEnemy(4);
+                    timeSinceLastSpawn = 0f;
+                }
             }
         }
         else if (waveCompleted)
@@ -130,7 +137,7 @@ public class Waves : MonoBehaviour
             if (currentWave % wavesPerDay == 0)
             {
                 currentDay++;
-                Debug.Log("Starting Day " + currentDay);
+                //Debug.Log("Starting Day " + currentDay);
             }
             StartCoroutine(StartWaveWithDelay(bufferTime));
 
@@ -189,7 +196,7 @@ public class Waves : MonoBehaviour
 
             remainingEnemiesInWave--; // Decrease remaining enemies
 
-            if (remainingEnemiesInWave == 0)
+            if (enemiesDead == enemiesPerWave)
             {
                 spawning = false;
                 Debug.Log("Wave " + currentWave + " completed.");
@@ -206,7 +213,7 @@ public class Waves : MonoBehaviour
     private IEnumerator StartWaveWithDelay(float delay)
     {
         Text textTemp = Instantiate(waveText);
-        textTemp.transform.SetParent(GameObject.Find("Canvas").GetComponent<RectTransform>(), false);
+        textTemp.transform.SetParent(GameObject.Find("Background_Canvas").GetComponent<RectTransform>(), false);
 
         while (remainingEnemiesInWave > 0)
         {

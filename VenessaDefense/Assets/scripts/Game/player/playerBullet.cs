@@ -50,6 +50,7 @@ public class Bullet : MonoBehaviour
                     Destroy(gameObject);
                     if (workOnce == 1)
                     {
+                        Debug.Log("Tower Bullet has killed");
                         var waveScript = wavesFinder.GetComponent<Waves>();
                         waveScript.enemiesDeadAdd();
                         workOnce = 0;
