@@ -8,12 +8,15 @@ public class Bullet : MonoBehaviour
     public GameObject player;
     private int damage;
     //private int damage = player
+    private GameObject wavesFinder;
+    private int workOnce = 1;
 
     private void Start()
     {
         player = GameObject.FindWithTag("Player");
         var atm = player.GetComponent<AtttributesManager>();
         damage = atm.getDamage();
+        wavesFinder = GameObject.FindWithTag("GamesManager");
     }
 
     private void Awake()
@@ -37,25 +40,25 @@ public class Bullet : MonoBehaviour
         {
             var joe = collision.GetComponent<AtttributesManager>();
 
-            if (joe != null) //Ensures theres a leathbar attached to it
+            if (joe != null) // Ensures there's a health bar attached to it
             {
                 joe.takeDamage(damage);
 
-                if (joe.health <= 0) //Destroys object if health 0
+                if (joe.health <= 0) // Destroys object if health is 0
                 {
                     Destroy(temp);
                     Destroy(gameObject);
+                    if (workOnce == 1)
+                    {
+                        var waveScript = wavesFinder.GetComponent<Waves>();
+                        waveScript.enemiesDeadAdd(1);
+                        workOnce = 0;
+                    }
                 }
-
             }
-
 
             Destroy(gameObject);
         }
-            
-        
-
-
     }
 
 

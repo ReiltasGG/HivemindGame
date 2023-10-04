@@ -24,6 +24,7 @@ public class Waves : MonoBehaviour
     public GameObject uiCanvas;
 
     private int remainingEnemiesInWave;
+    private int enemiesDead = 0;
 
     void Start()
     {
@@ -57,6 +58,20 @@ public class Waves : MonoBehaviour
                 waveCompleted = false;
             }
         }
+        Debug.Log(enemiesDead + " " + enemiesPerWave);
+
+        if (enemiesDead == enemiesPerWave)
+        { //Debug.Log("Wave " + currentWave + " completed.");
+
+            if (currentWave % wavesPerDay == 0)
+            {
+                currentDay++;
+                Debug.Log("Starting Day " + currentDay);
+            }
+            StartCoroutine(StartWaveWithDelay(bufferTime));
+
+        }
+
     }
 
     void StartWave()
@@ -103,13 +118,9 @@ public class Waves : MonoBehaviour
             if (remainingEnemiesInWave == 0)
             {
                 spawning = false;
-                Debug.Log("Wave " + currentWave + " completed.");
-                if (currentWave % wavesPerDay == 0)
-                {
-                    currentDay++;
-                    Debug.Log("Starting Day " + currentDay);
-                }
-                StartCoroutine(StartWaveWithDelay(bufferTime));
+                
+
+
             }
         }
     }
@@ -119,6 +130,7 @@ public class Waves : MonoBehaviour
         Text textTemp = Instantiate(waveText);
         textTemp.transform.SetParent(GameObject.Find("Canvas").GetComponent<RectTransform>(), false);
 
+        enemiesDead = 0;
         while (remainingEnemiesInWave > 0)
         {
             yield return null;
@@ -129,5 +141,11 @@ public class Waves : MonoBehaviour
         
         StartWave();
 
+    }
+
+    public void enemiesDeadAdd(int add)
+    {
+        enemiesDead += add;
+        //return enemiesDead;
     }
 }
