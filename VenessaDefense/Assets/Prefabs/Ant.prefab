@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
-  target: {fileID: 0}
+  target: {fileID: 2536126099874761898}
   healthbarOffset: {x: 0, y: 1, z: 0}
 --- !u!114 &7660624835045339333
 MonoBehaviour:
@@ -350,6 +350,7 @@ GameObject:
   - component: {fileID: 2536126099874761897}
   - component: {fileID: 4489948571745314149}
   - component: {fileID: 3769104541470624124}
+  - component: {fileID: 648988930580948105}
   m_Layer: 3
   m_Name: Ant
   m_TagString: Enemy
@@ -480,6 +481,20 @@ MonoBehaviour:
   maxHealth: 30
   attackDamage: 10
   healthBar: {fileID: 7660624835045339333}
+--- !u!114 &648988930580948105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536126099874761892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c97029195dc9444479f68aa32b28199c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDelay: 2
+  SelfAttributesManager: {fileID: 3769104541470624124}
 --- !u!1 &2678423835016142801
 GameObject:
   m_ObjectHideFlags: 0

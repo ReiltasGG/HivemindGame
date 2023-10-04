@@ -23,7 +23,7 @@ public class Explosion_Maker : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("WE collided");
-         var script = Player.GetComponent<AtttributesManager>();
+            var script = Player.GetComponent<AttributesManager>();
             script.takeDamage(15);
         
         }

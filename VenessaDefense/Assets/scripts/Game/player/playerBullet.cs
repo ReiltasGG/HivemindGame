@@ -51,7 +51,7 @@ public class Bullet : MonoBehaviour
                     if (workOnce == 1)
                     {
                         var waveScript = wavesFinder.GetComponent<Waves>();
-                        waveScript.enemiesDeadAdd(1);
+                        waveScript.enemiesDeadAdd();
                         workOnce = 0;
                     }
                 }
