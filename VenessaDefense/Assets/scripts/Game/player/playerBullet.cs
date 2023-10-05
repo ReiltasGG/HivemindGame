@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,31 +35,31 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        GameObject temp = collision.gameObject;
 
         if (collision.CompareTag("Enemy"))
         {
-            var joe = collision.GetComponent<AttributesManager>();
+            var collidedAttributeManager = collision.GetComponent<AttributesManager>();
 
-            if (joe != null) // Ensures there's a health bar attached to it
-            {
-                joe.takeDamage(damage);
+            if (collidedAttributeManager == null)
+                throw new ArgumentNullException("The Enemy does not have an attribute manager assigned");
 
-                if (joe.health <= 0) // Destroys object if health is 0
-                {
-                    Destroy(temp);
-                    Destroy(gameObject);
-                    if (workOnce == 1)
-                    {
-                        var waveScript = wavesFinder.GetComponent<Waves>();
-                        waveScript.enemiesDeadAdd();
-                        workOnce = 0;
-                    }
-                }
-            }
+            collidedAttributeManager.takeDamage(damage);
+
+            if (collidedAttributeManager.health <= 0)
+                IncrementDeadEnamies();
 
             Destroy(gameObject);
+
         }
+    }
+
+    private void IncrementDeadEnamies()
+    {
+        if (workOnce != 1) return;
+        else workOnce = 0;
+
+        var waveScript = wavesFinder.GetComponent<Waves>();
+        waveScript.enemiesDeadAdd();
     }
 
 

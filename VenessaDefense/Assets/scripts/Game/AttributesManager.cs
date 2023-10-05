@@ -22,8 +22,18 @@ public class AttributesManager : MonoBehaviour
     public void takeDamage(int amount)
     {
         health -= amount;
-
         healthBar.SetHealth(health);
+
+        if (health <= 0)
+        {
+            Despawn();
+        }
+
+    }
+
+    public void Despawn()
+    {
+        Destroy(gameObject);
     }
 
     public void dealDamage(GameObject target)
