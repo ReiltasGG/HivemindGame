@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3967763557817228425}
   - component: {fileID: 5461823563455032799}
   - component: {fileID: 8656710856095928561}
-  - component: {fileID: 2694527029710984680}
   - component: {fileID: 5032130070000434672}
+  - component: {fileID: 1299500448211503717}
   m_Layer: 0
   m_Name: Explosion
   m_TagString: Untagged
@@ -150,27 +150,6 @@ CircleCollider2D:
   m_Offset: {x: -0.14307213, y: 0}
   serializedVersion: 2
   m_Radius: 1.4154234
---- !u!95 &2694527029710984680
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5468429188976144797}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2b13979f46ab25546b6c0eccf8805877, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &5032130070000434672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,3 +163,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
+--- !u!95 &1299500448211503717
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5468429188976144797}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: db3b9803ab5a9ab46b0f0f4b0a02b9dd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
