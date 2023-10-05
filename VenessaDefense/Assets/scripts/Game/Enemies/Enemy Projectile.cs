@@ -36,6 +36,7 @@ public class EnemyProjectile : MonoBehaviour
     private float trackerForHitBoxTime = 0.0f;
     private Camera cam;
 
+    
    
     // Start is called before the first frame update
     void Start()
@@ -133,6 +134,11 @@ public class EnemyProjectile : MonoBehaviour
         {
             Delete();
             Debug.Log("True");
+             GameObject player = other.gameObject;
+            var script = player.GetComponent<AttributesManager>();
+            script.takeDamage(10);
+            var scriptPlayerMove = player.GetComponent<PlayerMovement>();
+            scriptPlayerMove.slowPlayer();
             //Hit a player
             //If it's a player, deal melee damage to it
             //Player script = other.gameObject.GetComponent<Player>();
