@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2852579493139428537}
   - component: {fileID: 4150668768736655026}
   - component: {fileID: 1222325822386043392}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Boarder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 5346534110505299602}
   - component: {fileID: 4833114581279148429}
   - component: {fileID: 1200531626176512094}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 3026147420352219321}
   - component: {fileID: 6193629691198940310}
   - component: {fileID: 3209657154124223943}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Spider
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -386,7 +386,7 @@ GameObject:
   - component: {fileID: 3544741085484028458}
   - component: {fileID: 599582892262978560}
   - component: {fileID: 13045671458806165}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 3847430746804805267}
   - component: {fileID: 2331622137493017922}
   - component: {fileID: 1498968102506164288}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
