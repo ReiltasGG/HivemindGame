@@ -19,12 +19,12 @@ public class Waves : MonoBehaviour
     private float timeSinceWaveCompleted = 0f;
     private bool waveCompleted = false;
     private List<Transform> spawnerTransforms = new List<Transform>();
+    private AudioSource roundStartAudio;
     [SerializeField] private GameObject[] enemyPrefabs;
     public Text waveText;
     public GameObject uiCanvas;
 
     private int remainingEnemiesInWave;
-
 
     public int enemiesDead = 0;
 
@@ -67,6 +67,7 @@ public class Waves : MonoBehaviour
 
     void Start()
     {
+        roundStartAudio = GetComponent<AudioSource>();
         // Find all GameObjects with the "Spawner" tag and add their transforms to the list
         GameObject[] spawnerObjects = GameObject.FindGameObjectsWithTag("Spawner");
         foreach (GameObject spawner in spawnerObjects)
@@ -144,7 +145,10 @@ public class Waves : MonoBehaviour
         }
 
     }
-
+    private void playRoundStartAudio()
+    {
+        roundStartAudio.Play();
+    }
     void StartWave()
     {
         if (currentWave < numberOfWaves)
@@ -152,7 +156,12 @@ public class Waves : MonoBehaviour
             enemiesDead = 0;
             currentWave++;
             int currentWaveTemp = currentWave - 1;
+
             enemiesPerWave = waves[currentWaveTemp].totalEnemies;
+
+            if (roundStartAudio != null) 
+                playRoundStartAudio();
+
             SpawnWave();
         }
         else
