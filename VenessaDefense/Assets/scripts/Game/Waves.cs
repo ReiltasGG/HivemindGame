@@ -7,17 +7,17 @@ using UnityEngine.UI;
 public class Waves : MonoBehaviour
 {
     public int numberOfWaves = 20;
-    public int wavesPerDay = 3;
+    public int wavesPerDay = 20;
     public int enemiesPerWave = 5;
     public float spawnInterval = 1.0f;
-    public float bufferTime = 30.0f;
+    public float bufferTime = 15.0f;
 
     private int currentWave = 0;
     private int currentDay = 1;
     private bool spawning = false;
     private float timeSinceLastSpawn = 0f;
     private float timeSinceWaveCompleted = 0f;
-    private bool waveCompleted = false;
+    public bool waveCompleted = false;
     private List<Transform> spawnerTransforms = new List<Transform>();
     private AudioSource roundStartAudio;
     [SerializeField] private GameObject[] enemyPrefabs;
@@ -26,7 +26,9 @@ public class Waves : MonoBehaviour
 
     private int remainingEnemiesInWave;
 
+    private int dontAddMoreThanOne = 1;
     public int enemiesDead = 0;
+    private int happenOnceAgain;
 
     public class EnemyWave
     {
@@ -42,10 +44,10 @@ public class Waves : MonoBehaviour
 
     public List<EnemyWave> waves = new List<EnemyWave>
 {
-    new EnemyWave { waveNumber = 1, ants = 4, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 6},
-    new EnemyWave { waveNumber = 2, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 7},
-    new EnemyWave { waveNumber = 3, ants = 7, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 10},
-    new EnemyWave { waveNumber = 4, ants = 6, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 12},
+    new EnemyWave { waveNumber = 1, ants = 1, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 1},
+    new EnemyWave { waveNumber = 2, ants = 1, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 1},
+    new EnemyWave { waveNumber = 3, ants = 1, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 1},
+    new EnemyWave { waveNumber = 4, ants = 1, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 3},
     new EnemyWave { waveNumber = 5, ants = 4, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 5},
     new EnemyWave { waveNumber = 6, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 7},
     new EnemyWave { waveNumber = 7, ants = 7, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0,  totalEnemies = 10},
@@ -83,6 +85,7 @@ public class Waves : MonoBehaviour
 
         if (spawning && !waveCompleted)
         {
+            Debug.Log("Current Wave" + currentWave);
            // Debug.Log(enemiesDead + " :)");
             int currentWaveTemp = currentWave - 1;
 
@@ -126,23 +129,34 @@ public class Waves : MonoBehaviour
             timeSinceWaveCompleted += Time.deltaTime;
             if (timeSinceWaveCompleted >= bufferTime)
             {
-                StartWave();
+                //StartWave();
                 waveCompleted = false;
             }
         }
         // Debug.Log(enemiesDead + " " + enemiesPerWave);
 
         if (enemiesDead == enemiesPerWave)
-        { //Debug.Log("Wave " + currentWave + " completed.");
-
+        {
+            dontAddMoreThanOne = 1;
+           
+            Debug.Log("Wave " + currentWave + " completed.");
+            /*
             if (currentWave % wavesPerDay == 0)
             {
                 currentDay++;
-                //Debug.Log("Starting Day " + currentDay);
+                Debug.Log("Starting Day " + currentDay);
             }
-            StartCoroutine(StartWaveWithDelay(bufferTime));
-
+            */
+            if (happenOnceAgain == 1)
+            {
+                StartCoroutine(StartWaveWithDelay(bufferTime));
+                happenOnceAgain = 0;
+            }
         }
+
+       
+           
+            
 
     }
     private void playRoundStartAudio()
@@ -153,8 +167,13 @@ public class Waves : MonoBehaviour
     {
         if (currentWave < numberOfWaves)
         {
+            happenOnceAgain = 1;
             enemiesDead = 0;
-            currentWave++;
+            if (dontAddMoreThanOne == 1)
+            {
+                currentWave++;
+                dontAddMoreThanOne = 0;
+            }
             int currentWaveTemp = currentWave - 1;
 
             enemiesPerWave = waves[currentWaveTemp].totalEnemies;
@@ -172,6 +191,7 @@ public class Waves : MonoBehaviour
 
     void SpawnWave()
     {
+        waveCompleted = false;
         spawning = true;
         timeSinceLastSpawn = 0f;
         remainingEnemiesInWave = enemiesPerWave; // Initialize remaining enemies
@@ -205,29 +225,18 @@ public class Waves : MonoBehaviour
 
             remainingEnemiesInWave--; // Decrease remaining enemies
 
-            if (enemiesDead == enemiesPerWave)
-            {
-                spawning = false;
-                Debug.Log("Wave " + currentWave + " completed.");
-                if (currentWave % wavesPerDay == 0)
-                {
-                    currentDay++;
-                    Debug.Log("Starting Day " + currentDay);
-                }
-                StartCoroutine(StartWaveWithDelay(bufferTime));
-            }
+            
         }
     }
 
     private IEnumerator StartWaveWithDelay(float delay)
     {
+        spawning = false;
+        waveCompleted = true;
         Text textTemp = Instantiate(waveText);
         textTemp.transform.SetParent(GameObject.Find("Background_Canvas").GetComponent<RectTransform>(), false);
 
-        while (remainingEnemiesInWave > 0)
-        {
-            yield return null;
-        }
+        
 
         yield return new WaitForSeconds(delay);
         Destroy(textTemp);

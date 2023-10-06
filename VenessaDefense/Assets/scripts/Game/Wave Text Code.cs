@@ -36,9 +36,10 @@ public class WaveTextCode : MonoBehaviour
             }
         }
 
-        if(time <0)
+        if(time <=0)
         {
             Destroy(GameObject.FindWithTag("Wave Text"));
+            time = 15;
         }
     }
 }
