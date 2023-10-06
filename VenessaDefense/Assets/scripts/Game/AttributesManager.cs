@@ -25,10 +25,23 @@ public class AttributesManager : MonoBehaviour
         healthBar.SetHealth(health);
 
         if (health <= 0)
-        {
             Despawn();
+
+    }
+
+    public void heal(int amount)
+    {
+        if (health < 0) {
+            Despawn();
+            return; 
         }
 
+        health += amount;
+
+        if (health > maxHealth) 
+            health = maxHealth;
+
+        healthBar.SetHealth(health);
     }
 
     public void Despawn()
