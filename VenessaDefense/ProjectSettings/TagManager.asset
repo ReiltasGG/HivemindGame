@@ -8,6 +8,8 @@ TagManager:
   - Spawner
   - Wave Text
   - GamesManager
+  - Skill Tree
+  - Skill Tree Text
   layers:
   - Default
   - TransparentFX

@@ -82,7 +82,7 @@ public class Waves : MonoBehaviour
 
         if (spawning && !waveCompleted)
         {
-            Debug.Log(enemiesDead + " :)");
+           // Debug.Log(enemiesDead + " :)");
             int currentWaveTemp = currentWave - 1;
 
             timeSinceLastSpawn += Time.deltaTime;
