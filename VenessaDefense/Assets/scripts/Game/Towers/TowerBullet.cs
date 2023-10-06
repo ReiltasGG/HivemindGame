@@ -47,7 +47,7 @@ public class TowerBullet : MonoBehaviour
 
         }
     }
-    
+
      private void IncrementDeadEnamies()
     {
         if (workOnce != 1) return;
