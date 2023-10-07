@@ -19,7 +19,6 @@ public class Waves : MonoBehaviour
     private float timeSinceWaveCompleted = 0f;
     public bool waveCompleted = false;
     private List<Transform> spawnerTransforms = new List<Transform>();
-    private AudioSource roundStartAudio;
     [SerializeField] private GameObject[] enemyPrefabs;
     public Text waveText;
     public GameObject uiCanvas;
@@ -35,9 +34,9 @@ public class Waves : MonoBehaviour
         public int waveNumber;
         public int ants;
         public int beetles;
+        public int spider;
         public int explodingAnt;
         public int explodingBeetle;
-        public int spider;
         public int totalEnemies;
         // Add more enemy types as needed
     }
@@ -69,7 +68,6 @@ public class Waves : MonoBehaviour
 
     void Start()
     {
-        roundStartAudio = GetComponent<AudioSource>();
         // Find all GameObjects with the "Spawner" tag and add their transforms to the list
         GameObject[] spawnerObjects = GameObject.FindGameObjectsWithTag("Spawner");
         foreach (GameObject spawner in spawnerObjects)
@@ -86,7 +84,7 @@ public class Waves : MonoBehaviour
         if (spawning && !waveCompleted)
         {
             Debug.Log("Current Wave" + currentWave);
-           // Debug.Log(enemiesDead + " :)");
+            // Debug.Log(enemiesDead + " :)");
             int currentWaveTemp = currentWave - 1;
 
             timeSinceLastSpawn += Time.deltaTime;
@@ -116,12 +114,6 @@ public class Waves : MonoBehaviour
                     SpawnEnemy(3);
                     timeSinceLastSpawn = 0f;
                 }
-                else if (waves[currentWaveTemp].spider != 0)
-                {
-                    waves[currentWaveTemp].spider = waves[currentWaveTemp].explodingAnt - 1;
-                    SpawnEnemy(4);
-                    timeSinceLastSpawn = 0f;
-                }
             }
         }
         else if (waveCompleted)
@@ -138,7 +130,7 @@ public class Waves : MonoBehaviour
         if (enemiesDead == enemiesPerWave)
         {
             dontAddMoreThanOne = 1;
-           
+
             Debug.Log("Wave " + currentWave + " completed.");
             /*
             if (currentWave % wavesPerDay == 0)
@@ -154,15 +146,8 @@ public class Waves : MonoBehaviour
             }
         }
 
-       
-           
-            
+    }
 
-    }
-    private void playRoundStartAudio()
-    {
-        roundStartAudio.Play();
-    }
     void StartWave()
     {
         if (currentWave < numberOfWaves)
@@ -175,12 +160,7 @@ public class Waves : MonoBehaviour
                 dontAddMoreThanOne = 0;
             }
             int currentWaveTemp = currentWave - 1;
-
             enemiesPerWave = waves[currentWaveTemp].totalEnemies;
-
-            if (roundStartAudio != null) 
-                playRoundStartAudio();
-
             SpawnWave();
         }
         else
@@ -206,12 +186,6 @@ public class Waves : MonoBehaviour
 
                 int rand = whichEnemy;
 
-
-
-
-
-
-
                 GameObject enemyToSpawn = enemyPrefabs[rand];
 
                 int randomSpawnerIndex = Random.Range(0, spawnerTransforms.Count);
@@ -225,7 +199,7 @@ public class Waves : MonoBehaviour
 
             remainingEnemiesInWave--; // Decrease remaining enemies
 
-            
+
         }
     }
 
@@ -234,9 +208,7 @@ public class Waves : MonoBehaviour
         spawning = false;
         waveCompleted = true;
         Text textTemp = Instantiate(waveText);
-        textTemp.transform.SetParent(GameObject.Find("Background_Canvas").GetComponent<RectTransform>(), false);
-
-        
+        textTemp.transform.SetParent(GameObject.Find("Canvas").GetComponent<RectTransform>(), false);
 
         yield return new WaitForSeconds(delay);
         Destroy(textTemp);
