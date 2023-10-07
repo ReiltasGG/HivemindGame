@@ -10,6 +10,7 @@ TagManager:
   - GamesManager
   - Skill Tree
   - Skill Tree Text
+  - TowerEffect
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Water
   - UI
   - TowerBullet
-  - 
+  - Player
   - 
   - 
   - 
