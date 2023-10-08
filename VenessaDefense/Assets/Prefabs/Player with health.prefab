@@ -131,7 +131,6 @@ GameObject:
   - component: {fileID: 3769586227595570966}
   - component: {fileID: 7869671732244282622}
   - component: {fileID: 8442556036580756240}
-  - component: {fileID: 7400510371813413492}
   - component: {fileID: 7049301571797769183}
   m_Layer: 0
   m_Name: Player with health
@@ -232,6 +231,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
+  slowAmount: 3
+  slowPlayerBool: 0
 --- !u!114 &3823220044986923893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,21 +304,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
---- !u!114 &7400510371813413492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8199789876727004746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 148ee25da491e5645a403c1ec1658e86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  health: 0
-  healthBar: {fileID: 0}
 --- !u!114 &7049301571797769183
 MonoBehaviour:
   m_ObjectHideFlags: 0

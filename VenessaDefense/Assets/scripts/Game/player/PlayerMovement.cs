@@ -67,4 +67,9 @@ public class PlayerMovement : MonoBehaviour
         slowAmount = 3f;
 
     }
+    private void OnCollisionEnter2D(Collision2D collision){
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Border")){
+            _rigidbody.velocity = Vector2.zero;
+        }
+    }
 }

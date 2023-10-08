@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2656553191137339271}
   - component: {fileID: 5007399600809119329}
   - component: {fileID: 6771030271872191438}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Background_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 2248073126378218569}
   - component: {fileID: 6407021061514288951}
   - component: {fileID: 2390970143067067565}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Background_Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
