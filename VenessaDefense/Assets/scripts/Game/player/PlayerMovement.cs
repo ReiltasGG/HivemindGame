@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody.velocity = _smoothedMovementInput * _speed;
 
     }
-   /*private void RotateInDirectionOfInput()
+   private void RotateInDirectionOfInput()
     {
         if (_movementInput != Vector2.zero)
         {
@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
             _rigidbody.MoveRotation(rotation);
         }
-    }*/
+    }
     private void OnMove(InputValue inputValue)
         {
                 _movementInput = inputValue.Get<Vector2>();
@@ -63,6 +63,73 @@ public class PlayerMovement : MonoBehaviour
   
     public void slowPlayer()
     {
+        slowPlayerBool = true;
+        slowAmount = 3f;
+
+    }
+}
+*/
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+//New Code for movement
+public class PlayerMovement : MonoBehaviour
+{
+    Rigidbody2D rb;
+    public float normalAcceleration;
+    [HideInInspector] public float acceleration;
+    [HideInInspector] public Vector2 movementInput;
+
+    public float slowAmount = 3f;
+    public bool slowPlayerBool = false;
+
+
+    public Transform arrow;
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        acceleration = normalAcceleration;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        
+
+        arrow.up = (mousePos - (Vector2)transform.position.normalized);
+    }
+
+    void FixedUpdate()
+    {
+        
+
+         if(slowPlayerBool == true && slowAmount>=0)
+        {
+            
+            movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            slowAmount -= Time.deltaTime;
+            rb.velocity = new (Input.GetAxisRaw("Horizontal")/2, Input.GetAxisRaw("Vertical")/2);
+          
+
+        }
+        else
+        {
+            slowPlayerBool = false;
+           movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+           rb.velocity += (movementInput * acceleration * Time.fixedDeltaTime);
+
+        }
+           
+
+    }
+
+       public void slowPlayer()
+    {
+          //Debug.Log("Slowed Down");
         slowPlayerBool = true;
         slowAmount = 3f;
 

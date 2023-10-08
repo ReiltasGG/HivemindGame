@@ -6,8 +6,13 @@ public class PlayerRotation : MonoBehaviour
 {
     private Transform _transform;
     // Start is called before the first frame update
+    public GameObject player;
     void Start()
     {
+        player = GameObject.FindWithTag("Player");
+        player.GetComponent<Animator>().enabled = false;
+        
+
         _transform = this.transform;
     }
 

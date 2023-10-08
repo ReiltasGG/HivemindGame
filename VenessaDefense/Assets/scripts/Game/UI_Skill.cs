@@ -46,14 +46,21 @@ public class UI_Skill : MonoBehaviour
         }
         else if(SkillID == 3 && hasBeenBought == true)
         {
+             Debug.Log("Skill3 found me");
             bool temp = atm.getSkilldata(1);
             bool temp2 = atm.getSkilldata(2);
+
             if (temp == true && temp2 == true)
             {
                 //Player gets dodge move
                 background.GetComponent<Image>().color = new Color32(18, 255, 59, 255);
                 //Set SkillID to true
+               
                 atm.updateSkillDataTrue(3);
+                GameObject Player = GameObject.FindWithTag("Player");
+                var playerScript = Player.GetComponent<AbilityHolder>();
+                playerScript.allowSkill1();
+                
             }
             else 
                 hasBeenBought = false;
@@ -68,7 +75,7 @@ public class UI_Skill : MonoBehaviour
 
     public void Buy()
     {
-        Debug.Log("Runs");
+      //  Debug.Log("Runs");
         if (currency >= cost)
         {
           
