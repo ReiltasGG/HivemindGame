@@ -10,7 +10,6 @@ public class Bullet : MonoBehaviour
     private int damage;
     //private int damage = player
     private GameObject wavesFinder;
-    private int workOnce = 1;
 
     private void Start()
     {
