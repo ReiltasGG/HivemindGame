@@ -125,10 +125,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43995781b7156af42a548ab4c695d0fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
+  _speed: 4.5
   _rotationspeed: 100
-  baseSpeed: 5
+  baseSpeed: 4.5
   Explosion: {fileID: 5468429188976144797, guid: 37a05500e8cc660478c6e3a0f8513a6e, type: 3}
+  blinkSpeed: 0.5
 --- !u!114 &5283903167814633355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +146,7 @@ MonoBehaviour:
   maxHealth: 30
   attackDamage: 0
   healthBar: {fileID: 2533079694072041256}
+  currencyWorth: 0
 --- !u!1 &705841430969130236
 GameObject:
   m_ObjectHideFlags: 0

@@ -303,7 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cabbc42c0c30654da7813db46f21865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 1
+  _speed: 3
   _rotationspeed: 100
   baseSpeed: 1
 --- !u!114 &2347058648469327703
@@ -318,9 +318,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ef5c93031df4db7954aacdd25b4b31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 30
-  maxHealth: 30
-  attackDamage: 10
+  health: 70
+  maxHealth: 70
+  attackDamage: 20
   healthBar: {fileID: 7709027912790643832}
   currencyWorth: 5
 --- !u!114 &-844831955167449370

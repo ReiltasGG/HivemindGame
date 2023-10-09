@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Explosion_Maker : MonoBehaviour
 {
+    public int explosionDamage = 20;
     // Start is called before the first frame update
     public GameObject Player;
     void Start()
@@ -22,10 +23,8 @@ public class Explosion_Maker : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("WE collided");
             var script = Player.GetComponent<AttributesManager>();
-            script.takeDamage(15);
-        
+            script.takeDamage(explosionDamage);
         }
     }
 

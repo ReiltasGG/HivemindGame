@@ -43,11 +43,11 @@ public class Waves : MonoBehaviour
 
     public List<EnemyWave> waves = new List<EnemyWave>
 {
-    new EnemyWave { waveNumber = 1, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 1},
-    new EnemyWave { waveNumber = 2, ants = 8, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 1},
-    new EnemyWave { waveNumber = 3, ants = 8, beetles = 4, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 1},
-    new EnemyWave { waveNumber = 4, ants = 1, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 3},
-    new EnemyWave { waveNumber = 5, ants = 4, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 5},
+    new EnemyWave { waveNumber = 1, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 5},
+    new EnemyWave { waveNumber = 2, ants = 8, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 10},
+    new EnemyWave { waveNumber = 3, ants = 10, beetles = 4, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 14},
+    new EnemyWave { waveNumber = 4, ants = 6, beetles = 3, explodingAnt = 5, explodingBeetle = 0, spider = 0, totalEnemies = 14},
+    new EnemyWave { waveNumber = 5, ants = 10, beetles = 5, explodingAnt = 4, explodingBeetle = 1, spider = 0, totalEnemies = 20},
     new EnemyWave { waveNumber = 6, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 7},
     new EnemyWave { waveNumber = 7, ants = 7, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0,  totalEnemies = 10},
     new EnemyWave { waveNumber = 8, ants = 6, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 12},

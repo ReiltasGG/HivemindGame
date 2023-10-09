@@ -41,7 +41,6 @@ public class HealingBee : MonoBehaviour
     {
         RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, healingRange, (Vector2)transform.position, 0f, playerMask);
         HealAllInCircle(hits);
-        UnityEngine.Debug.Log("Heal Player called");
 
     }
 
@@ -51,7 +50,6 @@ public class HealingBee : MonoBehaviour
         if (selectedPlayers == null) throw new ArgumentNullException("RaycastHit2D passed in is NULL");
         if (selectedPlayers.Length == 0) return;
 
-        UnityEngine.Debug.Log("Healing player");
 
         for (int i = 0; i < selectedPlayers.Length; i++)
         {
@@ -63,7 +61,6 @@ public class HealingBee : MonoBehaviour
             {
                 playerAttributesManager.heal(healingAmount);
                 timePassedSinceHeal = 0f;
-                UnityEngine.Debug.Log("Player not full health");
             }
         }
     }
