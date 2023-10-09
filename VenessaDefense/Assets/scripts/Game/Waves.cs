@@ -21,6 +21,7 @@ public class Waves : MonoBehaviour
     private List<Transform> spawnerTransforms = new List<Transform>();
     [SerializeField] private GameObject[] enemyPrefabs;
     public Text waveText;
+    private WaveTimer waveTimer;
     public GameObject uiCanvas;
 
     private int remainingEnemiesInWave;
@@ -74,8 +75,23 @@ public class Waves : MonoBehaviour
         {
             spawnerTransforms.Add(spawner.transform);
         }
+    
+        GameObject timerObject = GameObject.FindWithTag("Wave Timer");
+        if (timerObject != null)
+        {
+            waveTimer = timerObject.GetComponent<WaveTimer>();
+        }
+        else
+        {
+            Debug.LogError("No GameObject with the 'Timer' tag found.");
+        }
 
+        if (waveTimer != null)
+        {
+            waveTimer.StartTimer();
+        }
         StartWave();
+
     }
 
     void Update()
@@ -150,8 +166,26 @@ public class Waves : MonoBehaviour
 
     void StartWave()
     {
+        /*
+        if (waveTimer != null)
+        {
+            waveTimer.StartTimer();
+        }
+        */
+        
+        
+
         if (currentWave < numberOfWaves)
         {
+            /*
+            if (waveTimer != null)
+            {
+                waveTimer.StartTimer();
+            }
+            */
+            
+            
+
             happenOnceAgain = 1;
             enemiesDead = 0;
             if (dontAddMoreThanOne == 1)
@@ -162,10 +196,25 @@ public class Waves : MonoBehaviour
             int currentWaveTemp = currentWave - 1;
             enemiesPerWave = waves[currentWaveTemp].totalEnemies;
             SpawnWave();
+
+            /*
+            if (waveTimer != null)
+            {
+                waveTimer.StartTimer();
+            }
+            */
+            
         }
         else
         {
             Debug.Log("All waves completed");
+            
+            if (waveTimer != null)
+            {
+                waveTimer.StopTimer();
+            }
+            
+            
         }
     }
 

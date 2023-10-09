@@ -11,6 +11,7 @@ TagManager:
   - Skill Tree
   - Skill Tree Text
   - TowerEffect
+  - Wave Timer
   layers:
   - Default
   - TransparentFX
