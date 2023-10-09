@@ -26,7 +26,7 @@ public class TowerBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<AntMovement>())
+        if (collision.GetComponent<AntMovement>() || collision.GetComponent<Spiders>())
         {
             Destroy(collision.gameObject);
             Destroy(gameObject);

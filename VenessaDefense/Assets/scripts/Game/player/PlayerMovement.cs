@@ -7,14 +7,15 @@ public class PlayerMovement : MonoBehaviour
 {
         [SerializeField]
         private float _speed;
-
-   
+        public float slowAmount = 3f;
+        public bool slowPlayerBool = false;
 
         private Rigidbody2D _rigidbody;
         private Vector2 _movementInput;
         private Vector2 _smoothedMovementInput;
         private Vector2 _movementInputSmoothVelocity;
-    
+        
+       
 
         private void Awake()
         {
@@ -25,6 +26,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(slowPlayerBool == true && slowAmount>=0)
+        {
+            _speed = 3;
+            slowAmount -= Time.deltaTime;
+
+        }
+        else
+        {
+            slowPlayerBool = false;
+            _speed = 5;
+        }
         _smoothedMovementInput = Vector2.SmoothDamp(
                 _smoothedMovementInput,
                 _movementInput,
@@ -49,4 +61,10 @@ public class PlayerMovement : MonoBehaviour
                 _movementInput = inputValue.Get<Vector2>();
         }
   
+    public void slowPlayer()
+    {
+        slowPlayerBool = true;
+        slowAmount = 3f;
+
+    }
 }

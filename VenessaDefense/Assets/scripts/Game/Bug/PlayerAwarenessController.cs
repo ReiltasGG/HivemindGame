@@ -12,13 +12,11 @@ public class PlayerAwarenessController : MonoBehaviour
     private float _playerAwarenessDistance;
 
     private Transform _player;
-    // Start is called before the first frame update
     private void Awake()
     {
         _player = FindObjectOfType<PlayerMovement>().transform;
     }
 
-    // Update is called once per frame
     void Update()
     {
         Vector2 enemyToPlayerVector = _player.position - transform.position;
