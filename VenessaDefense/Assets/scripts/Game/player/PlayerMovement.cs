@@ -86,6 +86,9 @@ public class PlayerMovement : MonoBehaviour
     public bool slowPlayerBool = false;
 
 
+      private Vector2 _smoothedMovementInput;
+    private Vector2 _movementInputSmoothVelocity;
+        
     public Transform arrow;
     // Start is called before the first frame update
     void Start()
@@ -100,12 +103,20 @@ public class PlayerMovement : MonoBehaviour
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         
 
-        arrow.up = (mousePos - (Vector2)transform.position.normalized);
+       // arrow.up = (mousePos - (Vector2)transform.position.normalized);
     }
 
     void FixedUpdate()
     {
         
+       
+        _smoothedMovementInput = Vector2.SmoothDamp(
+                _smoothedMovementInput,
+                movementInput,
+                ref _movementInputSmoothVelocity,
+                0.1f
+        );
+
 
          if(slowPlayerBool == true && slowAmount>=0)
         {
@@ -133,5 +144,16 @@ public class PlayerMovement : MonoBehaviour
         slowPlayerBool = true;
         slowAmount = 3f;
 
+    }
+
+     private void RotateInDirectionOfInput()
+    {
+        if (movementInput != Vector2.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(transform.forward, _smoothedMovementInput);
+            Quaternion rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 5.0f * Time.deltaTime);
+
+            rb.MoveRotation(rotation);
+        }
     }
 }

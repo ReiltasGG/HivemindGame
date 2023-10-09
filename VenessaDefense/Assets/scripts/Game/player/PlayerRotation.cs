@@ -10,7 +10,7 @@ public class PlayerRotation : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player");
-        player.GetComponent<Animator>().enabled = false;
+      //  player.GetComponent<Animator>().enabled = false;
         
 
         _transform = this.transform;
