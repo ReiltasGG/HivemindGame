@@ -133,7 +133,7 @@ public class EnemyProjectile : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Delete();
-            Debug.Log("True");
+           // Debug.Log("True");
              GameObject player = other.gameObject;
             var script = player.GetComponent<AttributesManager>();
             script.takeDamage(10);

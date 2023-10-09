@@ -42,7 +42,7 @@ public class UI_SkillTree : MonoBehaviour {
 
     void Update()
     {
-        currentCurrency = GameManager.getCurrency();
+        //currentCurrency = GameManager.getCurrency();
     }
 
    
@@ -62,14 +62,14 @@ public class UI_SkillTree : MonoBehaviour {
 
     public bool getSkilldata(int whichSkill)
     {
-        bool temp = listOfSkills[whichSkill].skillExist;
+        bool temp = listOfSkills[whichSkill-1].skillExist;
         return temp;
 
     }
 
     public void updateSkillDataTrue(int whichSkill)
     {
-        listOfSkills[whichSkill].skillExist = true;
+        listOfSkills[whichSkill-1].skillExist = true;
     }
 
 
