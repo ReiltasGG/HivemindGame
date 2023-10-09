@@ -16,8 +16,6 @@ public class HealingBee : MonoBehaviour
     [SerializeField] private GameObject healingCircle;
     private AttributesManager playerAttributesManager;
 
-
-    private List<GameObject> cursedEnemies = new List<GameObject>();
     private float timeLeftUntilHeal;
 
     private void Start()

@@ -325,7 +325,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 38f0b650d5b8f05449a0522a9d70c2b2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4b48f0fe6b1e245b7be1b7a1e3d9dc25, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -351,6 +351,7 @@ GameObject:
   - component: {fileID: 4489948571745314149}
   - component: {fileID: 3769104541470624124}
   - component: {fileID: 648988930580948105}
+  - component: {fileID: 7290146127461780098}
   m_Layer: 3
   m_Name: Ant
   m_TagString: Enemy
@@ -387,7 +388,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 70
+  m_Mass: 150
   m_LinearDrag: 10
   m_AngularDrag: 10
   m_GravityScale: 0
@@ -409,7 +410,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2536126099874761892}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -495,6 +496,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDelay: 2
   SelfAttributesManager: {fileID: 3769104541470624124}
+--- !u!70 &7290146127461780098
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536126099874761892}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.5, y: 1.5}
+  m_Direction: 0
 --- !u!1 &2678423835016142801
 GameObject:
   m_ObjectHideFlags: 0
