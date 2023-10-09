@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Spawner
+  - Wave Text
+  - GamesManager
+  - Skill Tree
+  - Skill Tree Text
+  - TowerEffect
   layers:
   - Default
   - TransparentFX
@@ -12,8 +19,8 @@ TagManager:
   - Water
   - UI
   - TowerBullet
-  - 
-  - 
+  - Player
+  - post
   - 
   - 
   - 

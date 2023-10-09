@@ -20,8 +20,8 @@ public class WaveTextCode : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       // Debug.Log(time);
-        if(GameObject.FindWithTag("Wave Text") == true)
+        Debug.Log(time);
+        if (GameObject.FindWithTag("Wave Text") == true)
         {
             timeText = GameObject.FindWithTag("Wave Text")?.GetComponent<Text>();
 
@@ -36,9 +36,10 @@ public class WaveTextCode : MonoBehaviour
             }
         }
 
-        if(time <0)
+        if (time <= 0)
         {
             Destroy(GameObject.FindWithTag("Wave Text"));
+            time = 15;
         }
     }
 }
