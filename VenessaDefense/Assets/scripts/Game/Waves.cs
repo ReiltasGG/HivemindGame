@@ -43,9 +43,9 @@ public class Waves : MonoBehaviour
 
     public List<EnemyWave> waves = new List<EnemyWave>
 {
-    new EnemyWave { waveNumber = 1, ants = 1, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 1},
-    new EnemyWave { waveNumber = 2, ants = 1, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 1},
-    new EnemyWave { waveNumber = 3, ants = 1, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 1},
+    new EnemyWave { waveNumber = 1, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 1},
+    new EnemyWave { waveNumber = 2, ants = 8, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 1},
+    new EnemyWave { waveNumber = 3, ants = 8, beetles = 4, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 1},
     new EnemyWave { waveNumber = 4, ants = 1, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 3},
     new EnemyWave { waveNumber = 5, ants = 4, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 5},
     new EnemyWave { waveNumber = 6, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 7},
@@ -207,7 +207,7 @@ public class Waves : MonoBehaviour
         spawning = false;
         waveCompleted = true;
         Text textTemp = Instantiate(waveText);
-        textTemp.transform.SetParent(GameObject.Find("Canvas").GetComponent<RectTransform>(), false);
+        textTemp.transform.SetParent(uiCanvas.GetComponent<RectTransform>(), false);
 
         yield return new WaitForSeconds(delay);
         Destroy(textTemp);
