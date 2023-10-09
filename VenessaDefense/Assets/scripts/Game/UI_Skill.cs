@@ -46,7 +46,7 @@ public class UI_Skill : MonoBehaviour
         }
         else if(SkillID == 3 && hasBeenBought == true)
         {
-             Debug.Log("Skill3 found me");
+           //  Debug.Log("Skill3 found me");
             bool temp = atm.getSkilldata(1);
             bool temp2 = atm.getSkilldata(2);
 
@@ -83,4 +83,11 @@ public class UI_Skill : MonoBehaviour
           
         }
     }
+
+    public void skillHover()
+    {
+        //Activates once player goes over skill with mouse
+        Debug.Log("U hovered me bruh");
+    }
+
 }
