@@ -322,6 +322,7 @@ MonoBehaviour:
   maxHealth: 30
   attackDamage: 10
   healthBar: {fileID: 7709027912790643832}
+  currencyWorth: 5
 --- !u!114 &-844831955167449370
 MonoBehaviour:
   m_ObjectHideFlags: 0

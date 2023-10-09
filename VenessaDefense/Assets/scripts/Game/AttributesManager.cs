@@ -22,7 +22,7 @@ public class AttributesManager : MonoBehaviour
         wavesFinder = FindGamesManager();
     }
 
-    private void FindGamesManager()
+    private GameObject FindGamesManager()
     {
         GameObject gamesManager = GameObject.FindWithTag("GamesManager");
 
@@ -46,11 +46,11 @@ public class AttributesManager : MonoBehaviour
 
     public void die()
     {
-        Currency.main.addCurrency(currencyWorth);
-        Despawn();
-
         if (gameObject.CompareTag("Enemy"))
             IncrementDeadEnamies();
+
+        Currency.main.addCurrency(currencyWorth);
+        Despawn();
     }
 
     public void heal(int amount)
@@ -73,9 +73,6 @@ public class AttributesManager : MonoBehaviour
 
     private void IncrementDeadEnamies()
     {
-        if (workOnce != 1) return;
-        else workOnce = 0;
-
         var waveScript = wavesFinder.GetComponent<Waves>();
         waveScript.enemiesDeadAdd();
     }

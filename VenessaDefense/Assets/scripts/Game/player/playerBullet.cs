@@ -45,23 +45,10 @@ public class Bullet : MonoBehaviour
 
             collidedAttributeManager.takeDamage(damage);
 
-            if (collidedAttributeManager.health <= 0)
-                IncrementDeadEnamies();
-
             Destroy(gameObject);
 
         }
     }
-
-    private void IncrementDeadEnamies()
-    {
-        if (workOnce != 1) return;
-        else workOnce = 0;
-
-        var waveScript = wavesFinder.GetComponent<Waves>();
-        waveScript.enemiesDeadAdd();
-    }
-
 
     private void DestroyWhenOffScreen()
     {
