@@ -31,11 +31,15 @@ public class UI_SkillTreeOpener : MonoBehaviour
             //Text treeButton = skillTreeButton.GetComponentInChildren<Text>();
           //  treeButton.text = "Close Tree";
             skillTreeFinder.SetActive(true);
-            Debug.Log("This runs");
+            Time.timeScale = 0f;
+           // Debug.Log("This runs");
 
         }
         else
+        {
             skillTreeFinder.SetActive(false);
+            Time.timeScale = 1f;
+        }
 
     }
 }

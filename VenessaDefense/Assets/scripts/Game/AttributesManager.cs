@@ -86,4 +86,15 @@ public class AttributesManager : MonoBehaviour
             atm.takeDamage(attackDamage);
         }
     }
+
+    public void addDamage(int addedDamage)
+    {
+        attackDamage+= addedDamage;
+    }
+
+    public void addHealth(int addHealth)
+    {
+        health+=addHealth;
+        maxHealth+=addHealth;
+    }
 }
