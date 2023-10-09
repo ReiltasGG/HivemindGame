@@ -1,7 +1,6 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Burst.Intrinsics;
-using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class AttributesManager : MonoBehaviour
@@ -9,34 +8,62 @@ public class AttributesManager : MonoBehaviour
     public int health;
     public int maxHealth = 100;
     public int attackDamage;
-    
+    private GameObject wavesFinder;
 
     public HealthBar healthBar;
+
     [SerializeField] private int currencyWorth;
 
     private void Start()
     {
         health = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+
+        wavesFinder = FindGamesManager();
+    }
+
+    private void FindGamesManager()
+    {
+        GameObject gamesManager = GameObject.FindWithTag("GamesManager");
+
+        if (gamesManager is null)
+            throw new ArgumentNullException("Games manager not found in scene");
+
+        return gamesManager;
     }
 
     public int getDamage()
-        { return attackDamage; }
+    { return attackDamage; }
 
     public void takeDamage(int amount)
     {
-        
         health -= amount;
         healthBar.SetHealth(health);
 
         if (health <= 0)
-        {
-            Despawn();
-            Currency.main.addCurrency(currencyWorth);      
+            die();
+    }
 
+    public void die()
+    {
+        Currency.main.addCurrency(currencyWorth);
+        Despawn();
 
-        }
+        if (gameObject.CompareTag("Enemy"))
+            IncrementDeadEnamies();
+    }
 
+    public void heal(int amount)
+    {
+        if (health < 0)
+            return;
+
+        health += amount;
+
+        if (health > maxHealth)
+            health = maxHealth;
+
+        healthBar.SetHealth(health);
     }
 
     public void Despawn()
@@ -44,11 +71,20 @@ public class AttributesManager : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private void IncrementDeadEnamies()
+    {
+        if (workOnce != 1) return;
+        else workOnce = 0;
+
+        var waveScript = wavesFinder.GetComponent<Waves>();
+        waveScript.enemiesDeadAdd();
+    }
+
     public void dealDamage(GameObject target)
     {
         var atm = target.GetComponent<AttributesManager>();
 
-        if(atm != null)
+        if (atm != null)
         {
             atm.takeDamage(attackDamage);
         }
