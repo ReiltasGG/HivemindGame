@@ -10,6 +10,7 @@ public class UI_SkillTreeOpener : MonoBehaviour
     public GameObject skillTreeFinder;
     public GameObject skillTreeButton = null;
     public int countClicks = 0;
+    public GameObject skillTreeBackground;
 
     // Start is called before the first frame update
     void Start()
@@ -31,11 +32,17 @@ public class UI_SkillTreeOpener : MonoBehaviour
             //Text treeButton = skillTreeButton.GetComponentInChildren<Text>();
           //  treeButton.text = "Close Tree";
             skillTreeFinder.SetActive(true);
-            Debug.Log("This runs");
+            skillTreeBackground.SetActive(true);
+            Time.timeScale = 0f;
+           // Debug.Log("This runs");
 
         }
         else
+        {
             skillTreeFinder.SetActive(false);
+            skillTreeBackground.SetActive(false);
+            Time.timeScale = 1f;
+        }
 
     }
 }

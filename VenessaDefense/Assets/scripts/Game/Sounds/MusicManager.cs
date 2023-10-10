@@ -21,8 +21,6 @@ public class MusicManager : MonoBehaviour
 
     private void PlayNextTrack()
     {
-        Debug.Log("songs length: " + songs.Length);
-        Debug.Log("current song number: " + currentSongNumber);
         if (currentSongNumber >= songs.Length)
             currentSongNumber = 0;
 

@@ -20,12 +20,10 @@ public class WaveTextCode : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(time);
         if (GameObject.FindWithTag("Wave Text") == true)
         {
             timeText = GameObject.FindWithTag("Wave Text")?.GetComponent<Text>();
 
-            Debug.Log(value);
             // Subtracts time for the timer
             timeTicker = timeTicker + Time.deltaTime;
             if (value < timeTicker && time > 0)

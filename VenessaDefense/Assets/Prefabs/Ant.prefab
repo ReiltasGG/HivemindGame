@@ -463,9 +463,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cabbc42c0c30654da7813db46f21865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
+  _speed: 4.5
   _rotationspeed: 100
-  baseSpeed: 5
+  baseSpeed: 4.5
 --- !u!114 &3769104541470624124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,6 +482,7 @@ MonoBehaviour:
   maxHealth: 30
   attackDamage: 10
   healthBar: {fileID: 7660624835045339333}
+  currencyWorth: 1
 --- !u!114 &648988930580948105
 MonoBehaviour:
   m_ObjectHideFlags: 0

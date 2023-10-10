@@ -15,11 +15,15 @@ public class UI_Skill : MonoBehaviour
     public GameObject getSkillTree;
 
     public bool hasBeenBought = false;
+
+    public bool skill1HappenOnce = true;
+    public bool skill2HappenOnce = true;
+    public GameObject findPlayer;
     // Start is called before the first frame update
     void Start()
     {
      //   getSkillTree = GameObject.FindWithTag("Skill Tree");
-
+      findPlayer = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame
@@ -33,6 +37,15 @@ public class UI_Skill : MonoBehaviour
             //Set SkillID to true
             atm.updateSkillDataTrue(1);
             connectorOne.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
+            
+            //Add Damage
+            if(skill1HappenOnce)
+            {
+            int damageAdded = 5;
+            var attributeManager = findPlayer.GetComponent<AttributesManager>();
+            attributeManager.addDamage(damageAdded);
+            skill1HappenOnce = false;
+            }
 
 
         }
@@ -43,17 +56,34 @@ public class UI_Skill : MonoBehaviour
             //Set SkillID to true
             atm.updateSkillDataTrue(2);
             connectorTwo.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
+            
+            
+            //Add Health
+             if(skill2HappenOnce)
+            {
+                int hpAdded = 10;
+            var attributeManager = findPlayer.GetComponent<AttributesManager>();
+            attributeManager.addHealth(hpAdded);
+            skill2HappenOnce = false;
+            }
         }
         else if(SkillID == 3 && hasBeenBought == true)
         {
+           //  Debug.Log("Skill3 found me");
             bool temp = atm.getSkilldata(1);
             bool temp2 = atm.getSkilldata(2);
+
             if (temp == true && temp2 == true)
             {
                 //Player gets dodge move
                 background.GetComponent<Image>().color = new Color32(18, 255, 59, 255);
                 //Set SkillID to true
+               
                 atm.updateSkillDataTrue(3);
+                GameObject Player = GameObject.FindWithTag("Player");
+                var playerScript = Player.GetComponent<AbilityHolder>();
+                playerScript.allowSkill1();
+                
             }
             else 
                 hasBeenBought = false;
@@ -68,7 +98,7 @@ public class UI_Skill : MonoBehaviour
 
     public void Buy()
     {
-        Debug.Log("Runs");
+      //  Debug.Log("Runs");
         if (currency >= cost)
         {
           
@@ -76,4 +106,11 @@ public class UI_Skill : MonoBehaviour
           
         }
     }
+
+    public void skillHover()
+    {
+        //Activates once player goes over skill with mouse
+        Debug.Log("U hovered me bruh");
+    }
+
 }

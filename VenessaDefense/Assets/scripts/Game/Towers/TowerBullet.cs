@@ -10,10 +10,11 @@ public class TowerBullet : MonoBehaviour
 
     [Header("Attributes")]
     [SerializeField] private float bulletSpeed = 5f;
-    [SerializeField] private int bulletDamage = 5;
+
     private GameObject wavesFinder;
     private Camera cam;
     private int workOnce = 1;
+    [SerializeField] private int bulletDamage = 10;
 
     private Transform target;
 

@@ -611,9 +611,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43995781b7156af42a548ab4c695d0fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 1
+  _speed: 3
   _rotationspeed: 100
-  baseSpeed: 1
+  baseSpeed: 3
   Explosion: {fileID: 5468429188976144797, guid: 37a05500e8cc660478c6e3a0f8513a6e, type: 3}
   blinkSpeed: 0.5
 --- !u!114 &7895667205409048682
@@ -628,7 +628,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ef5c93031df4db7954aacdd25b4b31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 30
+  health: 70
+  maxHealth: 70
   attackDamage: 0
   healthBar: {fileID: 7692247264468673730}
+  currencyWorth: 0

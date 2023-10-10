@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System;
+using System.Diagnostics;
 
 public class HealingBee : MonoBehaviour
 {
@@ -16,17 +17,19 @@ public class HealingBee : MonoBehaviour
     [SerializeField] private GameObject healingCircle;
     private AttributesManager playerAttributesManager;
 
-    private float timeLeftUntilHeal;
+
+    private List<GameObject> cursedEnemies = new List<GameObject>();
+    private float timePassedSinceHeal;
 
     private void Start()
     {
-        timeLeftUntilHeal = healCooldownInSeconds;
+        timePassedSinceHeal = healCooldownInSeconds;
     }
     private void Update()
     {
-        timeLeftUntilHeal += Time.deltaTime;
+        timePassedSinceHeal += Time.deltaTime;
 
-        if (timeLeftUntilHeal >= healCooldownInSeconds)
+        if (timePassedSinceHeal >= healCooldownInSeconds)
         {
             ShowCircle();
             HealPlayer();
@@ -43,8 +46,10 @@ public class HealingBee : MonoBehaviour
 
     private void HealAllInCircle(RaycastHit2D[] selectedPlayers)
     {
+        UnityEngine.Debug.Log("Selected Players hit length: " + selectedPlayers.Length);
         if (selectedPlayers == null) throw new ArgumentNullException("RaycastHit2D passed in is NULL");
         if (selectedPlayers.Length == 0) return;
+
 
         for (int i = 0; i < selectedPlayers.Length; i++)
         {
@@ -55,7 +60,7 @@ public class HealingBee : MonoBehaviour
             if (!isFullHealth(playerAttributesManager))
             {
                 playerAttributesManager.heal(healingAmount);
-                timeLeftUntilHeal = 0f;
+                timePassedSinceHeal = 0f;
             }
         }
     }

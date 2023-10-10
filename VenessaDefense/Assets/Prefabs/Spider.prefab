@@ -340,10 +340,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ef5c93031df4db7954aacdd25b4b31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  maxHealth: 100
+  health: 50
+  maxHealth: 50
   attackDamage: 10
   healthBar: {fileID: 1498968102506164288}
+  currencyWorth: 0
 --- !u!114 &3209657154124223943
 MonoBehaviour:
   m_ObjectHideFlags: 0
