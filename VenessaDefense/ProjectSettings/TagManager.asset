@@ -3,7 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Spawner
+  - Wave Text
+  - GamesManager
+  - Skill Tree
+  - Skill Tree Text
+  - TowerEffect
+  - Wave Timer
   layers:
   - Default
   - TransparentFX
@@ -12,8 +20,9 @@ TagManager:
   - Water
   - UI
   - TowerBullet
-  - 
-  - 
+  - Player
+  - Border
+  - post
   - 
   - 
   - 
@@ -38,6 +47,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2584043131
+    locked: 0
+  - name: Middle Layer
+    uniqueID: 2637652417
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
