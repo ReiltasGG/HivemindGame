@@ -121,7 +121,7 @@ public class Waves : MonoBehaviour
                 }
                 else if (waves[currentWaveTemp].explodingBeetle != 0)
                 {
-                    waves[currentWaveTemp].explodingBeetle = waves[currentWaveTemp].explodingAnt - 1;
+                    waves[currentWaveTemp].explodingBeetle = waves[currentWaveTemp].explodingBeetle - 1;
                     SpawnEnemy(3);
                     timeSinceLastSpawn = 0f;
                 }
@@ -206,10 +206,7 @@ public class Waves : MonoBehaviour
         {
             if (spawnerTransforms.Count > 0)
             {
-
-                int rand = whichEnemy;
-
-                GameObject enemyToSpawn = enemyPrefabs[rand];
+                GameObject enemyToSpawn = enemyPrefabs[whichEnemy];
 
                 int randomSpawnerIndex = UnityEngine.Random.Range(0, spawnerTransforms.Count);
                 Vector3 spawnPosition = spawnerTransforms[randomSpawnerIndex].position;
