@@ -38,6 +38,7 @@ public class plots : MonoBehaviour
 
         Currency.main.subtractCurrency(towerToBuild.cost);
 
-        tower = Instantiate(towerToBuild.prefab, transform.position, Quaternion.identity);
+        Vector3 positionZOnTopPlot = transform.position + new Vector3(0, 0, -5);
+        tower = Instantiate(towerToBuild.prefab, positionZOnTopPlot, Quaternion.identity);
     }
 }
