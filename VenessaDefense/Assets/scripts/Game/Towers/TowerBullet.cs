@@ -53,9 +53,6 @@ public class TowerBullet : MonoBehaviour
 
             collidedAttributeManager.takeDamage(bulletDamage);
 
-            if (collidedAttributeManager.health <= 0)
-                IncrementDeadEnamies();
-
             Destroy(gameObject);
         }
     }

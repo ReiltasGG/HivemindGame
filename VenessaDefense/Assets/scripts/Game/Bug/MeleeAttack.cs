@@ -14,6 +14,7 @@ public class EnemyMeleeAttack : MonoBehaviour
     
     void Start()
     {
+        SelfAttributesManager = GetComponent<AttributesManager>();
     }
 
     void Update()
