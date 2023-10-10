@@ -2209,11 +2209,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towers:
-  - name: Batle Bee
-    cost: 15
+  - name: Battle Bee
+    cost: 20
     prefab: {fileID: 7227727104995871528, guid: 276437bd4de41ff468bfe488a53c92fa, type: 3}
   - name: Honey Bee
-    cost: 20
+    cost: 15
     prefab: {fileID: 8445940507173157326, guid: d7758b80f49739544a024bd275290fb3, type: 3}
 --- !u!114 &1834743943
 MonoBehaviour:
@@ -2844,6 +2844,54 @@ PrefabInstance:
     - target: {fileID: 302052644534580495, guid: 041ff18bcc8eec5458d25d5cd0d75a73, type: 3}
       propertyPath: m_Name
       value: DarkBackgroundCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 302052644534580495, guid: 041ff18bcc8eec5458d25d5cd0d75a73, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2689817320082566931, guid: 041ff18bcc8eec5458d25d5cd0d75a73, type: 3}
+      propertyPath: m_Points.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2689817320082566931, guid: 041ff18bcc8eec5458d25d5cd0d75a73, type: 3}
+      propertyPath: m_Points.Array.data[0].x
+      value: 961.59625
+      objectReference: {fileID: 0}
+    - target: {fileID: 2689817320082566931, guid: 041ff18bcc8eec5458d25d5cd0d75a73, type: 3}
+      propertyPath: m_Points.Array.data[0].y
+      value: 538.03174
+      objectReference: {fileID: 0}
+    - target: {fileID: 2689817320082566931, guid: 041ff18bcc8eec5458d25d5cd0d75a73, type: 3}
+      propertyPath: m_Points.Array.data[1].x
+      value: 965.2466
+      objectReference: {fileID: 0}
+    - target: {fileID: 2689817320082566931, guid: 041ff18bcc8eec5458d25d5cd0d75a73, type: 3}
+      propertyPath: m_Points.Array.data[1].y
+      value: -540.6821
+      objectReference: {fileID: 0}
+    - target: {fileID: 2689817320082566931, guid: 041ff18bcc8eec5458d25d5cd0d75a73, type: 3}
+      propertyPath: m_Points.Array.data[2].x
+      value: -958.49225
+      objectReference: {fileID: 0}
+    - target: {fileID: 2689817320082566931, guid: 041ff18bcc8eec5458d25d5cd0d75a73, type: 3}
+      propertyPath: m_Points.Array.data[2].y
+      value: -541.0073
+      objectReference: {fileID: 0}
+    - target: {fileID: 2689817320082566931, guid: 041ff18bcc8eec5458d25d5cd0d75a73, type: 3}
+      propertyPath: m_Points.Array.data[3].x
+      value: -953.372
+      objectReference: {fileID: 0}
+    - target: {fileID: 2689817320082566931, guid: 041ff18bcc8eec5458d25d5cd0d75a73, type: 3}
+      propertyPath: m_Points.Array.data[3].y
+      value: 540.6448
+      objectReference: {fileID: 0}
+    - target: {fileID: 2689817320082566931, guid: 041ff18bcc8eec5458d25d5cd0d75a73, type: 3}
+      propertyPath: m_Points.Array.data[4].x
+      value: 957.2952
+      objectReference: {fileID: 0}
+    - target: {fileID: 2689817320082566931, guid: 041ff18bcc8eec5458d25d5cd0d75a73, type: 3}
+      propertyPath: m_Points.Array.data[4].y
+      value: 540.6822
       objectReference: {fileID: 0}
     - target: {fileID: 5075116241993310007, guid: 041ff18bcc8eec5458d25d5cd0d75a73, type: 3}
       propertyPath: m_Camera

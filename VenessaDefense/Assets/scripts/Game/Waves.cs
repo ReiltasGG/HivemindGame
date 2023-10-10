@@ -22,6 +22,7 @@ public class Waves : MonoBehaviour
     private List<Transform> spawnerTransforms = new List<Transform>();
     [SerializeField] private GameObject[] enemyPrefabs;
     public Text waveText;
+    private WaveTimer waveTimer;
     public GameObject uiCanvas;
 
     private AudioSource roundStartSoundSource;
@@ -70,8 +71,23 @@ public class Waves : MonoBehaviour
         {
             spawnerTransforms.Add(spawner.transform);
         }
+    
+        GameObject timerObject = GameObject.FindWithTag("Wave Timer");
+        if (timerObject != null)
+        {
+            waveTimer = timerObject.GetComponent<WaveTimer>();
+        }
+        else
+        {
+            Debug.LogError("No GameObject with the 'Timer' tag found.");
+        }
 
+        if (waveTimer != null)
+        {
+            waveTimer.StartTimer();
+        }
         StartWave();
+
     }
 
     void Update()
