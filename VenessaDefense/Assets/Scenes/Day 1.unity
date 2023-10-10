@@ -480,6 +480,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2330945031910409125, guid: 98f4aa24cd771514c997eee10abce236, type: 3}
+      propertyPath: m_text
+      value: Dash
+      objectReference: {fileID: 0}
     - target: {fileID: 3826506114702796590, guid: 98f4aa24cd771514c997eee10abce236, type: 3}
       propertyPath: GameManager
       value: 

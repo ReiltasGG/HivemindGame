@@ -37,7 +37,6 @@ public class UI_SkillTree : MonoBehaviour {
         button = GetComponent<Button>();
         originalColor = button.colors.normalColor;
         GameManager = GameObject.FindWithTag("GameManager").GetComponent<Currency>();
-        Debug.Log("Functions jsut fine");
     }
 
     void Update()

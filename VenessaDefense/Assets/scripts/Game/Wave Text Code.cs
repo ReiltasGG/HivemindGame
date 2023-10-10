@@ -9,12 +9,13 @@ public class WaveTextCode : MonoBehaviour
     public float timeTicker = 0;
     public float time = 15;
     public double value = 1;
+    private int waveNumber = 1;
 
     // Start is called before the first frame update
     void Start()
     {
         timeTicker = 0;
-
+        CountWave();
     }
 
     // Update is called once per frame
@@ -29,7 +30,7 @@ public class WaveTextCode : MonoBehaviour
             if (value < timeTicker && time > 0)
             {
                 time = time - 1;
-                timeText.text = "Wave incoming in " + time + " seconds";
+                timeText.text = "Wave " + waveNumber + " incoming in " + time + " seconds";
                 timeTicker = 0;
             }
         }
@@ -38,6 +39,12 @@ public class WaveTextCode : MonoBehaviour
         {
             Destroy(GameObject.FindWithTag("Wave Text"));
             time = 15;
+            CountWave();
         }
+    }
+
+    void CountWave()
+    {
+        waveNumber++;
     }
 }
