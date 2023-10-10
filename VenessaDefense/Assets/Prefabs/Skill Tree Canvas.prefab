@@ -305,6 +305,98 @@ MonoBehaviour:
   background: {fileID: 2404685226612976037}
   getSkillTree: {fileID: 516695363513707688}
   hasBeenBought: 0
+  skill1HappenOnce: 1
+  skill2HappenOnce: 1
+  findPlayer: {fileID: 0}
+--- !u!1 &2104606546652037876
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3716413860590353412}
+  - component: {fileID: 817361888866027122}
+  - component: {fileID: 514245980497156162}
+  - component: {fileID: 1694659614538107300}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3716413860590353412
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104606546652037876}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4766921506288528304}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -12.40094}
+  m_SizeDelta: {x: 9000, y: 90000}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &817361888866027122
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104606546652037876}
+  m_CullTransparentMesh: 1
+--- !u!114 &514245980497156162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104606546652037876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1694659614538107300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104606546652037876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 575d74c92229e0446b39385e7d336286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  background: {fileID: 2104606546652037876}
 --- !u!1 &2404685226612976037
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,6 +662,9 @@ MonoBehaviour:
   background: {fileID: 8554788252875012473}
   getSkillTree: {fileID: 516695363513707688}
   hasBeenBought: 0
+  skill1HappenOnce: 1
+  skill2HappenOnce: 1
+  findPlayer: {fileID: 0}
 --- !u!1 &4651058418024888331
 GameObject:
   m_ObjectHideFlags: 0
@@ -944,6 +1039,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3716413860590353412}
   - {fileID: 5294613385413210477}
   - {fileID: 796548295894121318}
   m_Father: {fileID: 0}
@@ -974,7 +1070,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 99
   m_TargetDisplay: 0
 --- !u!114 &6242743810824437220
 MonoBehaviour:
@@ -1052,7 +1148,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 380, y: -220}
+  m_AnchoredPosition: {x: 420, y: -220}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4085987274548831964
@@ -1070,6 +1166,7 @@ MonoBehaviour:
   skillTreeFinder: {fileID: 516695363513707688}
   skillTreeButton: {fileID: 1802475335161847306}
   countClicks: 0
+  skillTreeBackground: {fileID: 2104606546652037876}
 --- !u!114 &48351744403472518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1391,6 +1488,9 @@ MonoBehaviour:
   background: {fileID: 6625848343845347753}
   getSkillTree: {fileID: 516695363513707688}
   hasBeenBought: 0
+  skill1HappenOnce: 1
+  skill2HappenOnce: 1
+  findPlayer: {fileID: 0}
 --- !u!1 &7780321141114345678
 GameObject:
   m_ObjectHideFlags: 0
