@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,8 +15,6 @@ public class ExplodingAnt : MonoBehaviour
     private Vector2 _targetDirection;
     private float newSpeed;
     [SerializeField] private float baseSpeed;
-    public AttributesManager SelfAttributesManager;
-
 
     private GameObject explodingAnt;
 
@@ -37,9 +34,8 @@ public class ExplodingAnt : MonoBehaviour
     private bool isBlinking = true;
 
     private void Start()
-    {        
+    {
         SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-
         if (spriteRenderer != null)
         {
             originalColor = spriteRenderer.color;
@@ -49,14 +45,9 @@ public class ExplodingAnt : MonoBehaviour
             Debug.LogError("SpriteRenderer not found on child GameObject.");
         }
 
+        // Start blinking when this script is enabled
         StartBlinking();
-
-        SelfAttributesManager = GetComponent<AttributesManager>();
-
-        if (SelfAttributesManager == null)
-            throw new ArgumentNullException("Explosion Attribute manager is null");
-
-    }
+    }//end Start
 
     public void StartBlinking()
     {
@@ -160,9 +151,12 @@ public class ExplodingAnt : MonoBehaviour
     //Code for exploding
     public void Explode()
     {
-        SelfAttributesManager.die();
-        Instantiate(Explosion, transform.position, Quaternion.identity);
-        Destroy(gameObject);   
+       
+            Instantiate(Explosion, transform.position, Quaternion.identity);
+            Destroy(gameObject); // Destroy the current object (assuming this script is attached to the explodingAnt)
+          
+        
+
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
