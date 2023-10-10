@@ -22,7 +22,7 @@ public class Waves : MonoBehaviour
     private List<Transform> spawnerTransforms = new List<Transform>();
     [SerializeField] private GameObject[] enemyPrefabs;
     public Text waveText;
-    private WaveTimer waveTimer;
+    //private WaveTimer waveTimer;
     public GameObject uiCanvas;
 
     private AudioSource roundStartSoundSource;
@@ -50,7 +50,7 @@ public class Waves : MonoBehaviour
         new EnemyWave { waveNumber = 1, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 5 + 0 + 0 + 0 + 0 },
         new EnemyWave { waveNumber = 2, ants = 8, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 8 + 2 + 0 + 0 + 0 },
         new EnemyWave { waveNumber = 3, ants = 10, beetles = 4, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 10 + 4 + 0 + 0 + 0 },
-        new EnemyWave { waveNumber = 4, ants = 6, beetles = 3, explodingAnt = 5, explodingBeetle = 0, spider = 0, totalEnemies = 6 + 3 + 5 + 0 + 0 },
+        new EnemyWave { waveNumber = 4, ants = 6, beetles = 3, explodingAnt = 4, explodingBeetle = 1, spider = 1, totalEnemies = 6 + 3 + 4 + 1 + 1 },
         new EnemyWave { waveNumber = 5, ants = 10, beetles = 5, explodingAnt = 4, explodingBeetle = 1, spider = 0, totalEnemies = 10 + 5 + 4 + 1 + 0 },
         new EnemyWave { waveNumber = 6, ants = 12, beetles = 5, explodingAnt = 3, explodingBeetle = 3, spider = 0, totalEnemies = 12 + 5 + 3 + 3 + 0 },
         new EnemyWave { waveNumber = 7, ants = 12, beetles = 3, explodingAnt = 5, explodingBeetle = 5, spider = 1, totalEnemies = 12 + 3 + 5 + 5 + 1 },
@@ -72,7 +72,7 @@ public class Waves : MonoBehaviour
             spawnerTransforms.Add(spawner.transform);
         }
     
-        GameObject timerObject = GameObject.FindWithTag("Wave Timer");
+/*        GameObject timerObject = GameObject.FindWithTag("Wave Timer");
         if (timerObject != null)
         {
             waveTimer = timerObject.GetComponent<WaveTimer>();
@@ -85,7 +85,8 @@ public class Waves : MonoBehaviour
         if (waveTimer != null)
         {
             waveTimer.StartTimer();
-        }
+        }*/
+
         StartWave();
 
     }
@@ -122,6 +123,12 @@ public class Waves : MonoBehaviour
                 {
                     waves[currentWaveTemp].explodingBeetle = waves[currentWaveTemp].explodingAnt - 1;
                     SpawnEnemy(3);
+                    timeSinceLastSpawn = 0f;
+                }
+                else if (waves[currentWaveTemp].spider != 0)
+                {
+                    waves[currentWaveTemp].spider = waves[currentWaveTemp].spider - 1;
+                    SpawnEnemy(4);
                     timeSinceLastSpawn = 0f;
                 }
             }
