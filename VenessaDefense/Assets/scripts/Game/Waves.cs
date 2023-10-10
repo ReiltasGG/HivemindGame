@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,9 @@ public class Waves : MonoBehaviour
     public Text waveText;
     public GameObject uiCanvas;
 
+    private AudioSource roundStartSoundSource;
+    public AudioClip roundStartSound;
+
     private int remainingEnemiesInWave;
 
     private int dontAddMoreThanOne = 1;
@@ -38,36 +42,28 @@ public class Waves : MonoBehaviour
         public int explodingAnt;
         public int explodingBeetle;
         public int totalEnemies;
-        // Add more enemy types as needed
     }
 
     public List<EnemyWave> waves = new List<EnemyWave>
-{
-    new EnemyWave { waveNumber = 1, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 5},
-    new EnemyWave { waveNumber = 2, ants = 8, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 10},
-    new EnemyWave { waveNumber = 3, ants = 10, beetles = 4, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 14},
-    new EnemyWave { waveNumber = 4, ants = 6, beetles = 3, explodingAnt = 5, explodingBeetle = 0, spider = 0, totalEnemies = 14},
-    new EnemyWave { waveNumber = 5, ants = 10, beetles = 5, explodingAnt = 4, explodingBeetle = 1, spider = 0, totalEnemies = 20},
-    new EnemyWave { waveNumber = 6, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 7},
-    new EnemyWave { waveNumber = 7, ants = 7, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0,  totalEnemies = 10},
-    new EnemyWave { waveNumber = 8, ants = 6, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 12},
-    new EnemyWave { waveNumber = 9, ants = 4, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 5},
-    new EnemyWave { waveNumber = 10, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 7},
-    new EnemyWave { waveNumber = 11, ants = 7, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0,totalEnemies = 10},
-    new EnemyWave { waveNumber = 12, ants = 6, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 12},
-    new EnemyWave { waveNumber = 13, ants = 4, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 5},
-    new EnemyWave { waveNumber = 14, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 7},
-    new EnemyWave { waveNumber = 15, ants = 7, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 10},
-    new EnemyWave { waveNumber = 16, ants = 6, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 12},
-    new EnemyWave { waveNumber = 17, ants = 4, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 5},
-    new EnemyWave { waveNumber = 18, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 7},
-    new EnemyWave { waveNumber = 19, ants = 7, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 10},
-    new EnemyWave { waveNumber = 20, ants = 6, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 12},
-    // Define more waves as needed
-};
+    {
+        new EnemyWave { waveNumber = 1, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 5 + 0 + 0 + 0 + 0 },
+        new EnemyWave { waveNumber = 2, ants = 8, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 8 + 2 + 0 + 0 + 0 },
+        new EnemyWave { waveNumber = 3, ants = 10, beetles = 4, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 10 + 4 + 0 + 0 + 0 },
+        new EnemyWave { waveNumber = 4, ants = 6, beetles = 3, explodingAnt = 5, explodingBeetle = 0, spider = 0, totalEnemies = 6 + 3 + 5 + 0 + 0 },
+        new EnemyWave { waveNumber = 5, ants = 10, beetles = 5, explodingAnt = 4, explodingBeetle = 1, spider = 0, totalEnemies = 10 + 5 + 4 + 1 + 0 },
+        new EnemyWave { waveNumber = 6, ants = 12, beetles = 5, explodingAnt = 3, explodingBeetle = 3, spider = 0, totalEnemies = 12 + 5 + 3 + 3 + 0 },
+        new EnemyWave { waveNumber = 7, ants = 12, beetles = 3, explodingAnt = 5, explodingBeetle = 5, spider = 1, totalEnemies = 12 + 3 + 5 + 5 + 1 },
+        new EnemyWave { waveNumber = 8, ants = 14, beetles = 4, explodingAnt = 6, explodingBeetle = 6, spider = 2, totalEnemies = 14 + 4 + 6 + 6 + 2 },
+        new EnemyWave { waveNumber = 9, ants = 10, beetles = 5, explodingAnt = 7, explodingBeetle = 3, spider = 3, totalEnemies = 10 + 5 + 7 + 3 + 3 },
+        new EnemyWave { waveNumber = 10, ants = 15, beetles = 15, explodingAnt = 10, explodingBeetle = 5, spider = 5, totalEnemies = 15 + 15 + 10 + 5 + 5 },
+    };
 
     void Start()
     {
+
+        roundStartSoundSource = GetComponent<AudioSource>(); ;
+        roundStartSoundSource.clip = roundStartSound;
+
         // Find all GameObjects with the "Spawner" tag and add their transforms to the list
         GameObject[] spawnerObjects = GameObject.FindGameObjectsWithTag("Spawner");
         foreach (GameObject spawner in spawnerObjects)
@@ -123,7 +119,6 @@ public class Waves : MonoBehaviour
                 waveCompleted = false;
             }
         }
-        // Debug.Log(enemiesDead + " " + enemiesPerWave);
 
         if (enemiesDead == enemiesPerWave)
         {
@@ -145,25 +140,33 @@ public class Waves : MonoBehaviour
 
     }
 
+    void playRoundStartSound()
+    {
+        if (roundStartSoundSource == null)
+            throw new ArgumentNullException("Round start source not instantiated");
+
+        if (roundStartSoundSource.clip == null)
+            throw new ArgumentNullException("Round start sound not attached to AudioSource");
+
+        roundStartSoundSource.Play();
+    }
+
     void StartWave()
     {
-        if (currentWave < numberOfWaves)
+        happenOnceAgain = 1;
+        enemiesDead = 0;
+
+        if (dontAddMoreThanOne == 1)
         {
-            happenOnceAgain = 1;
-            enemiesDead = 0;
-            if (dontAddMoreThanOne == 1)
-            {
-                currentWave++;
-                dontAddMoreThanOne = 0;
-            }
-            int currentWaveTemp = currentWave - 1;
-            enemiesPerWave = waves[currentWaveTemp].totalEnemies;
-            SpawnWave();
+            currentWave++;
+            dontAddMoreThanOne = 0;
         }
-        else
-        {
-            Debug.Log("All waves completed");
-        }
+
+        int currentWaveTemp = currentWave - 1;
+        enemiesPerWave = waves[currentWaveTemp].totalEnemies;
+
+        playRoundStartSound();
+        SpawnWave();
     }
 
     void SpawnWave()
@@ -185,7 +188,7 @@ public class Waves : MonoBehaviour
 
                 GameObject enemyToSpawn = enemyPrefabs[rand];
 
-                int randomSpawnerIndex = Random.Range(0, spawnerTransforms.Count);
+                int randomSpawnerIndex = UnityEngine.Random.Range(0, spawnerTransforms.Count);
                 Vector3 spawnPosition = spawnerTransforms[randomSpawnerIndex].position;
                 Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
             }
