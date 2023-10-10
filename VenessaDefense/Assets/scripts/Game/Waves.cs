@@ -17,6 +17,10 @@ public class Waves : MonoBehaviour
     private bool spawning = false;
     private float timeSinceLastSpawn = 0f;
     private float timeSinceWaveCompleted = 0f;
+
+    private float timeSinceLastWaveStarted = 0f; //time since last wave started
+    private float timeUntilNextWave = 30.0f;
+
     public bool waveCompleted = false;
     private List<Transform> spawnerTransforms = new List<Transform>();
     [SerializeField] private GameObject[] enemyPrefabs;
@@ -102,6 +106,9 @@ public class Waves : MonoBehaviour
             int currentWaveTemp = currentWave - 1;
 
             timeSinceLastSpawn += Time.deltaTime;
+
+            timeSinceLastWaveStarted += Time.deltaTime; //updates time since last wave started 
+
             if (timeSinceLastSpawn >= spawnInterval)
             {
                 if (waves[currentWaveTemp].ants != 0)
@@ -133,15 +140,16 @@ public class Waves : MonoBehaviour
         else if (waveCompleted)
         {
             timeSinceWaveCompleted += Time.deltaTime;
-            if (timeSinceWaveCompleted >= bufferTime)
+            if (timeSinceWaveCompleted >= bufferTime || timeSinceLastWaveStarted >= timeUntilNextWave)
             {
                 //StartWave();
                 waveCompleted = false;
+                
             }
         }
         // Debug.Log(enemiesDead + " " + enemiesPerWave);
 
-        if (enemiesDead == enemiesPerWave)
+        if (enemiesDead == enemiesPerWave || timeSinceLastWaveStarted >= timeUntilNextWave)
         {
             dontAddMoreThanOne = 1;
 
@@ -183,6 +191,7 @@ public class Waves : MonoBehaviour
             
             
 
+<<<<<<< Updated upstream
             happenOnceAgain = 1;
             enemiesDead = 0;
             if (dontAddMoreThanOne == 1)
@@ -213,6 +222,12 @@ public class Waves : MonoBehaviour
             
             
         }
+=======
+        timeSinceLastWaveStarted = 0f; //rest timer to 0
+
+        playRoundStartSound();
+        SpawnWave();
+>>>>>>> Stashed changes
     }
 
     void SpawnWave()
