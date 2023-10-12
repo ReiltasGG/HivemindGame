@@ -15,27 +15,24 @@ public class HoneyBee : MonoBehaviour
     [SerializeField] private float aps= 0.25f;//attacks per second
     [SerializeField] private float stickTime = 1f;
 
+    private Animator anim;
+
+    public GameObject HoneyEffect;
     private float timeUntilFire;
-    private void Update()
+
+    void Start()
     {
-  
-     
-            timeUntilFire += Time.deltaTime;
-
-            if (timeUntilFire >= 1f / aps)
-            {
-                StickEnemies();
-                timeUntilFire = 0f;
-            }
-
+        anim = GetComponent<Animator>();
     }
-    private void StickEnemies()
+
+    private void Update()
     {
         RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange, (Vector2)transform.position, 0f, enemyMask);
         if (hits.Length > 0 )
-        {
+        {/*
             for(int i = 0; i < hits.Length; i++)
             {
+
                 RaycastHit2D hit = hits[i];
 
                AntMovement am = hit.transform.GetComponent<AntMovement>();
@@ -44,9 +41,54 @@ public class HoneyBee : MonoBehaviour
                 StartCoroutine(ResetAntSpeed(am));
                 
             }
+            */
+             //Debug.Log("hit is in length");
+            //Instantiate(HoneyEffect, transform.position, transform.rotation);
+            anim.SetBool("isAttacking", true);
+           
         }
+        else
+            anim.SetBool("isAttacking", false);
+  
+     /*
+            timeUntilFire += Time.deltaTime;
+
+            if (timeUntilFire >= 1f / aps)
+            {
+                StickEnemies();
+                timeUntilFire = 0f;
+            }
+            */
+
+    }
+    /*
+    private void StickEnemies()
+    {
+        
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange, (Vector2)transform.position, 0f, enemyMask);
+        if (hits.Length > 0 )
+        {/*
+            for(int i = 0; i < hits.Length; i++)
+            {
+
+                RaycastHit2D hit = hits[i];
+
+               AntMovement am = hit.transform.GetComponent<AntMovement>();
+               am.UpdateSpeed(1f);
+               
+                StartCoroutine(ResetAntSpeed(am));
+                
+            }
+            
+             //Debug.Log("hit is in length");
+            //Instantiate(HoneyEffect, transform.position, transform.rotation);
+           
+           
+        }
+        
        
     }
+    */
    private IEnumerator ResetAntSpeed(AntMovement am)
     {
         yield return new WaitForSeconds(stickTime);
@@ -59,5 +101,10 @@ public class HoneyBee : MonoBehaviour
     {
         Handles.color = Color.cyan;
         Handles.DrawWireDisc(transform.position, transform.forward, targetingRange);
+    }
+
+    public void createHoneyEffect()
+    {
+        Instantiate(HoneyEffect, transform.position, transform.rotation);
     }
 }

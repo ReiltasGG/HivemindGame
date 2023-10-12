@@ -9,11 +9,13 @@ public class EnemyMeleeAttack : MonoBehaviour
     private float timeBetweenAttack = 0;
     private bool isCollidingWithPlayer = false;
     private Collider2D playerCollider;
+    private Animator anim;
 
     public AttributesManager SelfAttributesManager;
     
     void Start()
     {
+        anim = GetComponent<Animator>();
         SelfAttributesManager = GetComponent<AttributesManager>();
     }
 
@@ -21,7 +23,16 @@ public class EnemyMeleeAttack : MonoBehaviour
     {
          timeBetweenAttack -= Time.deltaTime;
         if (isCollidingWithPlayer)
+        {
+            anim.SetBool("isAttacking", true);
             Attack(playerCollider);
+            
+        }
+        else
+        {
+            anim.SetBool("isAttacking", false);
+        }
+
     }
 
     private void Attack(Collider2D playerCollider)
