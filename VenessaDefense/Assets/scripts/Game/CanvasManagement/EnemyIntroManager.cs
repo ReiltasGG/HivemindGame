@@ -10,7 +10,7 @@ public class EnemyIntroManager : MonoBehaviour
     public class EnemyIntroductionImage
     {
         public Waves.Enemies enemy;
-        public UnityEngine.UI.Image image;
+        public Sprite sprite;
     }
 
     private Dictionary<int, List<Waves.Enemies>> newEnemiesInWave;
