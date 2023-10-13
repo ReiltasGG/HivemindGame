@@ -29,7 +29,6 @@ public class Waves : MonoBehaviour
     private AudioSource roundStartSoundSource;
     public AudioClip roundStartSound;
 
-
     enum Enemies
     {
         Ant,
@@ -46,59 +45,59 @@ public class Waves : MonoBehaviour
     }
 
     List<EnemyWave> level1Waves = new List<EnemyWave>
+    {
+        new EnemyWave
         {
-            new EnemyWave
+            waveNumber = 1,
+            enemyCounts = new Dictionary<Enemies, int>
             {
-                waveNumber = 1,
-                enemyCounts = new Dictionary<Enemies, int>
-                {
-                    { Enemies.Ant, 5 },
-                }
-            },
-            new EnemyWave
+                { Enemies.Ant, 5 },
+            }
+        },
+        new EnemyWave
+        {
+            waveNumber = 2,
+            enemyCounts = new Dictionary<Enemies, int>
             {
-                waveNumber = 2,
-                enemyCounts = new Dictionary<Enemies, int>
-                {
-                    { Enemies.Ant, 8 },
-                    { Enemies.Beetle, 2 },
-                }
-            },
-            new EnemyWave
+                { Enemies.Ant, 8 },
+                { Enemies.Beetle, 2 },
+            }
+        },
+        new EnemyWave
+        {
+            waveNumber = 3,
+            enemyCounts = new Dictionary<Enemies, int>
             {
-                waveNumber = 3,
-                enemyCounts = new Dictionary<Enemies, int>
-                {
-                    { Enemies.Ant, 10 },
-                    { Enemies.Beetle, 4 },
-                    { Enemies.ExplodingAnt, 2 }
-                }
-            },
-            new EnemyWave
+                { Enemies.Ant, 10 },
+                { Enemies.Beetle, 4 },
+                { Enemies.ExplodingAnt, 2 }
+            }
+        },
+        new EnemyWave
+        {
+            waveNumber = 4,
+            enemyCounts = new Dictionary<Enemies, int>
             {
-                waveNumber = 4,
-                enemyCounts = new Dictionary<Enemies, int>
-                {
-                    { Enemies.Ant, 6 },
-                    { Enemies.Beetle, 3 },
-                    { Enemies.ExplodingAnt, 4 },
-                    { Enemies.ExplodingBeetle, 2 },
-                }
-            },
-            new EnemyWave
+                { Enemies.Ant, 6 },
+                { Enemies.Beetle, 3 },
+                { Enemies.ExplodingAnt, 4 },
+                { Enemies.ExplodingBeetle, 2 },
+            }
+        },
+        new EnemyWave
+        {
+            waveNumber = 5,
+            enemyCounts = new Dictionary<Enemies, int>
             {
-                waveNumber = 5,
-                enemyCounts = new Dictionary<Enemies, int>
-                {
-                    { Enemies.Ant, 10 },
-                    { Enemies.Beetle, 5 },
-                    { Enemies.ExplodingAnt, 4 },
-                    { Enemies.ExplodingBeetle, 3 },
-                    { Enemies.Spider, 2 }
-                }
-            },
+                { Enemies.Ant, 10 },
+                { Enemies.Beetle, 5 },
+                { Enemies.ExplodingAnt, 4 },
+                { Enemies.ExplodingBeetle, 3 },
+                { Enemies.Spider, 2 }
+            }
+        },
 
-        };
+    };
 
     void Start()
     {
@@ -113,8 +112,6 @@ public class Waves : MonoBehaviour
         }
     
     }
-
-
 
     void Update()
     {
@@ -210,7 +207,6 @@ public class Waves : MonoBehaviour
 
         return enemySpawnPosition;
     }
-
 
     private List<GameObject> GetEnemiesToSpawn(EnemyWave wave)
     {
