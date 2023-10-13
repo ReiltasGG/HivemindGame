@@ -63,7 +63,7 @@ public class TowerBullet : MonoBehaviour
         else workOnce = 0;
 
         var waveScript = wavesFinder.GetComponent<Waves>();
-        waveScript.enemiesDeadAdd();
+        waveScript.incrementDeadEnemies();
     }
 
     private void DestroyWhenOffScreen()

@@ -74,7 +74,7 @@ public class AttributesManager : MonoBehaviour
     private void IncrementDeadEnamies()
     {
         var waveScript = wavesFinder.GetComponent<Waves>();
-        waveScript.enemiesDeadAdd();
+        waveScript.incrementDeadEnemies();
     }
 
     public void dealDamage(GameObject target)
