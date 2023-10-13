@@ -600,6 +600,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skill Tree Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5810676875212627489, guid: 98f4aa24cd771514c997eee10abce236, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7369727370186673921, guid: 98f4aa24cd771514c997eee10abce236, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1887,6 +1891,18 @@ PrefabInstance:
       propertyPath: roundStartSound
       value: 
       objectReference: {fileID: 8300000, guid: b8074d63f26b844418090b67281d1a45, type: 3}
+    - target: {fileID: 3717051226447820630, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
+      propertyPath: enemyPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 3598959115513445981, guid: 1338bf5c4c6a8af448c97d0c6f84fe47, type: 3}
+    - target: {fileID: 3717051226447820630, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
+      propertyPath: enemyPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 64518308753263262, guid: 4fcdb5d815df7a142b45481286034ca0, type: 3}
+    - target: {fileID: 3717051226447820630, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
+      propertyPath: enemyPrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 9009381890420248657, guid: ab446e6574dcc2849b1a20f360683cb1, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
