@@ -46,10 +46,8 @@ public class HealingBee : MonoBehaviour
 
     private void HealAllInCircle(RaycastHit2D[] selectedPlayers)
     {
-        UnityEngine.Debug.Log("Selected Players hit length: " + selectedPlayers.Length);
         if (selectedPlayers == null) throw new ArgumentNullException("RaycastHit2D passed in is NULL");
         if (selectedPlayers.Length == 0) return;
-
 
         for (int i = 0; i < selectedPlayers.Length; i++)
         {
