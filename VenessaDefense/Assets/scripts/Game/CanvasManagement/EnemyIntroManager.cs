@@ -1,16 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 
 public class EnemyIntroManager : MonoBehaviour
 {
-    private Dictionary<int, List<Waves.Enemies>> newEnemiesInWave;
+    [Serializable]
+    public class EnemyIntroductionImage
+    {
+        public Waves.Enemies enemy;
+        public UnityEngine.UI.Image image;
+    }
 
+    private Dictionary<int, List<Waves.Enemies>> newEnemiesInWave;
+    public List<EnemyIntroductionImage> enemyIntroductionImages;
     private float introDisplayTime = 5f;
 
     void Start()
@@ -23,6 +27,7 @@ public class EnemyIntroManager : MonoBehaviour
         List<Waves.EnemyWave> enemyWaves = wavesScript.level1Waves;
 
         newEnemiesInWave = new Dictionary<int, List<Waves.Enemies>>();
+
         checkWhenEnemyFirstAppears(enemyWaves);
 
     }
