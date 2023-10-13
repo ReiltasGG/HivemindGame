@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class Waves : MonoBehaviour
 {
-    private float timeWhenLastEnemySpawned = 0f;
     private float spawnInterval = 1.0f;
     public float bufferTime = 15.0f;
 
@@ -21,7 +20,7 @@ public class Waves : MonoBehaviour
     public int level = 1;
 
     private List<Transform> spawnerTransforms = new List<Transform>();
-    [SerializeField] private GameObject[] enemyPrefabs;
+    public GameObject[] enemyPrefabs;
 
     public Text waveText;
     public GameObject uiCanvas;
@@ -29,7 +28,7 @@ public class Waves : MonoBehaviour
     private AudioSource roundStartSoundSource;
     public AudioClip roundStartSound;
 
-    enum Enemies
+    public enum Enemies
     {
         Ant,
         Beetle,
@@ -38,13 +37,13 @@ public class Waves : MonoBehaviour
         ExplodingBeetle,
     }
 
-    private class EnemyWave
+    public class EnemyWave
     {
         public int waveNumber;
         public Dictionary<Enemies, int> enemyCounts = new Dictionary<Enemies, int>();
     }
 
-    List<EnemyWave> level1Waves = new List<EnemyWave>
+    public readonly List<EnemyWave> level1Waves = new List<EnemyWave>
     {
         new EnemyWave
         {
@@ -171,14 +170,12 @@ public class Waves : MonoBehaviour
 
         else isFinalWaveSpawned = false;
 
-        Debug.Log($"current Wave: {currentWave} total waves: {level1Waves.Count}\n isFinalWaveSpawned {isFinalWaveSpawned} ");
-
     }
 
     private IEnumerator startWave(EnemyWave wave)
     {
         playRoundStartSound();
-
+        
         List<GameObject> enemies = GetEnemiesToSpawn(wave);
 
         foreach (GameObject enemy in enemies)
@@ -221,7 +218,6 @@ public class Waves : MonoBehaviour
         foreach (var keyValuePair in wave.enemyCounts)
         {
             Enemies enemyType = keyValuePair.Key;
-
             for (int i = 0; i < keyValuePair.Value; i++)
                 enemies.Add(enemyPrefabs[(int)enemyType]);
         }
