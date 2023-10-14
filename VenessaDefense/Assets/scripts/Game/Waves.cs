@@ -25,6 +25,9 @@ public class Waves : MonoBehaviour
     public Text waveText;
     public GameObject uiCanvas;
 
+    EnemyIntroManager enemyIntroManager = null;
+
+
     private AudioSource roundStartSoundSource;
     public AudioClip roundStartSound;
 
@@ -60,6 +63,7 @@ public class Waves : MonoBehaviour
             {
                 { Enemies.Ant, 8 },
                 { Enemies.Beetle, 2 },
+                { Enemies.ExplodingAnt, 2 }
             }
         },
         new EnemyWave
@@ -100,6 +104,10 @@ public class Waves : MonoBehaviour
 
     void Start()
     {
+        enemyIntroManager = GetComponent<EnemyIntroManager>();
+
+        if (enemyIntroManager == null)
+            throw new ArgumentNullException("Enemy Intro Manager not found");
 
         roundStartSoundSource = GetComponent<AudioSource>(); ;
         roundStartSoundSource.clip = roundStartSound;
@@ -123,6 +131,7 @@ public class Waves : MonoBehaviour
 
         if (waveFinished() && waitToStartRound && !isFinalWaveSpawned && !isWaveTextCreated)
         {
+            StartCoroutine(enemyIntroManager.DisplayNewIntros(currentWave));
             StartCoroutine(startWaveText(bufferTime));
         }
             
@@ -243,7 +252,7 @@ public class Waves : MonoBehaviour
         isWaveTextCreated = true;
 
         Text text = Instantiate(waveText);
-        waveText.transform.SetParent(uiCanvas.GetComponent<RectTransform>(), false);
+        text.transform.SetParent(uiCanvas.GetComponent<RectTransform>(), false);
 
         yield return new WaitForSeconds(seconds);
 
