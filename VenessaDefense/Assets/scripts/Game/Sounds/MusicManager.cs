@@ -40,8 +40,11 @@ public class MusicManager : MonoBehaviour
         Invoke("PlayNextTrack", currentSong.clip.length);
     }
 
-    public void ChangeVolume(float volume_)
+    public void ChangeMusicVolume(float volume_)
     {
+        if (volume_ > 1 || volume_ < 0)
+            throw new ArgumentException("Volume is out of range");
+
         volume = volume_;
         currentSong.volume = volume;
     }
