@@ -27,9 +27,10 @@ public class Waves : MonoBehaviour
 
     EnemyIntroManager enemyIntroManager = null;
 
-
     private AudioSource roundStartSoundSource;
     public AudioClip roundStartSound;
+
+    private float delayOnWave1Start = 5.0f;
 
     public enum Enemies
     {
@@ -117,7 +118,7 @@ public class Waves : MonoBehaviour
         {
             spawnerTransforms.Add(spawner.transform);
         }
-    
+
     }
 
     void Update()
@@ -266,5 +267,10 @@ public class Waves : MonoBehaviour
     public void incrementDeadEnemies()
     {
         enemiesDead++;
+    }
+
+    public int getNumberDeadEnemies()
+    {
+        return enemiesDead;
     }
 }

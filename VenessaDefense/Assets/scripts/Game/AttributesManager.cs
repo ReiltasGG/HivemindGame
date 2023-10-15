@@ -46,11 +46,18 @@ public class AttributesManager : MonoBehaviour
 
     public void die()
     {
+        Currency.main.addCurrency(currencyWorth);
+        Despawn();
+
         if (gameObject.CompareTag("Enemy"))
             IncrementDeadEnamies();
 
-        Currency.main.addCurrency(currencyWorth);
-        Despawn();
+        else if (gameObject.CompareTag("Player"))
+        {
+            ManageGameOver manageGameOver = new ManageGameOver();
+            manageGameOver.StartGameOverScreen(GetNumberDeadEnemies());
+        }
+
     }
 
     public void heal(int amount)
@@ -74,7 +81,15 @@ public class AttributesManager : MonoBehaviour
     private void IncrementDeadEnamies()
     {
         var waveScript = wavesFinder.GetComponent<Waves>();
+
         waveScript.incrementDeadEnemies();
+    }
+
+    private int GetNumberDeadEnemies()
+    {
+        var waveScript = wavesFinder.GetComponent<Waves>();
+
+        return waveScript.getNumberDeadEnemies();
     }
 
     public void dealDamage(GameObject target)
