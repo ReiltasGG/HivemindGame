@@ -13,27 +13,29 @@ public class ManageGameOver : MonoBehaviour
     {
         enemiesKilled = enemiesKilled_;
         changeScene();
-        UpdateEnemiesKilledOnGameOverScreen();
     }
 
     void changeScene()
     {
-        SceneManager.LoadScene("GameOver");
+        SceneManager.LoadSceneAsync("GameOver").completed += (AsyncOperation asyncOp) =>
+        {
+            UpdateEnemiesKilledOnGameOverScreen();
+        };
     }
 
     private void UpdateEnemiesKilledOnGameOverScreen()
     {
         GameObject uiCanvas = GameObject.Find("UI");
 
-        if ( uiCanvas == null )
+        if (uiCanvas == null )
             throw new ArgumentNullException("No UI canvas on Game Over Screen");
 
-        Transform enemiesKilled = uiCanvas.transform.Find("Enemies Killed");
+        Transform enemiesKilledUIElement = uiCanvas.transform.Find("Enemies Killed");
 
-        if (enemiesKilled == null )
+        if (enemiesKilledUIElement == null )
             throw new ArgumentNullException("Couldn't find enemies killed on game over screen");
 
-        TextMeshProUGUI numberEnemiesKilledText = enemiesKilled.Find("NumberEnemiesKilled").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI numberEnemiesKilledText = enemiesKilledUIElement.Find("NumberEnemiesKilled").GetComponent<TextMeshProUGUI>();
 
         numberEnemiesKilledText.text = $"{enemiesKilled}";
     }
