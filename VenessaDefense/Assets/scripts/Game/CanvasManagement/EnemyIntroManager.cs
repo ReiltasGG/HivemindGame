@@ -26,9 +26,13 @@ public class EnemyIntroManager : MonoBehaviour
 
     void Start()
     {
+        if (EnemyIntroPrefab == null)
+            throw new ArgumentNullException("Enemy Intro Prefab is not assigned");
+
         enemyIntroOnScreen = Instantiate(EnemyIntroPrefab);
         enemyIntroOnScreen.SetActive(false);
 
+        newEnemiesInWave = new Dictionary<int, List<Waves.Enemies>>();
         Waves wavesScript = GetComponent<Waves>();
 
         if (wavesScript == null )
@@ -36,10 +40,7 @@ public class EnemyIntroManager : MonoBehaviour
 
         List<Waves.EnemyWave> enemyWaves = wavesScript.level1Waves;
 
-        newEnemiesInWave = new Dictionary<int, List<Waves.Enemies>>();
-
         checkWhenEnemyFirstAppears(enemyWaves);
-
 
         if (wavesScript.uiCanvas == null)
         {
