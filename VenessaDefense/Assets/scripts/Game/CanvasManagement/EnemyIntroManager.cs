@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.EventSystems.EventTrigger;
-
 
 public class EnemyIntroManager : MonoBehaviour
 {
@@ -95,9 +93,8 @@ public class EnemyIntroManager : MonoBehaviour
         
         foreach (Waves.Enemies enemy in enemiesToShow)
         {
-            Debug.Log($"Displaying intro for enemy: {enemy}");
-
             DisplayIntro(enemy);
+
             yield return new WaitForSeconds(introDisplayTime);
         }
 

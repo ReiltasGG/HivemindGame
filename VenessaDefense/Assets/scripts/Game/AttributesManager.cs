@@ -54,8 +54,8 @@ public class AttributesManager : MonoBehaviour
 
         else if (gameObject.CompareTag("Player"))
         {
-            ManageGameOver manageGameOver = new ManageGameOver();
-            manageGameOver.StartGameOverScreen(GetNumberDeadEnemies());
+            ManageScenes manageScenes = new ManageScenes();
+            manageScenes.StartGameOverScene(GetNumberDeadEnemies());
         }
 
     }

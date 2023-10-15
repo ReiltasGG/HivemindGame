@@ -14,7 +14,6 @@ public class Waves : MonoBehaviour
     private int enemiesDead = 0;
     private bool isWaveInProgress = false;
     private bool waitToStartRound = false;
-    private bool isFinalWaveSpawned = false;
     private bool isWaveTextCreated = false;
 
     public int level = 1;
@@ -67,7 +66,7 @@ public class Waves : MonoBehaviour
                 { Enemies.ExplodingAnt, 2 }
             }
         },
-        new EnemyWave
+        /*new EnemyWave
         {
             waveNumber = 3,
             enemyCounts = new Dictionary<Enemies, int>
@@ -99,7 +98,7 @@ public class Waves : MonoBehaviour
                 { Enemies.ExplodingBeetle, 3 },
                 { Enemies.Spider, 2 }
             }
-        },
+        },*/
 
     };
 
@@ -123,14 +122,19 @@ public class Waves : MonoBehaviour
 
     void Update()
     {
-        CheckLevelCleared();
+        if (waveFinished() && CheckLevelCleared())
+        {
+            ManageScenes manageScenes = new ManageScenes();
+            manageScenes.StartDayClearedScene(level);
+            return;
+        }
 
-        if (waveFinished() && !waitToStartRound && !isFinalWaveSpawned)
+        if (waveFinished() && !waitToStartRound)
         {
             startNextWave();
         }
 
-        if (waveFinished() && waitToStartRound && !isFinalWaveSpawned && !isWaveTextCreated)
+        if (waveFinished() && waitToStartRound && !isWaveTextCreated)
         {
             StartCoroutine(enemyIntroManager.DisplayNewIntros(currentWave));
             StartCoroutine(startWaveText(bufferTime));
@@ -172,14 +176,9 @@ public class Waves : MonoBehaviour
         return false;
     }
 
-    private void CheckLevelCleared()
+    private bool CheckLevelCleared()
     {
-
-        if (level == 1)
-            isFinalWaveSpawned =  currentWave > level1Waves.Count;
-
-        else isFinalWaveSpawned = false;
-
+        return (waveFinished() && (currentWave > level1Waves.Count));
     }
 
     private IEnumerator startWave(EnemyWave wave)
