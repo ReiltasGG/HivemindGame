@@ -25,9 +25,7 @@ public class Waves : MonoBehaviour
     public GameObject uiCanvas;
 
     EnemyIntroManager enemyIntroManager = null;
-
-    private AudioSource roundStartSoundSource;
-    public AudioClip roundStartSound;
+    SoundEffectManager soundEffectManager = null;
 
     private float delayOnWave1Start = 5.0f;
 
@@ -66,7 +64,7 @@ public class Waves : MonoBehaviour
                 { Enemies.ExplodingAnt, 2 }
             }
         },
-        /*new EnemyWave
+        new EnemyWave
         {
             waveNumber = 3,
             enemyCounts = new Dictionary<Enemies, int>
@@ -98,26 +96,29 @@ public class Waves : MonoBehaviour
                 { Enemies.ExplodingBeetle, 3 },
                 { Enemies.Spider, 2 }
             }
-        },*/
+        },
 
     };
 
     void Start()
     {
-        enemyIntroManager = GetComponent<EnemyIntroManager>();
-
-        if (enemyIntroManager == null)
-            throw new ArgumentNullException("Enemy Intro Manager not found");
-
-        roundStartSoundSource = GetComponent<AudioSource>(); ;
-        roundStartSoundSource.clip = roundStartSound;
-
         GameObject[] spawnerObjects = GameObject.FindGameObjectsWithTag("Spawner");
         foreach (GameObject spawner in spawnerObjects)
         {
             spawnerTransforms.Add(spawner.transform);
         }
 
+        soundEffectManager = GetComponent<SoundEffectManager>();
+        enemyIntroManager = GetComponent<EnemyIntroManager>();
+
+        if (soundEffectManager == null)
+            throw new ArgumentNullException("Sound Effect Manager not found");
+
+        if (enemyIntroManager == null)
+            throw new ArgumentNullException("Enemy Intro Manager not found");
+
+        if (spawnerObjects == null)
+            throw new ArgumentNullException("No spawner objects found");
     }
 
     void Update()
@@ -183,7 +184,7 @@ public class Waves : MonoBehaviour
 
     private IEnumerator startWave(EnemyWave wave)
     {
-        playRoundStartSound();
+        soundEffectManager.playRoundStartSound();
         
         List<GameObject> enemies = GetEnemiesToSpawn(wave);
 
@@ -234,17 +235,6 @@ public class Waves : MonoBehaviour
         enemies.Shuffle();
 
         return enemies;
-    }
-
-    void playRoundStartSound()
-    {
-        if (roundStartSoundSource == null)
-            throw new ArgumentNullException("Round start source not instantiated");
-
-        if (roundStartSoundSource.clip == null)
-            throw new ArgumentNullException("Round start sound not attached to AudioSource");
-
-        roundStartSoundSource.Play();
     }
 
     private IEnumerator startWaveText(float seconds)
