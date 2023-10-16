@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System;
+using System.Diagnostics;
 
 public class HealingBee : MonoBehaviour
 {
@@ -18,17 +19,17 @@ public class HealingBee : MonoBehaviour
 
 
     private List<GameObject> cursedEnemies = new List<GameObject>();
-    private float timeLeftUntilHeal;
+    private float timePassedSinceHeal;
 
     private void Start()
     {
-        timeLeftUntilHeal = healCooldownInSeconds;
+        timePassedSinceHeal = healCooldownInSeconds;
     }
     private void Update()
     {
-        timeLeftUntilHeal += Time.deltaTime;
+        timePassedSinceHeal += Time.deltaTime;
 
-        if (timeLeftUntilHeal >= healCooldownInSeconds)
+        if (timePassedSinceHeal >= healCooldownInSeconds)
         {
             ShowCircle();
             HealPlayer();
@@ -57,7 +58,7 @@ public class HealingBee : MonoBehaviour
             if (!isFullHealth(playerAttributesManager))
             {
                 playerAttributesManager.heal(healingAmount);
-                timeLeftUntilHeal = 0f;
+                timePassedSinceHeal = 0f;
             }
         }
     }

@@ -15,11 +15,15 @@ public class UI_Skill : MonoBehaviour
     public GameObject getSkillTree;
 
     public bool hasBeenBought = false;
+
+    public bool skill1HappenOnce = true;
+    public bool skill2HappenOnce = true;
+    public GameObject findPlayer;
     // Start is called before the first frame update
     void Start()
     {
      //   getSkillTree = GameObject.FindWithTag("Skill Tree");
-
+      findPlayer = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame
@@ -33,6 +37,15 @@ public class UI_Skill : MonoBehaviour
             //Set SkillID to true
             atm.updateSkillDataTrue(1);
             connectorOne.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
+            
+            //Add Damage
+            if(skill1HappenOnce)
+            {
+            int damageAdded = 5;
+            var attributeManager = findPlayer.GetComponent<AttributesManager>();
+            attributeManager.addDamage(damageAdded);
+            skill1HappenOnce = false;
+            }
 
 
         }
@@ -43,6 +56,16 @@ public class UI_Skill : MonoBehaviour
             //Set SkillID to true
             atm.updateSkillDataTrue(2);
             connectorTwo.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
+            
+            
+            //Add Health
+             if(skill2HappenOnce)
+            {
+                int hpAdded = 10;
+            var attributeManager = findPlayer.GetComponent<AttributesManager>();
+            attributeManager.addHealth(hpAdded);
+            skill2HappenOnce = false;
+            }
         }
         else if(SkillID == 3 && hasBeenBought == true)
         {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,219 +7,269 @@ using UnityEngine.UI;
 
 public class Waves : MonoBehaviour
 {
-    public int numberOfWaves = 20;
-    public int wavesPerDay = 20;
-    public int enemiesPerWave = 5;
-    public float spawnInterval = 1.0f;
+    private float spawnInterval = 1.0f;
     public float bufferTime = 15.0f;
 
-    private int currentWave = 0;
-    private int currentDay = 1;
-    private bool spawning = false;
-    private float timeSinceLastSpawn = 0f;
-    private float timeSinceWaveCompleted = 0f;
-    public bool waveCompleted = false;
+    private int currentWave = 1;
+    private int enemiesDead = 0;
+    private bool isWaveInProgress = false;
+    private bool waitToStartRound = false;
+    private bool isWaveTextCreated = false;
+
+    public int level = 1;
+
     private List<Transform> spawnerTransforms = new List<Transform>();
-    [SerializeField] private GameObject[] enemyPrefabs;
+    public GameObject[] enemyPrefabs;
+
     public Text waveText;
     public GameObject uiCanvas;
 
-    private int remainingEnemiesInWave;
+    EnemyIntroManager enemyIntroManager = null;
 
-    private int dontAddMoreThanOne = 1;
-    public int enemiesDead = 0;
-    private int happenOnceAgain;
+    private AudioSource roundStartSoundSource;
+    public AudioClip roundStartSound;
+
+    private float delayOnWave1Start = 5.0f;
+
+    public enum Enemies
+    {
+        Ant,
+        Beetle,
+        Spider,
+        ExplodingAnt,
+        ExplodingBeetle,
+    }
 
     public class EnemyWave
     {
         public int waveNumber;
-        public int ants;
-        public int beetles;
-        public int spider;
-        public int explodingAnt;
-        public int explodingBeetle;
-        public int totalEnemies;
-        // Add more enemy types as needed
+        public Dictionary<Enemies, int> enemyCounts = new Dictionary<Enemies, int>();
     }
 
-    public List<EnemyWave> waves = new List<EnemyWave>
-{
-    new EnemyWave { waveNumber = 1, ants = 1, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 1},
-    new EnemyWave { waveNumber = 2, ants = 1, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 1},
-    new EnemyWave { waveNumber = 3, ants = 1, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 1},
-    new EnemyWave { waveNumber = 4, ants = 1, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 3},
-    new EnemyWave { waveNumber = 5, ants = 4, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 5},
-    new EnemyWave { waveNumber = 6, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 7},
-    new EnemyWave { waveNumber = 7, ants = 7, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0,  totalEnemies = 10},
-    new EnemyWave { waveNumber = 8, ants = 6, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 12},
-    new EnemyWave { waveNumber = 9, ants = 4, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 5},
-    new EnemyWave { waveNumber = 10, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 7},
-    new EnemyWave { waveNumber = 11, ants = 7, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0,totalEnemies = 10},
-    new EnemyWave { waveNumber = 12, ants = 6, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 12},
-    new EnemyWave { waveNumber = 13, ants = 4, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 5},
-    new EnemyWave { waveNumber = 14, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 7},
-    new EnemyWave { waveNumber = 15, ants = 7, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 10},
-    new EnemyWave { waveNumber = 16, ants = 6, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 12},
-    new EnemyWave { waveNumber = 17, ants = 4, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 5},
-    new EnemyWave { waveNumber = 18, ants = 5, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 7},
-    new EnemyWave { waveNumber = 19, ants = 7, beetles = 0, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 10},
-    new EnemyWave { waveNumber = 20, ants = 6, beetles = 2, explodingAnt = 0, explodingBeetle = 0, spider = 0, totalEnemies = 12},
-    // Define more waves as needed
-};
+    public readonly List<EnemyWave> level1Waves = new List<EnemyWave>
+    {
+        new EnemyWave
+        {
+            waveNumber = 1,
+            enemyCounts = new Dictionary<Enemies, int>
+            {
+                { Enemies.Ant, 5 },
+            }
+        },
+        new EnemyWave
+        {
+            waveNumber = 2,
+            enemyCounts = new Dictionary<Enemies, int>
+            {
+                { Enemies.Ant, 8 },
+                { Enemies.Beetle, 2 },
+                { Enemies.ExplodingAnt, 2 }
+            }
+        },
+        /*new EnemyWave
+        {
+            waveNumber = 3,
+            enemyCounts = new Dictionary<Enemies, int>
+            {
+                { Enemies.Ant, 10 },
+                { Enemies.Beetle, 4 },
+                { Enemies.ExplodingAnt, 2 }
+            }
+        },
+        new EnemyWave
+        {
+            waveNumber = 4,
+            enemyCounts = new Dictionary<Enemies, int>
+            {
+                { Enemies.Ant, 6 },
+                { Enemies.Beetle, 3 },
+                { Enemies.ExplodingAnt, 4 },
+                { Enemies.ExplodingBeetle, 2 },
+            }
+        },
+        new EnemyWave
+        {
+            waveNumber = 5,
+            enemyCounts = new Dictionary<Enemies, int>
+            {
+                { Enemies.Ant, 10 },
+                { Enemies.Beetle, 5 },
+                { Enemies.ExplodingAnt, 4 },
+                { Enemies.ExplodingBeetle, 3 },
+                { Enemies.Spider, 2 }
+            }
+        },*/
+
+    };
 
     void Start()
     {
-        // Find all GameObjects with the "Spawner" tag and add their transforms to the list
+        enemyIntroManager = GetComponent<EnemyIntroManager>();
+
+        if (enemyIntroManager == null)
+            throw new ArgumentNullException("Enemy Intro Manager not found");
+
+        roundStartSoundSource = GetComponent<AudioSource>(); ;
+        roundStartSoundSource.clip = roundStartSound;
+
         GameObject[] spawnerObjects = GameObject.FindGameObjectsWithTag("Spawner");
         foreach (GameObject spawner in spawnerObjects)
         {
             spawnerTransforms.Add(spawner.transform);
         }
 
-        StartWave();
     }
 
     void Update()
     {
-
-        if (spawning && !waveCompleted)
+        if (waveFinished() && CheckLevelCleared())
         {
-            Debug.Log("Current Wave" + currentWave);
-            // Debug.Log(enemiesDead + " :)");
-            int currentWaveTemp = currentWave - 1;
-
-            timeSinceLastSpawn += Time.deltaTime;
-            if (timeSinceLastSpawn >= spawnInterval)
-            {
-                if (waves[currentWaveTemp].ants != 0)
-                {
-                    waves[currentWaveTemp].ants = waves[currentWaveTemp].ants - 1;
-                    SpawnEnemy(0);
-                    timeSinceLastSpawn = 0f;
-                }
-                else if (waves[currentWaveTemp].beetles != 0)
-                {
-                    waves[currentWaveTemp].beetles = waves[currentWaveTemp].beetles - 1;
-                    SpawnEnemy(1);
-                    timeSinceLastSpawn = 0f;
-                }
-                else if (waves[currentWaveTemp].explodingAnt != 0)
-                {
-                    waves[currentWaveTemp].explodingAnt = waves[currentWaveTemp].explodingAnt - 1;
-                    SpawnEnemy(2);
-                    timeSinceLastSpawn = 0f;
-                }
-                else if (waves[currentWaveTemp].explodingBeetle != 0)
-                {
-                    waves[currentWaveTemp].explodingBeetle = waves[currentWaveTemp].explodingAnt - 1;
-                    SpawnEnemy(3);
-                    timeSinceLastSpawn = 0f;
-                }
-            }
-        }
-        else if (waveCompleted)
-        {
-            timeSinceWaveCompleted += Time.deltaTime;
-            if (timeSinceWaveCompleted >= bufferTime)
-            {
-                //StartWave();
-                waveCompleted = false;
-            }
-        }
-        // Debug.Log(enemiesDead + " " + enemiesPerWave);
-
-        if (enemiesDead == enemiesPerWave)
-        {
-            dontAddMoreThanOne = 1;
-
-            Debug.Log("Wave " + currentWave + " completed.");
-            /*
-            if (currentWave % wavesPerDay == 0)
-            {
-                currentDay++;
-                Debug.Log("Starting Day " + currentDay);
-            }
-            */
-            if (happenOnceAgain == 1)
-            {
-                StartCoroutine(StartWaveWithDelay(bufferTime));
-                happenOnceAgain = 0;
-            }
+            ManageScenes manageScenes = new ManageScenes();
+            manageScenes.StartDayClearedScene(level);
+            return;
         }
 
+        if (waveFinished() && !waitToStartRound)
+        {
+            startNextWave();
+        }
+
+        if (waveFinished() && waitToStartRound && !isWaveTextCreated)
+        {
+            StartCoroutine(enemyIntroManager.DisplayNewIntros(currentWave));
+            StartCoroutine(startWaveText(bufferTime));
+        }
+            
     }
 
-    void StartWave()
+    private void startNextWave()
     {
-        if (currentWave < numberOfWaves)
+        isWaveInProgress = true;
+        waitToStartRound = true;
+
+        StartCoroutine(startWave(getWave(level, currentWave)));
+        currentWave++;
+    }
+
+    private EnemyWave getWave(int level, int wave)
+    {
+        EnemyWave enemyWave = null;
+
+        if (level == 1)
         {
-            happenOnceAgain = 1;
-            enemiesDead = 0;
-            if (dontAddMoreThanOne == 1)
-            {
-                currentWave++;
-                dontAddMoreThanOne = 0;
-            }
-            int currentWaveTemp = currentWave - 1;
-            enemiesPerWave = waves[currentWaveTemp].totalEnemies;
-            SpawnWave();
+            enemyWave = level1Waves[wave - 1];
         }
+            
         else
+            throw new ArgumentException($"{level} does not have waves setup");
+        
+        return enemyWave;
+    }
+
+    private bool waveFinished()
+    {
+        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
+
+        if (!isWaveInProgress && enemyObjects.Length == 0)
+            return true;
+
+        return false;
+    }
+
+    private bool CheckLevelCleared()
+    {
+        return (waveFinished() && (currentWave > level1Waves.Count));
+    }
+
+    private IEnumerator startWave(EnemyWave wave)
+    {
+        playRoundStartSound();
+        
+        List<GameObject> enemies = GetEnemiesToSpawn(wave);
+
+        foreach (GameObject enemy in enemies)
         {
-            Debug.Log("All waves completed");
+            SpawnEnemy(enemy);
+            yield return new WaitForSeconds(spawnInterval);
         }
+
+        isWaveInProgress = false;
     }
 
-    void SpawnWave()
+    private void SpawnEnemy(GameObject enemy)
     {
-        waveCompleted = false;
-        spawning = true;
-        timeSinceLastSpawn = 0f;
-        remainingEnemiesInWave = enemiesPerWave; // Initialize remaining enemies
+        Vector3 enemySpawnPosition = getRandomSpawnerLocation();
+
+        Instantiate(enemy, enemySpawnPosition, Quaternion.identity);
     }
 
-    void SpawnEnemy(int whichEnemy)
+    private Vector3 getRandomSpawnerLocation()
     {
-        if (remainingEnemiesInWave > 0)
+        if (spawnerTransforms.Count == 0)
+            throw new ArgumentNullException("There needs to be spawners placed to spawn bugs");
+
+        int randomSpawnerIndex = UnityEngine.Random.Range(0, spawnerTransforms.Count);
+        Vector3 enemySpawnPosition = spawnerTransforms[randomSpawnerIndex].position;
+
+        return enemySpawnPosition;
+    }
+
+    private List<GameObject> GetEnemiesToSpawn(EnemyWave wave)
+    {
+        if (wave == null) 
+            throw new ArgumentNullException("Cannot use an enemy wave that is not instantiated");
+
+        if (wave.enemyCounts.Count == 0) 
+            throw new ArgumentException ($"Enemy wave {wave.waveNumber} must have enemies");
+
+        List<GameObject> enemies = new List<GameObject>();
+
+        foreach (var keyValuePair in wave.enemyCounts)
         {
-            if (spawnerTransforms.Count > 0)
-            {
-
-                int rand = whichEnemy;
-
-                GameObject enemyToSpawn = enemyPrefabs[rand];
-
-                int randomSpawnerIndex = Random.Range(0, spawnerTransforms.Count);
-                Vector3 spawnPosition = spawnerTransforms[randomSpawnerIndex].position;
-                Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
-            }
-            else
-            {
-                Debug.LogError("No spawners found.");
-            }
-
-            remainingEnemiesInWave--; // Decrease remaining enemies
-
-
+            Enemies enemyType = keyValuePair.Key;
+            for (int i = 0; i < keyValuePair.Value; i++)
+                enemies.Add(enemyPrefabs[(int)enemyType]);
         }
+
+        enemies.Shuffle();
+
+        return enemies;
     }
 
-    private IEnumerator StartWaveWithDelay(float delay)
+    void playRoundStartSound()
     {
-        spawning = false;
-        waveCompleted = true;
-        Text textTemp = Instantiate(waveText);
-        textTemp.transform.SetParent(GameObject.Find("Canvas").GetComponent<RectTransform>(), false);
+        if (roundStartSoundSource == null)
+            throw new ArgumentNullException("Round start source not instantiated");
 
-        yield return new WaitForSeconds(delay);
-        Destroy(textTemp);
+        if (roundStartSoundSource.clip == null)
+            throw new ArgumentNullException("Round start sound not attached to AudioSource");
 
-        StartWave();
+        roundStartSoundSource.Play();
+    }
+
+    private IEnumerator startWaveText(float seconds)
+    {
+        isWaveTextCreated = true;
+
+        Text text = Instantiate(waveText);
+        text.transform.SetParent(uiCanvas.GetComponent<RectTransform>(), false);
+
+        yield return new WaitForSeconds(seconds);
+
+        Destroy(text);
+
+        waitToStartRound = false;
+        isWaveTextCreated = false;
 
     }
 
-    public void enemiesDeadAdd()
+    public void incrementDeadEnemies()
     {
-        enemiesDead += 1;
+        enemiesDead++;
+    }
+
+    public int getNumberDeadEnemies()
+    {
+        return enemiesDead;
     }
 }

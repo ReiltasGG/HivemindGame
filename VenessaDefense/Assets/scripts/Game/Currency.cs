@@ -1,25 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.U2D.Animation;
 using UnityEngine;
 
 public class Currency : MonoBehaviour
 {
+    public static Currency main;
     public int currency;
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        currency = 30;
+    }
+    private void Awake()
+    {
+        main = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public bool subtractCurrency(int amount)
     {
-        
-    }
-
-    public void subtractCurrency(int amount)
-    {
-        currency -= amount;
+        if (currency >= amount)
+        {
+            currency -= amount;
+            return true;
+        }
+        else { return false; }
     }
 
     public void addCurrency(int amount)

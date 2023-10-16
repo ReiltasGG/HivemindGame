@@ -134,7 +134,7 @@ public class EnemyProjectile : MonoBehaviour
         {
             Delete();
            // Debug.Log("True");
-             GameObject player = other.gameObject;
+            GameObject player = other.gameObject;
             var script = player.GetComponent<AttributesManager>();
             script.takeDamage(10);
             var scriptPlayerMove = player.GetComponent<PlayerMovement>();

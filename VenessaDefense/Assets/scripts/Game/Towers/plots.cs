@@ -6,11 +6,11 @@ public class plots : MonoBehaviour
 {
 
     [Header("References")]
-        [SerializeField] private SpriteRenderer sr;
-    [SerializeField] private Color hoverColor;
-    // Start is called before the first frame update
+    [SerializeField] private SpriteRenderer sr;
     private GameObject tower;
     private Color startColor;
+
+    private Color hoverColor = Color.red;
 
     private void Start()
     {
@@ -29,7 +29,16 @@ public class plots : MonoBehaviour
     {
         if (tower != null) return;
 
-        GameObject towerToBuild = Builder.main.GetSelectedTower();
-        tower = Instantiate(towerToBuild, transform.position, Quaternion.identity);
+        Tower towerToBuild = Builder.main.GetSelectedTower();
+
+        if(towerToBuild.cost > Currency.main.currency ) 
+        {
+            return; 
+        }
+
+        Currency.main.subtractCurrency(towerToBuild.cost);
+
+        Vector3 positionZOnTopPlot = transform.position + new Vector3(0, 0, -5);
+        tower = Instantiate(towerToBuild.prefab, positionZOnTopPlot, Quaternion.identity);
     }
 }

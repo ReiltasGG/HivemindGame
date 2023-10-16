@@ -8,6 +8,7 @@ public class MusicManager : MonoBehaviour
     public AudioClip[] songs;
     private AudioSource currentSong;
     private int currentSongNumber = 0;
+    public float volume = 1.0f;
 
     void Start()
     {
@@ -15,14 +16,13 @@ public class MusicManager : MonoBehaviour
             throw new ArgumentNullException("No songs added to Music Manager");
 
         currentSong = gameObject.AddComponent<AudioSource>();
+        currentSong.volume = volume;
 
         PlayNextTrack();
     }
 
     private void PlayNextTrack()
     {
-        Debug.Log("songs length: " + songs.Length);
-        Debug.Log("current song number: " + currentSongNumber);
         if (currentSongNumber >= songs.Length)
             currentSongNumber = 0;
 
@@ -38,6 +38,15 @@ public class MusicManager : MonoBehaviour
         currentSongNumber++;
 
         Invoke("PlayNextTrack", currentSong.clip.length);
+    }
+
+    public void ChangeMusicVolume(float volume_)
+    {
+        if (volume_ > 1 || volume_ < 0)
+            throw new ArgumentException("Volume is out of range");
+
+        volume = volume_;
+        currentSong.volume = volume;
     }
 
 }

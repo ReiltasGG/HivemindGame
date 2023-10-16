@@ -52,6 +52,7 @@ MonoBehaviour:
   enemiesPerWave: 5
   spawnInterval: 1
   bufferTime: 15
+  waveCompleted: 0
   enemyPrefabs:
   - {fileID: 2536126099874761892, guid: 49620c6cadba9bb49a8b05fe58afd19b, type: 3}
   - {fileID: 5627538231725734138, guid: ff8c78b1dd4c0214cb4bda9a1460b008, type: 3}
