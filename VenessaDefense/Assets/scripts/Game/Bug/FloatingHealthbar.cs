@@ -9,13 +9,12 @@ public class FloatingHealthbar : MonoBehaviour
     [SerializeField] private Vector3 healthbarOffset;
 
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        if (cam == null)
+            cam = Camera.main;
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.rotation = cam.transform.rotation;
