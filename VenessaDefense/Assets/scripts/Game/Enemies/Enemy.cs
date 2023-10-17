@@ -80,13 +80,15 @@ public abstract class Enemy : MonoBehaviour
     public float aggroRadius = 5.0f;
     protected AIstate state; //Current state
 
+    private bool attackTower;
+    public float towerAttackRadius = 2.0f;
     public enum AIstate
     {
         //0 - Wait around at its start location
         //1 - Moving between waypoints (like idle, but moves)
         chase, //2 - Follows player for just existing
         aggro, //3 Before monster attacks, warning attack
-        superaggro // 4 - When the player hits the monster, and the monster will find the player at any distance
+        chaseTower //When the enemy attacks towers instead of player
 
     } //end enum AIstate
 
@@ -142,12 +144,12 @@ public abstract class Enemy : MonoBehaviour
     protected void updateRotationOfEnemy()
     {
         // Find the player object
-        GameObject player = GameObject.FindWithTag("Player");
+        //GameObject player = GameObject.FindWithTag("Player");
 
-        if (player != null)
+        if (target != null)
         {
             // Calculate the direction vector from this object to the player
-            Vector3 direction = player.transform.position - transform.position;
+            Vector3 direction = target.transform.position - transform.position;
 
             // Calculate the angle in radians
             float angle = Mathf.Atan2(direction.y, direction.x);
@@ -208,6 +210,7 @@ public abstract class Enemy : MonoBehaviour
         //Check to see if the desired move is clear of Players
         bool clear = true;
         bool blockingAlly = false;
+        /*
         CircleCollider2D myCollider = GetComponent<CircleCollider2D>();
 
         Vector2 myFutureCenter = body.position + myCollider.offset + targetMove * Time.deltaTime;
@@ -224,7 +227,7 @@ public abstract class Enemy : MonoBehaviour
             if (item.CompareTag("Enemy"))
                 blockingAlly = true;
         }
-
+*/
         if (clear == true)
         {
             //Move the monster
@@ -269,6 +272,48 @@ public abstract class Enemy : MonoBehaviour
 
     } //end RangedAttack
 
+    protected void PBAoEAttack()
+    {
+        Debug.Log("I run");
+            //Search for players within the meleeAttackRadius
+            Collider2D[] things = Physics2D.OverlapCircleAll(transform.position, meleeAttackRadius);
+            foreach (Collider2D item in things)
+            {
+                if (item.gameObject.CompareTag("Player"))
+                {
+                    //If it's a player, deal melee damage to it
+                    var script = item.gameObject.GetComponent<AttributesManager>();
+
+                    //Calculate the direction of force
+                    Vector2 hitForce = (item.transform.position - transform.position).normalized * meleeAttackKnockback * 10.0f;
+
+                    //Apply Knockback and damage to player
+                    script.takeDamage(meleeAttackDamage);
+
+                    //[Extra] Spawn Damage Text
+                 //   SpawnText(meleeAttackDamage, item.ClosestPoint(transform.position), false);
+                }
+                if (item.gameObject.CompareTag("Tower"))
+                {
+                    //If it's a player, deal melee damage to it
+                    var script2 = item.gameObject.GetComponent<AttributesManager>();
+
+                    //Calculate the direction of force
+                    Vector2 hitForce = (item.transform.position - transform.position).normalized * meleeAttackKnockback * 10.0f;
+
+                    //Apply Knockback and damage to player
+                    script2.takeDamage(meleeAttackDamage);
+
+                    //[Extra] Spawn Damage Text
+                 //   SpawnText(meleeAttackDamage, item.ClosestPoint(transform.position), false);
+                }
+            } //end of searching for Players
+
+            isAttacking = true;
+            attackCooldownTicker = meleeAttackCooldown;
+      
+
+    } //end PBAoEAttack
 
     protected void UpdateAI()
     {
@@ -276,17 +321,34 @@ public abstract class Enemy : MonoBehaviour
         if (state == AIstate.chase)
         {
 
-            Debug.Log("We chasin");
+            
             targetLocation = GameObject.FindWithTag("Player").transform.position;
+            target =  GameObject.FindWithTag("Player").transform;
+       //    Debug.Log(targetLocation);
             moveModifier = 1.2f;
             Collider2D[] things = Physics2D.OverlapCircleAll(transform.position, aggroRadius);
-            foreach (Collider2D item in things)
+      
+    
+        
+            Collider2D[] towerRadius = Physics2D.OverlapCircleAll(transform.position, towerAttackRadius);
+            foreach(Collider2D item in things)
+            {
+                if(item.gameObject.CompareTag("Tower"))
+                {
+                    target = item.gameObject.transform;
+                    targetLocation = item.gameObject.transform.position;
+                    state = AIstate.chaseTower;
+                }
+            }
+
+                  foreach (Collider2D item in things)
             {
                 //If there is a player, set target to that player and go to CHASE state
                 if (item.gameObject.CompareTag("Player"))
                 {
                     target = item.gameObject.transform;
                     state = AIstate.aggro;
+                    
                 }
             }
             Move();
@@ -318,10 +380,43 @@ public abstract class Enemy : MonoBehaviour
                 else
                 {
                     //Melee Perferred
-                    targetLocation = target.position; //Chase the player!
+                   targetLocation = target.position; //Chase the player!
                 }
             }
         }
+
+         if (state == AIstate.chaseTower)
+        {
+             Collider2D[] temp = Physics2D.OverlapCircleAll(transform.position, aggroRadius);
+               float distance = Vector2.Distance(target.position, transform.position);
+                foreach(Collider2D item in temp)
+            {
+                if(item.gameObject.CompareTag("Player"))
+                {
+                    target = item.gameObject.transform;
+                    state = defaultState;
+                }
+            }
+             if (preferRanged)
+                {
+                    //Ranged Perferred
+                    if (distance >= rangedAttackRange)
+                        targetLocation = target.position; //Out of range: chase player more
+                    else
+                        targetLocation = transform.position; //In range: stay still
+                }
+                else
+                {
+                    //Melee Perferred
+                    targetLocation = target.position; //Chase the player!
+                }
+            
+            Move();
+        }
+    }
+     public void EndAttack()
+    {
+        isAttacking = false;
     }
 
    
