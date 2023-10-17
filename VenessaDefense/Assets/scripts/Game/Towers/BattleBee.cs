@@ -18,12 +18,20 @@ public class BattleBee : MonoBehaviour
     [SerializeField] private float rotationSpeed = 5f;
     [SerializeField] private float bps = 1; //bps = bullet per second
 
+    private Animator anim;
+
     private Transform target;
     private float timeUntilFire;
+
+    void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
     private void Update()
     {
         if (target == null)
         {
+       
             FindTarget();
             return;
         }
@@ -31,9 +39,11 @@ public class BattleBee : MonoBehaviour
 
         if (!CheckTargetIsInRange())
         {
+            anim.SetTrigger("Idle");
             target = null;
         } else
         {
+            anim.SetTrigger("Attack");
             timeUntilFire += Time.deltaTime;
 
             if (timeUntilFire >= 1f / bps)
