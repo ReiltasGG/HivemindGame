@@ -1,20 +1,36 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
-
+using UnityEngine.UI;
 
 public class EnemyIntroManager : MonoBehaviour
 {
-    private Dictionary<int, List<Waves.Enemies>> newEnemiesInWave;
+    [Serializable]
+    public class EnemyIntroductionImage
+    {
+        public Waves.Enemies enemy;
+        public Sprite sprite;
+    }
+
+    private Dictionary<int, List<Waves.Enemies>> newEnemiesInWave = null;
+    public List<EnemyIntroductionImage> enemyIntroductionImages;
 
     private float introDisplayTime = 5f;
 
+    private GameObject canvas;
+    public GameObject EnemyIntroPrefab;
+    private GameObject enemyIntroOnScreen = null;
+
     void Start()
     {
+        if (EnemyIntroPrefab == null)
+            throw new ArgumentNullException("Enemy Intro Prefab is not assigned");
+
+        enemyIntroOnScreen = Instantiate(EnemyIntroPrefab);
+        enemyIntroOnScreen.SetActive(false);
+
+        newEnemiesInWave = new Dictionary<int, List<Waves.Enemies>>();
         Waves wavesScript = GetComponent<Waves>();
 
         if (wavesScript == null )
@@ -22,8 +38,15 @@ public class EnemyIntroManager : MonoBehaviour
 
         List<Waves.EnemyWave> enemyWaves = wavesScript.level1Waves;
 
-        newEnemiesInWave = new Dictionary<int, List<Waves.Enemies>>();
         checkWhenEnemyFirstAppears(enemyWaves);
+
+        if (wavesScript.uiCanvas == null)
+        {
+            canvas = GameObject.Find("Canvas");
+            throw new ArgumentNullException("Wave Script not assigned a UI Canvas");
+        }
+        else    
+            canvas = wavesScript.uiCanvas;
 
     }
 
@@ -59,23 +82,58 @@ public class EnemyIntroManager : MonoBehaviour
 
     public IEnumerator DisplayNewIntros(int waveNumber)
     {
+        if (newEnemiesInWave == null)
+            throw new ArgumentNullException("List to find new enemies in wave is null");
+
         if (!newEnemiesInWave.ContainsKey(waveNumber))
             yield break;
 
         List<Waves.Enemies> enemiesToShow = newEnemiesInWave[waveNumber];
 
+        
         foreach (Waves.Enemies enemy in enemiesToShow)
         {
             DisplayIntro(enemy);
+
             yield return new WaitForSeconds(introDisplayTime);
         }
+
+        if (enemyIntroOnScreen != null)
+            enemyIntroOnScreen.SetActive(false);
     }
 
     private void DisplayIntro(Waves.Enemies enemy)
     {
-        Debug.Log($"Displaying intro for enemy: {enemy}");
+        if (canvas == null)
+            throw new ArgumentNullException("Enemy Intro Manager not assigned a canvas");
 
-        // TODO: Display on screen
+        if (enemyIntroOnScreen == null)
+        {
+            enemyIntroOnScreen = Instantiate(EnemyIntroPrefab);
+        }
+
+        Image enemyIntroImage = enemyIntroOnScreen.GetComponent<Image>();
+        enemyIntroImage.sprite = GetSpriteForEnemy(enemy);
+
+        enemyIntroOnScreen.transform.SetParent(canvas.transform, false);
+        enemyIntroOnScreen.SetActive(true);
+
+    }
+
+    private Sprite GetSpriteForEnemy(Waves.Enemies enemy)
+    {
+        if (enemyIntroductionImages == null)
+            throw new ArgumentNullException("Enemy introduction images is null");
+
+        foreach (EnemyIntroductionImage introImage in enemyIntroductionImages)
+        {
+            if (introImage.enemy == enemy)
+            {
+                return introImage.sprite;
+            }
+        }
+
+        throw new ArgumentNullException("Enemy introduction sprite not added to list");
     }
 
 }

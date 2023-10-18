@@ -14,7 +14,6 @@ public class Waves : MonoBehaviour
     private int enemiesDead = 0;
     private bool isWaveInProgress = false;
     private bool waitToStartRound = false;
-    private bool isFinalWaveSpawned = false;
     private bool isWaveTextCreated = false;
 
     public int level = 1;
@@ -25,8 +24,10 @@ public class Waves : MonoBehaviour
     public Text waveText;
     public GameObject uiCanvas;
 
-    private AudioSource roundStartSoundSource;
-    public AudioClip roundStartSound;
+    EnemyIntroManager enemyIntroManager = null;
+    SoundEffectManager soundEffectManager = null;
+
+    private float delayOnWave1Start = 5.0f;
 
     public enum Enemies
     {
@@ -60,6 +61,7 @@ public class Waves : MonoBehaviour
             {
                 { Enemies.Ant, 8 },
                 { Enemies.Beetle, 2 },
+                { Enemies.ExplodingAnt, 2 }
             }
         },
         new EnemyWave
@@ -100,29 +102,42 @@ public class Waves : MonoBehaviour
 
     void Start()
     {
-
-        roundStartSoundSource = GetComponent<AudioSource>(); ;
-        roundStartSoundSource.clip = roundStartSound;
-
         GameObject[] spawnerObjects = GameObject.FindGameObjectsWithTag("Spawner");
         foreach (GameObject spawner in spawnerObjects)
         {
             spawnerTransforms.Add(spawner.transform);
         }
-    
+
+        soundEffectManager = GetComponent<SoundEffectManager>();
+        enemyIntroManager = GetComponent<EnemyIntroManager>();
+
+        if (soundEffectManager == null)
+            throw new ArgumentNullException("Sound Effect Manager not found");
+
+        if (enemyIntroManager == null)
+            throw new ArgumentNullException("Enemy Intro Manager not found");
+
+        if (spawnerObjects == null)
+            throw new ArgumentNullException("No spawner objects found");
     }
 
     void Update()
     {
-        CheckLevelCleared();
+        if (waveFinished() && CheckLevelCleared())
+        {
+            ManageScenes manageScenes = new ManageScenes();
+            manageScenes.StartDayClearedScene(level);
+            return;
+        }
 
-        if (waveFinished() && !waitToStartRound && !isFinalWaveSpawned)
+        if (waveFinished() && !waitToStartRound)
         {
             startNextWave();
         }
 
-        if (waveFinished() && waitToStartRound && !isFinalWaveSpawned && !isWaveTextCreated)
+        if (waveFinished() && waitToStartRound && !isWaveTextCreated)
         {
+            StartCoroutine(enemyIntroManager.DisplayNewIntros(currentWave));
             StartCoroutine(startWaveText(bufferTime));
         }
             
@@ -162,19 +177,14 @@ public class Waves : MonoBehaviour
         return false;
     }
 
-    private void CheckLevelCleared()
+    private bool CheckLevelCleared()
     {
-
-        if (level == 1)
-            isFinalWaveSpawned =  currentWave > level1Waves.Count;
-
-        else isFinalWaveSpawned = false;
-
+        return (waveFinished() && (currentWave > level1Waves.Count));
     }
 
     private IEnumerator startWave(EnemyWave wave)
     {
-        playRoundStartSound();
+        soundEffectManager.playRoundStartSound();
         
         List<GameObject> enemies = GetEnemiesToSpawn(wave);
 
@@ -227,23 +237,12 @@ public class Waves : MonoBehaviour
         return enemies;
     }
 
-    void playRoundStartSound()
-    {
-        if (roundStartSoundSource == null)
-            throw new ArgumentNullException("Round start source not instantiated");
-
-        if (roundStartSoundSource.clip == null)
-            throw new ArgumentNullException("Round start sound not attached to AudioSource");
-
-        roundStartSoundSource.Play();
-    }
-
     private IEnumerator startWaveText(float seconds)
     {
         isWaveTextCreated = true;
 
         Text text = Instantiate(waveText);
-        waveText.transform.SetParent(uiCanvas.GetComponent<RectTransform>(), false);
+        text.transform.SetParent(uiCanvas.GetComponent<RectTransform>(), false);
 
         yield return new WaitForSeconds(seconds);
 
@@ -257,5 +256,10 @@ public class Waves : MonoBehaviour
     public void incrementDeadEnemies()
     {
         enemiesDead++;
+    }
+
+    public int getNumberDeadEnemies()
+    {
+        return enemiesDead;
     }
 }
