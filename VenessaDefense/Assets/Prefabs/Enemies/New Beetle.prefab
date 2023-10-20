@@ -188,10 +188,10 @@ GameObject:
   - component: {fileID: 5351352441216923715}
   - component: {fileID: 5222347131123877398}
   - component: {fileID: 4065017016014722398}
-  - component: {fileID: 5263709762454933730}
-  - component: {fileID: 668021728577170794}
   - component: {fileID: 2347058648469327703}
-  - component: {fileID: -844831955167449370}
+  - component: {fileID: 2279001846639641705}
+  - component: {fileID: 7261032619066017206}
+  - component: {fileID: 756418756646869460}
   m_Layer: 3
   m_Name: New Beetle
   m_TagString: Enemy
@@ -208,11 +208,10 @@ Transform:
   m_GameObject: {fileID: 5627538231725734138}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.76774955, z: -0.022312347}
+  m_LocalPosition: {x: 0, y: -0.76774955, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7359295837138156662}
   - {fileID: 2007406738553165825}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -278,34 +277,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.99, y: 2}
   m_Direction: 0
---- !u!114 &5263709762454933730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5627538231725734138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3ea0862f9a0a8245a369c49602e23f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerAwarenessDistance: 10000
---- !u!114 &668021728577170794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5627538231725734138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cabbc42c0c30654da7813db46f21865, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 3
-  _rotationspeed: 100
-  baseSpeed: 1
 --- !u!114 &2347058648469327703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,7 +294,7 @@ MonoBehaviour:
   attackDamage: 20
   healthBar: {fileID: 7709027912790643832}
   currencyWorth: 5
---- !u!114 &-844831955167449370
+--- !u!114 &2279001846639641705
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -332,50 +303,56 @@ MonoBehaviour:
   m_GameObject: {fileID: 5627538231725734138}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c97029195dc9444479f68aa32b28199c, type: 3}
+  m_Script: {fileID: 11500000, guid: e159e1358b4f882489ac08f47e0e6701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDelay: 1
-  SelfAttributesManager: {fileID: 2347058648469327703}
---- !u!1 &8264742813211282957
-GameObject:
+  enemyName: Beetle
+  debugDrawGizmos: 0
+  offsetY: 0
+  moveSpeed: 2
+  patrolSpeedModifier: 0.5
+  waypointList: []
+  healthMax: 30
+  deathEffect: {fileID: 0}
+  preferRanged: 0
+  meleeAttackRadius: 2
+  meleeAttackDamage: 10
+  meleeAttackKnockback: 4
+  meleeAttackCooldown: 2
+  rangedAttackRange: 0
+  rangedProjectilePrefab: {fileID: 0}
+  rangedAttackCooldown: 1.2
+  defaultState: 0
+  aggroRadius: 5
+  towerAttackRadius: 2
+--- !u!95 &7261032619066017206
+Animator:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7359295837138156662}
-  - component: {fileID: 8785925485771969083}
-  m_Layer: 3
-  m_Name: Graphics
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7359295837138156662
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8264742813211282957}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 0, y: 0.05, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5351352441216923715}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
---- !u!212 &8785925485771969083
+  m_GameObject: {fileID: 5627538231725734138}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 58c8009a101d774418e00122336c6699, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!212 &756418756646869460
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8264742813211282957}
+  m_GameObject: {fileID: 5627538231725734138}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -410,7 +387,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 37be4250d9a7cff4eb2e4609936ec765, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7890a44c15f3d4c4086bc7282c05021e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
