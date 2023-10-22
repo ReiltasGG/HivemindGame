@@ -151,6 +151,27 @@ public class EnemyProjectile : MonoBehaviour
 
             Impact();
         }
+         if (other.CompareTag("Tower"))
+        {
+            Delete();
+           // Debug.Log("True");
+            GameObject tower = other.gameObject;
+            var script2 = tower.GetComponent<AttributesManager>();
+            script2.takeDamage(10);
+            //var scriptPlayerMove = tower.GetComponent<PlayerMovement>();
+         
+            //Hit a player
+            //If it's a player, deal melee damage to it
+            //Player script = other.gameObject.GetComponent<Player>();
+
+            //Calculate the direction of force
+            //  Vector2 hitForce = (other.transform.position - transform.position).normalized * knockback * 10.0f;
+
+            //Apply Knockback and damage to player
+            //   script.Hit(damage, hitForce);
+
+            Impact();
+        }
         //else if (other.name.Contains("Blocking"))
         //{
         //  Impact();

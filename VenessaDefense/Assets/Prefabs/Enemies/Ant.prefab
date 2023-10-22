@@ -263,13 +263,11 @@ GameObject:
   - component: {fileID: 2536126099874761898}
   - component: {fileID: 2536126099874761899}
   - component: {fileID: 1837319309904390751}
-  - component: {fileID: 2536126099874761897}
-  - component: {fileID: 4489948571745314149}
   - component: {fileID: 3769104541470624124}
-  - component: {fileID: 648988930580948105}
   - component: {fileID: 7290146127461780098}
   - component: {fileID: 8585137467893669423}
   - component: {fileID: 3552989852624336984}
+  - component: {fileID: 656231198250469140}
   m_Layer: 3
   m_Name: Ant
   m_TagString: Enemy
@@ -352,37 +350,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.012003481}
   serializedVersion: 2
-  m_Radius: 0.6
---- !u!114 &2536126099874761897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2536126099874761892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3ea0862f9a0a8245a369c49602e23f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerAwarenessDistance: 10000
---- !u!114 &4489948571745314149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2536126099874761892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cabbc42c0c30654da7813db46f21865, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 4.5
-  _rotationspeed: 100
-  baseSpeed: 4.5
+  m_Radius: 0.6120035
 --- !u!114 &3769104541470624124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,20 +370,6 @@ MonoBehaviour:
   attackDamage: 10
   healthBar: {fileID: 7660624835045339333}
   currencyWorth: 1
---- !u!114 &648988930580948105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2536126099874761892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c97029195dc9444479f68aa32b28199c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackDelay: 2
-  SelfAttributesManager: {fileID: 3769104541470624124}
 --- !u!70 &7290146127461780098
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -446,8 +402,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1.5}
+  m_Offset: {x: -0.031358957, y: 0.16306734}
+  m_Size: {x: 0.86376524, y: 2.5787525}
   m_Direction: 0
 --- !u!95 &8585137467893669423
 Animator:
@@ -514,7 +470,7 @@ SpriteRenderer:
   m_Sprite: {fileID: 21300000, guid: ff6a268e109e09542b63a88b1dffed2b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
-  m_FlipY: 1
+  m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 5.16, y: 6.65}
   m_AdaptiveModeThreshold: 0.5
@@ -522,6 +478,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &656231198250469140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536126099874761892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e159e1358b4f882489ac08f47e0e6701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: 
+  debugDrawGizmos: 0
+  offsetY: 0
+  moveSpeed: 3
+  patrolSpeedModifier: 0.5
+  waypointList: []
+  healthMax: 30
+  deathEffect: {fileID: 0}
+  preferRanged: 0
+  meleeAttackRadius: 2
+  meleeAttackDamage: 10
+  meleeAttackKnockback: 1
+  meleeAttackCooldown: 1
+  rangedAttackRange: 0
+  rangedProjectilePrefab: {fileID: 0}
+  rangedAttackCooldown: 1.2
+  defaultState: 0
+  aggroRadius: 5
+  towerAttackRadius: 2
 --- !u!1 &2678423835016142801
 GameObject:
   m_ObjectHideFlags: 0
