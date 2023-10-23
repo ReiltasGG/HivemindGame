@@ -46,4 +46,13 @@ public class Ant : Enemy
     {
         PBAoEAttack();
     }
+    public void changeSpeed()
+    {
+        moveSpeed = 1.0f;
+    }
+
+    public void originalSpeed()
+    {
+        moveSpeed = 3.0f;
+    }
 }

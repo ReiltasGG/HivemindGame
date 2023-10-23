@@ -33,7 +33,7 @@ public class ShamanEffect : MonoBehaviour
                 atm.curseActive();
             }
         }
-        Debug.Log("We ocllided");
+        //Debug.Log("We ocllided");
     }
 
     private void OnTriggerExit2D(Collider2D other)

@@ -39,6 +39,7 @@ public class AttributesManager : MonoBehaviour
     public void takeDamage(int amount)
     {
         health -= amount;
+        if(healthBar!=null)
         healthBar.SetHealth(health);
 
         if (health <= 0)
@@ -47,11 +48,17 @@ public class AttributesManager : MonoBehaviour
 
     public void die()
     {
+         Debug.Log("Runs");
         if (gameObject.CompareTag("Enemy"))
-            IncrementDeadEnamies();
+        {
+             IncrementDeadEnamies();
+             Currency.main.addCurrency(currencyWorth);
+        }
+           
 
-        Currency.main.addCurrency(currencyWorth);
+       
         Despawn();
+        
     }
 
     public void heal(int amount)
@@ -69,7 +76,8 @@ public class AttributesManager : MonoBehaviour
 
     public void Despawn()
     {
-        Destroy(gameObject);
+        Destroy(this.gameObject);
+       
     }
 
     private void IncrementDeadEnamies()

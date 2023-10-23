@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class UI_Skill : MonoBehaviour
+public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public int SkillID;
     public int cost;
@@ -50,6 +51,10 @@ public class UI_Skill : MonoBehaviour
     public GameObject findPlayer;
     public GameObject FindGamesManager;
 
+
+
+
+    public bool isHovered = false;
     public bool isAvailable = false;
     // Start is called before the first frame update
     void Start()
@@ -143,7 +148,7 @@ public class UI_Skill : MonoBehaviour
             //Adds Health
             background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             //Set SkillID to true
-            atm.updateSkillDataTrue(2);
+            atm.updateSkillDataTrue(4);
             connectorFour.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             
          
@@ -314,7 +319,7 @@ public class UI_Skill : MonoBehaviour
                 background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                 //Set SkillID to true
                
-                atm.updateSkillDataTrue(3);
+                atm.updateSkillDataTrue(12);
                 GameObject Player = GameObject.FindWithTag("Player");
                 var playerScript = Player.GetComponent<AbilityHolder>();
                 playerScript.allowSkill1();
@@ -332,10 +337,18 @@ public class UI_Skill : MonoBehaviour
     checkAvailabiltiy();
         
     }
-
-    public void iGotClicked()
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log(5);
+        isHovered = true;
+        Debug.Log("Button is being hovered.");
+        // You can add your code here for when the button is hovered.
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        isHovered = false;
+        Debug.Log("Button is not being hovered.");
+        // You can add your code here for when the button is no longer hovered.
     }
 
     public void Buy()
@@ -353,7 +366,7 @@ public class UI_Skill : MonoBehaviour
     public void skillHover()
     {
         //Activates once player goes over skill with mouse
-      //  Debug.Log("U hovered me bruh");
+        Debug.Log("U hovered me bruh");
     }
     
     public void checkAvailabiltiy()
@@ -364,38 +377,38 @@ public class UI_Skill : MonoBehaviour
             //For HP2
             Lock1.GetComponent<Image>().enabled = false;
         }
-        if(atm.getSkilldata(2) == true && currency >= cost)
+         if(atm.getSkilldata(2) == true && currency >= cost)
         {
            //For HP3
              Lock2.GetComponent<Image>().enabled = false;
         }
-        if(atm.getSkilldata(3) == true && currency >= cost)
+         if(atm.getSkilldata(3) == true && currency >= cost)
         {
             //For HP4
              Lock3.GetComponent<Image>().enabled = false;
         }
-        if(atm.getSkilldata(1) == true && atm.getSkilldata(5) == true && currency >= cost)
+         if(atm.getSkilldata(1) == true && atm.getSkilldata(5) == true && currency >= cost)
         {
             Lock4.GetComponent<Image>().enabled = false;
 
         }
-        if(atm.getSkilldata(5) == true && currency >= cost)
+         if(atm.getSkilldata(5) == true && currency >= cost)
         {
             Lock5.GetComponent<Image>().enabled = false;
         }
-           if(atm.getSkilldata(6) == true && currency >= cost) 
+          if(atm.getSkilldata(6) == true && currency >= cost) 
         {
             Lock6.GetComponent<Image>().enabled = false;
         }
-            if(atm.getSkilldata(8) == true && currency >= cost)
+          if(atm.getSkilldata(8) == true && currency >= cost)
         {
             Lock7.GetComponent<Image>().enabled = false;
         }
-           if(atm.getSkilldata(9) == true && currency >= cost)
+          if(atm.getSkilldata(9) == true && currency >= cost)
         {
             Lock8.GetComponent<Image>().enabled = false;
         }
-           if(atm.getSkilldata(10) == true && currency >= cost)
+          if(atm.getSkilldata(10) == true && currency >= cost)
         {
             Lock9.GetComponent<Image>().enabled = false;
         }

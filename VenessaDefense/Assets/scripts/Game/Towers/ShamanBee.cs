@@ -38,8 +38,10 @@ public class ShamanBee : MonoBehaviour
     }
     private void CurseEnemies()
     {
+        anim.Play("ShamanTower_Idle");
+       // Debug.Log("Happened");
         Instantiate(curseEffect, transform.position, transform.rotation);
-        anim.SetTrigger("Idle");
+        
         /*
         RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange, (Vector2)transform.position, 0f, enemyMask);
         if (hits.Length > 0 )

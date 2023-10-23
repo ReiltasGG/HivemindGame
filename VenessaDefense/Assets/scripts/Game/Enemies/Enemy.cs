@@ -438,7 +438,7 @@ public abstract class Enemy : MonoBehaviour
 
     public void changeTarget()
     {
-        Debug.Log("y no work");
+       // Debug.Log("y no work");
         state = AIstate.chase;
         target = GameObject.Find("Player with health").transform;
         targetLocation = target.position;

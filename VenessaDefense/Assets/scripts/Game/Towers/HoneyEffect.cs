@@ -29,12 +29,12 @@ public class HoneyEffect : MonoBehaviour
         {
             // Debug.Log("It touched an enemy");
             //Time to make the honey slow down enemies
-            var atm = other.GetComponent<AntMovement>();
+            var atm = other.GetComponent<Ant>();
             var atm2 = other.GetComponent<Spiders>();
             if(atm !=null)
             {
                 
-                atm.UpdateSpeed(1f);
+                atm.changeSpeed();
             }
             if(atm2 !=null)
             {
@@ -49,12 +49,12 @@ public class HoneyEffect : MonoBehaviour
         {
             // Debug.Log("It touched an enemy");
             //Time to make the honey slow down enemies
-            var atm = other.GetComponent<AntMovement>();
+            var atm = other.GetComponent<Ant>();
             var atm2 = other.GetComponent<Spiders>();
             if(atm != null)
             {
                
-                atm.ResetSpeed();
+                atm.originalSpeed();
             }
             if(atm2 !=null)
             {

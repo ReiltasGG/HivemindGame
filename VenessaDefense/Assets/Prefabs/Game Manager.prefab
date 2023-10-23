@@ -61,6 +61,7 @@ MonoBehaviour:
   - {fileID: 3598959115513445981, guid: 1338bf5c4c6a8af448c97d0c6f84fe47, type: 3}
   waveText: {fileID: 5725629463429316571, guid: 26a43c5947639d445b81c857616c5127, type: 3}
   uiCanvas: {fileID: 0}
+  roundStartSound: {fileID: 0}
   enemiesDead: 0
 --- !u!114 &6862812631611939685
 MonoBehaviour:
