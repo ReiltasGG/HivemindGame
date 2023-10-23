@@ -252,7 +252,6 @@ RectTransform:
   - {fileID: 1374008500786325701}
   - {fileID: 6497130857457931148}
   - {fileID: 7989752596770381565}
-  - {fileID: 4043000336299088367}
   - {fileID: 7368377896630010704}
   - {fileID: 2067568605536839507}
   - {fileID: 6693883789652538796}
@@ -260,6 +259,7 @@ RectTransform:
   - {fileID: 9052681258928571393}
   - {fileID: 4699975112226067429}
   - {fileID: 8173913301635585063}
+  - {fileID: 4043000336299088367}
   m_Father: {fileID: 4766921506288528304}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -5331,9 +5331,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '
-
-'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6245,7 +6243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillID: 6
-  cost: 35
+  cost: 0
   currency: 0
   connectorOne: {fileID: 7200212029741980940}
   connectorTwo: {fileID: 6114105483168773128}

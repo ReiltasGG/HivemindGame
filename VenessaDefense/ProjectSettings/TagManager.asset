@@ -13,6 +13,7 @@ TagManager:
   - TowerEffect
   - Wave Timer
   - Tower
+  - Stinger
   layers:
   - Default
   - TransparentFX
