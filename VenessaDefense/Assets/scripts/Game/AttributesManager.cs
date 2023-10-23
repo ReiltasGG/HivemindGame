@@ -11,6 +11,7 @@ public class AttributesManager : MonoBehaviour
     private GameObject wavesFinder;
 
     public HealthBar healthBar;
+    public bool iscurseActive = false;
 
     [SerializeField] private int currencyWorth;
 
@@ -96,5 +97,18 @@ public class AttributesManager : MonoBehaviour
     {
         health+=addHealth;
         maxHealth+=addHealth;
+    }
+    
+    public void curseActive()
+    {
+        iscurseActive = true;
+    }
+    public void curseInactive()
+    {
+        iscurseActive = false;
+    }
+    public bool getCurseStatus()
+    {
+        return iscurseActive;
     }
 }
