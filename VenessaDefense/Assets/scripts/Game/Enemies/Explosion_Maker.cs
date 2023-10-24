@@ -33,6 +33,11 @@ public class Explosion_Maker : MonoBehaviour
             var script = Player.GetComponent<AttributesManager>();
             script.takeDamage(explosionDamage);
         }
+        if(other.CompareTag("Tower"))
+        {
+            var script = other.GetComponent<AttributesManager>();
+            script.takeDamage(explosionDamage);
+        }
     }
 
     private void DestroyGameObject()
