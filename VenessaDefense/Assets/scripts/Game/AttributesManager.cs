@@ -17,7 +17,10 @@ public class AttributesManager : MonoBehaviour
     private void Start()
     {
         health = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+        if (healthBar != null)
+        {
+            healthBar.SetMaxHealth(maxHealth);
+        }
 
         wavesFinder = FindGamesManager();
     }
@@ -38,7 +41,10 @@ public class AttributesManager : MonoBehaviour
     public void takeDamage(int amount)
     {
         health -= amount;
-        healthBar.SetHealth(health);
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(health);
+        }
 
         if (health <= 0)
             die();
@@ -51,6 +57,9 @@ public class AttributesManager : MonoBehaviour
 
         if (gameObject.CompareTag("Enemy"))
             IncrementDeadEnamies();
+        
+        else if (gameObject.CompareTag("Tower"))
+            Debug.Log("Tower die");
 
         else if (gameObject.CompareTag("Player"))
         {
@@ -75,7 +84,12 @@ public class AttributesManager : MonoBehaviour
 
     public void Despawn()
     {
+        if (gameObject.CompareTag("Tower"))
+        {
+            Debug.Log("Tower despawn called");
+        }
         Destroy(gameObject);
+
     }
 
     private void IncrementDeadEnamies()

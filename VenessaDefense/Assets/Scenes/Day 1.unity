@@ -460,6 +460,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleBee (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7227727104995871528, guid: 276437bd4de41ff468bfe488a53c92fa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7227727104995871542, guid: 276437bd4de41ff468bfe488a53c92fa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.9526725
@@ -1004,7 +1008,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5810676875212627489, guid: 98f4aa24cd771514c997eee10abce236, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7369727370186673921, guid: 98f4aa24cd771514c997eee10abce236, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1403,6 +1407,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetSlectedTower
       objectReference: {fileID: 0}
+    - target: {fileID: 5943589200282628817, guid: d22d7a62931149b43b660f47ad036042, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8614684064808817247, guid: d22d7a62931149b43b660f47ad036042, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1428,7 +1436,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5943589200282628817, guid: d22d7a62931149b43b660f47ad036042, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5700607677774667134, guid: d22d7a62931149b43b660f47ad036042, type: 3}
       insertIndex: -1
@@ -2477,6 +2486,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShamanBee
       objectReference: {fileID: 0}
+    - target: {fileID: 4153649241375141767, guid: 9d4a70aff7a2fb946bbabff3a9a23ad6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6699556173545081214, guid: 9d4a70aff7a2fb946bbabff3a9a23ad6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4
@@ -3273,6 +3286,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleBee
       objectReference: {fileID: 0}
+    - target: {fileID: 7227727104995871528, guid: 276437bd4de41ff468bfe488a53c92fa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7227727104995871542, guid: 276437bd4de41ff468bfe488a53c92fa, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8
@@ -3312,6 +3329,10 @@ PrefabInstance:
     - target: {fileID: 7227727104995871542, guid: 276437bd4de41ff468bfe488a53c92fa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7496791558041938510, guid: 276437bd4de41ff468bfe488a53c92fa, type: 3}
+      propertyPath: healthBar
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

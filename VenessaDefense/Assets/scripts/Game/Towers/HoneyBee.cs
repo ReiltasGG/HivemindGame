@@ -12,7 +12,7 @@ public class HoneyBee : MonoBehaviour
 
     [Header("Attribute")]
     [SerializeField] private float targetingRange = 3f;
-    [SerializeField] private float aps= 0.25f;//attacks per second
+   // [SerializeField] private float aps= 0.25f;//attacks per second
     [SerializeField] private float stickTime = 1f;
 
     private Animator anim;

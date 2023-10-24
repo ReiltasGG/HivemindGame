@@ -160,6 +160,7 @@ public abstract class Enemy : MonoBehaviour
 
 
     }
+    
     protected virtual void CheckHealth()
     {
        
@@ -180,6 +181,7 @@ public abstract class Enemy : MonoBehaviour
          
         }
     }
+    
 
     protected void UpdateAttackCooldowns()
     {
@@ -274,11 +276,11 @@ public abstract class Enemy : MonoBehaviour
 
     protected void PBAoEAttack()
     {
-        Debug.Log("I run");
             //Search for players within the meleeAttackRadius
             Collider2D[] things = Physics2D.OverlapCircleAll(transform.position, meleeAttackRadius);
             foreach (Collider2D item in things)
             {
+                Debug.Log(item);
                 if (item.gameObject.CompareTag("Player"))
                 {
                     //If it's a player, deal melee damage to it
@@ -295,14 +297,28 @@ public abstract class Enemy : MonoBehaviour
                 }
                 if (item.gameObject.CompareTag("Tower"))
                 {
-                    //If it's a player, deal melee damage to it
-                    var script2 = item.gameObject.GetComponent<AttributesManager>();
-
+                    Debug.Log("entered comparetag tower for pbaoe");
+                    //If it's a tower, deal melee damage to it
+                    var tower = item.gameObject.GetComponent<AttributesManager>();
+                    if (tower != null)
+                    {
+                        Debug.Log("entered tower != null function");
                     //Calculate the direction of force
-                    Vector2 hitForce = (item.transform.position - transform.position).normalized * meleeAttackKnockback * 10.0f;
+                        Vector2 hitForce = (item.transform.position - transform.position).normalized * meleeAttackKnockback * 10.0f;
 
                     //Apply Knockback and damage to player
-                    script2.takeDamage(meleeAttackDamage);
+                        tower.takeDamage(meleeAttackDamage);
+                        Debug.Log("dealing damage to tower");
+                    }
+
+                    
+
+
+
+                    else
+                    {
+                        FindNewTarget();
+                    }
 
                     //[Extra] Spawn Damage Text
                  //   SpawnText(meleeAttackDamage, item.ClosestPoint(transform.position), false);
@@ -315,13 +331,60 @@ public abstract class Enemy : MonoBehaviour
 
     } //end PBAoEAttack
 
+    protected void FindNewTarget()
+    {
+        GameObject player = GameObject.FindWithTag("Player");
+
+    // Check if the player exists and calculate the distance
+    if (player != null)
+    {
+        float playerDistance = Vector2.Distance(transform.position, player.transform.position);
+        
+        // Get all towers in the scene
+        GameObject[] towers = GameObject.FindGameObjectsWithTag("Tower");
+
+        float closestTowerDistance = float.MaxValue;
+        Transform closestTower = null;
+
+        foreach (var tower in towers)
+        {
+            // Check if the tower is not destroyed
+            if (tower != null)
+            {
+                float towerDistance = Vector2.Distance(transform.position, tower.transform.position);
+                if (towerDistance < closestTowerDistance)
+                {
+                    closestTowerDistance = towerDistance;
+                    closestTower = tower.transform;
+                }
+            }
+        }
+
+        // Compare distances and update the target
+        if (playerDistance < closestTowerDistance)
+        {
+            target = player.transform;
+            targetLocation = target.position;
+        }
+        else
+        {
+            target = closestTower;
+            targetLocation = closestTower.position;
+        }
+    }
+    }
+
     protected void UpdateAI()
     {
         moveModifier = 1;
+
+        if (target == null){
+            FindNewTarget();
+        }
+
         if (state == AIstate.chase)
         {
 
-            
             targetLocation = GameObject.FindWithTag("Player").transform.position;
             target =  GameObject.FindWithTag("Player").transform;
        //    Debug.Log(targetLocation);
@@ -338,6 +401,7 @@ public abstract class Enemy : MonoBehaviour
                     target = item.gameObject.transform;
                     targetLocation = item.gameObject.transform.position;
                     state = AIstate.chaseTower;
+                    
                 }
             }
 

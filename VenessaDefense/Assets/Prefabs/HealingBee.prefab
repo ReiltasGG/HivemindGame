@@ -179,9 +179,10 @@ GameObject:
   - component: {fileID: 1019469693997825787}
   - component: {fileID: 1670082182075049600}
   - component: {fileID: 5286230261917575772}
+  - component: {fileID: 8377895350127706890}
   m_Layer: 6
   m_Name: HealingBee
-  m_TagString: TowerEffect
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,7 +238,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.2, y: -0.1}
   serializedVersion: 2
-  m_Radius: 1.2
+  m_Radius: 0.8
 --- !u!114 &5286230261917575772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,3 +258,20 @@ MonoBehaviour:
   healCooldownInSeconds: 10
   healingAmount: 20
   healingCircle: {fileID: 5552491672597601129}
+--- !u!114 &8377895350127706890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9096252030911634990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ef5c93031df4db7954aacdd25b4b31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 500
+  maxHealth: 100
+  attackDamage: 0
+  healthBar: {fileID: 0}
+  currencyWorth: 0

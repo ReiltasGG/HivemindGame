@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 3912380877105634810}
   - component: {fileID: 748811666161057728}
   - component: {fileID: 237492709386225592}
-  m_Layer: 6
+  - component: {fileID: 2955689093470312949}
+  m_Layer: 0
   m_Name: ShamanBee
-  m_TagString: TowerEffect
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,9 +87,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.2, y: -0.1}
+  m_Offset: {x: -0.2, y: 0}
   serializedVersion: 2
-  m_Radius: 1.2
+  m_Radius: 0.8
 --- !u!95 &748811666161057728
 Animator:
   serializedVersion: 5
@@ -162,3 +163,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2955689093470312949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4153649241375141767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ef5c93031df4db7954aacdd25b4b31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 500
+  maxHealth: 100
+  attackDamage: 0
+  healthBar: {fileID: 0}
+  currencyWorth: 0
