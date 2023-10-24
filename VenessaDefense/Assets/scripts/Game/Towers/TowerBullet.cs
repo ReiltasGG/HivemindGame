@@ -63,12 +63,11 @@ public class TowerBullet : MonoBehaviour
         else workOnce = 0;
 
         var waveScript = wavesFinder.GetComponent<Waves>();
-        waveScript.enemiesDeadAdd();
+        waveScript.incrementDeadEnemies();
     }
 
     private void DestroyWhenOffScreen()
     {
-        Debug.Log("DestroyWhenOffScreen for tower bullet called");
         Vector2 screenPosition = cam.WorldToScreenPoint(transform.position);
 
         if (screenPosition.x < 0 ||

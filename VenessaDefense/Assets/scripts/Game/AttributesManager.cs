@@ -18,7 +18,8 @@ public class AttributesManager : MonoBehaviour
     private void Start()
     {
         health = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+        if (healthBar != null)
+            healthBar.SetMaxHealth(maxHealth);
 
         wavesFinder = FindGamesManager();
     }
@@ -48,17 +49,13 @@ public class AttributesManager : MonoBehaviour
 
     public void die()
     {
-         //Debug.Log("Runs");
         if (gameObject.CompareTag("Enemy"))
         {
              IncrementDeadEnamies();
              Currency.main.addCurrency(currencyWorth);
         }
-           
-
        
         Despawn();
-        
     }
 
     public void heal(int amount)
@@ -83,7 +80,7 @@ public class AttributesManager : MonoBehaviour
     private void IncrementDeadEnamies()
     {
         var waveScript = wavesFinder.GetComponent<Waves>();
-        waveScript.enemiesDeadAdd();
+        waveScript.incrementDeadEnemies();
     }
 
     public void dealDamage(GameObject target)

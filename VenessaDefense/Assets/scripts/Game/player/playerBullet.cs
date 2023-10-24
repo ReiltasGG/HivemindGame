@@ -43,7 +43,7 @@ public class Bullet : MonoBehaviour
             if (collidedAttributeManager == null)
                 throw new ArgumentNullException("The Enemy does not have an attribute manager assigned");
         
-            GameObject shamanBee = GameObject.FindWithTag("TowerEffect");
+            GameObject shamanBee = GameObject.FindWithTag("Tower");
             //checks if shaman bee is present, otherwise ignore the damage boost
             if (shamanBee != null)
             {

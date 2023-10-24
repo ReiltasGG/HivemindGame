@@ -12,6 +12,7 @@ TagManager:
   - Skill Tree Text
   - TowerEffect
   - Wave Timer
+  - Hive
   - Tower
   - Stinger
   layers:

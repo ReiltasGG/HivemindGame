@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 321657914195524161}
   - component: {fileID: -2862874929759172199}
   - component: {fileID: 3760433229054563734}
+  - component: {fileID: 3722409818691065213}
   m_Layer: 0
   m_Name: HoneyBee
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,8 +104,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   targetingRange: 3
-  aps: 0.5
-  stickTime: 1
+  stickTime: 3
   HoneyEffect: {fileID: 6041233738214643816, guid: dfe3f07f95616404db5c2ead5b115427, type: 3}
 --- !u!58 &-2862874929759172199
 CircleCollider2D:
@@ -140,7 +140,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2.1531198
+  m_Radius: 0.85
 --- !u!95 &3760433229054563734
 Animator:
   serializedVersion: 5
@@ -162,3 +162,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3722409818691065213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8445940507173157326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ef5c93031df4db7954aacdd25b4b31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 400
+  maxHealth: 100
+  attackDamage: 0
+  healthBar: {fileID: 0}
+  currencyWorth: 0
