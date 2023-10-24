@@ -18,7 +18,13 @@ public class FloatingHealthbar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.rotation = cam.transform.rotation;
-        transform.position = target.position + healthbarOffset;
+        if (cam != null)
+        {
+            transform.rotation = cam.transform.rotation;
+        }
+        if (healthbarOffset != null && target != null)
+        {
+            transform.position = target.position + healthbarOffset;
+        }
     }
 }
