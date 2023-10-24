@@ -104,7 +104,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   targetingRange: 3
-  stickTime: 1
+  stickTime: 3
   HoneyEffect: {fileID: 6041233738214643816, guid: dfe3f07f95616404db5c2ead5b115427, type: 3}
 --- !u!58 &-2862874929759172199
 CircleCollider2D:
@@ -140,7 +140,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.8
+  m_Radius: 0.85
 --- !u!95 &3760433229054563734
 Animator:
   serializedVersion: 5
