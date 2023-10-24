@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: -6850257100883211852}
   m_Layer: 0
   m_Name: BattleBee
-  m_TagString: Untagged
+  m_TagString: TowerEffect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

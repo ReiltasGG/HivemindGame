@@ -12,6 +12,7 @@ TagManager:
   - Skill Tree Text
   - TowerEffect
   - Wave Timer
+  - Hive
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,6 @@ TagManager:
   - Player
   - Border
   - post
-  - 
   - 
   - 
   - 
