@@ -48,7 +48,7 @@ public class AttributesManager : MonoBehaviour
 
     public void die()
     {
-         Debug.Log("Runs");
+         //Debug.Log("Runs");
         if (gameObject.CompareTag("Enemy"))
         {
              IncrementDeadEnamies();

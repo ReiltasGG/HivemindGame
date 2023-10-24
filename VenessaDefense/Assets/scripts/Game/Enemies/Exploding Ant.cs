@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplodingAnt : MonoBehaviour
+public class ExplodingAnt : Enemy
 {
+    /*
     [SerializeField]
     private float _speed;
 
@@ -192,5 +193,103 @@ public class ExplodingAnt : MonoBehaviour
         //}
     }//end OnTriggerEnter2D
 
-   
+   */
+    public GameObject Explosion;
+    public AttributesManager SelfAttributesManager;
+
+    public float blinkSpeed = 0.5f; // Adjust the speed of the blink
+
+  
+    private Color redColor = Color.red;
+
+    private bool isBlinking = true;
+
+   public override void Update()
+    {
+        base.Update();
+        if(target != null  && !isAttacking && attackCooldownTicker <= 0)
+        {
+              //Check the distance to the target
+            Vector3 targetOffset = target.GetComponent<Collider2D>().offset;
+            Vector3 myOffset = GetComponent<Collider2D>().offset;
+            float distance = Vector2.Distance(target.position + targetOffset, transform.position + myOffset);
+           // Debug.Log(distance);
+            //If the target is in range, start a melee attack
+            if (distance <= meleeAttackRadius)
+            {
+                        //  Debug.Log("This runs");
+                //The animation will call the Attack() method for the blob
+                //The animation will call the EndAttack() method to exit isAttacking
+                //if (animator != null)
+                    Explode();
+                    
+
+                isAttacking = true;
+            }
+           
+        }
+            animator.SetTrigger("Idle");
+
+               if (spriteRenderer != null)
+        {
+            float t = Mathf.PingPong(Time.time * blinkSpeed, 1.0f);
+
+            // Change color based on whether it's time to display red or original color
+            if (t >= 0.5f)
+            {
+                spriteRenderer.color = Color.Lerp(originalColor, redColor, (t - 0.5f) * 2);
+            }
+            else
+            {
+                spriteRenderer.color = Color.Lerp(redColor, originalColor, t * 2);
+            }
+        }
+        
+       
+    }
+
+     private void FixedUpdate()
+    {
+       
+            Move();
+        
+    }  //end FixedUpdate()
+
+      public override void Attack()
+    {
+        Explode();
+    }
+    public void changeSpeed()
+    {
+        moveSpeed = 1.0f;
+    }
+
+    public void originalSpeed()
+    {
+        moveSpeed = 3.0f;
+    }
+
+        public void Explode()
+    {
+        Instantiate(Explosion, transform.position, Quaternion.identity);
+        //Debug.Log("Runs");
+        SelfAttributesManager.die();
+        
+        Destroy(gameObject);   
+    }
+
+        public void StopBlinking()
+    {
+        isBlinking = false;
+        // Reset the sprite color to its original color when blinking stops
+        SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = originalColor;
+        }
+        else
+        {
+            Debug.LogError("SpriteRenderer not found on child GameObject.");
+        }
+    }
 }

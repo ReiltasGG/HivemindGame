@@ -45,7 +45,7 @@ public abstract class Enemy : MonoBehaviour
     [Tooltip("Does this creature respawn when the map reloads?")]
     //  public bool allowRespawn = true;
    // [Tooltip("The default death effect to play when the enemy is defeated and disappears.")]
-    public GameObject deathEffect;
+  //  public GameObject deathEffect;
     protected int health;
     //protected bool isStunned = false;
     //protected float isStunnedTicker = 0.0f;
@@ -83,6 +83,9 @@ public abstract class Enemy : MonoBehaviour
     private bool attackTower;
     public float towerAttackRadius = 2.0f;
     GameObject potentialPlayers;
+
+    public Color originalColor;
+
     public enum AIstate
     {
         //0 - Wait around at its start location
@@ -124,6 +127,10 @@ public abstract class Enemy : MonoBehaviour
 
         // Set the rotation of the enemy only on the z-axis
         transform.rotation = Quaternion.Euler(0, 0, zRotation);
+        
+        SpriteRenderer sp = GetComponent<SpriteRenderer>();
+
+        originalColor = sp.color;
     }
 
 
@@ -176,7 +183,7 @@ public abstract class Enemy : MonoBehaviour
           //  data.dataBoolean[getUniqueName()] = true;
 
             //Create the deathEffect
-            Instantiate(deathEffect, transform.position, Quaternion.identity);
+          //  Instantiate(deathEffect, transform.position, Quaternion.identity);
 
             //[Extra] Change the destroy before based on the death sound
            
