@@ -7,11 +7,13 @@ using UnityEngine.UI;
 
 public class Waves : MonoBehaviour
 {
+    public event Action<int> OnEnemiesDeadUpdated;
+
     private float spawnInterval = 1.0f;
     public float bufferTime = 15.0f;
 
     private int currentWave = 1;
-    private int enemiesDead = 0;
+    public int enemiesDead = 0;
     private bool isWaveInProgress = false;
     private bool waitToStartRound = false;
     private bool isWaveTextCreated = false;
@@ -66,7 +68,7 @@ public class Waves : MonoBehaviour
                 { Enemies.ExplodingAnt, 2 }
             }
         },
-        /*new EnemyWave
+        new EnemyWave
         {
             waveNumber = 3,
             enemyCounts = new Dictionary<Enemies, int>
@@ -98,7 +100,7 @@ public class Waves : MonoBehaviour
                 { Enemies.ExplodingBeetle, 3 },
                 { Enemies.Spider, 2 }
             }
-        },*/
+        },
 
     };
 
@@ -266,6 +268,7 @@ public class Waves : MonoBehaviour
     public void incrementDeadEnemies()
     {
         enemiesDead++;
+        OnEnemiesDeadUpdated?.Invoke(enemiesDead);
     }
 
     public int getNumberDeadEnemies()
