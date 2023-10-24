@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -7387103903162774912}
   m_Layer: 0
   m_Name: Hive
-  m_TagString: Hive
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,6 +103,7 @@ MonoBehaviour:
   maxHealth: 100
   attackDamage: 0
   healthBar: {fileID: 7479703152885197013}
+  iscurseActive: 0
   currencyWorth: 0
 --- !u!58 &-7387103903162774912
 CircleCollider2D:

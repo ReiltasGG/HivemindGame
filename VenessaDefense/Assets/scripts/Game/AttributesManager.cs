@@ -50,12 +50,40 @@ public class AttributesManager : MonoBehaviour
     public void die()
     {
         if (gameObject.CompareTag("Enemy"))
-        {
-             IncrementDeadEnamies();
-             Currency.main.addCurrency(currencyWorth);
-        }
-       
-        Despawn();
+            HandleEnemy(gameObject);
+
+        else if (gameObject.CompareTag("Tower")) // add tower effect tag if needed
+            HandleTower(gameObject);
+
+        if(gameObject != null)
+            Despawn();
+    }
+
+    public void HandleEnemy(GameObject enemy)
+    {
+        IncrementDeadEnamies();
+        Currency.main.addCurrency(currencyWorth);
+    }
+
+    public void HandleTower(GameObject tower)
+    {
+
+        string hivePrefabName = "Hive";
+        if (tower.name.StartsWith(hivePrefabName))
+            HandleHive(tower);
+
+    }
+
+    public void HandleHive(GameObject tower)
+    {
+        if (gameObject != null)
+            Despawn();
+
+        GameObject gamesManager = FindGamesManager();
+        ObjectivesManager objectivesManager = gamesManager.GetComponent<ObjectivesManager>();
+
+        objectivesManager.DestroyHive();
+
     }
 
     public void heal(int amount)
@@ -74,7 +102,6 @@ public class AttributesManager : MonoBehaviour
     public void Despawn()
     {
         Destroy(this.gameObject);
-       
     }
 
     private void IncrementDeadEnamies()
