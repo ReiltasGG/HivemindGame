@@ -34,7 +34,13 @@ public class AttributesManager : MonoBehaviour
         return gamesManager;
     }
 
-    public int getDamage()
+    private Waves FindWavesCode()
+    {
+        GameObject gamesManager = FindGamesManager();
+        return gamesManager.GetComponent<Waves>();
+    }
+
+    public int GetDamage()
     { return attackDamage; }
 
     public void takeDamage(int amount)
@@ -50,22 +56,30 @@ public class AttributesManager : MonoBehaviour
     public void die()
     {
         if (gameObject.CompareTag("Enemy"))
-            HandleEnemy(gameObject);
+            HandleEnemyDeath(gameObject);
 
         else if (gameObject.CompareTag("Tower")) // add tower effect tag if needed
-            HandleTower(gameObject);
+            HandleTowerDeath(gameObject);
 
-        if(gameObject != null)
+        else if (gameObject.CompareTag("Player"))
+            HandlePlayerDeath(gameObject);
+
+        if (gameObject != null)
             Despawn();
     }
 
-    public void HandleEnemy(GameObject enemy)
+    public void HandlePlayerDeath(GameObject enemy)
+    {
+        CallGameOverScene();
+    }
+
+    public void HandleEnemyDeath(GameObject enemy)
     {
         IncrementDeadEnamies();
         Currency.main.addCurrency(currencyWorth);
     }
 
-    public void HandleTower(GameObject tower)
+    public void HandleTowerDeath(GameObject tower)
     {
 
         string hivePrefabName = "Hive";
@@ -84,6 +98,13 @@ public class AttributesManager : MonoBehaviour
 
         objectivesManager.DestroyHive();
 
+    }
+    private void CallGameOverScene()
+    {
+        ManageScenes manageScenes = new ManageScenes();
+        Waves wavesCode = FindWavesCode();
+
+        manageScenes.StartGameOverScene(wavesCode.enemiesDead);
     }
 
     public void heal(int amount)
