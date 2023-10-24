@@ -13,22 +13,36 @@ public class ShamanBee : MonoBehaviour
     [SerializeField] private float aps= 0.25f;//attacks per second
     [SerializeField] private float curseTime = 3f;
     [SerializeField] private float damageBoost = 2f;
+    public GameObject curseEffect;
+    private Animator anim;
+
 
     private List<GameObject> cursedEnemies = new List<GameObject>();
-    private float timeUntilFire;
+    public float timeUntilFire = 6f;
+
+    void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
     private void Update()
     {
         timeUntilFire += Time.deltaTime;
 
-        if (timeUntilFire >= 1f / aps)
+        if (timeUntilFire >= 6f)
             {
-                CurseEnemies();
+                anim.SetTrigger("Attack");
                 timeUntilFire = 0f;
             }
+     
 
     }
     private void CurseEnemies()
     {
+        anim.Play("ShamanTower_Idle");
+       // Debug.Log("Happened");
+        Instantiate(curseEffect, transform.position, transform.rotation);
+        
+        /*
         RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange, (Vector2)transform.position, 0f, enemyMask);
         if (hits.Length > 0 )
         {
@@ -42,6 +56,7 @@ public class ShamanBee : MonoBehaviour
                 }            
             }
         }
+        */
        
     }
 
@@ -65,4 +80,5 @@ public class ShamanBee : MonoBehaviour
         Handles.color = Color.cyan;
         Handles.DrawWireDisc(transform.position, transform.forward, targetingRange);
     }
+    
 }

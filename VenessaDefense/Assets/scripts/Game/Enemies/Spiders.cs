@@ -10,7 +10,9 @@ public class Spiders : Enemy
     [Tooltip("The default idle direction of the skeleton.  (0, -1) is facing down.")]
     public Vector2 defaultFacing = new Vector2(0, -1);
 
+//    private Animator anim;
     // Update is called once per frame
+
     public override void Update()
     {
         
@@ -21,7 +23,12 @@ public class Spiders : Enemy
         if (isAttacking)
         {
             moveModifier *= 0.0f;
+            animator.SetTrigger("isAttack");
+
         }
+        else
+            animator.SetTrigger("Walk");
+
 
 
         //Code here runs in Update() unique to the Skeleton
@@ -41,7 +48,7 @@ public class Spiders : Enemy
             //If the target is in range, start a ranged attack
             if (distance <= rangedAttackRange)
             {
-
+                
                 isAttacking = true;
                 //Start the timer to count down until it's time to spawn the projectile
                 rangedAttackDelayTicker = rangedAttackDelay;

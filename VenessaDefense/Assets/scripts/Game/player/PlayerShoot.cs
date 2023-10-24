@@ -12,7 +12,7 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField]
     private Transform _StingerOffset;
     [SerializeField]
-    private float _timeBetweenShots;
+    public float _timeBetweenShots = .5f;
 
     private bool _fireContinuously;
     private bool _fireSingle;
@@ -52,5 +52,10 @@ public class PlayerShoot : MonoBehaviour
         {
             _fireSingle = true;
         }
+    }
+
+    public void fireRateChange(float change)
+    {
+        _timeBetweenShots = _timeBetweenShots - change;
     }
 }
