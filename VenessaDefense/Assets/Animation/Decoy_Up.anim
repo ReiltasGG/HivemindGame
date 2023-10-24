@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShamanTower_Attack
+  m_Name: Decoy_Up
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,19 +21,15 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 1bef9caa782fe4b42b9eca0faa79c7cd, type: 3}
-    - time: 0.16666667
-      value: {fileID: 21300000, guid: fdc9520765df7b244a6c0d9347a72601, type: 3}
-    - time: 0.29166666
-      value: {fileID: 21300000, guid: cf6a15a8aa0ede24d872044ec81bc421, type: 3}
-    - time: 0.41666666
-      value: {fileID: 21300000, guid: e894ce401705dd841a46a6ee0105415c, type: 3}
-    - time: 0.5833333
-      value: {fileID: 21300000, guid: 3ec1967d532778c44bb6947cf702aeee, type: 3}
-    - time: 0.7291667
-      value: {fileID: 21300000, guid: fab3d477fc938284281a795907c88f1e, type: 3}
-    - time: 0.8958333
-      value: {fileID: 21300000, guid: 916d7f7d9d09c5c4db6b021b8b95a6f7, type: 3}
+      value: {fileID: 21300000, guid: 20f3155b6e0bee24192fc72c227e2aaf, type: 3}
+    - time: 0.1875
+      value: {fileID: 21300000, guid: b88f9f04472851b459ffed14d3341b1f, type: 3}
+    - time: 0.35416666
+      value: {fileID: 21300000, guid: 58ff2ed85f523b043ae9df8e14edc5ee, type: 3}
+    - time: 0.5416667
+      value: {fileID: 21300000, guid: e36cfa3e04988fe48ba9710b79cdda5a, type: 3}
+    - time: 0.6875
+      value: {fileID: 21300000, guid: 20f3155b6e0bee24192fc72c227e2aaf, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -56,19 +52,17 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 1bef9caa782fe4b42b9eca0faa79c7cd, type: 3}
-    - {fileID: 21300000, guid: fdc9520765df7b244a6c0d9347a72601, type: 3}
-    - {fileID: 21300000, guid: cf6a15a8aa0ede24d872044ec81bc421, type: 3}
-    - {fileID: 21300000, guid: e894ce401705dd841a46a6ee0105415c, type: 3}
-    - {fileID: 21300000, guid: 3ec1967d532778c44bb6947cf702aeee, type: 3}
-    - {fileID: 21300000, guid: fab3d477fc938284281a795907c88f1e, type: 3}
-    - {fileID: 21300000, guid: 916d7f7d9d09c5c4db6b021b8b95a6f7, type: 3}
+    - {fileID: 21300000, guid: 20f3155b6e0bee24192fc72c227e2aaf, type: 3}
+    - {fileID: 21300000, guid: b88f9f04472851b459ffed14d3341b1f, type: 3}
+    - {fileID: 21300000, guid: 58ff2ed85f523b043ae9df8e14edc5ee, type: 3}
+    - {fileID: 21300000, guid: e36cfa3e04988fe48ba9710b79cdda5a, type: 3}
+    - {fileID: 21300000, guid: 20f3155b6e0bee24192fc72c227e2aaf, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.9166666
+    m_StopTime: 0.7083333
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -87,11 +81,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0.7291667
-    functionName: CurseEnemies
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []

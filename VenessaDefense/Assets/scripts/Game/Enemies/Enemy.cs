@@ -82,6 +82,7 @@ public abstract class Enemy : MonoBehaviour
 
     private bool attackTower;
     public float towerAttackRadius = 2.0f;
+    GameObject potentialPlayers;
     public enum AIstate
     {
         //0 - Wait around at its start location
@@ -101,7 +102,7 @@ public abstract class Enemy : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-
+       // potentialPlayers = GameObject.FindWithTags("Player");
         // Initialize Important Variables
         health = healthMax;
         homePosition = transform.position;
@@ -128,6 +129,10 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void Update()
     {
+        if(target == null)
+        {
+            changeTarget();
+        }
         UpdateAttackCooldowns();
         UpdateAI();
         updateRotationOfEnemy();
@@ -276,6 +281,7 @@ public abstract class Enemy : MonoBehaviour
 
     protected void PBAoEAttack()
     {
+       // Debug.Log("I run");
             //Search for players within the meleeAttackRadius
             Collider2D[] things = Physics2D.OverlapCircleAll(transform.position, meleeAttackRadius);
             foreach (Collider2D item in things)
@@ -387,10 +393,14 @@ public abstract class Enemy : MonoBehaviour
 
             targetLocation = GameObject.FindWithTag("Player").transform.position;
             target =  GameObject.FindWithTag("Player").transform;
+            //Debug.Log(targetLocation);
        //    Debug.Log(targetLocation);
             moveModifier = 1.2f;
             Collider2D[] things = Physics2D.OverlapCircleAll(transform.position, aggroRadius);
-      
+            if(target == null)
+            {
+                changeTarget();
+            }
     
         
             Collider2D[] towerRadius = Physics2D.OverlapCircleAll(transform.position, towerAttackRadius);
@@ -447,6 +457,10 @@ public abstract class Enemy : MonoBehaviour
                    targetLocation = target.position; //Chase the player!
                 }
             }
+            if(target == null)
+            {
+                changeTarget();
+            }
         }
 
          if (state == AIstate.chaseTower)
@@ -476,6 +490,10 @@ public abstract class Enemy : MonoBehaviour
                 }
             
             Move();
+            if(target == null)
+            {
+                changeTarget();
+            }
         }
     }
      public void EndAttack()
@@ -483,5 +501,11 @@ public abstract class Enemy : MonoBehaviour
         isAttacking = false;
     }
 
-   
+    public void changeTarget()
+    {
+       // Debug.Log("y no work");
+        state = AIstate.chase;
+        target = GameObject.Find("Player with health").transform;
+        targetLocation = target.position;
+    }
 }

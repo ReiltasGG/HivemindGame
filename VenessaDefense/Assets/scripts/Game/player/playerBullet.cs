@@ -37,8 +37,9 @@ public class Bullet : MonoBehaviour
 
         if (collision.CompareTag("Enemy"))
         {
+            
             var collidedAttributeManager = collision.GetComponent<AttributesManager>();
-
+            /*
             if (collidedAttributeManager == null)
                 throw new ArgumentNullException("The Enemy does not have an attribute manager assigned");
         
@@ -54,8 +55,15 @@ public class Bullet : MonoBehaviour
                 }
 
             }
-        
-            collidedAttributeManager.takeDamage(damage);
+            */
+            if(collidedAttributeManager.getCurseStatus())
+            {
+            collidedAttributeManager.takeDamage(damage*2);
+            
+            }
+            else
+                collidedAttributeManager.takeDamage(damage);
+            
 
             Destroy(gameObject);
 

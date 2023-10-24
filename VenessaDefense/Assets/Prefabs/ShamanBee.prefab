@@ -55,6 +55,8 @@ MonoBehaviour:
   aps: 0.25
   curseTime: 3
   damageBoost: 2
+  curseEffect: {fileID: 3850221550781542197, guid: 0e89cd2405790184fac2790ce80fffbe, type: 3}
+  timeUntilFire: 5
 --- !u!58 &3912380877105634810
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -151,7 +153,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: 59c29838baf51d843ad7c7741c7f7e59, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

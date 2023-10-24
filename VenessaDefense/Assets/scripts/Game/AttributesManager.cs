@@ -11,6 +11,7 @@ public class AttributesManager : MonoBehaviour
     private GameObject wavesFinder;
 
     public HealthBar healthBar;
+    public bool iscurseActive = false;
 
     [SerializeField] private int currencyWorth;
 
@@ -18,9 +19,7 @@ public class AttributesManager : MonoBehaviour
     {
         health = maxHealth;
         if (healthBar != null)
-        {
             healthBar.SetMaxHealth(maxHealth);
-        }
 
         wavesFinder = FindGamesManager();
     }
@@ -41,10 +40,8 @@ public class AttributesManager : MonoBehaviour
     public void takeDamage(int amount)
     {
         health -= amount;
-        if (healthBar != null)
-        {
-            healthBar.SetHealth(health);
-        }
+        if(healthBar!=null)
+        healthBar.SetHealth(health);
 
         if (health <= 0)
             die();
@@ -52,21 +49,13 @@ public class AttributesManager : MonoBehaviour
 
     public void die()
     {
-        Currency.main.addCurrency(currencyWorth);
-        Despawn();
-
         if (gameObject.CompareTag("Enemy"))
-            IncrementDeadEnamies();
-        
-        else if (gameObject.CompareTag("Tower"))
-            Debug.Log("Tower die");
-
-        else if (gameObject.CompareTag("Player"))
         {
-            ManageScenes manageScenes = new ManageScenes();
-            manageScenes.StartGameOverScene(GetNumberDeadEnemies());
+             IncrementDeadEnamies();
+             Currency.main.addCurrency(currencyWorth);
         }
-
+       
+        Despawn();
     }
 
     public void heal(int amount)
@@ -84,26 +73,14 @@ public class AttributesManager : MonoBehaviour
 
     public void Despawn()
     {
-        if (gameObject.CompareTag("Tower"))
-        {
-            Debug.Log("Tower despawn called");
-        }
-        Destroy(gameObject);
-
+        Destroy(this.gameObject);
+       
     }
 
     private void IncrementDeadEnamies()
     {
         var waveScript = wavesFinder.GetComponent<Waves>();
-
         waveScript.incrementDeadEnemies();
-    }
-
-    private int GetNumberDeadEnemies()
-    {
-        var waveScript = wavesFinder.GetComponent<Waves>();
-
-        return waveScript.getNumberDeadEnemies();
     }
 
     public void dealDamage(GameObject target)
@@ -125,5 +102,18 @@ public class AttributesManager : MonoBehaviour
     {
         health+=addHealth;
         maxHealth+=addHealth;
+    }
+    
+    public void curseActive()
+    {
+        iscurseActive = true;
+    }
+    public void curseInactive()
+    {
+        iscurseActive = false;
+    }
+    public bool getCurseStatus()
+    {
+        return iscurseActive;
     }
 }

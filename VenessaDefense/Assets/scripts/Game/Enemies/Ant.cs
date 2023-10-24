@@ -18,7 +18,7 @@ public class Ant : Enemy
             //If the target is in range, start a melee attack
             if (distance <= meleeAttackRadius)
             {
-                //Debug.Log("This runs");
+                        //  Debug.Log("This runs");
                 //The animation will call the Attack() method for the blob
                 //The animation will call the EndAttack() method to exit isAttacking
                 //if (animator != null)
@@ -45,5 +45,14 @@ public class Ant : Enemy
       public override void Attack()
     {
         PBAoEAttack();
+    }
+    public void changeSpeed()
+    {
+        moveSpeed = 1.0f;
+    }
+
+    public void originalSpeed()
+    {
+        moveSpeed = 3.0f;
     }
 }
