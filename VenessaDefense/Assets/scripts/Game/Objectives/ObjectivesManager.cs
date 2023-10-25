@@ -19,9 +19,9 @@ public class ObjectivesManager : MonoBehaviour
     private int numberOfHives = 5;
 
     // Objective Goals
-    private int Level1EnemiesKilledGoal = 1;
+    private int Level1EnemiesKilledGoal = 30;
     private int Level1HivesProtectedGoal = 3;
-    private float Level1HivesProtectedGoalTime = 10.0f;
+    private float Level1HivesProtectedGoalTime = 180.0f;
 
     private Waves wavesCode = null;
 
@@ -75,6 +75,7 @@ public class ObjectivesManager : MonoBehaviour
         CreateObjectives(wavesCode.level);
         CreateHandlers(wavesCode.level);
         CreateCanvasText();
+
     }
 
     private void Update()
@@ -84,6 +85,8 @@ public class ObjectivesManager : MonoBehaviour
             UpdateObjectivesCompletionStatus();
         }
     }
+
+
 
     private void UpdateObjectivesCompletionStatus()
     {

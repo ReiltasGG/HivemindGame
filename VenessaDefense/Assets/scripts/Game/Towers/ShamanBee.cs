@@ -10,7 +10,7 @@ public class ShamanBee : MonoBehaviour
 
     [Header("Attribute")]
     [SerializeField] private float targetingRange = 2f;
-    [SerializeField] private float aps= 0.25f;//attacks per second
+   // [SerializeField] private float aps= 0.25f;//attacks per second
     [SerializeField] private float curseTime = 3f;
     [SerializeField] private float damageBoost = 2f;
     public GameObject curseEffect;
