@@ -19,9 +19,9 @@ public class ObjectivesManager : MonoBehaviour
     private int numberOfHives = 5;
 
     // Objective Goals
-    private int Level1EnemiesKilledGoal = 30;
+    private int Level1EnemiesKilledGoal = 50;
     private int Level1HivesProtectedGoal = 3;
-    private float Level1HivesProtectedGoalTime = 180.0f;
+    private float Level1HivesProtectedGoalTime = 120.0f;
 
     private Waves wavesCode = null;
 
@@ -91,6 +91,7 @@ public class ObjectivesManager : MonoBehaviour
     private void UpdateObjectivesCompletionStatus()
     {
         bool allObjectivesCompleted = true;
+
         foreach (Objective objective in objectives)
         {
             objective.updateDescription();
@@ -111,11 +112,11 @@ public class ObjectivesManager : MonoBehaviour
     {
         if (level == 1)
         {
-            createEnemiesDeadHandler();
+            CreateEnemiesDeadHandler();
         }
     }
 
-    private void createEnemiesDeadHandler()
+    private void CreateEnemiesDeadHandler()
     {
         wavesCode.OnEnemiesDeadUpdated += HandleEnemiesDeadUpdated; // adds this Action when enemies dead is updated
     }
@@ -179,10 +180,10 @@ public class ObjectivesManager : MonoBehaviour
     {
         objectives = new Objective[2];
 
-        objectives[0] = new Objective(this, () =>{ return $"Kill {getEnemiesLeftToKill(Level1EnemiesKilledGoal)} Enemies"; }, 
+        objectives[0] = new Objective(this, () =>{ return $"Kill {GetEnemiesLeftToKill(Level1EnemiesKilledGoal)} Enemies"; }, 
             () => { return enemiesDead >= Level1EnemiesKilledGoal; });
 
-        objectives[1] = new Objective(this, () => { return $"Protect {Level1HivesProtectedGoal} Hives for {getTimeLeft(Level1HivesProtectedGoalTime)} seconds"; }, 
+        objectives[1] = new Objective(this, () => { return $"Protect {Level1HivesProtectedGoal} Hives for {GetTimeLeft(Level1HivesProtectedGoalTime)} seconds"; }, 
             () => { return (numberOfHives >= Level1HivesProtectedGoal) && (timer == null || timer.GetTimePassed() >= Level1HivesProtectedGoalTime); });
 
         StartCoroutine(Level1Timer(Level1HivesProtectedGoalTime, objectives[1]));
@@ -190,15 +191,9 @@ public class ObjectivesManager : MonoBehaviour
     IEnumerator Level1Timer(float timeInSeconds, Objective objective)
     {
         yield return new WaitForSeconds(timeInSeconds);
-        if (countHives() < Level1HivesProtectedGoal)
-        {
-            CallGameOverScene();
-        }
-        else
-        {
-            objective.checkCompleted();
-            Destroy(timer);
-        }
+
+        objective.checkCompleted();
+        Destroy(timer);
             
     }
 
@@ -214,12 +209,12 @@ public class ObjectivesManager : MonoBehaviour
         manageScenes.StartDayClearedScene(wavesCode.level);
     }
 
-    private int getEnemiesLeftToKill(int goal)
+    private int GetEnemiesLeftToKill(int goal)
     {
         return enemiesDead >= goal ? goal : goal - enemiesDead;
     }
 
-    private float getTimeLeft(float goal)
+    private float GetTimeLeft(float goal)
     {
         if (timer == null) return goal;
 
@@ -228,16 +223,37 @@ public class ObjectivesManager : MonoBehaviour
         return (float)Math.Round(timeLeft, 0);
     }
 
-    public void updateNumberOfHives()
+    public void DestroyHive()
     {
-        numberOfHives = countHives();
+        numberOfHives -=1;
+
+        NumberOfHivesPassesLevel(numberOfHives);
         UpdateObjectivesCompletionStatus();
     }
 
-    private int countHives()
+    private void NumberOfHivesPassesLevel(int numberOfHives)
     {
-        GameObject[] hiveObjects = GameObject.FindGameObjectsWithTag("Hive");
-        return hiveObjects.Length;
+        if (wavesCode.level == 1)
+        {
+            if (numberOfHives < Level1HivesProtectedGoal)
+                CallGameOverScene();
+        }
+    }
+
+    private int CountHives()
+    {
+        string hivePrefabName = "Hive";
+        int numberOfHives = 0;
+
+        foreach (GameObject obj in GameObject.FindObjectsOfType<GameObject>())
+        {
+            if (obj.name.StartsWith(hivePrefabName))
+            {
+                numberOfHives++;
+            }
+        }
+
+        return numberOfHives;
     }
 
 }

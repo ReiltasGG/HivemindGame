@@ -45,7 +45,7 @@ public abstract class Enemy : MonoBehaviour
     [Tooltip("Does this creature respawn when the map reloads?")]
     //  public bool allowRespawn = true;
    // [Tooltip("The default death effect to play when the enemy is defeated and disappears.")]
-    public GameObject deathEffect;
+  //  public GameObject deathEffect;
     protected int health;
     //protected bool isStunned = false;
     //protected float isStunnedTicker = 0.0f;
@@ -83,6 +83,9 @@ public abstract class Enemy : MonoBehaviour
     private bool attackTower;
     public float towerAttackRadius = 2.0f;
     GameObject potentialPlayers;
+
+    public Color originalColor;
+
     public enum AIstate
     {
         //0 - Wait around at its start location
@@ -124,6 +127,10 @@ public abstract class Enemy : MonoBehaviour
 
         // Set the rotation of the enemy only on the z-axis
         transform.rotation = Quaternion.Euler(0, 0, zRotation);
+        
+        SpriteRenderer sp = GetComponent<SpriteRenderer>();
+
+        originalColor = sp.color;
     }
 
 
@@ -177,7 +184,7 @@ public abstract class Enemy : MonoBehaviour
           //  data.dataBoolean[getUniqueName()] = true;
 
             //Create the deathEffect
-            Instantiate(deathEffect, transform.position, Quaternion.identity);
+          //  Instantiate(deathEffect, transform.position, Quaternion.identity);
 
             //[Extra] Change the destroy before based on the death sound
            
@@ -286,7 +293,6 @@ public abstract class Enemy : MonoBehaviour
             Collider2D[] things = Physics2D.OverlapCircleAll(transform.position, meleeAttackRadius);
             foreach (Collider2D item in things)
             {
-               // Debug.Log(item);
                 if (item.gameObject.CompareTag("Player"))
                 {
                     //If it's a player, deal melee damage to it
@@ -303,18 +309,15 @@ public abstract class Enemy : MonoBehaviour
                 }
                 if (item.gameObject.CompareTag("Tower"))
                 {
-                  //  Debug.Log("entered comparetag tower for pbaoe");
                     //If it's a tower, deal melee damage to it
                     var tower = item.gameObject.GetComponent<AttributesManager>();
                     if (tower != null)
                     {
-                      //  Debug.Log("entered tower != null function");
                     //Calculate the direction of force
                         Vector2 hitForce = (item.transform.position - transform.position).normalized * meleeAttackKnockback * 10.0f;
 
                     //Apply Knockback and damage to player
                         tower.takeDamage(meleeAttackDamage);
-                     //   Debug.Log("dealing damage to tower");
                     }
 
                     
