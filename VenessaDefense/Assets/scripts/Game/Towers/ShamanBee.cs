@@ -77,8 +77,10 @@ public class ShamanBee : MonoBehaviour
     
     private void OnDrawGizmosSelected()
     {
-        Handles.color = Color.cyan;
-        Handles.DrawWireDisc(transform.position, transform.forward, targetingRange);
+        /* This only works in editor, cannot build with this
+        UnityEditor.Handles.color = Color.cyan;
+        UnityEditor.Handles.DrawWireDisc(transform.position, transform.forward, targetingRange);
+        */
     }
     
 }

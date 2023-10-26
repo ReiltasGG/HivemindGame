@@ -99,8 +99,10 @@ public class HoneyBee : MonoBehaviour
     
     private void OnDrawGizmosSelected()
     {
+        /* This only works in editor, cannot build with this
         Handles.color = Color.cyan;
         Handles.DrawWireDisc(transform.position, transform.forward, targetingRange);
+        */
     }
 
     public void createHoneyEffect()
