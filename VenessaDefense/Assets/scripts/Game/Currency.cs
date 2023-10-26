@@ -1,14 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.U2D.Animation;
 using UnityEngine;
 
 public class Currency : MonoBehaviour
 {
     public static Currency main;
     public int currency;
-    // Start is called before the first frame update
+
     private void Start()
     {
         currency = 30;
