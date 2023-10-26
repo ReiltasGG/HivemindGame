@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class AttributesManager : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class AttributesManager : MonoBehaviour
 
     [SerializeField] private int currencyWorth;
 
+    private float damageFlashDurationInSeconds = 0.2f;
+    private Color spriteDefaultColor;
+
     private void Start()
     {
         health = maxHealth;
@@ -22,6 +26,8 @@ public class AttributesManager : MonoBehaviour
             healthBar.SetMaxHealth(maxHealth);
 
         wavesFinder = FindGamesManager();
+
+        spriteDefaultColor = GetSprite().color;
     }
 
     private GameObject FindGamesManager()
@@ -45,12 +51,42 @@ public class AttributesManager : MonoBehaviour
 
     public void takeDamage(int amount)
     {
+        StartCoroutine(DamageFlashAnimation());
+
         health -= amount;
         if(healthBar!=null)
-        healthBar.SetHealth(health);
+            healthBar.SetHealth(health);
 
         if (health <= 0)
             die();
+    }
+
+    private IEnumerator DamageFlashAnimation()
+    {
+        FlashColorRed();
+
+        yield return new WaitForSeconds(damageFlashDurationInSeconds);
+
+        ResetColorToDefault();
+    }
+
+    private void FlashColorRed()
+    {
+        SpriteRenderer sprite = GetSprite();
+        sprite.color = Color.red;
+    }
+
+    private void ResetColorToDefault()
+    {
+        Debug.Log("Default Color set");
+        SpriteRenderer sprite = GetSprite();
+        sprite.color = spriteDefaultColor;
+    }
+
+    private SpriteRenderer GetSprite()
+    {
+        return GetComponent<SpriteRenderer>() != null ? GetComponent<SpriteRenderer>() : transform.Find("Graphics").GetComponent<SpriteRenderer>();
+
     }
 
     public void die()
