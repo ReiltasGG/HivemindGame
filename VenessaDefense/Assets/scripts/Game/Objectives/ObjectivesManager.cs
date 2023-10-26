@@ -17,6 +17,7 @@ public class ObjectivesManager : MonoBehaviour
     // Keep track for objectives
     private int enemiesDead = 0;
     private int numberOfHives = 5;
+    public bool[] selectedOptionalObjectives = null;
 
     // Objective Goals
     private int Level1EnemiesKilledGoal = 70;
@@ -25,6 +26,13 @@ public class ObjectivesManager : MonoBehaviour
 
     private Waves wavesCode = null;
 
+    public enum Difficulty
+    {
+        Easy = 1,
+        Medium = 2,
+        Hard = 3
+    }
+
     public class Objective
     {
         private string description;
@@ -32,12 +40,14 @@ public class ObjectivesManager : MonoBehaviour
         private Func<bool> checkObjectiveIsComplete;
         private Func<string> setDescriptionDynamically;
         private ObjectivesManager objectivesManager;
+        private Difficulty difficulty;
 
-        public Objective(ObjectivesManager objectivesManager, Func<string> setDescriptionDynamically, Func<bool> checkObjectiveIsComplete)
+        public Objective(ObjectivesManager objectivesManager, Func<string> setDescriptionDynamically, Func<bool> checkObjectiveIsComplete, Difficulty difficulty)
         {
             this.objectivesManager = objectivesManager;
             this.setDescriptionDynamically = setDescriptionDynamically;
             this.checkObjectiveIsComplete = checkObjectiveIsComplete;
+            this.difficulty = difficulty;
 
             description = setDescriptionDynamically();
         }
@@ -54,6 +64,7 @@ public class ObjectivesManager : MonoBehaviour
 
         public bool getCompleted() { return completed; }
         public string getDescription() { return description; }
+        public Difficulty getDifficulty() { return difficulty; }
         public bool checkCompleted()
         {
             if(checkObjectiveIsComplete()) 
@@ -61,11 +72,13 @@ public class ObjectivesManager : MonoBehaviour
 
             return completed;
         }
+
     }
 
     public Objective[] objectives = null;
     void Start()
     {
+        selectedOptionalObjectives = new bool[] { false, false };
         timer = gameObject.AddComponent<GameTimer>();
         wavesCode = GetComponent<Waves>();
 
@@ -85,8 +98,6 @@ public class ObjectivesManager : MonoBehaviour
             UpdateObjectivesCompletionStatus();
         }
     }
-
-
 
     private void UpdateObjectivesCompletionStatus()
     {
@@ -178,15 +189,54 @@ public class ObjectivesManager : MonoBehaviour
     }
     private void CreateLevel1Objectives()
     {
-        objectives = new Objective[2];
+        Objective[] optionalObjectives = CreateOptionalLevel1Objectives(selectedOptionalObjectives);
+
+        int numberOfBaseObjectives = 2;
+        int totalNumberOfObjectives = numberOfBaseObjectives + (optionalObjectives!=null? optionalObjectives.Length : 0);
+        objectives = new Objective[totalNumberOfObjectives];
 
         objectives[0] = new Objective(this, () =>{ return $"Kill {GetEnemiesLeftToKill(Level1EnemiesKilledGoal)} Enemies"; }, 
-            () => { return enemiesDead >= Level1EnemiesKilledGoal; });
+            () => { return enemiesDead >= Level1EnemiesKilledGoal; }, Difficulty.Easy);
 
         objectives[1] = new Objective(this, () => { return $"Protect {Level1HivesProtectedGoal} Hives for {GetTimeLeft(Level1HivesProtectedGoalTime)} seconds"; }, 
-            () => { return (numberOfHives >= Level1HivesProtectedGoal) && (timer == null || timer.GetTimePassed() >= Level1HivesProtectedGoalTime); });
+            () => { return (numberOfHives >= Level1HivesProtectedGoal) && (timer == null || timer.GetTimePassed() >= Level1HivesProtectedGoalTime); }, Difficulty.Medium);
 
-        StartCoroutine(Level1Timer(Level1HivesProtectedGoalTime, objectives[1]));
+        for (int i = 0; i<totalNumberOfObjectives-numberOfBaseObjectives; i++)
+        {
+            objectives[numberOfBaseObjectives + i] = optionalObjectives[i];
+        }
+
+        StartCoroutine(Level1Timer(Level1HivesProtectedGoalTime, objectives[1])); // Timer for time based objective
+
+    }
+
+    private Objective[] CreateOptionalLevel1Objectives(bool[] selectedObjectives)
+    {
+        if (selectedObjectives == null || selectedObjectives.Length == 0) return null;
+
+        Objective optionalObjective1 = new Objective(this, () => { return $"Double Enemies Spawned";},
+            () => { return true; }, Difficulty.Hard);
+
+        Objective optionalObjective2 = new Objective(this, () => { return $"More exploding enemies spawned"; },
+            () => { return true; }, Difficulty.Medium);
+
+        Objective[] optionalObjectives = new Objective[selectedObjectives.Count(x => x == true)];
+
+        int counter = 0;
+
+        if (selectedObjectives[0] == true)
+        {
+            optionalObjectives[counter] = optionalObjective1;
+            counter++;
+        }
+            
+        if (selectedObjectives[1] == true)
+        {
+            optionalObjectives[counter] = optionalObjective2;
+            counter++;
+        }
+
+        return optionalObjectives;
     }
     IEnumerator Level1Timer(float timeInSeconds, Objective objective)
     {
