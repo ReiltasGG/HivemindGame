@@ -6,7 +6,7 @@ using UnityEngine;
 public class AttributesManager : MonoBehaviour
 {
     public int health;
-    public int maxHealth = 100;
+    public int maxHealth;
     public int attackDamage;
     private GameObject wavesFinder;
 

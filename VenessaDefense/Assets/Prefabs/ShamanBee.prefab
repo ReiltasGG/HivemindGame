@@ -52,7 +52,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   targetingRange: 2.6
-  aps: 0.25
   curseTime: 3
   damageBoost: 2
   curseEffect: {fileID: 3850221550781542197, guid: 0e89cd2405790184fac2790ce80fffbe, type: 3}
@@ -177,8 +176,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ef5c93031df4db7954aacdd25b4b31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 500
-  maxHealth: 100
+  health: 0
+  maxHealth: 500
   attackDamage: 0
   healthBar: {fileID: 0}
+  iscurseActive: 0
   currencyWorth: 0
