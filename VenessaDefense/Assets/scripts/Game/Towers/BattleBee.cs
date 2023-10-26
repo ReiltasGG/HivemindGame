@@ -18,6 +18,7 @@ public class BattleBee : MonoBehaviour
     [SerializeField] private float rotationSpeed = 5f;
     [SerializeField] private float bps = 1; //bps = bullet per second
 
+    public int damageOfBullet;
     private Animator anim;
 
     private Transform target;
@@ -29,6 +30,8 @@ public class BattleBee : MonoBehaviour
     }
     private void Update()
     {
+        var tempScript = GetComponent<AttributesManager>();
+        damageOfBullet = tempScript.getDamage();
         if (target == null)
         {
        
@@ -60,6 +63,7 @@ public class BattleBee : MonoBehaviour
         GameObject bulletObj = Instantiate(bulletPrefab, firingPoint.position, Quaternion.identity);
         TowerBullet bulletScript = bulletObj.GetComponent<TowerBullet>();
         bulletScript.SetTarget(target);
+        bulletScript.setBulletDamage(damageOfBullet);
        
     }
 

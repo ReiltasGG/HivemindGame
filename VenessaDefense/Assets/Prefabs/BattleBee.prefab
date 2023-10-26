@@ -88,6 +88,7 @@ MonoBehaviour:
   targetingRange: 5
   rotationSpeed: 200
   bps: 1
+  damageOfBullet: 0
 --- !u!58 &-6850257100883211852
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -210,6 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 300
   maxHealth: 100
-  attackDamage: 0
+  attackDamage: 10
   healthBar: {fileID: 0}
+  iscurseActive: 0
   currencyWorth: 0
