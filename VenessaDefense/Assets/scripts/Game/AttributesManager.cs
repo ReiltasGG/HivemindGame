@@ -86,7 +86,6 @@ public class AttributesManager : MonoBehaviour
     private SpriteRenderer GetSprite()
     {
         return GetComponent<SpriteRenderer>() != null ? GetComponent<SpriteRenderer>() : transform.Find("Graphics").GetComponent<SpriteRenderer>();
-
     }
 
     public void die()
