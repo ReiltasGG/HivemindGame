@@ -19,9 +19,9 @@ public class ObjectivesManager : MonoBehaviour
     private int numberOfHives = 5;
 
     // Objective Goals
-    private int Level1EnemiesKilledGoal = 50;
+    private int Level1EnemiesKilledGoal = 70;
     private int Level1HivesProtectedGoal = 3;
-    private float Level1HivesProtectedGoalTime = 45.0f;
+    private float Level1HivesProtectedGoalTime = 90.0f;
 
     private Waves wavesCode = null;
 
