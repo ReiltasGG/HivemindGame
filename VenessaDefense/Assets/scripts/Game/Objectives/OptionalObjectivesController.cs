@@ -40,6 +40,8 @@ public class OptionalObjectivesController : MonoBehaviour
             yPositionShift -= 50;
         }
 
+        InitializeButton();
+
         OpenCanvas();
         PauseGame();
     }
@@ -89,6 +91,12 @@ public class OptionalObjectivesController : MonoBehaviour
         return UnityEngine.Color.white;
     }
 
+    private void InitializeButton()
+    {
+        Button continueButton = optionalObjectivesCanvas.transform.Find("Container/Continue").GetComponent<Button>();
+        continueButton.onClick.AddListener(ReturnOptionalObjectives);
+    }
+
     private void SetYPos(GameObject toggleGameObject, int yPositionShift)
     {
         RectTransform toggleTransform = toggleGameObject.GetComponent<RectTransform>();
@@ -102,6 +110,7 @@ public class OptionalObjectivesController : MonoBehaviour
 
     public void ReturnOptionalObjectives()
     {
+        ResumeGame();
         objectivesManager.StartRound(selectedOptionalObjectives);
     }
 
