@@ -9,7 +9,8 @@ using Unity.VisualScripting;
 public class ObjectivesManager : MonoBehaviour
 {
 
-    public GameObject togglePrefab;
+    public GameObject objectiveTogglePrefab;
+    public GameObject objectiveTextPrefab;
     public GameObject OptionalObjectivesCanvasPrefab;
 
     [SerializeField]
@@ -91,7 +92,7 @@ public class ObjectivesManager : MonoBehaviour
             throw new Exception("Waves code is null when checking component");
 
         //CreateObjectives(wavesCode.level, null);
-        DisplayOptionalObjectivesCanvas();
+        DisplayObjectivesCanvas();
     }
 
     public void StartRound(bool[] selectedOptionalObjectives)
@@ -142,6 +143,17 @@ public class ObjectivesManager : MonoBehaviour
             level1Objectives.Initialize(this);
 
             return level1Objectives.GetOptionalObjectives();
+        }
+        else throw new ArgumentException($"No Objectives created for level {level}");
+    }
+    public Objective[] GetRequiredObjectives(int level)
+    {
+        if (level == 1)
+        {
+            level1Objectives = gameObject.AddComponent<Level1Objectives>();
+            level1Objectives.Initialize(this);
+
+            return level1Objectives.GetBaseObjectives();
         }
         else throw new ArgumentException($"No Objectives created for level {level}");
     }
@@ -199,12 +211,13 @@ public class ObjectivesManager : MonoBehaviour
     {
         CreateCanvasText();
     }
-    private void DisplayOptionalObjectivesCanvas()
+    private void DisplayObjectivesCanvas()
     {
         Objective[] optionalObjectives = GetPossibleOptionalObjectives(wavesCode.level);
+        Objective[] requiredObjectives = GetRequiredObjectives(wavesCode.level);
 
         OptionalObjectivesController optionalObjectivesController = gameObject.AddComponent<OptionalObjectivesController>();
-        optionalObjectivesController.Initialize(OptionalObjectivesCanvasPrefab, togglePrefab, optionalObjectives);
+        optionalObjectivesController.Initialize(OptionalObjectivesCanvasPrefab, objectiveTogglePrefab, objectiveTextPrefab, optionalObjectives, requiredObjectives);
     }
 
     private void CallGameOverScene()

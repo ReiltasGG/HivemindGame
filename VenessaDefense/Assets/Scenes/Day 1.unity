@@ -2718,10 +2718,14 @@ PrefabInstance:
       propertyPath: OptionalObjectivesCanvasPrefab
       value: 
       objectReference: {fileID: 9085894051363935840, guid: cba0fa26758d0c84d9092469c0b27a17, type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7615766333176929080, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2465936462903521182, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 1834743961}
     - targetCorrespondingSourceObject: {fileID: 2465936462903521182, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1834743943}
@@ -2731,9 +2735,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2465936462903521182, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1834743949}
-    - targetCorrespondingSourceObject: {fileID: 2465936462903521182, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1834743961}
   m_SourcePrefab: {fileID: 100100000, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
 --- !u!1 &1424631690
 GameObject:
