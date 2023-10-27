@@ -2715,6 +2715,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5840344960225250594, guid: 6507fc5cade1ae94191650ec42f82178, type: 3}
     - target: {fileID: 9039107181100917067, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
+      propertyPath: objectiveTextPrefab
+      value: 
+      objectReference: {fileID: 1137383696718875281, guid: feefceee670cad54b96f9c71640d4a71, type: 3}
+    - target: {fileID: 9039107181100917067, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
+      propertyPath: objectiveTogglePrefab
+      value: 
+      objectReference: {fileID: 5840344960225250594, guid: 6507fc5cade1ae94191650ec42f82178, type: 3}
+    - target: {fileID: 9039107181100917067, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
       propertyPath: OptionalObjectivesCanvasPrefab
       value: 
       objectReference: {fileID: 9085894051363935840, guid: cba0fa26758d0c84d9092469c0b27a17, type: 3}
