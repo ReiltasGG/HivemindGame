@@ -3,6 +3,8 @@ using System.Drawing;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Objective = ObjectivesManager.Objective;
+using Difficulty = ObjectivesManager.Difficulty;
 
 public class OptionalObjectivesController : MonoBehaviour
 {
@@ -10,34 +12,33 @@ public class OptionalObjectivesController : MonoBehaviour
     public GameObject OptionalObjectivesCanvasPrefab;
     private GameObject optionalObjectivesCanvas;
 
-    public bool[] selectedOptionalObjectives = null;
-    public int numberOfOptionalObjectives;
+    public bool[] selectedOptionalObjectives;
 
-    private ObjectivesManager objectivesManager = null;
+    private ObjectivesManager objectivesManager;
+    private Objective[] optionalObjectives;
 
-    public void Initialize() {
+    public void Initialize(GameObject OptionalObjectivesCanvasPrefab, GameObject togglePrefab, Objective[] optionalObjectives) {
+        this.OptionalObjectivesCanvasPrefab = OptionalObjectivesCanvasPrefab;
+        this.togglePrefab = togglePrefab;
+        this.optionalObjectives = optionalObjectives;
+
         InitializeObjects();
 
-        /*for (int i = 0; i < numberOfOptionalObjectives; i++)
-        {
-            Debug.Log("looped");
-            GameObject toggleGameObject = Instantiate(togglePrefab, transform);
-            Toggle toggle = toggleGameObject.GetComponent<Toggle>();
-            toggle.onValueChanged.AddListener((isOn) => { OnToggleValueChanged(i, isOn); });
-        }*/
-
-
-        int yPixelLower = 0;
-        for (int i = 0; i < numberOfOptionalObjectives; i++)
+        int yPositionShift = 0;
+        for (int i = 0; i < optionalObjectives.Length; i++)
         {
             int localIndex = i;
+
             GameObject toggleGameObject = Instantiate(togglePrefab, optionalObjectivesCanvas.transform);
             Toggle toggle = toggleGameObject.GetComponent<Toggle>();
+
             toggle.onValueChanged.AddListener((isOn) => { OnToggleValueChanged(localIndex, isOn); });
 
-            yPixelLower -= 50;
-        }
+            SetYPos(toggleGameObject, yPositionShift);
+            SetDescriptionAndColor(toggle, optionalObjectives[i]);
 
+            yPositionShift -= 50;
+        }
 
         OpenCanvas();
         PauseGame();
@@ -53,18 +54,46 @@ public class OptionalObjectivesController : MonoBehaviour
         if (OptionalObjectivesCanvasPrefab == null)
             throw new ArgumentNullException("Canvas Prefab is null");
 
-        numberOfOptionalObjectives = objectivesManager.GetOptionalObjectivesCount();
-        selectedOptionalObjectives = new bool[numberOfOptionalObjectives];
+        selectedOptionalObjectives = new bool[optionalObjectives.Length];
 
-        for (int i=0; i < numberOfOptionalObjectives; i++)
+        for (int i=0; i < optionalObjectives.Length; i++)
         {
             selectedOptionalObjectives[i] = false;
         }
 
         optionalObjectivesCanvas = Instantiate(OptionalObjectivesCanvasPrefab);
-
     }
 
+    private void SetDescriptionAndColor(Toggle toggle, Objective objective)
+    {
+        UnityEngine.Color textColor = GetTextColor(objective);
+
+        Text descriptionText = toggle.transform.Find("Description").GetComponent<Text>();
+
+        descriptionText.text = objective.getDescription();
+        descriptionText.color = textColor;
+    }
+
+    private UnityEngine.Color GetTextColor(Objective objective)
+    {
+        switch (objective.getDifficulty())
+        {
+            case Difficulty.Easy:
+                return UnityEngine.Color.green;
+            case Difficulty.Medium:
+                return UnityEngine.Color.yellow;
+            case Difficulty.Hard:
+                return UnityEngine.Color.red;
+        }
+
+        return UnityEngine.Color.white;
+    }
+
+    private void SetYPos(GameObject toggleGameObject, int yPositionShift)
+    {
+        RectTransform toggleTransform = toggleGameObject.GetComponent<RectTransform>();
+        toggleTransform.anchoredPosition += new Vector2(0f, yPositionShift);
+    }
     public void ResumeGame()
     {
         Destroy(optionalObjectivesCanvas);
@@ -80,7 +109,6 @@ public class OptionalObjectivesController : MonoBehaviour
     private void OnToggleValueChanged(int index, bool isOn)
     {
         ToggleObjective(index);
-        Debug.Log($"Toggle {index} to {isOn}");
     }
 
     public void ToggleObjective(int objectiveNumber)
@@ -88,12 +116,7 @@ public class OptionalObjectivesController : MonoBehaviour
         if (objectiveNumber < 0 || objectiveNumber >= selectedOptionalObjectives.Length)
             throw new ArgumentOutOfRangeException("Index out of range");
 
-        Debug.Log($"Trying to toggle {objectiveNumber}");
-
-
         selectedOptionalObjectives[objectiveNumber] = !selectedOptionalObjectives[objectiveNumber];
-
-        Debug.Log($"Toggled {objectiveNumber} to {selectedOptionalObjectives[objectiveNumber]}");
     }
 
     private void PauseGame() { Time.timeScale = 0f; }

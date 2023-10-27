@@ -23,7 +23,6 @@ public class ObjectivesManager : MonoBehaviour
     private Waves wavesCode = null;
     private Level1Objectives level1Objectives = null;
     private Objective[] objectives = null;
-    private int optionalObjectivesCount;
 
     public enum Difficulty
     {
@@ -91,6 +90,7 @@ public class ObjectivesManager : MonoBehaviour
         if (wavesCode == null)
             throw new Exception("Waves code is null when checking component");
 
+        //CreateObjectives(wavesCode.level, null);
         DisplayOptionalObjectivesCanvas();
     }
 
@@ -129,13 +129,22 @@ public class ObjectivesManager : MonoBehaviour
             level1Objectives.Initialize(this, selectedOptionalObjectives);
 
             objectives = level1Objectives.CreateObjectives();
-            optionalObjectivesCount = level1Objectives.GetOptionalObjectivesCount();
         }
         else
             throw new ArgumentException($"No Objectives created for level {level}");
 
     }
+    public Objective[] GetPossibleOptionalObjectives(int level)
+    {
+        if (level == 1)
+        {
+            level1Objectives = gameObject.AddComponent<Level1Objectives>();
+            level1Objectives.Initialize(this);
 
+            return level1Objectives.GetOptionalObjectives();
+        }
+        else throw new ArgumentException($"No Objectives created for level {level}");
+    }
     private void CreateHandlers()
     {
         CreateEnemiesDeadHandler();
@@ -192,13 +201,10 @@ public class ObjectivesManager : MonoBehaviour
     }
     private void DisplayOptionalObjectivesCanvas()
     {
-        CreateObjectives(wavesCode.level, null);
+        Objective[] optionalObjectives = GetPossibleOptionalObjectives(wavesCode.level);
 
         OptionalObjectivesController optionalObjectivesController = gameObject.AddComponent<OptionalObjectivesController>();
-        optionalObjectivesController.OptionalObjectivesCanvasPrefab = OptionalObjectivesCanvasPrefab;
-        optionalObjectivesController.togglePrefab = togglePrefab;
-
-        optionalObjectivesController.Initialize();
+        optionalObjectivesController.Initialize(OptionalObjectivesCanvasPrefab, togglePrefab, optionalObjectives);
     }
 
     private void CallGameOverScene()
@@ -242,6 +248,5 @@ public class ObjectivesManager : MonoBehaviour
 
         return (float)Math.Round(timeLeft, 0);
     }
-    public int GetOptionalObjectivesCount() { return optionalObjectivesCount; }
 
 }

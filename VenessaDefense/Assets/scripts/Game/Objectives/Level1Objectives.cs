@@ -25,10 +25,11 @@ public class Level1Objectives : MonoBehaviour
 
     public void Initialize(ObjectivesManager objectivesManager)
     {
+        // This is a shell constructor. It's purpose is to use the basic get/set functions without needing rest of params.
+        // Please use other one if you need to fully run this.
         this.objectivesManager = objectivesManager;
 
         selectedOptionalObjectives = null;
-        timer = gameObject.AddComponent<GameTimer>();
     }
 
     private void Update()
@@ -78,7 +79,7 @@ public class Level1Objectives : MonoBehaviour
         Objective optionalObjective1 = new Objective(objectivesManager, () => { return $"Double Enemies Spawned"; },
             () => { return true; }, Difficulty.Hard);
 
-        Objective optionalObjective2 = new Objective(objectivesManager, () => { return $"More exploding enemies spawned"; },
+        Objective optionalObjective2 = new Objective(objectivesManager, () => { return $"More explosions!"; },
             () => { return true; }, Difficulty.Medium);
 
         // Return all objectives if nothing is passed in
@@ -118,4 +119,6 @@ public class Level1Objectives : MonoBehaviour
     public float GetHivesProtectedGoalTime() { return HivesProtectedGoalTime; }
     public int GetBaseObjectivesCount() { return CreateBaseObjectives().Length; }
     public int GetOptionalObjectivesCount() { return CreateOptionalObjectives().Length; }
+    public Objective[] GetOptionalObjectives() { return CreateOptionalObjectives(); }
+    public Objective[] GetBaseObjectives() { return CreateBaseObjectives(); }
 }
