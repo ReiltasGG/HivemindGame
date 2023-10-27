@@ -660,6 +660,10 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0.7176471
       objectReference: {fileID: 0}
+    - target: {fileID: 516695363513707688, guid: 98f4aa24cd771514c997eee10abce236, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1416003157095371807, guid: 98f4aa24cd771514c997eee10abce236, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2706,6 +2710,14 @@ PrefabInstance:
       propertyPath: volume
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9039107181100917067, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
+      propertyPath: togglePrefab
+      value: 
+      objectReference: {fileID: 5840344960225250594, guid: 6507fc5cade1ae94191650ec42f82178, type: 3}
+    - target: {fileID: 9039107181100917067, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
+      propertyPath: OptionalObjectivesCanvasPrefab
+      value: 
+      objectReference: {fileID: 9085894051363935840, guid: cba0fa26758d0c84d9092469c0b27a17, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2719,9 +2731,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2465936462903521182, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1834743949}
-    - targetCorrespondingSourceObject: {fileID: 2465936462903521182, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1834743955}
     - targetCorrespondingSourceObject: {fileID: 2465936462903521182, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1834743961}
@@ -3506,19 +3515,6 @@ MonoBehaviour:
   - enemy: 4
     sprite: {fileID: 21300000, guid: c8bf465d372e248419cc17e3c980d7be, type: 3}
   EnemyIntroPrefab: {fileID: 7806056364769894428, guid: 54dbc24154d615943b2bc38177389ca4, type: 3}
---- !u!114 &1834743955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1834743936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adb9faf81727dff4aa6a781b8fedc1af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectivesPrefab: {fileID: 4110231951749629470, guid: e6b05bc037848bf4e920e04746eab552, type: 3}
 --- !u!114 &1834743961
 MonoBehaviour:
   m_ObjectHideFlags: 0

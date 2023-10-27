@@ -15,11 +15,20 @@ public class Level1Objectives : MonoBehaviour
     ObjectivesManager objectivesManager = null;
     private GameTimer timer = null;
 
+    public void Initialize(ObjectivesManager objectivesManager, bool[] selectedOptionalObjectives)
+    {
+        this.objectivesManager = objectivesManager;
+        this.selectedOptionalObjectives = selectedOptionalObjectives;
+
+        timer = gameObject.AddComponent<GameTimer>();
+    }
+
     public void Initialize(ObjectivesManager objectivesManager)
     {
         this.objectivesManager = objectivesManager;
+
+        selectedOptionalObjectives = null;
         timer = gameObject.AddComponent<GameTimer>();
-        selectedOptionalObjectives = new bool[] { true, true };
     }
 
     private void Update()
@@ -29,13 +38,10 @@ public class Level1Objectives : MonoBehaviour
         
     }
 
-    public int GetEnemiesKilledGoal() {  return EnemiesKilledGoal; }
-    public int GetHivesProtectedGoal() { return HivesProtectedGoal; }
-    public float GetHivesProtectedGoalTime() { return HivesProtectedGoalTime; }
-    public Objective[] CreateObjectives(ObjectivesManager objectivesManager)
+    public Objective[] CreateObjectives()
     {
-        Objective[] optionalObjectives = CreateOptionalObjectives(selectedOptionalObjectives, objectivesManager);
-        Objective[] baseObjectives = CreateBaseObjectives(objectivesManager);
+        Objective[] optionalObjectives = CreateOptionalObjectives();
+        Objective[] baseObjectives = CreateBaseObjectives();
 
         int baseObjectivesLength = baseObjectives.Length;
         int totalNumberOfObjectives = baseObjectives.Length + (optionalObjectives != null ? optionalObjectives.Length : 0);
@@ -54,7 +60,7 @@ public class Level1Objectives : MonoBehaviour
 
         return objectives;
     }
-    private Objective[] CreateBaseObjectives(ObjectivesManager objectivesManager)
+    private Objective[] CreateBaseObjectives()
     {
         int numberOfBaseObjectives = 2;
         Objective[] baseObjectives = new Objective[numberOfBaseObjectives];
@@ -67,27 +73,29 @@ public class Level1Objectives : MonoBehaviour
 
         return baseObjectives;
     }
-    private Objective[] CreateOptionalObjectives(bool[] selectedObjectives, ObjectivesManager objectivesManager)
+    private Objective[] CreateOptionalObjectives()
     {
-        if (selectedObjectives == null || selectedObjectives.Length == 0) return null;
-
         Objective optionalObjective1 = new Objective(objectivesManager, () => { return $"Double Enemies Spawned"; },
             () => { return true; }, Difficulty.Hard);
 
         Objective optionalObjective2 = new Objective(objectivesManager, () => { return $"More exploding enemies spawned"; },
             () => { return true; }, Difficulty.Medium);
 
-        Objective[] optionalObjectives = new Objective[selectedObjectives.Count(x => x == true)];
+        // Return all objectives if nothing is passed in
+        if (selectedOptionalObjectives == null || selectedOptionalObjectives.Length == 0) return new Objective[] { optionalObjective1, optionalObjective2};
+
+
+        Objective[] optionalObjectives = new Objective[selectedOptionalObjectives.Count(x => x == true)];
 
         int counter = 0;
 
-        if (selectedObjectives[0] == true)
+        if (selectedOptionalObjectives[0] == true)
         {
             optionalObjectives[counter] = optionalObjective1;
             counter++;
         }
 
-        if (selectedObjectives[1] == true)
+        if (selectedOptionalObjectives[1] == true)
         {
             optionalObjectives[counter] = optionalObjective2;
             counter++;
@@ -95,6 +103,7 @@ public class Level1Objectives : MonoBehaviour
 
         return optionalObjectives;
     }
+
     IEnumerator ObjectiveCompletionTimer(float timeInSeconds, Objective objective)
     {
         Debug.Log("Timer started");
@@ -104,4 +113,9 @@ public class Level1Objectives : MonoBehaviour
         Destroy(timer);
     }
 
+    public int GetEnemiesKilledGoal() { return EnemiesKilledGoal; }
+    public int GetHivesProtectedGoal() { return HivesProtectedGoal; }
+    public float GetHivesProtectedGoalTime() { return HivesProtectedGoalTime; }
+    public int GetBaseObjectivesCount() { return CreateBaseObjectives().Length; }
+    public int GetOptionalObjectivesCount() { return CreateOptionalObjectives().Length; }
 }

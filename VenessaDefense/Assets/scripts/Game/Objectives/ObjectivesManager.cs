@@ -8,6 +8,10 @@ using Unity.VisualScripting;
 
 public class ObjectivesManager : MonoBehaviour
 {
+
+    public GameObject togglePrefab;
+    public GameObject OptionalObjectivesCanvasPrefab;
+
     [SerializeField]
     private GameObject objectivesPrefab;
     private GameObject objectivesCanvas;
@@ -19,6 +23,7 @@ public class ObjectivesManager : MonoBehaviour
     private Waves wavesCode = null;
     private Level1Objectives level1Objectives = null;
     private Objective[] objectives = null;
+    private int optionalObjectivesCount;
 
     public enum Difficulty
     {
@@ -81,17 +86,20 @@ public class ObjectivesManager : MonoBehaviour
 
     void Start()
     {
-        level1Objectives = gameObject.AddComponent<Level1Objectives>();
-        level1Objectives.Initialize(this);
         wavesCode = GetComponent<Waves>();
 
         if (wavesCode == null)
             throw new Exception("Waves code is null when checking component");
 
-        CreateObjectives(wavesCode.level);
-        CreateHandlers(wavesCode.level);
-        CreateCanvasText();
+        DisplayOptionalObjectivesCanvas();
+    }
 
+    public void StartRound(bool[] selectedOptionalObjectives)
+    {
+        CreateObjectives(wavesCode.level, selectedOptionalObjectives);
+        CreateHandlers();
+        CreateCanvasText();
+        UpdateObjectivesCompletionStatus();
     }
 
     public void UpdateObjectivesCompletionStatus()
@@ -113,15 +121,25 @@ public class ObjectivesManager : MonoBehaviour
         else
             UpdateCanvasText();
     }
-
-    private void CreateHandlers(int level)
+    private void CreateObjectives(int level, bool[] selectedOptionalObjectives)
     {
         if (level == 1)
         {
-            CreateEnemiesDeadHandler();
+            level1Objectives = gameObject.AddComponent<Level1Objectives>();
+            level1Objectives.Initialize(this, selectedOptionalObjectives);
+
+            objectives = level1Objectives.CreateObjectives();
+            optionalObjectivesCount = level1Objectives.GetOptionalObjectivesCount();
         }
+        else
+            throw new ArgumentException($"No Objectives created for level {level}");
+
     }
 
+    private void CreateHandlers()
+    {
+        CreateEnemiesDeadHandler();
+    }
     private void CreateEnemiesDeadHandler()
     {
         wavesCode.OnEnemiesDeadUpdated += HandleEnemiesDeadUpdated; // adds this Action when enemies dead is updated
@@ -131,6 +149,7 @@ public class ObjectivesManager : MonoBehaviour
         enemiesDead++;
         UpdateObjectivesCompletionStatus();
     }
+    
     private void CreateCanvasText()
     {
         if (objectivesPrefab == null)
@@ -167,20 +186,19 @@ public class ObjectivesManager : MonoBehaviour
             yOffset -= textHeight;
         }
     }
-
-    public void UpdateCanvasText()
+    private void UpdateCanvasText()
     {
         CreateCanvasText();
     }
-
-    private void CreateObjectives(int level)
+    private void DisplayOptionalObjectivesCanvas()
     {
-        if (level == 1)
-            objectives = level1Objectives.CreateObjectives(this);
-        else
-            throw new ArgumentException($"No Objectives created for level {level}");
+        CreateObjectives(wavesCode.level, null);
 
-        UpdateObjectivesCompletionStatus();
+        OptionalObjectivesController optionalObjectivesController = gameObject.AddComponent<OptionalObjectivesController>();
+        optionalObjectivesController.OptionalObjectivesCanvasPrefab = OptionalObjectivesCanvasPrefab;
+        optionalObjectivesController.togglePrefab = togglePrefab;
+
+        optionalObjectivesController.Initialize();
     }
 
     private void CallGameOverScene()
@@ -188,25 +206,10 @@ public class ObjectivesManager : MonoBehaviour
         ManageScenes manageScenes = new ManageScenes();
         manageScenes.StartGameOverScene(wavesCode.enemiesDead);
     }
-
     private void CallDayClearedScene()
     {
         ManageScenes manageScenes = new ManageScenes();
         manageScenes.StartDayClearedScene(wavesCode.level);
-    }
-
-    public int GetEnemiesLeftToKill(int goal)
-    {
-        return enemiesDead >= goal ? goal : goal - enemiesDead;
-    }
-
-    public float GetTimeLeft(float goal, GameTimer timer)
-    {
-        if (timer == null) return goal;
-
-        float timeLeft =  timer.GetTimePassed() >= goal ? goal : goal - timer.GetTimePassed();
-
-        return (float)Math.Round(timeLeft, 0);
     }
 
     public void DestroyHive()
@@ -216,7 +219,6 @@ public class ObjectivesManager : MonoBehaviour
         NumberOfHivesPassesLevel(numberOfHives);
         UpdateObjectivesCompletionStatus();
     }
-
     private void NumberOfHivesPassesLevel(int numberOfHives)
     {
         if (wavesCode.level == 1)
@@ -226,10 +228,20 @@ public class ObjectivesManager : MonoBehaviour
             if (numberOfHives < level1Objectives.GetHivesProtectedGoal())
                 CallGameOverScene();
 
-            Destroy(level1Objectives);
         }
     }
 
     public int GetNumberOfHives() { return numberOfHives; }
     public int GetEnemiesDead() { return enemiesDead; }
+    public int GetEnemiesLeftToKill(int goal) { return enemiesDead >= goal ? goal : goal - enemiesDead; }
+    public float GetTimeLeft(float goal, GameTimer timer)
+    {
+        if (timer == null) return goal;
+
+        float timeLeft = timer.GetTimePassed() >= goal ? goal : goal - timer.GetTimePassed();
+
+        return (float)Math.Round(timeLeft, 0);
+    }
+    public int GetOptionalObjectivesCount() { return optionalObjectivesCount; }
+
 }
