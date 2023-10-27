@@ -78,7 +78,6 @@ public class AttributesManager : MonoBehaviour
 
     private void ResetColorToDefault()
     {
-        Debug.Log("Default Color set");
         SpriteRenderer sprite = GetSprite();
         sprite.color = spriteDefaultColor;
     }
