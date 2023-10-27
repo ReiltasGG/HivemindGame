@@ -11,14 +11,14 @@ public class Level1Objectives : MonoBehaviour
     private int HivesProtectedGoal = 3;
     private float HivesProtectedGoalTime = 90.0f;
 
-    public bool[] selectedOptionalObjectives = null;
+    public bool[] selectedChallengeObjectives = null;
     ObjectivesManager objectivesManager = null;
     private GameTimer timer = null;
 
-    public void Initialize(ObjectivesManager objectivesManager, bool[] selectedOptionalObjectives)
+    public void Initialize(ObjectivesManager objectivesManager, bool[] selectedChallengeObjectives)
     {
         this.objectivesManager = objectivesManager;
-        this.selectedOptionalObjectives = selectedOptionalObjectives;
+        this.selectedChallengeObjectives = selectedChallengeObjectives;
 
         timer = gameObject.AddComponent<GameTimer>();
     }
@@ -29,23 +29,22 @@ public class Level1Objectives : MonoBehaviour
         // Please use other one if you need to fully run this.
         this.objectivesManager = objectivesManager;
 
-        selectedOptionalObjectives = null;
+        selectedChallengeObjectives = null;
     }
 
     private void Update()
     {
         if (timer != null)
             objectivesManager.UpdateObjectivesCompletionStatus();
-        
     }
 
     public Objective[] CreateObjectives()
     {
-        Objective[] optionalObjectives = CreateOptionalObjectives();
+        Objective[] challengeObjectives = CreateChallengeObjectives();
         Objective[] baseObjectives = CreateBaseObjectives();
 
         int baseObjectivesLength = baseObjectives.Length;
-        int totalNumberOfObjectives = baseObjectives.Length + (optionalObjectives != null ? optionalObjectives.Length : 0);
+        int totalNumberOfObjectives = baseObjectives.Length + (challengeObjectives != null ? challengeObjectives.Length : 0);
 
         Objective[] objectives = new Objective[totalNumberOfObjectives];
 
@@ -54,7 +53,7 @@ public class Level1Objectives : MonoBehaviour
             if (i < baseObjectivesLength) 
                 objectives[i] = baseObjectives[i];
 
-            else objectives[i] = optionalObjectives[i - baseObjectivesLength];
+            else objectives[i] = challengeObjectives[i - baseObjectivesLength];
         }
 
         StartCoroutine(ObjectiveCompletionTimer(HivesProtectedGoalTime, baseObjectives[1])); // Timer for time based objective
@@ -74,35 +73,35 @@ public class Level1Objectives : MonoBehaviour
 
         return baseObjectives;
     }
-    private Objective[] CreateOptionalObjectives()
+    private Objective[] CreateChallengeObjectives()
     {
-        Objective optionalObjective1 = new Objective(objectivesManager, () => { return $"Double Enemies Spawned"; },
+        Objective challengeObjective1 = new Objective(objectivesManager, () => { return $"Double Enemies Spawned"; },
             () => { return true; }, Difficulty.Hard);
 
-        Objective optionalObjective2 = new Objective(objectivesManager, () => { return $"More explosions!"; },
+        Objective challengeObjective2 = new Objective(objectivesManager, () => { return $"More explosions!"; },
             () => { return true; }, Difficulty.Medium);
 
         // Return all objectives if nothing is passed in
-        if (selectedOptionalObjectives == null || selectedOptionalObjectives.Length == 0) return new Objective[] { optionalObjective1, optionalObjective2};
+        if (selectedChallengeObjectives == null || selectedChallengeObjectives.Length == 0) return new Objective[] { challengeObjective1, challengeObjective2};
 
 
-        Objective[] optionalObjectives = new Objective[selectedOptionalObjectives.Count(x => x == true)];
+        Objective[] challengeObjectives = new Objective[selectedChallengeObjectives.Count(x => x == true)];
 
         int counter = 0;
 
-        if (selectedOptionalObjectives[0] == true)
+        if (selectedChallengeObjectives[0] == true)
         {
-            optionalObjectives[counter] = optionalObjective1;
+            challengeObjectives[counter] = challengeObjective1;
             counter++;
         }
 
-        if (selectedOptionalObjectives[1] == true)
+        if (selectedChallengeObjectives[1] == true)
         {
-            optionalObjectives[counter] = optionalObjective2;
+            challengeObjectives[counter] = challengeObjective2;
             counter++;
         }
 
-        return optionalObjectives;
+        return challengeObjectives;
     }
 
     IEnumerator ObjectiveCompletionTimer(float timeInSeconds, Objective objective)
@@ -118,7 +117,7 @@ public class Level1Objectives : MonoBehaviour
     public int GetHivesProtectedGoal() { return HivesProtectedGoal; }
     public float GetHivesProtectedGoalTime() { return HivesProtectedGoalTime; }
     public int GetBaseObjectivesCount() { return CreateBaseObjectives().Length; }
-    public int GetOptionalObjectivesCount() { return CreateOptionalObjectives().Length; }
-    public Objective[] GetOptionalObjectives() { return CreateOptionalObjectives(); }
+    public int GetChallengeObjectivesCount() { return CreateChallengeObjectives().Length; }
+    public Objective[] GetChallengeObjectives() { return CreateChallengeObjectives(); }
     public Objective[] GetBaseObjectives() { return CreateBaseObjectives(); }
 }

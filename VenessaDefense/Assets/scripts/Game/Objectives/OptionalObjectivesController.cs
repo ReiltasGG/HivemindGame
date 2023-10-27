@@ -8,56 +8,80 @@ using Difficulty = ObjectivesManager.Difficulty;
 using Toggle = UnityEngine.UI.Toggle;
 using Button = UnityEngine.UI.Button;
 
-public class OptionalObjectivesController : MonoBehaviour
+public class ChallengeObjectivesController : MonoBehaviour
 {
     public GameObject objectiveTogglePrefab;
     public GameObject objectiveTextPrefab;
-    public GameObject OptionalObjectivesCanvasPrefab;
-    private GameObject optionalObjectivesCanvas;
+    public GameObject ChallengeObjectivesCanvasPrefab;
+    private GameObject challengeObjectivesCanvas;
 
-    public bool[] selectedOptionalObjectives;
+    public bool[] selectedChallengeObjectives;
 
     private ObjectivesManager objectivesManager;
-    private Objective[] optionalObjectives;
+    private Objective[] challengeObjectives;
     private Objective[] requiredObjectives;
 
     private int yGapForTasks = 50;
 
-    public void Initialize(GameObject OptionalObjectivesCanvasPrefab, GameObject objectiveTogglePrefab, GameObject objectiveTextPrefab,
-        Objective[] optionalObjectives, Objective[] requiredObjectives) 
+    public void Initialize(GameObject ChallengeObjectivesCanvasPrefab, GameObject objectiveTogglePrefab, GameObject objectiveTextPrefab,
+        Objective[] challengeObjectives, Objective[] requiredObjectives) 
     {
-        this.OptionalObjectivesCanvasPrefab = OptionalObjectivesCanvasPrefab;
+        this.ChallengeObjectivesCanvasPrefab = ChallengeObjectivesCanvasPrefab;
         this.objectiveTogglePrefab = objectiveTogglePrefab;
         this.objectiveTextPrefab = objectiveTextPrefab;
 
-        this.optionalObjectives = optionalObjectives;
+        this.challengeObjectives = challengeObjectives;
         this.requiredObjectives = requiredObjectives;
 
         InitializeObjects();
         InitializeContinueButton();
 
-        CreateOptionalObjectiveToggles();
+        CreateChallengeObjectiveToggles();
         CreateRequiredObjectiveText();
 
         OpenCanvas();
         PauseGame();
     }
+    private void InitializeObjects()
+    {
+        objectivesManager = GetComponent<ObjectivesManager>();
 
-    private void CreateOptionalObjectiveToggles()
+        if (objectivesManager == null)
+            throw new ArgumentNullException("Objectives Manager is null");
+
+        if (ChallengeObjectivesCanvasPrefab == null)
+            throw new ArgumentNullException("Canvas Prefab is null");
+
+        selectedChallengeObjectives = new bool[challengeObjectives.Length];
+
+        for (int i = 0; i < challengeObjectives.Length; i++)
+        {
+            selectedChallengeObjectives[i] = false;
+        }
+
+        challengeObjectivesCanvas = Instantiate(ChallengeObjectivesCanvasPrefab);
+    }
+    private void InitializeContinueButton()
+    {
+        Button continueButton = challengeObjectivesCanvas.transform.Find("Container/Continue").GetComponent<Button>();
+        continueButton.onClick.AddListener(ReturnChallengeObjectives);
+    }
+
+    private void CreateChallengeObjectiveToggles()
     {
         int yPositionShift = 0;
 
-        for (int i = 0; i < optionalObjectives.Length; i++)
+        for (int i = 0; i < challengeObjectives.Length; i++)
         {
             int localIndex = i;
 
-            GameObject toggleGameObject = Instantiate(objectiveTogglePrefab, optionalObjectivesCanvas.transform);
+            GameObject toggleGameObject = Instantiate(objectiveTogglePrefab, challengeObjectivesCanvas.transform);
             Toggle toggle = toggleGameObject.GetComponent<Toggle>();
 
             toggle.onValueChanged.AddListener((isOn) => { OnToggleValueChanged(localIndex, isOn); });
 
             SetYPos(toggleGameObject, yPositionShift);
-            SetDescriptionAndColor(toggle, optionalObjectives[i]);
+            SetDescriptionAndColor(toggle, challengeObjectives[i]);
 
             yPositionShift -= yGapForTasks;
         }
@@ -67,7 +91,7 @@ public class OptionalObjectivesController : MonoBehaviour
         int yPositionShift = 0;
         for (int i = 0; i < requiredObjectives.Length; i++)
         {
-            GameObject requiredObjectiveGameObject = Instantiate(objectiveTextPrefab, optionalObjectivesCanvas.transform);
+            GameObject requiredObjectiveGameObject = Instantiate(objectiveTextPrefab, challengeObjectivesCanvas.transform);
             Text text = requiredObjectiveGameObject.GetComponent<Text>();
 
             SetYPos(requiredObjectiveGameObject, yPositionShift);
@@ -75,26 +99,6 @@ public class OptionalObjectivesController : MonoBehaviour
 
             yPositionShift -= yGapForTasks;
         }
-    }
-
-    private void InitializeObjects()
-    {
-        objectivesManager = GetComponent<ObjectivesManager>();
-
-        if (objectivesManager == null)
-            throw new ArgumentNullException("Objectives Manager is null");
-
-        if (OptionalObjectivesCanvasPrefab == null)
-            throw new ArgumentNullException("Canvas Prefab is null");
-
-        selectedOptionalObjectives = new bool[optionalObjectives.Length];
-
-        for (int i=0; i < optionalObjectives.Length; i++)
-        {
-            selectedOptionalObjectives[i] = false;
-        }
-
-        optionalObjectivesCanvas = Instantiate(OptionalObjectivesCanvasPrefab);
     }
 
     private void SetDescriptionAndColor(Toggle toggle, Objective objective)
@@ -128,47 +132,38 @@ public class OptionalObjectivesController : MonoBehaviour
 
         return UnityEngine.Color.white;
     }
-
-    private void InitializeContinueButton()
-    {
-        Button continueButton = optionalObjectivesCanvas.transform.Find("Container/Continue").GetComponent<Button>();
-        continueButton.onClick.AddListener(ReturnOptionalObjectives);
-    }
-
     private void SetYPos(GameObject gameObject, int yPositionShift)
     {
         RectTransform toggleTransform = gameObject.GetComponent<RectTransform>();
         toggleTransform.anchoredPosition += new Vector2(0f, yPositionShift);
     }
-    public void ResumeGame()
-    {
-        Destroy(optionalObjectivesCanvas);
-        UnpauseGame();
-    }
 
-    public void ReturnOptionalObjectives()
-    {
-        ResumeGame();
-        objectivesManager.StartRound(selectedOptionalObjectives);
-    }
-
-   
     private void OnToggleValueChanged(int index, bool isOn)
     {
         ToggleObjective(index);
     }
-
     public void ToggleObjective(int objectiveNumber)
     {
-        if (objectiveNumber < 0 || objectiveNumber >= selectedOptionalObjectives.Length)
+        if (objectiveNumber < 0 || objectiveNumber >= selectedChallengeObjectives.Length)
             throw new ArgumentOutOfRangeException("Index out of range");
 
-        selectedOptionalObjectives[objectiveNumber] = !selectedOptionalObjectives[objectiveNumber];
+        selectedChallengeObjectives[objectiveNumber] = !selectedChallengeObjectives[objectiveNumber];
+    }
+
+    public void ResumeGame()
+    {
+        Destroy(challengeObjectivesCanvas);
+        UnpauseGame();
+    }
+    public void ReturnChallengeObjectives()
+    {
+        ResumeGame();
+        objectivesManager.StartRound(selectedChallengeObjectives);
     }
 
     private void PauseGame() { Time.timeScale = 0f; }
     private void UnpauseGame() { Time.timeScale = 1f; }
-    private void OpenCanvas() { optionalObjectivesCanvas.SetActive(true); }
-    private void CloseCanvas() { optionalObjectivesCanvas.SetActive(false); }
+    private void OpenCanvas() { challengeObjectivesCanvas.SetActive(true); }
+    private void CloseCanvas() { challengeObjectivesCanvas.SetActive(false); }
 
 }

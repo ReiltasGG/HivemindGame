@@ -11,7 +11,7 @@ public class ObjectivesManager : MonoBehaviour
 
     public GameObject objectiveTogglePrefab;
     public GameObject objectiveTextPrefab;
-    public GameObject OptionalObjectivesCanvasPrefab;
+    public GameObject ChallengeObjectivesCanvasPrefab;
 
     [SerializeField]
     private GameObject objectivesPrefab;
@@ -95,9 +95,9 @@ public class ObjectivesManager : MonoBehaviour
         DisplayObjectivesCanvas();
     }
 
-    public void StartRound(bool[] selectedOptionalObjectives)
+    public void StartRound(bool[] selectedChallengeObjectives)
     {
-        CreateObjectives(wavesCode.level, selectedOptionalObjectives);
+        CreateObjectives(wavesCode.level, selectedChallengeObjectives);
         CreateHandlers();
         CreateCanvasText();
         UpdateObjectivesCompletionStatus();
@@ -122,12 +122,12 @@ public class ObjectivesManager : MonoBehaviour
         else
             UpdateCanvasText();
     }
-    private void CreateObjectives(int level, bool[] selectedOptionalObjectives)
+    private void CreateObjectives(int level, bool[] selectedChallengeObjectives)
     {
         if (level == 1)
         {
             level1Objectives = gameObject.AddComponent<Level1Objectives>();
-            level1Objectives.Initialize(this, selectedOptionalObjectives);
+            level1Objectives.Initialize(this, selectedChallengeObjectives);
 
             objectives = level1Objectives.CreateObjectives();
         }
@@ -135,14 +135,14 @@ public class ObjectivesManager : MonoBehaviour
             throw new ArgumentException($"No Objectives created for level {level}");
 
     }
-    public Objective[] GetPossibleOptionalObjectives(int level)
+    public Objective[] GetPossibleChallengeObjectives(int level)
     {
         if (level == 1)
         {
             level1Objectives = gameObject.AddComponent<Level1Objectives>();
             level1Objectives.Initialize(this);
 
-            return level1Objectives.GetOptionalObjectives();
+            return level1Objectives.GetChallengeObjectives();
         }
         else throw new ArgumentException($"No Objectives created for level {level}");
     }
@@ -213,11 +213,11 @@ public class ObjectivesManager : MonoBehaviour
     }
     private void DisplayObjectivesCanvas()
     {
-        Objective[] optionalObjectives = GetPossibleOptionalObjectives(wavesCode.level);
+        Objective[] challengeObjectives = GetPossibleChallengeObjectives(wavesCode.level);
         Objective[] requiredObjectives = GetRequiredObjectives(wavesCode.level);
 
-        OptionalObjectivesController optionalObjectivesController = gameObject.AddComponent<OptionalObjectivesController>();
-        optionalObjectivesController.Initialize(OptionalObjectivesCanvasPrefab, objectiveTogglePrefab, objectiveTextPrefab, optionalObjectives, requiredObjectives);
+        ChallengeObjectivesController challengeObjectivesController = gameObject.AddComponent<ChallengeObjectivesController>();
+        challengeObjectivesController.Initialize(ChallengeObjectivesCanvasPrefab, objectiveTogglePrefab, objectiveTextPrefab, challengeObjectives, requiredObjectives);
     }
 
     private void CallGameOverScene()
