@@ -911,7 +911,7 @@ GameObject:
   - component: {fileID: 8360832950731677381}
   - component: {fileID: 4568974319383116853}
   m_Layer: 5
-  m_Name: OptionalObjectivesCanvas
+  m_Name: ChallengeObjectivesCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

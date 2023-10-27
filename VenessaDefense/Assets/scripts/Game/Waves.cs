@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class Waves : MonoBehaviour
@@ -10,12 +9,13 @@ public class Waves : MonoBehaviour
     public event Action<int> OnEnemiesDeadUpdated;
 
     private float spawnInterval = 1.0f;
-    public float bufferTime = 15.0f;
+    public float bufferTime = 10.0f;
 
-    private int currentWave = 1;
+    private int currentWave = 0;
     public int enemiesDead = 0;
+
     private bool isWaveInProgress = false;
-    private bool waitToStartRound = false;
+    private bool waitToStartRound = true;
     private bool isWaveTextCreated = false;
 
     public int level = 1;
@@ -29,7 +29,8 @@ public class Waves : MonoBehaviour
     EnemyIntroManager enemyIntroManager = null;
     SoundEffectManager soundEffectManager = null;
 
-    private float delayOnWave1Start = 5.0f;
+    private float spawnRateModifier = 1.0f;
+    private float mutationRateModifier = 0.0f;
 
     public enum Enemies
     {
@@ -125,51 +126,80 @@ public class Waves : MonoBehaviour
 
     void Update()
     {
-        if (waveFinished() && CheckLevelCleared())
+        if (!WaveFinished()) return;
+        if (CheckLevelCleared())
         {
             ManageScenes manageScenes = new ManageScenes();
             manageScenes.StartDayClearedScene(level);
             return;
         }
 
-        if (waveFinished() && !waitToStartRound)
+        if (!waitToStartRound)
         {
-            startNextWave();
+            Debug.Log($"Starting wave {currentWave}");
+            StartNextWave();
         }
 
-        if (waveFinished() && waitToStartRound && !isWaveTextCreated)
+        if (waitToStartRound && !isWaveTextCreated)
         {
             StartCoroutine(enemyIntroManager.DisplayNewIntros(currentWave));
-            StartCoroutine(startWaveText(bufferTime));
+            StartCoroutine(StartWaveText(bufferTime));
         }
-            
+
     }
 
-    private void startNextWave()
+    private void StartNextWave()
     {
         isWaveInProgress = true;
         waitToStartRound = true;
 
-        StartCoroutine(startWave(getWave(level, currentWave)));
+        StartCoroutine(StartWave(GetWave(level, currentWave)));
         currentWave++;
     }
-
-    private EnemyWave getWave(int level, int wave)
+    private EnemyWave GetWave(int level, int wave)
     {
         EnemyWave enemyWave = null;
 
         if (level == 1)
         {
-            enemyWave = level1Waves[wave - 1];
+            enemyWave = level1Waves[wave];
         }
-            
+
         else
             throw new ArgumentException($"{level} does not have waves setup");
-        
+
         return enemyWave;
     }
 
-    private bool waveFinished()
+    private List<GameObject> GetEnemiesToSpawn(EnemyWave wave)
+    {
+        if (wave == null)
+            throw new ArgumentNullException("Cannot use an enemy wave that is not instantiated");
+
+        if (wave.enemyCounts.Count == 0)
+            throw new ArgumentException($"Enemy wave {wave.waveNumber} must have enemies");
+
+        List<GameObject> enemies = new List<GameObject>();
+
+        foreach (var keyValuePair in wave.enemyCounts)
+        {
+            Enemies enemyType = keyValuePair.Key;
+            for (int i = 0; i < Math.Round(keyValuePair.Value * spawnRateModifier); i++)
+                enemies.Add(enemyPrefabs[(int)MutateEnemy(enemyType)]);
+        }
+
+        enemies.Shuffle();
+
+        return enemies;
+    }
+    private void SpawnEnemy(GameObject enemy)
+    {
+        Vector3 enemySpawnPosition = GetRandomSpawnerLocation();
+
+        Instantiate(enemy, enemySpawnPosition, Quaternion.identity);
+    }
+
+    private bool WaveFinished()
     {
         GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
 
@@ -178,16 +208,13 @@ public class Waves : MonoBehaviour
 
         return false;
     }
+    private bool CheckLevelCleared() { return (WaveFinished() && (currentWave > level1Waves.Count)); }
 
-    private bool CheckLevelCleared()
+    private IEnumerator StartWave(EnemyWave wave)
     {
-        return (waveFinished() && (currentWave > level1Waves.Count));
-    }
 
-    private IEnumerator startWave(EnemyWave wave)
-    {
         soundEffectManager.playRoundStartSound();
-        
+
         List<GameObject> enemies = GetEnemiesToSpawn(wave);
 
         foreach (GameObject enemy in enemies)
@@ -198,48 +225,9 @@ public class Waves : MonoBehaviour
 
         isWaveInProgress = false;
     }
-
-    private void SpawnEnemy(GameObject enemy)
-    {
-        Vector3 enemySpawnPosition = getRandomSpawnerLocation();
-
-        Instantiate(enemy, enemySpawnPosition, Quaternion.identity);
-    }
-
-    private Vector3 getRandomSpawnerLocation()
-    {
-        if (spawnerTransforms.Count == 0)
-            throw new ArgumentNullException("There needs to be spawners placed to spawn bugs");
-
-        int randomSpawnerIndex = UnityEngine.Random.Range(0, spawnerTransforms.Count);
-        Vector3 enemySpawnPosition = spawnerTransforms[randomSpawnerIndex].position;
-
-        return enemySpawnPosition;
-    }
-
-    private List<GameObject> GetEnemiesToSpawn(EnemyWave wave)
-    {
-        if (wave == null) 
-            throw new ArgumentNullException("Cannot use an enemy wave that is not instantiated");
-
-        if (wave.enemyCounts.Count == 0) 
-            throw new ArgumentException ($"Enemy wave {wave.waveNumber} must have enemies");
-
-        List<GameObject> enemies = new List<GameObject>();
-
-        foreach (var keyValuePair in wave.enemyCounts)
-        {
-            Enemies enemyType = keyValuePair.Key;
-            for (int i = 0; i < keyValuePair.Value; i++)
-                enemies.Add(enemyPrefabs[(int)enemyType]);
-        }
-
-        enemies.Shuffle();
-
-        return enemies;
-    }
-
-    private IEnumerator startWaveText(float seconds)
+    private IEnumerator Delay(float seconds)
+    { yield return new WaitForSeconds(seconds); }
+    private IEnumerator StartWaveText(float seconds)
     {
         isWaveTextCreated = true;
 
@@ -255,14 +243,44 @@ public class Waves : MonoBehaviour
 
     }
 
+    private Enemies MutateEnemy(Enemies enemy)
+    {
+        Debug.Log($"Mutate Rate {mutationRateModifier}");
+
+        float randomValue = UnityEngine.Random.Range(0f, 1f);
+        if (mutationRateModifier == 0 || mutationRateModifier < randomValue) return enemy;
+
+        return MutatedEnemy(enemy);
+    }
+    private Enemies MutatedEnemy(Enemies enemy)
+    {
+        Debug.Log("Enemy mutated");
+        if (enemy == Enemies.Ant)
+            return Enemies.ExplodingAnt;
+
+        else if (enemy == Enemies.Beetle)
+            return Enemies.ExplodingBeetle;
+        
+        return enemy;
+    }
+
+    private Vector3 GetRandomSpawnerLocation()
+    {
+        if (spawnerTransforms.Count == 0)
+            throw new ArgumentNullException("There needs to be spawners placed to spawn bugs");
+
+        int randomSpawnerIndex = UnityEngine.Random.Range(0, spawnerTransforms.Count);
+        Vector3 enemySpawnPosition = spawnerTransforms[randomSpawnerIndex].position;
+
+        return enemySpawnPosition;
+    }
+
     public void incrementDeadEnemies()
     {
         enemiesDead++;
         OnEnemiesDeadUpdated?.Invoke(enemiesDead);
     }
-
-    public int getNumberDeadEnemies()
-    {
-        return enemiesDead;
-    }
+    public int GetNumberDeadEnemies(){ return enemiesDead; }
+    public void SetSpawnRateModifier(float modifier) { spawnRateModifier = modifier; }
+    public void SetMutateRateModifier(float modifier) { mutationRateModifier = modifier; }
 }

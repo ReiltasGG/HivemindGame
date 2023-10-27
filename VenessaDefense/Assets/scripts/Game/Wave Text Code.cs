@@ -6,26 +6,19 @@ using UnityEngine.UI;
 
 public class WaveTextCode : MonoBehaviour
 {
+    private const float TEXT_TIME = 10f;
     public Text timeText;
     public float timeTicker = 0;
-    public float time = 15;
+    public float time = TEXT_TIME;
     public double value = 1;
     private int waveNumber = 1;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        timeTicker = 0;
-        CountWave();
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (time <= 0)
         {
             Destroy(GameObject.FindWithTag("Wave Text"));
-            time = 15;
+            time = TEXT_TIME;
             CountWave();
         }
 
@@ -49,7 +42,6 @@ public class WaveTextCode : MonoBehaviour
             timeTicker = 0;
         }
     }
-
     void CountWave()
     {
         waveNumber++;

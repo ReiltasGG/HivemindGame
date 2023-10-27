@@ -15,6 +15,9 @@ public class Level1Objectives : MonoBehaviour
     ObjectivesManager objectivesManager = null;
     private GameTimer timer = null;
 
+    private const float MUTATE_MODIFIER = 0.3f;
+    private const float SPAWN_RATE_MODIFIER = 2.0f;
+
     public void Initialize(ObjectivesManager objectivesManager, bool[] selectedChallengeObjectives)
     {
         this.objectivesManager = objectivesManager;
@@ -82,8 +85,8 @@ public class Level1Objectives : MonoBehaviour
             () => { return true; }, Difficulty.Medium);
 
         // Return all objectives if nothing is passed in
-        if (selectedChallengeObjectives == null || selectedChallengeObjectives.Length == 0) return new Objective[] { challengeObjective1, challengeObjective2};
-
+        if (selectedChallengeObjectives == null || selectedChallengeObjectives.Length == 0) 
+            return new Objective[] { challengeObjective1, challengeObjective2};
 
         Objective[] challengeObjectives = new Objective[selectedChallengeObjectives.Count(x => x == true)];
 
@@ -91,12 +94,18 @@ public class Level1Objectives : MonoBehaviour
 
         if (selectedChallengeObjectives[0] == true)
         {
+            Waves wavesCode = GetComponent<Waves>();
+            wavesCode.SetSpawnRateModifier(SPAWN_RATE_MODIFIER);
+
             challengeObjectives[counter] = challengeObjective1;
             counter++;
         }
 
         if (selectedChallengeObjectives[1] == true)
         {
+            Waves wavesCode = GetComponent<Waves>();
+            wavesCode.SetMutateRateModifier(MUTATE_MODIFIER);
+
             challengeObjectives[counter] = challengeObjective2;
             counter++;
         }

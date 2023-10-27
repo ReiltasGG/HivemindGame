@@ -91,7 +91,6 @@ public class ObjectivesManager : MonoBehaviour
         if (wavesCode == null)
             throw new Exception("Waves code is null when checking component");
 
-        //CreateObjectives(wavesCode.level, null);
         DisplayObjectivesCanvas();
     }
 

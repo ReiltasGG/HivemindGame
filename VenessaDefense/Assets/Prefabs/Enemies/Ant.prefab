@@ -369,6 +369,7 @@ MonoBehaviour:
   maxHealth: 30
   attackDamage: 10
   healthBar: {fileID: 7660624835045339333}
+  iscurseActive: 0
   currencyWorth: 1
 --- !u!70 &7290146127461780098
 CapsuleCollider2D:
@@ -497,7 +498,6 @@ MonoBehaviour:
   patrolSpeedModifier: 0.5
   waypointList: []
   healthMax: 30
-  deathEffect: {fileID: 0}
   preferRanged: 0
   meleeAttackRadius: 2
   meleeAttackDamage: 10
@@ -509,6 +509,7 @@ MonoBehaviour:
   defaultState: 0
   aggroRadius: 5
   towerAttackRadius: 2
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &2678423835016142801
 GameObject:
   m_ObjectHideFlags: 0
