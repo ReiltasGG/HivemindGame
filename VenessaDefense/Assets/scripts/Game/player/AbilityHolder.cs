@@ -77,7 +77,7 @@ public class AbilityHolder : MonoBehaviour
             {
                 if(Input.GetKeyDown(key2))
             {
-                Debug.Log("Ready");
+               // Debug.Log("Ready");
               //  ability.Activate();
                 ability2.Activate(gameObject);
                 decoyState = AbilityState.active;
@@ -126,6 +126,6 @@ public class AbilityHolder : MonoBehaviour
     public void allowSkill1()
     {
         skill1= true;
-        Debug.Log("Allowskill1 ran");
+       // Debug.Log("Allowskill1 ran");
     }
 }

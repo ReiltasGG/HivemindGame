@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 7049301571797769183}
   - component: {fileID: 7693459505148671292}
   - component: {fileID: 2603166660145138918}
+  - component: {fileID: 4030825757999352749}
   m_Layer: 7
   m_Name: Player with health
   m_TagString: Player
@@ -459,3 +460,17 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &4030825757999352749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8199789876727004746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d602bb9fb22a56e4b9c84343e559b1c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textPopUp: {fileID: 0}
+  keyChoice: 102

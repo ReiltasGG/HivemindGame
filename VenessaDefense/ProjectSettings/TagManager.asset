@@ -15,6 +15,7 @@ TagManager:
   - Hive
   - Tower
   - Stinger
+  - Interactable
   layers:
   - Default
   - TransparentFX

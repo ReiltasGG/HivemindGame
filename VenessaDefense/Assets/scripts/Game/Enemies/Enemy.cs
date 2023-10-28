@@ -293,7 +293,7 @@ public abstract class Enemy : MonoBehaviour
             Collider2D[] things = Physics2D.OverlapCircleAll(transform.position, meleeAttackRadius);
             foreach (Collider2D item in things)
             {
-                Debug.Log(item);
+              //  Debug.Log(item);
                 if (item.gameObject.CompareTag("Player"))
                 {
                     //If it's a player, deal melee damage to it
@@ -310,18 +310,18 @@ public abstract class Enemy : MonoBehaviour
                 }
                 if (item.gameObject.CompareTag("Tower"))
                 {
-                    Debug.Log("entered comparetag tower for pbaoe");
+                //    Debug.Log("entered comparetag tower for pbaoe");
                     //If it's a tower, deal melee damage to it
                     var tower = item.gameObject.GetComponent<AttributesManager>();
                     if (tower != null)
                     {
-                        Debug.Log("entered tower != null function");
+                      //  Debug.Log("entered tower != null function");
                     //Calculate the direction of force
                         Vector2 hitForce = (item.transform.position - transform.position).normalized * meleeAttackKnockback * 10.0f;
 
                     //Apply Knockback and damage to player
                         tower.takeDamage(meleeAttackDamage);
-                        Debug.Log("dealing damage to tower");
+                     //   Debug.Log("dealing damage to tower");
                     }
 
                     
