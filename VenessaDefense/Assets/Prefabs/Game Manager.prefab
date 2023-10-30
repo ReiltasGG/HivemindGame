@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4975681525631197956}
   - component: {fileID: 7624410884779544603}
   - component: {fileID: 7212110396013526836}
+  - component: {fileID: 9207750962738071944}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: GamesManager
@@ -55,7 +56,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0c58d58ed330ad498aec5e7e8a3c4b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bufferTime: 15
+  bufferTime: 300
   enemiesDead: 0
   level: 1
   enemyPrefabs:
@@ -80,7 +81,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeText: {fileID: 5725629463429316571, guid: 26a43c5947639d445b81c857616c5127, type: 3}
   timeTicker: 0
-  time: 15
+  time: 300
   value: 1
 --- !u!82 &1935569641879711535
 AudioSource:
@@ -349,3 +350,17 @@ MonoBehaviour:
   - enemy: 4
     sprite: {fileID: 21300000, guid: c8bf465d372e248419cc17e3c980d7be, type: 3}
   EnemyIntroPrefab: {fileID: 7806056364769894428, guid: 54dbc24154d615943b2bc38177389ca4, type: 3}
+--- !u!114 &9207750962738071944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2465936462903521182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1886a0c92aa83984e929a5e34aecba01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerInfo: {fileID: 292566631465442774, guid: 49218813e6ff7934791c3d403970100f, type: 3}
+  towerStatsText: {fileID: 0}
