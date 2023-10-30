@@ -6,7 +6,12 @@ using UnityEngine;
 public class SoundEffectManager : MonoBehaviour
 {
     public float volume = 1.0f;
-    public AudioClip roundStartSound;
+
+    private const string ENEMY_DEATH_FILE_NAME = "EnemyDeath";
+    private const string GUN_SHOOT_FILE_NAME = "gun_shoot";
+    private const string ROUND_START_FILE_NAME = "Round-Start";
+    private const string OBJECTIVE_COMPLETED_FILE_NAME = "ObjectiveCompleted";
+    private const string SOUNDS_FOLDER = "Sounds/";
 
     public void ChangeSoundEffectVolume(float volume_)
     {
@@ -16,20 +21,31 @@ public class SoundEffectManager : MonoBehaviour
         volume = volume_;
     }
 
-    public void playRoundStartSound()
+    public void PlayRoundStartSound() {  PlaySoundEffect(GetSoundEffect(ROUND_START_FILE_NAME)); }
+    public void PlayEnemyDeathSound() { PlaySoundEffect(GetSoundEffect(ENEMY_DEATH_FILE_NAME)); }
+    public void PlayGunShootSound() { PlaySoundEffect(GetSoundEffect(GUN_SHOOT_FILE_NAME)); }
+    public void PlayObjectiveCompletedSound() { PlaySoundEffect(GetSoundEffect(OBJECTIVE_COMPLETED_FILE_NAME)); }
+
+    private AudioClip GetSoundEffect(string soundFileName)
     {
-        if (roundStartSound == null)
-            throw new ArgumentNullException("Round start sound not attached to AudioSource");
+        AudioClip soundEffect = Resources.Load<AudioClip>(SOUNDS_FOLDER + soundFileName);
 
-        GameObject soundObject = new GameObject("RoundStartSoundObject");
-        AudioSource roundStartSoundSource = soundObject.AddComponent<AudioSource>();
+        if (soundEffect == null)
+            throw new ArgumentException($"Please ensure sound files name is {SOUNDS_FOLDER + soundFileName}");
 
-        roundStartSoundSource.clip = roundStartSound;
-        roundStartSoundSource.volume = volume;
+        return soundEffect;
+    }
+    private void PlaySoundEffect(AudioClip soundEffect)
+    {
+        GameObject soundObject = new GameObject("SoundGameObject");
+        AudioSource audioSource = soundObject.AddComponent<AudioSource>();
 
-        roundStartSoundSource.Play();
+        audioSource.clip = soundEffect;
+        audioSource.volume = volume;
 
-        Destroy(soundObject, roundStartSound.length);
+        audioSource.Play();
+
+        Destroy(soundObject, soundEffect.length);
     }
 
 }
