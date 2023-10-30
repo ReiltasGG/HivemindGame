@@ -237,54 +237,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
---- !u!1 &906716951
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 906716952}
-  - component: {fileID: 906716953}
-  m_Layer: 0
-  m_Name: SkillTreeOpener
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &906716952
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 906716951}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -471.31583, y: -256.74002, z: -0.061377674}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1070903920}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &906716953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 906716951}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9898671799ef40d409cde61b535a65a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillTreeFinder: {fileID: 927508919}
-  countClicks: 0
-  skillTreeBackground: {fileID: 1690574703}
-  open: 0
 --- !u!1 &922347175
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,11 +305,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &927508919 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 516695363513707688, guid: 98f4aa24cd771514c997eee10abce236, type: 3}
-  m_PrefabInstance: {fileID: 1160957349}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &964751101
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -423,11 +370,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f861368de69173408ffafc872a37d64, type: 3}
---- !u!224 &1070903920 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4766921506288528304, guid: 98f4aa24cd771514c997eee10abce236, type: 3}
-  m_PrefabInstance: {fileID: 1160957349}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1160957349
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -521,12 +463,8 @@ PrefabInstance:
       value: Skill Tree Canvas
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 5872885944700865920, guid: 98f4aa24cd771514c997eee10abce236, type: 3}
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4766921506288528304, guid: 98f4aa24cd771514c997eee10abce236, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 906716952}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98f4aa24cd771514c997eee10abce236, type: 3}
 --- !u!1 &1388735475
@@ -775,11 +713,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 823b21927289ff94f9d0ccd140ff2235, type: 3}
---- !u!1 &1690574703 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2104606546652037876, guid: 98f4aa24cd771514c997eee10abce236, type: 3}
-  m_PrefabInstance: {fileID: 1160957349}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8040507816993950208
 PrefabInstance:
   m_ObjectHideFlags: 0

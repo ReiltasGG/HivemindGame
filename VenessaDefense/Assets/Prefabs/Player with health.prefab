@@ -344,9 +344,10 @@ MonoBehaviour:
   ability: {fileID: 11400000, guid: dfcbfc6411d0fed4497537cc53a167d3, type: 2}
   ability2: {fileID: 11400000, guid: 4c7612f3970c56943b5763cd3a3f7687, type: 2}
   skill1: 0
+  skill2: 0
   tr: {fileID: 2603166660145138918}
   key: 113
-  key2: 102
+  key2: 99
 --- !u!96 &2603166660145138918
 TrailRenderer:
   serializedVersion: 3

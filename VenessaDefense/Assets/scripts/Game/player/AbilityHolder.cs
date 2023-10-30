@@ -9,7 +9,7 @@ public class AbilityHolder : MonoBehaviour
     float cooldownTime;
     float activeTime;
     public bool skill1 = false;
-
+    public bool skill2 = false;
 
     [SerializeField] private TrailRenderer tr;
 
@@ -71,6 +71,10 @@ public class AbilityHolder : MonoBehaviour
         }
             
         //Decoy Ability
+        if(skill2 == true)
+        {
+
+        
         switch(decoyState)
         {
             case AbilityState.ready:
@@ -121,11 +125,17 @@ public class AbilityHolder : MonoBehaviour
            
             }
         }
+    }
     
 
     public void allowSkill1()
     {
         skill1= true;
        // Debug.Log("Allowskill1 ran");
+    }
+    
+    public void allowSkill2()
+    {
+        skill2= true;
     }
 }

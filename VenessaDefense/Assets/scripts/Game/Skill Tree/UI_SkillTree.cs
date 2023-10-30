@@ -39,6 +39,7 @@ public class UI_SkillTree : MonoBehaviour {
     new characterSkills { skillNumber = 10, skillExist = false },
     new characterSkills { skillNumber = 11, skillExist = false },
     new characterSkills { skillNumber = 12, skillExist = false },
+    new characterSkills { skillNumber = 13, skillExist = false },
     };
 
     void Start()

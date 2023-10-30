@@ -13,6 +13,11 @@ GameObject:
   - component: {fileID: 6862812631611939685}
   - component: {fileID: 1935569641879711535}
   - component: {fileID: 8180090245841580398}
+  - component: {fileID: 9134485369318315228}
+  - component: {fileID: 8542420116508892805}
+  - component: {fileID: 5260985249711797693}
+  - component: {fileID: 6996056331590519675}
+  - component: {fileID: 7421651822087428541}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: GamesManager
@@ -47,22 +52,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0c58d58ed330ad498aec5e7e8a3c4b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfWaves: 20
-  wavesPerDay: 3
-  enemiesPerWave: 5
-  spawnInterval: 1
   bufferTime: 15
-  waveCompleted: 0
+  enemiesDead: 0
+  level: 1
   enemyPrefabs:
   - {fileID: 2536126099874761892, guid: 49620c6cadba9bb49a8b05fe58afd19b, type: 3}
   - {fileID: 5627538231725734138, guid: ff8c78b1dd4c0214cb4bda9a1460b008, type: 3}
+  - {fileID: 3598959115513445981, guid: 1338bf5c4c6a8af448c97d0c6f84fe47, type: 3}
   - {fileID: 64518308753263262, guid: 4fcdb5d815df7a142b45481286034ca0, type: 3}
   - {fileID: 9009381890420248657, guid: ab446e6574dcc2849b1a20f360683cb1, type: 3}
-  - {fileID: 3598959115513445981, guid: 1338bf5c4c6a8af448c97d0c6f84fe47, type: 3}
   waveText: {fileID: 5725629463429316571, guid: 26a43c5947639d445b81c857616c5127, type: 3}
   uiCanvas: {fileID: 0}
-  roundStartSound: {fileID: 0}
-  enemiesDead: 0
 --- !u!114 &6862812631611939685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,3 +191,93 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fa17ca4c98fe0ea4f96806ceef175640, type: 3}
   - {fileID: 8300000, guid: 5c80689f6508b3547b58e1ad3444cd4f, type: 3}
   - {fileID: 8300000, guid: daaaafe7388906140a957ae45e74498f, type: 3}
+  volume: 1
+--- !u!114 &9134485369318315228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2465936462903521182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f64d875c2c1946f43a3f53d6e7bce5ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currency: 0
+--- !u!114 &8542420116508892805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2465936462903521182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2ddeadf9ee66ce499b119a53c8a7cef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towers:
+  - name: Battle Bee
+    cost: 20
+    prefab: {fileID: 7227727104995871528, guid: 276437bd4de41ff468bfe488a53c92fa, type: 3}
+  - name: Honey Bee
+    cost: 15
+    prefab: {fileID: 8445940507173157326, guid: d7758b80f49739544a024bd275290fb3, type: 3}
+  - name: Shaman Bee
+    cost: 20
+    prefab: {fileID: 4153649241375141767, guid: 9d4a70aff7a2fb946bbabff3a9a23ad6, type: 3}
+  - name: Healing Bee
+    cost: 30
+    prefab: {fileID: 9096252030911634990, guid: 066d8d5dadb16fe44a69af8738490f4b, type: 3}
+--- !u!114 &5260985249711797693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2465936462903521182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6cb6834337e32643bd61886b68390ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyIntroductionImages:
+  - enemy: 0
+    sprite: {fileID: 21300000, guid: 05f2a02cde177fe41a62720069325b42, type: 3}
+  - enemy: 1
+    sprite: {fileID: 21300000, guid: b7b82f28ceada4e4f94b4dce0273f5aa, type: 3}
+  - enemy: 2
+    sprite: {fileID: 21300000, guid: 5bbc2d62368162f41be4186abdf93f71, type: 3}
+  - enemy: 3
+    sprite: {fileID: 21300000, guid: dd9134297e401c9499cc9da574492732, type: 3}
+  - enemy: 4
+    sprite: {fileID: 21300000, guid: c8bf465d372e248419cc17e3c980d7be, type: 3}
+  EnemyIntroPrefab: {fileID: 7806056364769894428, guid: 54dbc24154d615943b2bc38177389ca4, type: 3}
+--- !u!114 &6996056331590519675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2465936462903521182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb9faf81727dff4aa6a781b8fedc1af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectivesPrefab: {fileID: 4110231951749629470, guid: e6b05bc037848bf4e920e04746eab552, type: 3}
+--- !u!114 &7421651822087428541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2465936462903521182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d63a83525ad50f45a092ef421b775fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volume: 1
+  roundStartSound: {fileID: 8300000, guid: b8074d63f26b844418090b67281d1a45, type: 3}
