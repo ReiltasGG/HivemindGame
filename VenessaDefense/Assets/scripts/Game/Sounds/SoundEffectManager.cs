@@ -22,7 +22,7 @@ public class SoundEffectManager : MonoBehaviour
     }
 
     public void PlayRoundStartSound() {  PlaySoundEffect(GetSoundEffect(ROUND_START_FILE_NAME)); }
-    public void PlayEnemyDeathSound() { PlaySoundEffect(GetSoundEffect(ENEMY_DEATH_FILE_NAME)); }
+    public void PlayEnemyDeathSound() { PlaySoundEffect(GetSoundEffect(ENEMY_DEATH_FILE_NAME), 0.7f); }
     public void PlayGunShootSound() { PlaySoundEffect(GetSoundEffect(GUN_SHOOT_FILE_NAME)); }
     public void PlayObjectiveCompletedSound() { PlaySoundEffect(GetSoundEffect(OBJECTIVE_COMPLETED_FILE_NAME)); }
 
@@ -35,13 +35,13 @@ public class SoundEffectManager : MonoBehaviour
 
         return soundEffect;
     }
-    private void PlaySoundEffect(AudioClip soundEffect)
+    private void PlaySoundEffect(AudioClip soundEffect, float soundVolume = 1)
     {
         GameObject soundObject = new GameObject("SoundGameObject");
         AudioSource audioSource = soundObject.AddComponent<AudioSource>();
 
         audioSource.clip = soundEffect;
-        audioSource.volume = volume;
+        audioSource.volume = volume * soundVolume;
 
         audioSource.Play();
 
