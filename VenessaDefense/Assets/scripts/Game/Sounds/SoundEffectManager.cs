@@ -19,6 +19,7 @@ public class SoundEffectManager : MonoBehaviour
             throw new ArgumentException("Volume is out of range");
 
         volume = volume_;
+        Debug.Log(volume);
     }
 
     public void PlayRoundStartSound() {  PlaySoundEffect(GetSoundEffect(ROUND_START_FILE_NAME)); }
@@ -42,7 +43,7 @@ public class SoundEffectManager : MonoBehaviour
 
         audioSource.clip = soundEffect;
         audioSource.volume = volume * soundVolume;
-
+        Debug.Log($"{audioSource.volume}, volume {volume}, sound volume {soundVolume}");
         audioSource.Play();
 
         Destroy(soundObject, soundEffect.length);
