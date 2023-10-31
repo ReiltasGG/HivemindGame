@@ -202,10 +202,8 @@ public class AttributesManager : MonoBehaviour
 
     private void PlayEnemyDieSound()
     {
-        GameObject soundEffectManagerObject = new GameObject("NewSoundEffectManager");
-        SoundEffectManager soundEffectManager = soundEffectManagerObject.AddComponent<SoundEffectManager>();
+        SoundEffectManager soundEffectManager = FindGamesManager().GetComponent<SoundEffectManager>();
 
         soundEffectManager.PlayEnemyDeathSound();
-        Destroy(soundEffectManagerObject, 0.5f);
     }
 }

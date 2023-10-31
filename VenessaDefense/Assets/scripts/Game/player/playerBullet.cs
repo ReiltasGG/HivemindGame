@@ -23,11 +23,9 @@ public class Bullet : MonoBehaviour
 
     private void PlayGunShootSound()
     {
-        GameObject soundEffectManagerObject = new GameObject("NewSoundEffectManager");
-        SoundEffectManager soundEffectManager = soundEffectManagerObject.AddComponent<SoundEffectManager>();
+        SoundEffectManager soundEffectManager = GameObject.FindWithTag("GamesManager").GetComponent<SoundEffectManager>();
 
         soundEffectManager.PlayGunShootSound();
-        Destroy(soundEffectManagerObject, 0.5f);
     }
 
     private void Awake()
