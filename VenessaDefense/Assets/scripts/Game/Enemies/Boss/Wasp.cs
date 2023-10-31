@@ -19,8 +19,16 @@ public class Wasp : MonoBehaviour
     public bool isAttacking = true;
     public int happenOnceAgain = 1;
     public float dashForce = 1000.0f;
+    public bool dashPos = true;
+
 
     public float dashAttackTimerCoolDown = 0.0f;
+
+    //Stun Stuff
+    public float stunTime = 5.0f;
+    public float currentStunTime = 0.0f;
+    public bool stunOnce = true;
+
 
     public GameObject currentWarningRectangle;
     //Movement
@@ -29,7 +37,8 @@ public class Wasp : MonoBehaviour
     {
        dashAttack,
        poisonAttack,
-       stun
+       stun,
+       followLaser,
     } //end enum AIstate
 
 
@@ -52,6 +61,33 @@ public class Wasp : MonoBehaviour
     {
         if(state == AIstate.dashAttack)
         {
+            if(dashPos == true)
+            {
+                  int randomNumber = Random.Range(1, 5);
+                dashPos = false;
+            if(randomNumber == 1)
+           {
+            transform.position = new Vector3(10, 10, 0);
+           
+           }
+           else if(randomNumber == 2)
+           {
+            transform.position = new Vector3(-10, -10, 0);
+           }
+           else if(randomNumber == 3)
+           {
+             transform.position = new Vector3(-20, 0, 0);
+           }
+           else if(randomNumber == 4)
+           {
+             transform.position = new Vector3(25, 0, 0);
+           }
+           else if(randomNumber == 5)
+           {
+             transform.position = new Vector3(0, -15, 0);
+           }
+
+            }
             body.isKinematic = false;
             if(isAttacking == true)
             {
@@ -103,71 +139,100 @@ public class Wasp : MonoBehaviour
             {
                 isAttacking = true;
                 dashAttackTimerCoolDown = 0.0f;
+                dashPos = true;
                 state = AIstate.stun;
                 
             }
         }//End Dash Attack
+        //Stun state
         else if(state == AIstate.stun)
         {
+            if(stunOnce == true)
+            {
+            stunOnce = false;
            int randomNumber = Random.Range(1, 5); // Generates a random integer between 1 (inclusive) and 4 (inclusive)
             body.velocity = body.velocity.normalized * 0.0f;
             body.angularVelocity = 0.0f;
             body.isKinematic = true;
-            state = AIstate.dashAttack;
-              transform.position = new Vector3(0, 0, 0);
+           
+             // transform.position = new Vector3(0, 0, 0);
            if(randomNumber == 1)
            {
             transform.position = new Vector3(0, 0, 0);
            
            }
+           else if(randomNumber == 2)
+           {
+            transform.position = new Vector3(-10, 1, 0);
+           }
+           else if(randomNumber == 3)
+           {
+             transform.position = new Vector3(2, -6, 0);
+           }
+           else if(randomNumber == 4)
+           {
+             transform.position = new Vector3(-6, -6, 0);
+           }
+           else if(randomNumber == 5)
+           {
+             transform.position = new Vector3(9, -6, 0);
+           }
+        
+        }
+            currentStunTime += Time.deltaTime;
+        if(currentStunTime>= stunTime)
+        {
+            currentStunTime = 0.0f;
+            stunOnce = true;
+            state = AIstate.dashAttack;
+        }
+        }
 
+        if(state == AIstate.followLaser)
+        {
+            transform.position = new Vector3(5,5, 0);
         }
     }
 
-    public void DoDashAttack()
-    {
-     //   Debug.Log("runs");
-        /*
-        //Calculate the Vector to the targetLocation.
-        targetDirectionVector = targetLocation - (Vector2)transform.position;
-        //Normalize this to a unit vector (magnitude of 1)
-        targetDirectionVector.Normalize();
+   public void DoDashAttack()
+{
+    // Calculate the Vector to the targetLocation.
+    targetDirectionVector = targetLocation - (Vector2)transform.position;
+    // Normalize this to a unit vector (magnitude of 1).
+    targetDirectionVector.Normalize();
 
-        //Calculate Distance to the targetLocation, to prevent overshooting it
-        float distance = Vector2.Distance(targetLocation, transform.position);
-        Vector2 targetMove = targetDirectionVector * dashSpeed;
+    // Calculate Distance to the targetLocation, to prevent overshooting it
+    float distance = Vector2.Distance(targetLocation, transform.position);
+    Vector2 targetMove = targetDirectionVector * dashSpeed;
 
-         body.velocity += new Vector2(targetMove.x * 0.2f, targetMove.y * 0.2f);
-         isWarning = true;
-         happenOnceAgain = 1;
-         //Debug.Log("runs");
-         */
-         // Calculate the Vector to the targetLocation.
-        targetDirectionVector = targetLocation - (Vector2)transform.position;
-        // Normalize this to a unit vector (magnitude of 1).
-        targetDirectionVector.Normalize();
-
-        // Apply force in the direction of the targetLocation
-        Vector2 dashForceVector = targetDirectionVector * dashForce;
-        body.AddForce(dashForceVector, ForceMode2D.Impulse); // Impulse mode for an instant force
+    // Apply velocity for the dash attack
+    body.velocity = targetMove;
     
-        happenOnceAgain = 1;
-        isWarning = true;
-       
-        
-    }
+    // Set the warning flag and reset the 'happenOnceAgain' flag
+    isWarning = true;
+    happenOnceAgain = 1;
+}
+
 
     void OnCollisionEnter(Collision collision)
 {
-    if (collision.gameObject.CompareTag("Player"))
-    {
-        // Calculate the direction of the push (for example, based on the enemy's forward direction)
-        Vector3 pushDirection = transform.forward;
-        
-        // Apply a force to the player
-        Rigidbody playerRigidbody = collision.gameObject.GetComponent<Rigidbody>();
-        playerRigidbody.AddForce(pushDirection, ForceMode.Impulse);
-    }
+if (collision.gameObject.CompareTag("Player"))
+{
+    // Calculate the direction of the push (perpendicular to the enemy's forward direction)
+    Vector3 pushDirection = transform.forward;
+    Quaternion leftRotation = Quaternion.Euler(0, -90, 0); // Rotate left by 90 degrees
+    Quaternion rightRotation = Quaternion.Euler(0, 90, 0); // Rotate right by 90 degrees
+
+    // Apply a force to the player
+    Rigidbody playerRigidbody = collision.gameObject.GetComponent<Rigidbody>();
+
+    // You can choose either left or right direction for the push
+    playerRigidbody.AddForce(leftRotation * pushDirection, ForceMode.Impulse);
+    // or
+    // playerRigidbody.AddForce(rightRotation * pushDirection, ForceMode.Impulse);
+    Debug.Log("works");
+}
+
      if (collision.gameObject.CompareTag("Tower"))
     {
         // Calculate the direction of the push (for example, based on the enemy's forward direction)
