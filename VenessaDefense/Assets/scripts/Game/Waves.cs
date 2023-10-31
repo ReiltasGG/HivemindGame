@@ -213,7 +213,7 @@ public class Waves : MonoBehaviour
     private IEnumerator StartWave(EnemyWave wave)
     {
 
-        soundEffectManager.playRoundStartSound();
+        soundEffectManager.PlayRoundStartSound();
 
         List<GameObject> enemies = GetEnemiesToSpawn(wave);
 
