@@ -31,7 +31,7 @@ public class BattleBee : MonoBehaviour
     private void Update()
     {
         var tempScript = GetComponent<AttributesManager>();
-        damageOfBullet = tempScript.getDamage();
+        damageOfBullet = tempScript.GetDamage();
         if (target == null)
         {
        

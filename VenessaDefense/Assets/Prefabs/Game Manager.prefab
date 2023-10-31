@@ -14,17 +14,9 @@ GameObject:
   - component: {fileID: 1935569641879711535}
   - component: {fileID: 2354926615363303997}
   - component: {fileID: 8180090245841580398}
-  - component: {fileID: 9134485369318315228}
-  - component: {fileID: 8542420116508892805}
-  - component: {fileID: 5260985249711797693}
-  - component: {fileID: 6996056331590519675}
-  - component: {fileID: 7421651822087428541}
   - component: {fileID: 7083780907926430542}
   - component: {fileID: 7676885091910954471}
-  - component: {fileID: 2533355389113512501}
   - component: {fileID: 9039107181100917067}
-  - component: {fileID: 4975681525631197956}
-  - component: {fileID: 7624410884779544603}
   - component: {fileID: 7212110396013526836}
   m_Layer: 0
   m_Name: Game Manager
@@ -252,30 +244,6 @@ MonoBehaviour:
   - name: Healing Bee
     cost: 30
     prefab: {fileID: 9096252030911634990, guid: 066d8d5dadb16fe44a69af8738490f4b, type: 3}
---- !u!114 &2533355389113512501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2465936462903521182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6cb6834337e32643bd61886b68390ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyIntroductionImages:
-  - enemy: 0
-    sprite: {fileID: 21300000, guid: 05f2a02cde177fe41a62720069325b42, type: 3}
-  - enemy: 1
-    sprite: {fileID: 21300000, guid: b7b82f28ceada4e4f94b4dce0273f5aa, type: 3}
-  - enemy: 2
-    sprite: {fileID: 21300000, guid: 5bbc2d62368162f41be4186abdf93f71, type: 3}
-  - enemy: 3
-    sprite: {fileID: 21300000, guid: dd9134297e401c9499cc9da574492732, type: 3}
-  - enemy: 4
-    sprite: {fileID: 21300000, guid: c8bf465d372e248419cc17e3c980d7be, type: 3}
-  EnemyIntroPrefab: {fileID: 7806056364769894428, guid: 54dbc24154d615943b2bc38177389ca4, type: 3}
 --- !u!114 &9039107181100917067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,44 +260,6 @@ MonoBehaviour:
   objectiveTextPrefab: {fileID: 1137383696718875281, guid: feefceee670cad54b96f9c71640d4a71, type: 3}
   ChallengeObjectivesCanvasPrefab: {fileID: 9085894051363935840, guid: cba0fa26758d0c84d9092469c0b27a17, type: 3}
   objectivesPrefab: {fileID: 4110231951749629470, guid: e6b05bc037848bf4e920e04746eab552, type: 3}
---- !u!114 &4975681525631197956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2465936462903521182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f64d875c2c1946f43a3f53d6e7bce5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currency: 0
---- !u!114 &7624410884779544603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2465936462903521182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2ddeadf9ee66ce499b119a53c8a7cef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  towers:
-  - name: Battle Bee
-    cost: 20
-    prefab: {fileID: 7227727104995871528, guid: 276437bd4de41ff468bfe488a53c92fa, type: 3}
-  - name: Honey Bee
-    cost: 15
-    prefab: {fileID: 8445940507173157326, guid: d7758b80f49739544a024bd275290fb3, type: 3}
-  - name: Shaman Bee
-    cost: 20
-    prefab: {fileID: 4153649241375141767, guid: 9d4a70aff7a2fb946bbabff3a9a23ad6, type: 3}
-  - name: Healing Bee
-    cost: 30
-    prefab: {fileID: 9096252030911634990, guid: 066d8d5dadb16fe44a69af8738490f4b, type: 3}
 --- !u!114 &7212110396013526836
 MonoBehaviour:
   m_ObjectHideFlags: 0
