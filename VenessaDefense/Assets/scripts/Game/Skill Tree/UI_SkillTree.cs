@@ -10,7 +10,7 @@ public class UI_SkillTree : MonoBehaviour {
     private Color originalColor;
 
     public int currentCurrency = 0;
-    public Currency Currency; // Assuming Currency is the correct script type
+    public Currency GameManager; // Assuming Currency is the correct script type
 
     public GameObject SkillTree;
     public class characterSkills
@@ -39,23 +39,20 @@ public class UI_SkillTree : MonoBehaviour {
     new characterSkills { skillNumber = 10, skillExist = false },
     new characterSkills { skillNumber = 11, skillExist = false },
     new characterSkills { skillNumber = 12, skillExist = false },
+    new characterSkills { skillNumber = 13, skillExist = false },
     };
 
     void Start()
     {
         SkillTree.SetActive(false);
         button = GetComponent<Button>();
-        if (button != null) 
-            originalColor = button.colors.normalColor;
-
-        GameObject gameManager = GameObject.FindWithTag("GamesManager");
-        if (gameManager != null)
-            Currency = gameManager.GetComponent<Currency>();
+        //originalColor = button.colors.normalColor;
+        GameManager = GameObject.FindWithTag("GameManager").GetComponent<Currency>();
     }
 
     void Update()
     {
-        //currentCurrency = Currency.getCurrency();
+        //currentCurrency = GameManager.getCurrency();
     }
 
    

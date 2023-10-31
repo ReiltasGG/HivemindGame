@@ -14,6 +14,7 @@ TagManager:
   - Wave Timer
   - Tower
   - Stinger
+  - Interactable
   layers:
   - Default
   - TransparentFX
