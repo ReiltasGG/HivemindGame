@@ -33,6 +33,8 @@ public class WaveTextCode : MonoBehaviour
     {
         timeText = GameObject.FindWithTag("Wave Text")?.GetComponent<Text>();
 
+        if (timeText == null) return ;
+
         // Subtracts time for the timer
         timeTicker = timeTicker + Time.deltaTime;
         if (value < timeTicker && time > 0)

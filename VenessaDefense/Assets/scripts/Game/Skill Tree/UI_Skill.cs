@@ -19,6 +19,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public Image connectorEight;
     public Image connectorNine;
     public Image connectorTen;
+    public Image connectorEleven;
 
     public GameObject Lock1;
     public GameObject Lock2;
@@ -29,6 +30,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public GameObject Lock7;
     public GameObject Lock8;
     public GameObject Lock9;
+    public GameObject Lock10;
     public GameObject background;
 
     public GameObject getSkillTree;
@@ -47,11 +49,14 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public bool skill10HappenOnce = true;
     public bool skill11HappenOnce = true;
     public bool skill12HappenOnce = true;
-
+    public bool skill13HappenOnce = true;
     public GameObject findPlayer;
     public GameObject FindGamesManager;
 
 
+    public GameObject toolsTipHealth1, toolsTipHealth2, toolsTipHealth3, toolsTipHealth4, toolsTipHealth5, toolsTipHealth6, toolsTipHealth7,
+    toolsTipHealth8, toolsTipHealth9, toolsTipHealth10, toolsTipHealth11, toolsTipHealth12, toolsTipHealth13;
+    
 
 
     public bool isHovered = false;
@@ -325,6 +330,24 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 playerScript.allowSkill1();
                 
             }
+           
+            }
+             //Decoy
+            else if(SkillID == 13 && hasBeenBought == true)
+            {
+                  Debug.Log("Runs");
+                bool temp1 = atm.getSkilldata(12);
+                if(temp1 == true)
+                {
+              
+                background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+                //Set SkillID to true
+                 connectorEleven.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
+                atm.updateSkillDataTrue(13);
+                GameObject Player = GameObject.FindWithTag("Player");
+                var playerScript = Player.GetComponent<AbilityHolder>();
+                playerScript.allowSkill2();
+                }
             else 
                 hasBeenBought = false;
 
@@ -340,7 +363,10 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnPointerEnter(PointerEventData eventData)
     {
         isHovered = true;
-        Debug.Log("Button is being hovered.");
+          if(SkillID == 1)
+        {
+            toolsTipHealth1.SetActive(true);
+        }
         // You can add your code here for when the button is hovered.
     }
 
@@ -359,14 +385,76 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
           var temper = FindGamesManager.GetComponent<Currency>();
           temper.subtractCurrency(cost);
             hasBeenBought = true;
-          Debug.Log("I got bought");
+          Debug.Log(SkillID);
+          
         }
+
+
     }
 
     public void skillHover()
     {
         //Activates once player goes over skill with mouse
-        Debug.Log("U hovered me bruh");
+       // Debug.Log("U hovered me bruh");
+        if(SkillID == 1)
+            toolsTipHealth1.SetActive(true);
+        else if(SkillID == 2)
+            toolsTipHealth2.SetActive(true);
+        else if(SkillID == 3)
+            toolsTipHealth3.SetActive(true);
+        else if(SkillID == 4)
+            toolsTipHealth4.SetActive(true);
+        else if(SkillID == 5)
+            toolsTipHealth5.SetActive(true);
+        else if(SkillID == 6)
+            toolsTipHealth6.SetActive(true);
+        else if(SkillID == 7)
+            toolsTipHealth7.SetActive(true);
+        else if(SkillID == 8)
+            toolsTipHealth8.SetActive(true);
+        else if(SkillID == 9)
+            toolsTipHealth9.SetActive(true);
+        else if(SkillID == 10)
+            toolsTipHealth10.SetActive(true);
+        else if(SkillID == 11)
+            toolsTipHealth11.SetActive(true);
+        else if(SkillID == 12)
+            toolsTipHealth12.SetActive(true);
+        else if(SkillID == 13)
+            toolsTipHealth13.SetActive(true);
+            
+        
+      
+    }
+    public void skillHoverOff()
+    {
+        if(SkillID == 1)
+            toolsTipHealth1.SetActive(false);
+        if(SkillID == 2)
+            toolsTipHealth2.SetActive(false);
+        if(SkillID == 3)
+            toolsTipHealth3.SetActive(false);
+        if(SkillID == 4)
+            toolsTipHealth4.SetActive(false);
+        if(SkillID == 5)
+            toolsTipHealth5.SetActive(false);
+        if(SkillID == 6)
+            toolsTipHealth6.SetActive(false);
+        if(SkillID == 7)
+            toolsTipHealth7.SetActive(false);
+        if(SkillID == 8)
+            toolsTipHealth8.SetActive(false);
+        if(SkillID == 9)
+            toolsTipHealth9.SetActive(false);
+        if(SkillID == 10)
+            toolsTipHealth10.SetActive(false);
+        if(SkillID == 11)
+            toolsTipHealth11.SetActive(false);
+        if(SkillID == 12)
+            toolsTipHealth12.SetActive(false);
+        if(SkillID == 13)
+            toolsTipHealth13.SetActive(false);
+            
     }
     
     public void checkAvailabiltiy()
@@ -411,6 +499,10 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
           if(atm.getSkilldata(10) == true && currency >= cost)
         {
             Lock9.GetComponent<Image>().enabled = false;
+        }
+        if(atm.getSkilldata(12) == true)
+        {
+            Lock10.GetComponent<Image>().enabled = false;
         }
     }
 }   

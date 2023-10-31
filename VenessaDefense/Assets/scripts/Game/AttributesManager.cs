@@ -111,6 +111,7 @@ public class AttributesManager : MonoBehaviour
     {
         IncrementDeadEnamies();
         Currency.main.addCurrency(currencyWorth);
+        PlayEnemyDieSound();
     }
 
     public void HandleTowerDeath(GameObject tower)
@@ -197,5 +198,14 @@ public class AttributesManager : MonoBehaviour
     public bool getCurseStatus()
     {
         return iscurseActive;
+    }
+
+    private void PlayEnemyDieSound()
+    {
+        GameObject soundEffectManagerObject = new GameObject("NewSoundEffectManager");
+        SoundEffectManager soundEffectManager = soundEffectManagerObject.AddComponent<SoundEffectManager>();
+
+        soundEffectManager.PlayEnemyDeathSound();
+        Destroy(soundEffectManagerObject, 0.5f);
     }
 }
