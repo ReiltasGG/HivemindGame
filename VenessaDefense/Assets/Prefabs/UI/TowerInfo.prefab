@@ -181,7 +181,26 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 'Battle Bee
+
+
+    ''Gunning Tower''
+
+
+    Shoots stingers at nearby enemies
+
+
+    Damage:
+    10
+
+
+    Range: 5 blocks
+
+
+    Tower HP: 300
+
+
+    Cost: $20'
 --- !u!1 &8857263369160935735
 GameObject:
   m_ObjectHideFlags: 0

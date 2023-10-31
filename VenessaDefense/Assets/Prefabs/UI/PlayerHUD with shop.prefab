@@ -811,6 +811,8 @@ GameObject:
   - component: {fileID: 7577048413236836660}
   - component: {fileID: 4642694102542506696}
   - component: {fileID: 9152825709376498224}
+  - component: {fileID: 5484647536907269915}
+  - component: {fileID: 4975883855997745301}
   m_Layer: 5
   m_Name: ShamanBeeButton
   m_TagString: Untagged
@@ -931,6 +933,63 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5484647536907269915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4902994486359904507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4975883855997745301}
+          m_TargetAssemblyTypeName: TowerButton, Assembly-CSharp
+          m_MethodName: ShowInfo
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Shaman Bee
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 9207750962738071944, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
+          m_TargetAssemblyTypeName: ShowTowerStats, Assembly-CSharp
+          m_MethodName: ToggleTowerStats
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &4975883855997745301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4902994486359904507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faa1aaea2f7ebf14ba8613518bbaf74a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6063961423666045350
 GameObject:
   m_ObjectHideFlags: 0
@@ -943,6 +1002,8 @@ GameObject:
   - component: {fileID: 8470210011625042022}
   - component: {fileID: 8598060765773662440}
   - component: {fileID: 5902229368086178061}
+  - component: {fileID: 6335954583346158614}
+  - component: {fileID: 7484081364790496295}
   m_Layer: 5
   m_Name: HealerBeeButton
   m_TagString: Untagged
@@ -1063,6 +1124,63 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6335954583346158614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6063961423666045350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7484081364790496295}
+          m_TargetAssemblyTypeName: TowerButton, Assembly-CSharp
+          m_MethodName: ShowInfo
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Healer Bee
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 9207750962738071944, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
+          m_TargetAssemblyTypeName: ShowTowerStats, Assembly-CSharp
+          m_MethodName: ToggleTowerStats
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &7484081364790496295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6063961423666045350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faa1aaea2f7ebf14ba8613518bbaf74a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6501530626411590252
 GameObject:
   m_ObjectHideFlags: 0
@@ -1284,6 +1402,8 @@ GameObject:
   - component: {fileID: 5016528746253379199}
   - component: {fileID: 9146215852777631859}
   - component: {fileID: 5233298293340944999}
+  - component: {fileID: 3794483996799911216}
+  - component: {fileID: 2570522436937203096}
   m_Layer: 5
   m_Name: HoneyBeeButton
   m_TagString: Untagged
@@ -1404,6 +1524,63 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3794483996799911216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7597682761308497393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2570522436937203096}
+          m_TargetAssemblyTypeName: TowerButton, Assembly-CSharp
+          m_MethodName: ShowInfo
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Honey Bee
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 9207750962738071944, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
+          m_TargetAssemblyTypeName: ShowTowerStats, Assembly-CSharp
+          m_MethodName: ToggleTowerStats
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &2570522436937203096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7597682761308497393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faa1aaea2f7ebf14ba8613518bbaf74a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7937660664425556396
 GameObject:
   m_ObjectHideFlags: 0
@@ -1550,6 +1727,8 @@ GameObject:
   - component: {fileID: 2804457588433002129}
   - component: {fileID: 3075750148216226828}
   - component: {fileID: 5126475110799916432}
+  - component: {fileID: 8480614664671095257}
+  - component: {fileID: 3853220744955733008}
   m_Layer: 5
   m_Name: BattleBeeButton
   m_TagString: Untagged
@@ -1670,3 +1849,60 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8480614664671095257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8182917168666679533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3853220744955733008}
+          m_TargetAssemblyTypeName: TowerButton, Assembly-CSharp
+          m_MethodName: ShowInfo
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Battle Bee
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 9207750962738071944, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
+          m_TargetAssemblyTypeName: ShowTowerStats, Assembly-CSharp
+          m_MethodName: ToggleTowerStats
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &3853220744955733008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8182917168666679533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faa1aaea2f7ebf14ba8613518bbaf74a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

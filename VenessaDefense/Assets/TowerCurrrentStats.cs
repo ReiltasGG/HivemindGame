@@ -1,44 +1,43 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerCurrrentStats : MonoBehaviour
+public class TowerCurrentStats : MonoBehaviour
 {
-    /*
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    */
-
     public void ShowCurrentStats(string type)
     {
         ShowTowerStats towerManager = GameObject.FindWithTag("GamesManager").GetComponent<ShowTowerStats>();
         string towerType = string.Empty;
+        AttributesManager towerStats = GetComponent<AttributesManager>();
+        int towerDamage = 0;
+        int towerRange = 0;
+        int towerCoolDown = 0;
+        int towerHP = towerStats.health;
+
         switch (type)
         {
             case "Honey Bee":
-            towerType = "Honey Bee\n\n'Slowing Tower'\n\nShoots honey to slow nearby enemies\n\nDuration: 3 seconds\n\nRange: 3 blocks\n\nCooldown: 3 seconds\n\nTower HP: 400\n\nCost: $15";
+            towerType = $"Honey Bee\n\n\nDuration: 3 seconds\n\nRange: 3 blocks\n\nCooldown: 3 seconds\n\nTower HP: {towerHP}\n\nTier: 1";
             break;
 
             case "Battle Bee":
-            towerType = "Battle Bee\n\n'Gunning Tower'\n\nShoots stingers at nearby enemies\n\nDamage: 10\n\nRange: 5 blocks\n\nTower HP: 300\n\nCost: $20";
+            towerType = $"Battle Bee\n\n\nDamage: 10\n\nRange: 3 Blocks\n\nTower HP: {towerHP}\n\nTier: 1";
             break;
 
             case "Shaman Bee":
-            towerType = "Shaman Bee\n\n'Cursing Tower'\n\nCurses nearby enemies to take extra damage\n\nDuration: 3 seconds\n\nRange: 3 blocks\n\nCooldown: 3 seconds\n\nTower HP: 400\n\nCost: $25";
+            towerType = $"Shaman Bee\n\n\nDuration: 3 seconds\n\nRange: 3 Blocks\n\nCooldown: 3 seconds\n\nTower HP: {towerHP}\n\nTier 1";
             break;
 
             case "Healer Bee":
-            towerType = "Healer Bee\n\n'Medic Tower'\n\nHeals the player in range by 20 HP\n\nRange: 4 blocks\n\nCooldown: 10 seconds\n\nTower HP: 500\n\nCost: $30";
+            towerType = $"Healer Bee\n\n\nRange: 4 Blocks\n\nCooldown: 10 seconds\n\nTower HP: {towerHP}\n\nTier 1";
             break;
+
+            case "Hive":
+            towerType = $"Hive\n\nHive HP: {towerHP}\n\nDefend with your life!";
+            break;
+
+
         }
 
         towerManager.SetTowerText(towerType);

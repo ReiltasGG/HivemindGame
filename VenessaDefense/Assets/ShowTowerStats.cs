@@ -1,23 +1,48 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ShowTowerStats : MonoBehaviour
 {
-    [SerializeField]
     private GameObject towerInfo;
 
-    [SerializeField]
-    private Text towerStatsText;
+    private Text towerText;
+
+    private void Start()
+    {
+        towerInfo = GameObject.Find("TowerInfo");
+        if (towerInfo == null)
+        {
+            Debug.LogError("TowerInfo not found in the scene.");
+        }
+        else
+        {
+            towerInfo.SetActive(false);
+        }
+    }
 
     public void ToggleTowerStats()
     {
-        towerInfo.SetActive(!towerInfo.activeSelf);
+        if (towerInfo != null)
+        {
+            towerInfo.SetActive(!towerInfo.activeSelf);
+        }
+
+        else
+        {
+            Debug.LogError("TowerInfo is null. Make sure it's in the scene with the correct name.");
+        }
     }
 
-    public void SetTowerText(string text)
+    public void SetTowerText(string textFill)
     {
-        towerStatsText.text = text;
+        Transform textStatsTransform = towerInfo.transform.Find("TowerTextStats");
+        if(textStatsTransform != null)
+        {
+            towerText = textStatsTransform.GetComponent<Text>();
+            towerText.text = textFill;
+        }
     }
 }
