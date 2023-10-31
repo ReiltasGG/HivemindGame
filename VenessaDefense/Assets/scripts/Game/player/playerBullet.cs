@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         var atm = player.GetComponent<AttributesManager>();
-        damage = atm.getDamage();
+        damage = atm.GetDamage();
         wavesFinder = GameObject.FindWithTag("GamesManager");
     }
 

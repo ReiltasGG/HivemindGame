@@ -8,22 +8,29 @@ using Unity.VisualScripting;
 
 public class ObjectivesManager : MonoBehaviour
 {
+
+    public GameObject objectiveTogglePrefab;
+    public GameObject objectiveTextPrefab;
+    public GameObject ChallengeObjectivesCanvasPrefab;
+
     [SerializeField]
     private GameObject objectivesPrefab;
     private GameObject objectivesCanvas;
-
-    private GameTimer timer = null;
 
     // Keep track for objectives
     private int enemiesDead = 0;
     private int numberOfHives = 5;
 
-    // Objective Goals
-    private int Level1EnemiesKilledGoal = 50;
-    private int Level1HivesProtectedGoal = 3;
-    private float Level1HivesProtectedGoalTime = 120.0f;
-
     private Waves wavesCode = null;
+    private Level1Objectives level1Objectives = null;
+    private Objective[] objectives = null;
+
+    public enum Difficulty
+    {
+        Easy = 1,
+        Medium = 2,
+        Hard = 3
+    }
 
     public class Objective
     {
@@ -32,12 +39,24 @@ public class ObjectivesManager : MonoBehaviour
         private Func<bool> checkObjectiveIsComplete;
         private Func<string> setDescriptionDynamically;
         private ObjectivesManager objectivesManager;
+        private Difficulty difficulty;
 
-        public Objective(ObjectivesManager objectivesManager, Func<string> setDescriptionDynamically, Func<bool> checkObjectiveIsComplete)
+        public Objective(ObjectivesManager objectivesManager, Func<string> setDescriptionDynamically, Func<bool> checkObjectiveIsComplete, Difficulty difficulty)
         {
             this.objectivesManager = objectivesManager;
             this.setDescriptionDynamically = setDescriptionDynamically;
             this.checkObjectiveIsComplete = checkObjectiveIsComplete;
+            this.difficulty = difficulty;
+
+            description = setDescriptionDynamically();
+        }
+
+        public Objective(ObjectivesManager objectivesManager, string description, Func<bool> checkObjectiveIsComplete, Difficulty difficulty)
+        {
+            this.objectivesManager = objectivesManager;
+            this.setDescriptionDynamically = () => { return description; };
+            this.checkObjectiveIsComplete = checkObjectiveIsComplete;
+            this.difficulty = difficulty;
 
             description = setDescriptionDynamically();
         }
@@ -54,6 +73,7 @@ public class ObjectivesManager : MonoBehaviour
 
         public bool getCompleted() { return completed; }
         public string getDescription() { return description; }
+        public Difficulty getDifficulty() { return difficulty; }
         public bool checkCompleted()
         {
             if(checkObjectiveIsComplete()) 
@@ -61,33 +81,31 @@ public class ObjectivesManager : MonoBehaviour
 
             return completed;
         }
+
     }
 
-    public Objective[] objectives = null;
     void Start()
     {
-        timer = gameObject.AddComponent<GameTimer>();
         wavesCode = GetComponent<Waves>();
 
         if (wavesCode == null)
             throw new Exception("Waves code is null when checking component");
 
-        CreateObjectives(wavesCode.level);
-        CreateHandlers(wavesCode.level);
-        CreateCanvasText();
+        DisplayObjectivesCanvas();
     }
 
-    private void Update()
+    public void StartRound(bool[] selectedChallengeObjectives)
     {
-        if (timer != null)
-        {
-            UpdateObjectivesCompletionStatus();
-        }
+        CreateObjectives(wavesCode.level, selectedChallengeObjectives);
+        CreateHandlers();
+        CreateCanvasText();
+        UpdateObjectivesCompletionStatus();
     }
 
-    private void UpdateObjectivesCompletionStatus()
+    public void UpdateObjectivesCompletionStatus()
     {
         bool allObjectivesCompleted = true;
+
         foreach (Objective objective in objectives)
         {
             objective.updateDescription();
@@ -103,26 +121,55 @@ public class ObjectivesManager : MonoBehaviour
         else
             UpdateCanvasText();
     }
-
-    private void CreateHandlers(int level)
+    private void CreateObjectives(int level, bool[] selectedChallengeObjectives)
     {
         if (level == 1)
         {
-            createEnemiesDeadHandler();
-        }
-    }
+            level1Objectives = gameObject.AddComponent<Level1Objectives>();
+            level1Objectives.Initialize(this, selectedChallengeObjectives);
 
-    private void createEnemiesDeadHandler()
+            objectives = level1Objectives.CreateObjectives();
+        }
+        else
+            throw new ArgumentException($"No Objectives created for level {level}");
+
+    }
+    public Objective[] GetPossibleChallengeObjectives(int level)
+    {
+        if (level == 1)
+        {
+            level1Objectives = gameObject.AddComponent<Level1Objectives>();
+            level1Objectives.Initialize(this);
+
+            return level1Objectives.GetChallengeObjectives();
+        }
+        else throw new ArgumentException($"No Objectives created for level {level}");
+    }
+    public Objective[] GetRequiredObjectives(int level)
+    {
+        if (level == 1)
+        {
+            level1Objectives = gameObject.AddComponent<Level1Objectives>();
+            level1Objectives.Initialize(this);
+
+            return level1Objectives.GetBaseObjectives();
+        }
+        else throw new ArgumentException($"No Objectives created for level {level}");
+    }
+    private void CreateHandlers()
+    {
+        CreateEnemiesDeadHandler();
+    }
+    private void CreateEnemiesDeadHandler()
     {
         wavesCode.OnEnemiesDeadUpdated += HandleEnemiesDeadUpdated; // adds this Action when enemies dead is updated
     }
-
     private void HandleEnemiesDeadUpdated(int newEnemiesDead)
     {
-        enemiesDead = newEnemiesDead;
+        enemiesDead++;
         UpdateObjectivesCompletionStatus();
     }
-
+    
     private void CreateCanvasText()
     {
         if (objectivesPrefab == null)
@@ -159,44 +206,17 @@ public class ObjectivesManager : MonoBehaviour
             yOffset -= textHeight;
         }
     }
-
-    public void UpdateCanvasText()
+    private void UpdateCanvasText()
     {
         CreateCanvasText();
     }
-
-    private void CreateObjectives(int level)
+    private void DisplayObjectivesCanvas()
     {
-        if (level == 1)
-            CreateLevel1Objectives();
-        else
-            throw new ArgumentException($"No Objectives created for level {level}");
-    }
-    private void CreateLevel1Objectives()
-    {
-        objectives = new Objective[2];
+        Objective[] challengeObjectives = GetPossibleChallengeObjectives(wavesCode.level);
+        Objective[] requiredObjectives = GetRequiredObjectives(wavesCode.level);
 
-        objectives[0] = new Objective(this, () =>{ return $"Kill {getEnemiesLeftToKill(Level1EnemiesKilledGoal)} Enemies"; }, 
-            () => { return enemiesDead >= Level1EnemiesKilledGoal; });
-
-        objectives[1] = new Objective(this, () => { return $"Protect {Level1HivesProtectedGoal} Hives for {getTimeLeft(Level1HivesProtectedGoalTime)} seconds"; }, 
-            () => { return (numberOfHives >= Level1HivesProtectedGoal) && (timer == null || timer.GetTimePassed() >= Level1HivesProtectedGoalTime); });
-
-        StartCoroutine(Level1Timer(Level1HivesProtectedGoalTime, objectives[1]));
-    }
-    IEnumerator Level1Timer(float timeInSeconds, Objective objective)
-    {
-        yield return new WaitForSeconds(timeInSeconds);
-        if (countHives() < Level1HivesProtectedGoal)
-        {
-            CallGameOverScene();
-        }
-        else
-        {
-            objective.checkCompleted();
-            Destroy(timer);
-        }
-            
+        ChallengeObjectivesController challengeObjectivesController = gameObject.AddComponent<ChallengeObjectivesController>();
+        challengeObjectivesController.Initialize(ChallengeObjectivesCanvasPrefab, objectiveTogglePrefab, objectiveTextPrefab, challengeObjectives, requiredObjectives);
     }
 
     private void CallGameOverScene()
@@ -204,37 +224,41 @@ public class ObjectivesManager : MonoBehaviour
         ManageScenes manageScenes = new ManageScenes();
         manageScenes.StartGameOverScene(wavesCode.enemiesDead);
     }
-
     private void CallDayClearedScene()
     {
         ManageScenes manageScenes = new ManageScenes();
         manageScenes.StartDayClearedScene(wavesCode.level);
     }
 
-    private int getEnemiesLeftToKill(int goal)
+    public void DestroyHive()
     {
-        return enemiesDead >= goal ? goal : goal - enemiesDead;
+        numberOfHives -=1;
+
+        NumberOfHivesPassesLevel(numberOfHives);
+        UpdateObjectivesCompletionStatus();
+    }
+    private void NumberOfHivesPassesLevel(int numberOfHives)
+    {
+        if (wavesCode.level == 1)
+        {
+            Level1Objectives level1Objectives = new Level1Objectives();
+
+            if (numberOfHives < level1Objectives.GetHivesProtectedGoal())
+                CallGameOverScene();
+
+        }
     }
 
-    private float getTimeLeft(float goal)
+    public int GetNumberOfHives() { return numberOfHives; }
+    public int GetEnemiesDead() { return enemiesDead; }
+    public int GetEnemiesLeftToKill(int goal) { return enemiesDead >= goal ? goal : goal - enemiesDead; }
+    public float GetTimeLeft(float goal, GameTimer timer)
     {
         if (timer == null) return goal;
 
-        float timeLeft =  timer.GetTimePassed() >= goal ? goal : goal - timer.GetTimePassed();
+        float timeLeft = timer.GetTimePassed() >= goal ? goal : goal - timer.GetTimePassed();
 
         return (float)Math.Round(timeLeft, 0);
-    }
-
-    public void updateNumberOfHives()
-    {
-        numberOfHives = countHives();
-        UpdateObjectivesCompletionStatus();
-    }
-
-    private int countHives()
-    {
-        GameObject[] hiveObjects = GameObject.FindGameObjectsWithTag("Hive");
-        return hiveObjects.Length;
     }
 
 }

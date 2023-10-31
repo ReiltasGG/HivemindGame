@@ -10,7 +10,7 @@ public class ShamanBee : MonoBehaviour
 
     [Header("Attribute")]
     [SerializeField] private float targetingRange = 2f;
-    [SerializeField] private float aps= 0.25f;//attacks per second
+   // [SerializeField] private float aps= 0.25f;//attacks per second
     [SerializeField] private float curseTime = 3f;
     [SerializeField] private float damageBoost = 2f;
     public GameObject curseEffect;
@@ -77,8 +77,10 @@ public class ShamanBee : MonoBehaviour
     
     private void OnDrawGizmosSelected()
     {
-        Handles.color = Color.cyan;
-        Handles.DrawWireDisc(transform.position, transform.forward, targetingRange);
+        /* This only works in editor, cannot build with this
+        UnityEditor.Handles.color = Color.cyan;
+        UnityEditor.Handles.DrawWireDisc(transform.position, transform.forward, targetingRange);
+        */
     }
     
 }

@@ -39,6 +39,10 @@ public class MusicManager : MonoBehaviour
 
         Invoke("PlayNextTrack", currentSong.clip.length);
     }
+    public void SkipTrack()
+    {
+        PlayNextTrack();
+    }
 
     public void ChangeMusicVolume(float volume_)
     {
@@ -48,5 +52,8 @@ public class MusicManager : MonoBehaviour
         volume = volume_;
         currentSong.volume = volume;
     }
+    public int GetCurrentSongTime() { return currentSong.clip == null ? 0 : Mathf.FloorToInt(currentSong.time); }
+    public int GetSongLength() { return currentSong.clip == null? 0 : Mathf.FloorToInt(currentSong.clip.length); }
+    public string GetSongName() {  return currentSong.clip == null? "": currentSong.clip.name; }
 
 }
