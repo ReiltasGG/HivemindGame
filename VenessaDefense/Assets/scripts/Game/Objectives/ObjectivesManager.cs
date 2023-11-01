@@ -62,8 +62,11 @@ public class ObjectivesManager : MonoBehaviour
         }
 
         public void completeObjective()
-        { 
+        {
+            if (completed) return;
+
             completed = true;
+            objectivesManager.GainSkillPoints((int)difficulty);
         }
 
         public void updateDescription()
@@ -248,6 +251,24 @@ public class ObjectivesManager : MonoBehaviour
 
         }
     }
+
+    public void GainSkillPoints(int numberOfSkillPoints)
+    {
+        SkillPoints skillPoints = FindGamesManager().GetComponent<SkillPoints>();
+        if (skillPoints == null)
+            throw new ArgumentNullException("Skill Points script must be attached to Games Manager");
+
+        skillPoints.GainSkillPoints(numberOfSkillPoints);
+    }
+    private GameObject FindGamesManager()
+    {
+        GameObject GamesManager = GameObject.FindWithTag("GamesManager");
+        if (GamesManager == null)
+            throw new ArgumentNullException("Games manager is not found");
+            
+       return GamesManager;
+    }
+
 
     public int GetNumberOfHives() { return numberOfHives; }
     public int GetEnemiesDead() { return enemiesDead; }

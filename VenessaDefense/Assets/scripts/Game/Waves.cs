@@ -213,7 +213,7 @@ public class Waves : MonoBehaviour
     private IEnumerator StartWave(EnemyWave wave)
     {
 
-        soundEffectManager.playRoundStartSound();
+        soundEffectManager.PlayRoundStartSound();
 
         List<GameObject> enemies = GetEnemiesToSpawn(wave);
 
@@ -245,8 +245,6 @@ public class Waves : MonoBehaviour
 
     private Enemies MutateEnemy(Enemies enemy)
     {
-        Debug.Log($"Mutate Rate {mutationRateModifier}");
-
         float randomValue = UnityEngine.Random.Range(0f, 1f);
         if (mutationRateModifier == 0 || mutationRateModifier < randomValue) return enemy;
 

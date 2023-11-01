@@ -80,5 +80,9 @@ public class TowerBullet : MonoBehaviour
         }
     }
 
+    public void setBulletDamage(int newDamage)
+    {
+        bulletDamage = newDamage;
+    }
 
 }

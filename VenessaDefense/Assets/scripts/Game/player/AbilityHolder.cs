@@ -9,7 +9,7 @@ public class AbilityHolder : MonoBehaviour
     float cooldownTime;
     float activeTime;
     public bool skill1 = false;
-
+    public bool skill2 = false;
 
     [SerializeField] private TrailRenderer tr;
 
@@ -71,13 +71,17 @@ public class AbilityHolder : MonoBehaviour
         }
             
         //Decoy Ability
+        if(skill2 == true)
+        {
+
+        
         switch(decoyState)
         {
             case AbilityState.ready:
             {
                 if(Input.GetKeyDown(key2))
             {
-                Debug.Log("Ready");
+               // Debug.Log("Ready");
               //  ability.Activate();
                 ability2.Activate(gameObject);
                 decoyState = AbilityState.active;
@@ -121,11 +125,17 @@ public class AbilityHolder : MonoBehaviour
            
             }
         }
+    }
     
 
     public void allowSkill1()
     {
         skill1= true;
-        Debug.Log("Allowskill1 ran");
+       // Debug.Log("Allowskill1 ran");
+    }
+    
+    public void allowSkill2()
+    {
+        skill2= true;
     }
 }

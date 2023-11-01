@@ -25,12 +25,12 @@ public class AttributesManager : MonoBehaviour
         if (healthBar != null)
             healthBar.SetMaxHealth(maxHealth);
 
-        wavesFinder = FindGamesManager();
+        wavesFinder = GamesManager();
 
         spriteDefaultColor = GetSprite().color;
     }
 
-    private GameObject FindGamesManager()
+    private GameObject GamesManager()
     {
         GameObject gamesManager = GameObject.FindWithTag("GamesManager");
 
@@ -42,7 +42,7 @@ public class AttributesManager : MonoBehaviour
 
     private Waves FindWavesCode()
     {
-        GameObject gamesManager = FindGamesManager();
+        GameObject gamesManager = GamesManager();
         return gamesManager.GetComponent<Waves>();
     }
 
@@ -111,6 +111,7 @@ public class AttributesManager : MonoBehaviour
     {
         IncrementDeadEnamies();
         Currency.main.addCurrency(currencyWorth);
+        PlayEnemyDieSound();
     }
 
     public void HandleTowerDeath(GameObject tower)
@@ -127,7 +128,7 @@ public class AttributesManager : MonoBehaviour
         if (gameObject != null)
             Despawn();
 
-        GameObject gamesManager = FindGamesManager();
+        GameObject gamesManager = GamesManager();
         ObjectivesManager objectivesManager = gamesManager.GetComponent<ObjectivesManager>();
 
         objectivesManager.DestroyHive();
@@ -197,5 +198,12 @@ public class AttributesManager : MonoBehaviour
     public bool getCurseStatus()
     {
         return iscurseActive;
+    }
+
+    private void PlayEnemyDieSound()
+    {
+        SoundEffectManager soundEffectManager = GamesManager().GetComponent<SoundEffectManager>();
+
+        soundEffectManager.PlayEnemyDeathSound();
     }
 }

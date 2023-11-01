@@ -17,6 +17,15 @@ public class Bullet : MonoBehaviour
         var atm = player.GetComponent<AttributesManager>();
         damage = atm.GetDamage();
         wavesFinder = GameObject.FindWithTag("GamesManager");
+
+        PlayGunShootSound();
+    }
+
+    private void PlayGunShootSound()
+    {
+        SoundEffectManager soundEffectManager = GameObject.FindWithTag("GamesManager").GetComponent<SoundEffectManager>();
+
+        soundEffectManager.PlayGunShootSound();
     }
 
     private void Awake()
