@@ -51,7 +51,7 @@ public class UI_SkillTree : MonoBehaviour {
         return listOfSkills[whichSkill-1].skillUnlocked;
     }
 
-    public void updateSkillDataTrue(int whichSkill)
+    public void UnlockSkill(int whichSkill)
     {
         listOfSkills[whichSkill-1].skillUnlocked = true;
     }
