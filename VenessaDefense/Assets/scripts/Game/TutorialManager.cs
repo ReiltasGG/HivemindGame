@@ -111,17 +111,19 @@ public class TutorialManager : MonoBehaviour
                 //popUps[popUpIndex].SetActive(true);
             }
         }
-        /*
+        
         else if (popUpIndex == 5) // shop
         {
             popUps[popUpIndex].SetActive(true);
+            Time.timeScale = 1f;
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 popUps[popUpIndex].SetActive(false);
                 popUpIndex++;
-                popUps[popUpIndex].SetActive(true);
+                //popUps[popUpIndex].SetActive(true);
             }
         }
+        /*
         else if (popUpIndex == 5) // Skills
         {
             popUps[popUpIndex].SetActive(true);
