@@ -25,7 +25,7 @@ public class TutorialManager : MonoBehaviour
 
 
     public GameObject ant;
-
+    public GameObject ant2;
     /// <summary>
     /// Using this as condition for the enemy pop up.... Couldnt get it to work tho
     /// </summary>
@@ -40,6 +40,8 @@ public class TutorialManager : MonoBehaviour
         for (int i = 0; i < popUps.Length; i++)
             popUps[i].SetActive(false);
         healthbar.SetActive(false);
+        ant.SetActive(false);
+        ant2.SetActive(false);
         shop.SetActive(false);
         plot.SetActive(false);
         trainer.SetActive(false); 
@@ -89,7 +91,7 @@ public class TutorialManager : MonoBehaviour
         {
             popUps[popUpIndex].SetActive(true);
             Time.timeScale = 1f;
-            if (shootCount == 1)
+            if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 popUps[popUpIndex].SetActive(false);
                 popUpIndex++;
@@ -142,8 +144,22 @@ public class TutorialManager : MonoBehaviour
                 //popUps[popUpIndex].SetActive(true);
             }
         }
-        
-        else if (popUpIndex == 6) // Skills
+        else if (popUpIndex == 6) // Enemy Attack with tower
+        {
+            popUps[popUpIndex].SetActive(true);
+            ant2.SetActive(true);
+            Time.timeScale = 1f;
+            if (ant2 != null)
+                ant2.SetActive(true);
+            if (waves.getDeadEnemies() > 1)
+            {
+                popUps[popUpIndex].SetActive(false);
+                popUpIndex++;
+                //popUps[popUpIndex].SetActive(true);
+            }
+
+        }
+        else if (popUpIndex == 7) // Skills
         {
             popUps[popUpIndex].SetActive(true);
             trainer.SetActive(true);  
