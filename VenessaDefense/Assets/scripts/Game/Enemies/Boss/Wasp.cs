@@ -32,7 +32,7 @@ public class Wasp : MonoBehaviour
 
     public GameObject currentWarningRectangle;
     //Movement
-    public float dashSpeed = 5.0f;
+    public float dashSpeed = 200.0f;
     public enum AIstate
     {
        dashAttack,
@@ -114,6 +114,7 @@ public class Wasp : MonoBehaviour
                      Vector2 directionToPlayer = (Vector2)target.position - warningPosition;
                     float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
                     currentWarningRectangle.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle+90));
+                    transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle+90));
 
                 happenOnceAgain = 0;
                 }
@@ -214,7 +215,7 @@ public class Wasp : MonoBehaviour
 }
 
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter2D(Collision2D collision)
 {
 if (collision.gameObject.CompareTag("Player"))
 {
