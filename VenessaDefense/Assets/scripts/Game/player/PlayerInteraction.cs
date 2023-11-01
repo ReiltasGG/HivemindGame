@@ -30,23 +30,14 @@ public class PlayerInteraction : MonoBehaviour
 
             //Get all interactables within range
             Collider2D[] things = Physics2D.OverlapCircleAll(position, radius);
-
     
         }
-     //   Debug.Log(isInRange);
-                  if(Input.GetKeyDown(keyChoice) && isInRange)
-           {
+        if(Input.GetKeyDown(keyChoice) && isInRange)
+        {
             GameObject temp = GameObject.Find("SkillTreeOpener");
             var temper = temp.GetComponent<UI_SkillTreeOpener>();
-            temper.setOpen();
-           }
-           else if(!isInRange)
-           {
-            GameObject temp = GameObject.Find("SkillTreeOpener");
-           
-            var temper = temp.GetComponent<UI_SkillTreeOpener>();
-            temper.setOpenFalse();
-           }
+            temper.ToggleTree();
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D other)

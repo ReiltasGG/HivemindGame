@@ -12,7 +12,8 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        //Debug.Log(Time.timeScale);
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if(isPaused == false) 
             {
@@ -24,7 +25,7 @@ public class PauseMenu : MonoBehaviour
                 Resume();
             }
 
-            
+            Debug.Log(Time.timeScale);
         }
     }
 
@@ -41,6 +42,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+        Debug.Log($"Time scale: {Time.timeScale}");
     }
 
 

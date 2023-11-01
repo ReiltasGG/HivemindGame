@@ -115,7 +115,6 @@ public class Level1Objectives : MonoBehaviour
 
     IEnumerator ObjectiveCompletionTimer(float timeInSeconds, Objective objective)
     {
-        Debug.Log("Timer started");
         yield return new WaitForSeconds(timeInSeconds);
 
         objective.checkCompleted();

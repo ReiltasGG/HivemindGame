@@ -6,59 +6,35 @@ using UnityEngine.UI;
 
 public class UI_SkillTreeOpener : MonoBehaviour
 {
-    //This code will open the skill tree through changing the transform
-
     public GameObject skillTreeFinder;
   //  public GameObject skillTreeButton = null;
     public int countClicks = 0;
     public GameObject skillTreeBackground;
 
-    public bool open = false;
+    public bool skillTreeIsOpen = false;
 
-    // Start is called before the first frame update
-    void Start()
+    public void ToggleTree()
     {
-        //skillTreeButton = this.gameObject;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        spawnTree();
-    }
-
-    public void spawnTree()
-    {
-       // countClicks++;
-        if (open)
+        if (skillTreeIsOpen)
         {
             //Text treeButton = skillTreeButton.GetComponentInChildren<Text>();
           //  treeButton.text = "Close Tree";
             skillTreeFinder.SetActive(true);
             skillTreeBackground.SetActive(true);
-            Time.timeScale = 0f;
-           // Debug.Log("This runs");
+            Pause();
 
         }
         else
         {
             skillTreeFinder.SetActive(false);
             skillTreeBackground.SetActive(false);
-            Time.timeScale = 1f;
+            Unpause();
         }
-
+        ToggleSkillTreeOpen();
     }
 
-    public void setOpen()
-    {
-        if(open)
-        open = false;
-        else
-            open = true;
-    }
+    private void Pause() { Time.timeScale = 0f; }
+    private void Unpause() { Time.timeScale = 1f; }
+    private void ToggleSkillTreeOpen() { skillTreeIsOpen = !skillTreeIsOpen; }
 
-    public void setOpenFalse()
-    {
-        open = false;
-    }
 }
