@@ -10,11 +10,17 @@ public class TutorialManager : MonoBehaviour
 {
 
     public GameObject[] popUps;
+    public Waves waves;
+    public GameObject healthbar;
+    public GameObject shop;
+    public GameObject plot;
+    public GameObject trainer;
     //public GameObject welcome;
     //public static event Action closeButton;
     private int popUpIndex = 0;
     private int movementCounter = 0;
     private int shootCount = 0;
+   
 
 
 
@@ -30,8 +36,13 @@ public class TutorialManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         for (int i = 0; i < popUps.Length; i++)
             popUps[i].SetActive(false);
+        healthbar.SetActive(false);
+        shop.SetActive(false);
+        plot.SetActive(false);
+        trainer.SetActive(false); 
     }
 
     // Update is called once per frame and studd
@@ -62,7 +73,7 @@ public class TutorialManager : MonoBehaviour
         {
             popUps[popUpIndex].SetActive(true);
             
-            if(movementCounter == 2)
+            if(movementCounter == 1)
             {
 
                 popUps[popUpIndex].SetActive(false);
@@ -90,9 +101,16 @@ public class TutorialManager : MonoBehaviour
         {
 
             popUps[popUpIndex].SetActive(true);
+            healthbar.SetActive(true);
+            shop.SetActive(true);
             Time.timeScale = 1f;
-            ant.SetActive(true);
-            if (GameObject.FindWithTag("Enemy") == null)
+            if (ant != null)
+            {
+                ant.SetActive(true);
+            }
+            
+            
+            if (waves.enemiesDead > 0)
             {
                 popUps[popUpIndex].SetActive(false);
                 popUpIndex++;
@@ -115,6 +133,7 @@ public class TutorialManager : MonoBehaviour
         else if (popUpIndex == 5) // shop
         {
             popUps[popUpIndex].SetActive(true);
+            plot.SetActive(true);
             Time.timeScale = 1f;
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -123,10 +142,12 @@ public class TutorialManager : MonoBehaviour
                 //popUps[popUpIndex].SetActive(true);
             }
         }
-        /*
-        else if (popUpIndex == 5) // Skills
+        
+        else if (popUpIndex == 6) // Skills
         {
             popUps[popUpIndex].SetActive(true);
+            trainer.SetActive(true);  
+            Time.timeScale = 1f;
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 popUps[popUpIndex].SetActive(false);
@@ -135,7 +156,7 @@ public class TutorialManager : MonoBehaviour
             }
 
         }
-        */
+        
         }
     
         private void FixedUpdate()
