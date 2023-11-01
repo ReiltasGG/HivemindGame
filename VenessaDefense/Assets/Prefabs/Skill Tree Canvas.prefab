@@ -708,7 +708,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &796548295894121318
 RectTransform:
   m_ObjectHideFlags: 0
@@ -765,7 +765,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentCurrency: 0
-  GameManager: {fileID: 0}
   SkillTree: {fileID: 516695363513707688}
 --- !u!1 &568772570575451834
 GameObject:
@@ -956,8 +955,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillID: 9
-  cost: 0
-  currency: 0
+  cost: 2
+  amountOfSkillPoints: 0
   connectorOne: {fileID: 7200212029741980940}
   connectorTwo: {fileID: 6114105483168773128}
   connectorThree: {fileID: 2501579937786969987}
@@ -1545,7 +1544,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Cost: 1 Skill Point'
+  m_text: 'Cost: 2 Skill Point'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
   m_sharedMaterial: {fileID: -6857794756260897259, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
@@ -2347,8 +2346,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillID: 11
-  cost: 0
-  currency: 0
+  cost: 3
+  amountOfSkillPoints: 0
   connectorOne: {fileID: 7200212029741980940}
   connectorTwo: {fileID: 6114105483168773128}
   connectorThree: {fileID: 2501579937786969987}
@@ -2558,8 +2557,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillID: 13
-  cost: 0
-  currency: 0
+  cost: 3
+  amountOfSkillPoints: 0
   connectorOne: {fileID: 7200212029741980940}
   connectorTwo: {fileID: 6114105483168773128}
   connectorThree: {fileID: 2501579937786969987}
@@ -3142,7 +3141,7 @@ MonoBehaviour:
   skillTreeFinder: {fileID: 516695363513707688}
   countClicks: 0
   skillTreeBackground: {fileID: 2104606546652037876}
-  open: 0
+  skillTreeIsOpen: 0
 --- !u!1 &2264493213541626514
 GameObject:
   m_ObjectHideFlags: 0
@@ -4041,7 +4040,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Cost: 1 Skill Point'
+  m_text: 'Cost: 2 Skill Point'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
   m_sharedMaterial: {fileID: -6857794756260897259, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
@@ -4295,8 +4294,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillID: 10
-  cost: 0
-  currency: 0
+  cost: 2
+  amountOfSkillPoints: 0
   connectorOne: {fileID: 7200212029741980940}
   connectorTwo: {fileID: 6114105483168773128}
   connectorThree: {fileID: 2501579937786969987}
@@ -4493,7 +4492,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Cost: 1 Skill Point'
+  m_text: 'Cost: 3 Skill Point'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
   m_sharedMaterial: {fileID: -6857794756260897259, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
@@ -4826,8 +4825,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillID: 7
-  cost: 0
-  currency: 0
+  cost: 3
+  amountOfSkillPoints: 0
   connectorOne: {fileID: 7200212029741980940}
   connectorTwo: {fileID: 6114105483168773128}
   connectorThree: {fileID: 2501579937786969987}
@@ -5489,8 +5488,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillID: 3
-  cost: 0
-  currency: 0
+  cost: 2
+  amountOfSkillPoints: 0
   connectorOne: {fileID: 7200212029741980940}
   connectorTwo: {fileID: 6114105483168773128}
   connectorThree: {fileID: 2501579937786969987}
@@ -6196,8 +6195,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillID: 4
-  cost: 0
-  currency: 0
+  cost: 3
+  amountOfSkillPoints: 0
   connectorOne: {fileID: 7200212029741980940}
   connectorTwo: {fileID: 6114105483168773128}
   connectorThree: {fileID: 2501579937786969987}
@@ -6738,8 +6737,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillID: 5
-  cost: 0
-  currency: 0
+  cost: 1
+  amountOfSkillPoints: 0
   connectorOne: {fileID: 7200212029741980940}
   connectorTwo: {fileID: 6114105483168773128}
   connectorThree: {fileID: 2501579937786969987}
@@ -7024,8 +7023,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillID: 2
-  cost: 0
-  currency: 0
+  cost: 2
+  amountOfSkillPoints: 0
   connectorOne: {fileID: 7200212029741980940}
   connectorTwo: {fileID: 6114105483168773128}
   connectorThree: {fileID: 2501579937786969987}
@@ -7309,8 +7308,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillID: 1
-  cost: 0
-  currency: 0
+  cost: 1
+  amountOfSkillPoints: 0
   connectorOne: {fileID: 7200212029741980940}
   connectorTwo: {fileID: 6114105483168773128}
   connectorThree: {fileID: 2501579937786969987}
@@ -7475,7 +7474,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Cost: 1 Skill Point'
+  m_text: 'Cost: 2 Skill Point'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
   m_sharedMaterial: {fileID: -6857794756260897259, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
@@ -7609,7 +7608,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Cost: 1 Skill Point'
+  m_text: 'Cost: 3 Skill Point'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
   m_sharedMaterial: {fileID: -6857794756260897259, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
@@ -8674,8 +8673,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillID: 8
-  cost: 5
-  currency: 0
+  cost: 1
+  amountOfSkillPoints: 0
   connectorOne: {fileID: 7200212029741980940}
   connectorTwo: {fileID: 6114105483168773128}
   connectorThree: {fileID: 2501579937786969987}
@@ -9956,7 +9955,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Cost: 1 Skill Point'
+  m_text: 'Cost: 3 Skill Point'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
   m_sharedMaterial: {fileID: -6857794756260897259, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
@@ -10224,7 +10223,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Cost: 1 Skill Point'
+  m_text: 'Cost: 2 Skill Point'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
   m_sharedMaterial: {fileID: -6857794756260897259, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
@@ -10403,8 +10402,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillID: 12
-  cost: 0
-  currency: 0
+  cost: 3
+  amountOfSkillPoints: 0
   connectorOne: {fileID: 7200212029741980940}
   connectorTwo: {fileID: 6114105483168773128}
   connectorThree: {fileID: 2501579937786969987}
@@ -10569,7 +10568,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Cost: 1 Skill Point'
+  m_text: 'Cost: 2 Skill Point'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
   m_sharedMaterial: {fileID: -6857794756260897259, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
@@ -12013,7 +12012,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Cost: 1 Skill Point'
+  m_text: 'Cost: 3 Skill Point'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
   m_sharedMaterial: {fileID: -6857794756260897259, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
@@ -12806,7 +12805,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Cost: 1 Skill Point'
+  m_text: 'Cost: 3 Skill Point'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
   m_sharedMaterial: {fileID: -6857794756260897259, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
@@ -13151,8 +13150,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillID: 6
-  cost: 0
-  currency: 0
+  cost: 2
+  amountOfSkillPoints: 0
   connectorOne: {fileID: 7200212029741980940}
   connectorTwo: {fileID: 6114105483168773128}
   connectorThree: {fileID: 2501579937786969987}
