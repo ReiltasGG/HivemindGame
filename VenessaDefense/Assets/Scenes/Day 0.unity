@@ -2918,7 +2918,7 @@ MonoBehaviour:
   m_text: '     Shaman Bee
 
 
-    - Give extra damage debuff to enemies in range'
+    - Give extra damage buff to player'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
   m_sharedMaterial: {fileID: -6857794756260897259, guid: 0565007bf0a0c40429d12ae78f15d739, type: 2}
