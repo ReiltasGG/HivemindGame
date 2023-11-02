@@ -18,7 +18,7 @@ public class Waves : MonoBehaviour
     private bool waitToStartRound = true;
     private bool isWaveTextCreated = false;
 
-    public int level = 1;
+    public int level;
 
     private List<Transform> spawnerTransforms = new List<Transform>();
     public GameObject[] enemyPrefabs;
@@ -48,6 +48,39 @@ public class Waves : MonoBehaviour
     }
 
     public readonly List<EnemyWave> level1Waves = new List<EnemyWave>
+    {
+        new EnemyWave
+        {
+            waveNumber = 1,
+            enemyCounts = new Dictionary<Enemies, int>
+            {
+                { Enemies.Ant, 5 },
+            }
+        },
+        new EnemyWave
+        {
+            waveNumber = 2,
+            enemyCounts = new Dictionary<Enemies, int>
+            {
+                { Enemies.Ant, 8 },
+                { Enemies.Beetle, 2 },
+            }
+        },
+        new EnemyWave
+        {
+            waveNumber = 3,
+            enemyCounts = new Dictionary<Enemies, int>
+            {
+                { Enemies.Ant, 10 },
+                { Enemies.Beetle, 4 },
+            }
+        },
+        
+
+    };
+
+
+    public readonly List<EnemyWave> level2Waves = new List<EnemyWave>
     {
         new EnemyWave
         {
@@ -165,6 +198,11 @@ public class Waves : MonoBehaviour
             enemyWave = level1Waves[wave];
         }
 
+        else if (level == 2)
+        {
+            enemyWave = level2Waves[wave];
+        }
+
         else
             throw new ArgumentException($"{level} does not have waves setup");
 
@@ -208,7 +246,7 @@ public class Waves : MonoBehaviour
 
         return false;
     }
-    private bool CheckLevelCleared() { return (WaveFinished() && (currentWave > level1Waves.Count)); }
+    private bool CheckLevelCleared() { return (WaveFinished() && ((currentWave > level1Waves.Count) || (currentWave > level2Waves.Count))); }
 
     private IEnumerator StartWave(EnemyWave wave)
     {

@@ -5,12 +5,11 @@ using Objective = ObjectivesManager.Objective;
 using Difficulty = ObjectivesManager.Difficulty;
 using System.Linq;
 
-public class Level1Objectives : MonoBehaviour
+public class Level2Objectives : MonoBehaviour
 {
-    private int EnemiesKilledGoal = 15;
-    private int TowersPlaced = 3;
-//    private int HivesProtectedGoal = 3;
-//    private float HivesProtectedGoalTime = 90.0f;
+    private int EnemiesKilledGoal = 70;
+    private int HivesProtectedGoal = 3;
+    private float HivesProtectedGoalTime = 90.0f;
 
     public bool[] selectedChallengeObjectives = null;
     ObjectivesManager objectivesManager = null;
@@ -60,20 +59,20 @@ public class Level1Objectives : MonoBehaviour
             else objectives[i] = challengeObjectives[i - baseObjectivesLength];
         }
 
-    //    StartCoroutine(ObjectiveCompletionTimer(HivesProtectedGoalTime, baseObjectives[1])); // Timer for time based objective
+        StartCoroutine(ObjectiveCompletionTimer(HivesProtectedGoalTime, baseObjectives[1])); // Timer for time based objective
 
         return objectives;
     }
     private Objective[] CreateBaseObjectives()
     {
-        int numberOfBaseObjectives = 1;
+        int numberOfBaseObjectives = 2;
         Objective[] baseObjectives = new Objective[numberOfBaseObjectives];
 
         baseObjectives[0] = new Objective(objectivesManager, () => { return $"Kill {objectivesManager.GetEnemiesLeftToKill(EnemiesKilledGoal)} Enemies"; },
             () => { return objectivesManager.GetEnemiesDead() >= EnemiesKilledGoal; }, Difficulty.Easy);
 
-    //    baseObjectives[1] = new Objective(objectivesManager, () => { return $"Protect {HivesProtectedGoal} Hives for {objectivesManager.GetTimeLeft(HivesProtectedGoalTime, timer)} seconds"; },
-    //        () => { return (objectivesManager.GetNumberOfHives() >= HivesProtectedGoal) && (timer == null || timer.GetTimePassed() >= HivesProtectedGoalTime); }, Difficulty.Medium);
+        baseObjectives[1] = new Objective(objectivesManager, () => { return $"Protect {HivesProtectedGoal} Hives for {objectivesManager.GetTimeLeft(HivesProtectedGoalTime, timer)} seconds"; },
+            () => { return (objectivesManager.GetNumberOfHives() >= HivesProtectedGoal) && (timer == null || timer.GetTimePassed() >= HivesProtectedGoalTime); }, Difficulty.Medium);
 
         return baseObjectives;
     }
@@ -123,8 +122,8 @@ public class Level1Objectives : MonoBehaviour
     }
 
     public int GetEnemiesKilledGoal() { return EnemiesKilledGoal; }
-  //  public int GetHivesProtectedGoal() { return HivesProtectedGoal; }
-  //  public float GetHivesProtectedGoalTime() { return HivesProtectedGoalTime; }
+    public int GetHivesProtectedGoal() { return HivesProtectedGoal; }
+    public float GetHivesProtectedGoalTime() { return HivesProtectedGoalTime; }
     public int GetBaseObjectivesCount() { return CreateBaseObjectives().Length; }
     public int GetChallengeObjectivesCount() { return CreateChallengeObjectives().Length; }
     public Objective[] GetChallengeObjectives() { return CreateChallengeObjectives(); }

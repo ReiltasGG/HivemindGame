@@ -23,6 +23,7 @@ public class ObjectivesManager : MonoBehaviour
 
     private Waves wavesCode = null;
     private Level1Objectives level1Objectives = null;
+    private Level2Objectives level2Objectives = null;
     private Objective[] objectives = null;
 
     public enum Difficulty
@@ -103,6 +104,7 @@ public class ObjectivesManager : MonoBehaviour
         CreateHandlers();
         CreateCanvasText();
         UpdateObjectivesCompletionStatus();
+        Debug.Log(wavesCode.level);
     }
 
     public void UpdateObjectivesCompletionStatus()
@@ -133,6 +135,14 @@ public class ObjectivesManager : MonoBehaviour
 
             objectives = level1Objectives.CreateObjectives();
         }
+
+        else if (level == 2)
+        {
+            level2Objectives = gameObject.AddComponent<Level2Objectives>();
+            level2Objectives.Initialize(this, selectedChallengeObjectives);
+
+            objectives = level2Objectives.CreateObjectives();
+        }
         else
             throw new ArgumentException($"No Objectives created for level {level}");
 
@@ -146,6 +156,14 @@ public class ObjectivesManager : MonoBehaviour
 
             return level1Objectives.GetChallengeObjectives();
         }
+
+        else if (level == 2)
+        {
+            level2Objectives = gameObject.AddComponent<Level2Objectives>();
+            level2Objectives.Initialize(this);
+
+            return level2Objectives.GetChallengeObjectives();
+        }
         else throw new ArgumentException($"No Objectives created for level {level}");
     }
     public Objective[] GetRequiredObjectives(int level)
@@ -156,6 +174,14 @@ public class ObjectivesManager : MonoBehaviour
             level1Objectives.Initialize(this);
 
             return level1Objectives.GetBaseObjectives();
+        }
+
+        if (level == 2)
+        {
+            level2Objectives = gameObject.AddComponent<Level2Objectives>();
+            level2Objectives.Initialize(this);
+
+            return level2Objectives.GetBaseObjectives();
         }
         else throw new ArgumentException($"No Objectives created for level {level}");
     }
@@ -240,13 +266,14 @@ public class ObjectivesManager : MonoBehaviour
         NumberOfHivesPassesLevel(numberOfHives);
         UpdateObjectivesCompletionStatus();
     }
+
     private void NumberOfHivesPassesLevel(int numberOfHives)
     {
-        if (wavesCode.level == 1)
+        if (wavesCode.level == 2)
         {
-            Level1Objectives level1Objectives = new Level1Objectives();
+            Level2Objectives level2Objectives = new Level2Objectives();
 
-            if (numberOfHives < level1Objectives.GetHivesProtectedGoal())
+            if (numberOfHives < level2Objectives.GetHivesProtectedGoal())
                 CallGameOverScene();
 
         }
