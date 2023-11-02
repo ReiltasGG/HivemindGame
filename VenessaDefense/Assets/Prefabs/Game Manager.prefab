@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 9039107181100917067}
   - component: {fileID: 7212110396013526836}
   - component: {fileID: 9207750962738071944}
+  - component: {fileID: 1928105852871214247}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: GamesManager
@@ -53,7 +54,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0c58d58ed330ad498aec5e7e8a3c4b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bufferTime: 300
+  bufferTime: 15
   enemiesDead: 0
   level: 1
   enemyPrefabs:
@@ -78,7 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeText: {fileID: 5725629463429316571, guid: 26a43c5947639d445b81c857616c5127, type: 3}
   timeTicker: 0
-  time: 300
+  time: 15
   value: 1
 --- !u!82 &1935569641879711535
 AudioSource:
@@ -189,7 +190,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volume: 1
-  roundStartSound: {fileID: 8300000, guid: b8074d63f26b844418090b67281d1a45, type: 3}
 --- !u!114 &8180090245841580398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,5 +297,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1886a0c92aa83984e929a5e34aecba01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerInfo: {fileID: 292566631465442774, guid: 49218813e6ff7934791c3d403970100f, type: 3}
-  towerStatsText: {fileID: 0}
+--- !u!114 &1928105852871214247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2465936462903521182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e45eebba41c6f0346b0aa446cf364c9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
