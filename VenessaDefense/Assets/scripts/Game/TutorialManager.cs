@@ -112,7 +112,7 @@ public class TutorialManager : MonoBehaviour
             }
             
             
-            if (waves.enemiesDead > 0)
+            if (waves.getDeadEnemies() > 0)
             {
                 popUps[popUpIndex].SetActive(false);
                 popUpIndex++;
@@ -147,12 +147,18 @@ public class TutorialManager : MonoBehaviour
         else if (popUpIndex == 6) // Enemy Attack with tower
         {
             popUps[popUpIndex].SetActive(true);
-            ant2.SetActive(true);
+            var num = 1;
+            Debug.Log(waves.getDeadEnemies());
             Time.timeScale = 1f;
             if (ant2 != null)
-                ant2.SetActive(true);
-            if (waves.getDeadEnemies() > 1)
             {
+                ant2.SetActive(true);
+                //Debug.Log(waves.getDeadEnemies());
+            }
+                
+            if (waves.getDeadEnemies() > num)
+            {
+                //Debug.Log("We have this many dead enemies now" + waves.getDeadEnemies());
                 popUps[popUpIndex].SetActive(false);
                 popUpIndex++;
                 //popUps[popUpIndex].SetActive(true);
@@ -162,7 +168,7 @@ public class TutorialManager : MonoBehaviour
         else if (popUpIndex == 7) // Skills
         {
             popUps[popUpIndex].SetActive(true);
-            trainer.SetActive(true);  
+            //trainer.SetActive(true);  
             Time.timeScale = 1f;
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -172,8 +178,21 @@ public class TutorialManager : MonoBehaviour
             }
 
         }
-        
+        else if (popUpIndex == 8) // Skills
+        {
+            popUps[popUpIndex].SetActive(true);
+            trainer.SetActive(true);
+            Time.timeScale = 1f;
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                popUps[popUpIndex].SetActive(false);
+                popUpIndex++;
+                //popUps[popUpIndex].SetActive(true);
+            }
+
         }
+
+    }
     
         private void FixedUpdate()
         {
