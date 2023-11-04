@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class plots : MonoBehaviour
     private Color startColor;
 
     private Color hoverColor = Color.red;
+    
 
     private void Start()
     {
@@ -40,5 +42,8 @@ public class plots : MonoBehaviour
 
         Vector3 positionZOnTopPlot = transform.position + new Vector3(0, 0, -5);
         tower = Instantiate(towerToBuild.prefab, positionZOnTopPlot, Quaternion.identity);
+        GameObject gameManager = GameObject.FindWithTag("GamesManager");
+        TowerManager towerManager = gameManager.GetComponent<TowerManager>();
+        towerManager.AddTower();
     }
 }

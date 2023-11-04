@@ -8,7 +8,7 @@ using System.Linq;
 public class Level1Objectives : MonoBehaviour
 {
     private int EnemiesKilledGoal = 15;
-    private int TowersPlaced = 3;
+    private int TowersPlacedGoal = 3;
 //    private int HivesProtectedGoal = 3;
 //    private float HivesProtectedGoalTime = 90.0f;
 
@@ -66,11 +66,16 @@ public class Level1Objectives : MonoBehaviour
     }
     private Objective[] CreateBaseObjectives()
     {
-        int numberOfBaseObjectives = 1;
+        int numberOfBaseObjectives = 2;
         Objective[] baseObjectives = new Objective[numberOfBaseObjectives];
 
         baseObjectives[0] = new Objective(objectivesManager, () => { return $"Kill {objectivesManager.GetEnemiesLeftToKill(EnemiesKilledGoal)} Enemies"; },
             () => { return objectivesManager.GetEnemiesDead() >= EnemiesKilledGoal; }, Difficulty.Easy);
+
+        baseObjectives[1] = new Objective(objectivesManager, () => { return $"Place {objectivesManager.GetTowersLeftToPlace(TowersPlacedGoal)} Towers"; },
+            () => { return objectivesManager.GetTowersPlaced() >= TowersPlacedGoal; }, Difficulty.Easy);
+
+        
 
     //    baseObjectives[1] = new Objective(objectivesManager, () => { return $"Protect {HivesProtectedGoal} Hives for {objectivesManager.GetTimeLeft(HivesProtectedGoalTime, timer)} seconds"; },
     //        () => { return (objectivesManager.GetNumberOfHives() >= HivesProtectedGoal) && (timer == null || timer.GetTimePassed() >= HivesProtectedGoalTime); }, Difficulty.Medium);
@@ -123,6 +128,7 @@ public class Level1Objectives : MonoBehaviour
     }
 
     public int GetEnemiesKilledGoal() { return EnemiesKilledGoal; }
+    public int GetTowersPlaced() { return TowersPlacedGoal; }
   //  public int GetHivesProtectedGoal() { return HivesProtectedGoal; }
   //  public float GetHivesProtectedGoalTime() { return HivesProtectedGoalTime; }
     public int GetBaseObjectivesCount() { return CreateBaseObjectives().Length; }

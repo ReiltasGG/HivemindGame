@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class Builder : MonoBehaviour
     [SerializeField] private Tower[] towers;
 
     private int SelectedTower = 0;
+    private int towerCount = 0;
 
     private void Awake()
     {

@@ -20,8 +20,10 @@ public class ObjectivesManager : MonoBehaviour
     // Keep track for objectives
     private int enemiesDead = 0;
     private int numberOfHives = 5;
+    private int towersPlaced = 0;
 
     private Waves wavesCode = null;
+    private TowerManager towerManageCode = null;
     private Level1Objectives level1Objectives = null;
     private Level2Objectives level2Objectives = null;
     private Objective[] objectives = null;
@@ -95,6 +97,9 @@ public class ObjectivesManager : MonoBehaviour
         if (wavesCode == null)
             throw new Exception("Waves code is null when checking component");
 
+        towerManageCode = GetComponent<TowerManager>();
+        if (towerManageCode == null)
+            throw new Exception("Tower Manager code is null when checking component");
         DisplayObjectivesCanvas();
     }
 
@@ -188,7 +193,20 @@ public class ObjectivesManager : MonoBehaviour
     private void CreateHandlers()
     {
         CreateEnemiesDeadHandler();
+        CreateTowersPlacedHandler();
     }
+    
+    private void CreateTowersPlacedHandler()
+    {
+        towerManageCode.towersPlacedUpdated += HandleTowersPlacedUpdated;
+    }
+
+    private void HandleTowersPlacedUpdated(int newTowerPlaced)
+    {
+        towersPlaced++;
+        UpdateObjectivesCompletionStatus();
+    }
+    
     private void CreateEnemiesDeadHandler()
     {
         wavesCode.OnEnemiesDeadUpdated += HandleEnemiesDeadUpdated; // adds this Action when enemies dead is updated
@@ -198,6 +216,8 @@ public class ObjectivesManager : MonoBehaviour
         enemiesDead++;
         UpdateObjectivesCompletionStatus();
     }
+
+
     
     private void CreateCanvasText()
     {
@@ -287,6 +307,7 @@ public class ObjectivesManager : MonoBehaviour
 
         skillPoints.GainSkillPoints(numberOfSkillPoints);
     }
+
     private GameObject FindGamesManager()
     {
         GameObject GamesManager = GameObject.FindWithTag("GamesManager");
@@ -298,6 +319,8 @@ public class ObjectivesManager : MonoBehaviour
 
 
     public int GetNumberOfHives() { return numberOfHives; }
+    public int GetTowersPlaced() {return towersPlaced; }
+    public int GetTowersLeftToPlace(int goal) {return towersPlaced >= goal ? goal : goal - towersPlaced; }
     public int GetEnemiesDead() { return enemiesDead; }
     public int GetEnemiesLeftToKill(int goal) { return enemiesDead >= goal ? goal : goal - enemiesDead; }
     public float GetTimeLeft(float goal, GameTimer timer)
