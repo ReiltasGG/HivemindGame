@@ -21,6 +21,7 @@ public class AttributesManager : MonoBehaviour
 
     private void Start()
     {
+        LoadPlayerStats();
         health = maxHealth;
         if (healthBar != null)
             healthBar.SetMaxHealth(maxHealth);
@@ -104,6 +105,9 @@ public class AttributesManager : MonoBehaviour
 
     public void HandlePlayerDeath(GameObject enemy)
     {
+        SavePlayerStats();
+        maxHealth = PlayerPrefs.GetInt("PreviousScenePlayerMaxHealth", maxHealth);
+        attackDamage = PlayerPrefs.GetInt("PreviousScenePlayerAttackDamage", attackDamage);
         CallGameOverScene();
     }
 
@@ -206,4 +210,26 @@ public class AttributesManager : MonoBehaviour
 
         soundEffectManager.PlayEnemyDeathSound();
     }
+
+    public void SavePlayerStats()
+    {
+     if (gameObject.CompareTag("Player"))
+     {
+        PlayerPrefs.SetInt("PreviousScenePlayerMaxHealth", maxHealth);
+        PlayerPrefs.SetInt("PreviousScenePlayerAttackDamage", attackDamage);
+        PlayerPrefs.SetInt("PlayerMaxHealth", maxHealth);
+        PlayerPrefs.SetInt("PlayerAttackDamage", attackDamage);
+        PlayerPrefs.Save();
+     }
+    }
+
+   public void LoadPlayerStats()
+   {
+     if (gameObject.CompareTag("Player"))
+     {
+        maxHealth = PlayerPrefs.GetInt("PlayerMaxHealth", maxHealth);
+        attackDamage = PlayerPrefs.GetInt("PlayerAttackDamage", attackDamage);
+     }
+   }
+
 }

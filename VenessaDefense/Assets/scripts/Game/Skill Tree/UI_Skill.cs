@@ -10,6 +10,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public int SkillID;
     public int cost;
 
+
     public Image connectorOne;
     public Image connectorTwo;
     public Image connectorThree;
@@ -66,10 +67,13 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         int SkillID;
     }
 
+
     void Start()
     {
         Player = GameObject.FindWithTag("Player");
         GamesManager = GameObject.FindWithTag("GamesManager");
+
+        hasBeenBought = PlayerPrefs.GetInt("hasBeenBought" + SkillID, 0) == 1;
     }
 
     void Update()
@@ -77,6 +81,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         var atm = getSkillTree.GetComponent<UI_SkillTree>();
         //This will be for HP Upgrades 1-4
+
         if (SkillID == 1 && hasBeenBought == true)
         {
             //Adds Damage   
@@ -382,6 +387,9 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         UpdateSkillPointText();
 
         hasBeenBought = true;
+
+        PlayerPrefs.SetInt("hasBeenBought" + SkillID, hasBeenBought ? 1 : 0);
+        PlayerPrefs.Save();
     }
 
     private void UpdateSkillPointText()
