@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 6266040779267382658}
   - component: {fileID: 5387216479069621640}
   - component: {fileID: 4882871638011401637}
+  - component: {fileID: 7658604053485126848}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: GamesManager
@@ -325,6 +326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalTowersPlaced: 0
 --- !u!114 &4882871638011401637
+--- !u!114 &7658604053485126848
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
