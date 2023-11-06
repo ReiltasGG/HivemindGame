@@ -8,10 +8,16 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Day 1");
     }
 
+    public void Credits()
+    {
+        SceneManager.LoadScene("CreditsScene");
+    }
+
     public void QuitGame()
     {
         Debug.Log("Game has been quit");
 
         Application.Quit();
     }
+    
 }
