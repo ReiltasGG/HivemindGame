@@ -9,7 +9,7 @@ public class Waves : MonoBehaviour
     public event Action<int> OnEnemiesDeadUpdated;
 
     private float spawnInterval = 1.0f;
-    public float bufferTime = 10.0f;
+    public float bufferTime = 15.0f;
 
     private int currentWave = 0;
     public int enemiesDead = 0;
@@ -185,6 +185,7 @@ public class Waves : MonoBehaviour
     {
         isWaveInProgress = true;
         waitToStartRound = true;
+        isWaveTextCreated = false;
 
         StartCoroutine(StartWave(GetWave(level, currentWave)));
         currentWave++;
