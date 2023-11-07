@@ -2601,11 +2601,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7676885091910954471, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
       propertyPath: towers.Array.data[0].cost
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7676885091910954471, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
       propertyPath: towers.Array.data[0].name
-      value: Honey Bee
+      value: Battle Bee
       objectReference: {fileID: 0}
     - target: {fileID: 7676885091910954471, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
       propertyPath: towers.Array.data[1].cost
@@ -2634,7 +2634,7 @@ PrefabInstance:
     - target: {fileID: 7676885091910954471, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
       propertyPath: towers.Array.data[0].prefab
       value: 
-      objectReference: {fileID: 8445940507173157326, guid: d7758b80f49739544a024bd275290fb3, type: 3}
+      objectReference: {fileID: 7227727104995871528, guid: 276437bd4de41ff468bfe488a53c92fa, type: 3}
     - target: {fileID: 7676885091910954471, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
       propertyPath: towers.Array.data[1].prefab
       value: 
