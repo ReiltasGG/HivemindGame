@@ -12,7 +12,7 @@ public class Wasp : MonoBehaviour
     public Transform target; //The thing that the enemy is chasing
     public Vector2 targetLocation; //Where the enemy wants to go
     public AIstate state;
-    public AIstate defaultState = AIstate.followLaser;
+    public AIstate defaultState = AIstate.defaultAttackPlayer;
     public Vector2 targetDirectionVector;
 
     public Rigidbody2D body;
@@ -40,6 +40,13 @@ public class Wasp : MonoBehaviour
     //Laser Stuff
     public GameObject laserBullet;
     public bool laserHappenOnce = true;
+
+    //Laser Beam Stuff
+    public GameObject LaserBeam;
+    public bool laserbeamhappenOnce = true;
+    public GameObject stingerOffset;
+    public float timerforbeam = 0.0f;
+    private Vector3 direction;
     //Movement
     public float dashSpeed = 200.0f;
     public enum AIstate
@@ -48,7 +55,9 @@ public class Wasp : MonoBehaviour
        poisonAttack,
        stun,
        followLaser,
-       resetPos
+       resetPos,
+       defaultAttackPlayer,
+       laserBeam
        
     } //end enum AIstate
 
@@ -56,8 +65,9 @@ public class Wasp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       defaultState = AIstate.laserBeam;
         body = GetComponent<Rigidbody2D>();
-        state = AIstate.dashAttack;
+        state = defaultState;
     }
 
     // Update is called once per frame
@@ -218,7 +228,104 @@ public class Wasp : MonoBehaviour
           }
        
         }
+
+        if(state == AIstate.defaultAttackPlayer)
+        {
+          moveDefaultAttack();
+        }
+
+
+        if(state == AIstate.laserBeam)
+        {
+          if(laserbeamhappenOnce == true)
+          {
+          GameObject createdLaser = Instantiate(LaserBeam, stingerOffset.transform.position , Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, 0, 180)));
+
+          createdLaser.transform.SetParent(this.gameObject.transform);
+          
+          laserbeamhappenOnce = false;
+          Vector3 direction = target.transform.position - transform.position;
+
+            // Calculate the angle in radians
+            float angle = Mathf.Atan2(direction.y, direction.x);
+
+            // Convert the angle to degrees and set the rotation
+            transform.rotation = Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg + 90f);
+          }
+          
+            GameObject playerObject = GameObject.FindWithTag("Player");
+        Transform targetchange = playerObject != null ? playerObject.transform : null;
+
+if (targetchange != null)
+{
+    Vector3 direction = targetchange.position - transform.position;
+
+    // Calculate the angle in radians
+    float angle = Mathf.Atan2(direction.y, direction.x);
+
+    // Interpolate the rotation smoothly
+    transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg + 90f), 20.0f * Time.deltaTime);
+}
+
+        }
     }
+      public void moveDefaultAttack()
+      {
+         targetLocation = GameObject.FindWithTag("Player").transform.position;
+            target =  GameObject.FindWithTag("Player").transform;
+        //Calculate the Vector to the targetLocation.
+        targetDirectionVector = targetLocation - (Vector2)transform.position;
+        //Normalize this to a unit vector (magnitude of 1)
+        targetDirectionVector.Normalize();
+
+        //Calculate Distance to the targetLocation, to prevent overshooting it
+        float distance = Vector2.Distance(targetLocation, transform.position);
+        Vector2 targetMove = targetDirectionVector * 5.0f;
+
+        if (distance < targetMove.magnitude)
+            targetMove = targetLocation - (Vector2)transform.position;
+            bool clear = true;
+        bool blockingAlly = false;
+        /*
+        CircleCollider2D myCollider = GetComponent<CircleCollider2D>();
+
+        Vector2 myFutureCenter = body.position + myCollider.offset + targetMove * Time.deltaTime;
+        float myRadius = myCollider.radius * Mathf.Max(transform.localScale.x, transform.localScale.y);
+
+        //Detect the colliders that the Enemy would be hitting if it moved there
+        Collider2D[] things = Physics2D.OverlapCircleAll(myFutureCenter, myRadius);
+        foreach (Collider2D item in things)
+        {
+            if (item == myCollider)
+                continue;
+            if (item.CompareTag("Enemy") || item.CompareTag("Player"))
+                clear = false;
+            if (item.CompareTag("Enemy"))
+                blockingAlly = true;
+        }
+*/
+        if (clear == true)
+        {
+            //Move the monster
+            body.velocity += new Vector2(targetMove.x * 0.2f, targetMove.y * 0.2f);
+            //Check to see if the monster is moving too fast
+            if (body.velocity.magnitude > 5.0f)
+                body.velocity = body.velocity.normalized * 5.0f;
+
+            //Old Way
+            //body.MovePosition(body.position + targetMove);
+        }
+        else if (clear == false && blockingAlly == true)
+        {
+            body.velocity += new Vector2(targetMove.x * -0.05f, targetMove.y * -0.05f);
+        }
+      }
+
+    public void defaultAttackPlayer()
+    {
+
+    }
+
 
    public void DoDashAttack()
 {//Code
@@ -250,10 +357,10 @@ if (collision.gameObject.CompareTag("Player"))
     Quaternion rightRotation = Quaternion.Euler(0, 90, 0); // Rotate right by 90 degrees
 
     // Apply a force to the player
-    Rigidbody playerRigidbody = collision.gameObject.GetComponent<Rigidbody>();
+    Rigidbody2D playerRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
 
     // You can choose either left or right direction for the push
-    playerRigidbody.AddForce(leftRotation * pushDirection, ForceMode.Impulse);
+    playerRigidbody.AddForce(leftRotation * pushDirection, ForceMode2D.Impulse);
     // or
     // playerRigidbody.AddForce(rightRotation * pushDirection, ForceMode.Impulse);
     Debug.Log("works");

@@ -317,18 +317,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1479604454891243456, guid: 9f861368de69173408ffafc872a37d64, type: 3}
-      propertyPath: m_Mass
-      value: 1000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 1479604454891243456, guid: 9f861368de69173408ffafc872a37d64, type: 3}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1479604454891243456, guid: 9f861368de69173408ffafc872a37d64, type: 3}
-      propertyPath: m_AngularDrag
-      value: 0.05
-      objectReference: {fileID: 0}
     - target: {fileID: 5305872421953132818, guid: 9f861368de69173408ffafc872a37d64, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.243873
@@ -372,10 +360,6 @@ PrefabInstance:
     - target: {fileID: 7086992147645849624, guid: 9f861368de69173408ffafc872a37d64, type: 3}
       propertyPath: m_Name
       value: Wasp
-      objectReference: {fileID: 0}
-    - target: {fileID: 7684605877566330851, guid: 9f861368de69173408ffafc872a37d64, type: 3}
-      propertyPath: dashSpeed
-      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
