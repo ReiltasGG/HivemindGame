@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class Wasp : MonoBehaviour
 {
+    //Health and important stuffs
+    public int health;
+    public bool isInvul = false;
+
+
     public Transform target; //The thing that the enemy is chasing
     public Vector2 targetLocation; //Where the enemy wants to go
     public AIstate state;
-    public AIstate defaultState = AIstate.dashAttack;
+    public AIstate defaultState = AIstate.followLaser;
     public Vector2 targetDirectionVector;
 
     public Rigidbody2D body;
@@ -31,6 +36,10 @@ public class Wasp : MonoBehaviour
 
 
     public GameObject currentWarningRectangle;
+
+    //Laser Stuff
+    public GameObject laserBullet;
+    public bool laserHappenOnce = true;
     //Movement
     public float dashSpeed = 5.0f;
     public enum AIstate
@@ -39,6 +48,8 @@ public class Wasp : MonoBehaviour
        poisonAttack,
        stun,
        followLaser,
+       resetPos
+       
     } //end enum AIstate
 
 
@@ -59,6 +70,7 @@ public class Wasp : MonoBehaviour
     
     public void  UpdateAI()
     {
+      //Code for dash attack AI state
         if(state == AIstate.dashAttack)
         {
             if(dashPos == true)
@@ -140,12 +152,12 @@ public class Wasp : MonoBehaviour
                 isAttacking = true;
                 dashAttackTimerCoolDown = 0.0f;
                 dashPos = true;
-                state = AIstate.stun;
+                state = AIstate.resetPos;
                 
             }
         }//End Dash Attack
         //Stun state
-        else if(state == AIstate.stun)
+        else if(state == AIstate.resetPos)
         {
             if(stunOnce == true)
             {
@@ -184,18 +196,31 @@ public class Wasp : MonoBehaviour
         {
             currentStunTime = 0.0f;
             stunOnce = true;
-            state = AIstate.dashAttack;
+            state = AIstate.followLaser;
         }
-        }
+        laserHappenOnce = true;
+      }
 
         if(state == AIstate.followLaser)
         {
-            transform.position = new Vector3(5,5, 0);
+          transform.position = new Vector3(5,5, 0);
+          if(laserHappenOnce == true)
+          {
+            
+
+            //Code so that it faces the player
+             Vector2 directionToPlayer = (Vector2)target.position;
+            float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle+90));
+            Instantiate(laserBullet, transform.position, Quaternion.identity);
+            laserHappenOnce = false;
+          }
+       
         }
     }
 
    public void DoDashAttack()
-{
+{//Code
     // Calculate the Vector to the targetLocation.
     targetDirectionVector = targetLocation - (Vector2)transform.position;
     // Normalize this to a unit vector (magnitude of 1).
@@ -239,6 +264,10 @@ if (collision.gameObject.CompareTag("Player"))
         Vector3 pushDirection = transform.forward;
         
 
+    }
+    if(collision.gameObject.CompareTag("Bullet"))
+    {
+     
     }
 }
 

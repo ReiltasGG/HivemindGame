@@ -161,6 +161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aafa05dfd1d3304fab2c23b7bd5e9b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  isInvul: 0
   target: {fileID: 0}
   targetLocation: {x: 0, y: 0}
   state: 0
@@ -170,8 +172,15 @@ MonoBehaviour:
   warningEffect: {fileID: 9016911362315183919, guid: 385483fccdc96fe488cd79ccd3567617, type: 3}
   isWarning: 1
   dashAttackTimer: 0
-  happenOnce: 1
+  isAttacking: 1
   happenOnceAgain: 1
   dashForce: 100000
+  dashPos: 1
+  dashAttackTimerCoolDown: 0
+  stunTime: 5
+  currentStunTime: 0
+  stunOnce: 1
   currentWarningRectangle: {fileID: 0}
+  laserBullet: {fileID: 1548464504782346203, guid: f285af3c7e9c821438e19fd5231699c6, type: 3}
+  laserHappenOnce: 1
   dashSpeed: 5
