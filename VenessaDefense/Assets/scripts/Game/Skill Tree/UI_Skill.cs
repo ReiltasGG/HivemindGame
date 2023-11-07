@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public int SkillID;
     public int cost;
-    public int currency;
+
+
     public Image connectorOne;
     public Image connectorTwo;
     public Image connectorThree;
@@ -50,39 +52,42 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public bool skill11HappenOnce = true;
     public bool skill12HappenOnce = true;
     public bool skill13HappenOnce = true;
-    public GameObject findPlayer;
-    public GameObject FindGamesManager;
 
+    private GameObject Player;
+    private GameObject GamesManager;
 
     public GameObject toolsTipHealth1, toolsTipHealth2, toolsTipHealth3, toolsTipHealth4, toolsTipHealth5, toolsTipHealth6, toolsTipHealth7,
-    toolsTipHealth8, toolsTipHealth9, toolsTipHealth10, toolsTipHealth11, toolsTipHealth12, toolsTipHealth13;
+        toolsTipHealth8, toolsTipHealth9, toolsTipHealth10, toolsTipHealth11, toolsTipHealth12, toolsTipHealth13;
     
-
-
     public bool isHovered = false;
     public bool isAvailable = false;
-    // Start is called before the first frame update
-    void Start()
+
+    private class Skill
     {
-     //   getSkillTree = GameObject.FindWithTag("Skill Tree");
-      findPlayer = GameObject.FindWithTag("Player");
-      FindGamesManager = GameObject.FindWithTag("GamesManager");
+        int SkillID;
     }
 
-    // Update is called once per frame
+
+    void Start()
+    {
+        Player = GameObject.FindWithTag("Player");
+        GamesManager = GameObject.FindWithTag("GamesManager");
+
+        hasBeenBought = PlayerPrefs.GetInt("hasBeenBought" + SkillID, 0) == 1;
+    }
+
     void Update()
     {
-        var currencyScript = FindGamesManager.GetComponent<Currency>();;
-        currency = currencyScript.getCurrency();
-       // currency = 
+
         var atm = getSkillTree.GetComponent<UI_SkillTree>();
         //This will be for HP Upgrades 1-4
+
         if (SkillID == 1 && hasBeenBought == true)
         {
             //Adds Damage   
             background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             //Set SkillID to true
-            atm.updateSkillDataTrue(1);
+            atm.UnlockSkill(1);
             connectorOne.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             connectorFour.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             
@@ -90,7 +95,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             if(skill1HappenOnce)
             {
             int hpAdded = 10;
-            var attributeManager = findPlayer.GetComponent<AttributesManager>();
+            var attributeManager = Player.GetComponent<AttributesManager>();
             attributeManager.addHealth(hpAdded);
             skill1HappenOnce = false;
             }
@@ -105,7 +110,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             //Adds Health
             background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             //Set SkillID to true
-            atm.updateSkillDataTrue(2);
+            atm.UnlockSkill(2);
             connectorTwo.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             
          
@@ -114,7 +119,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                if(skill2HappenOnce)
               {
                 int hpAdded = 10;
-              var attributeManager = findPlayer.GetComponent<AttributesManager>();
+              var attributeManager = Player.GetComponent<AttributesManager>();
               attributeManager.addHealth(hpAdded);
               skill2HappenOnce = false;
                 }
@@ -129,7 +134,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             //Adds Health
             background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             //Set SkillID to true
-            atm.updateSkillDataTrue(3);
+            atm.UnlockSkill(3);
             connectorThree.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             
          
@@ -138,7 +143,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                if(skill3HappenOnce)
               {
                 int hpAdded = 10;
-              var attributeManager = findPlayer.GetComponent<AttributesManager>();
+              var attributeManager = Player.GetComponent<AttributesManager>();
               attributeManager.addHealth(hpAdded);
               skill3HappenOnce = false;
                 }
@@ -153,7 +158,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             //Adds Health
             background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             //Set SkillID to true
-            atm.updateSkillDataTrue(4);
+            atm.UnlockSkill(4);
             connectorFour.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             
          
@@ -162,7 +167,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                if(skill4HappenOnce)
               {
                 int hpAdded = 10;
-              var attributeManager = findPlayer.GetComponent<AttributesManager>();
+              var attributeManager = Player.GetComponent<AttributesManager>();
               attributeManager.addHealth(hpAdded);
               skill4HappenOnce = false;
                 }
@@ -175,14 +180,14 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             //Adds Damage   
             background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             //Set SkillID to true
-            atm.updateSkillDataTrue(5);
+            atm.UnlockSkill(5);
             connectorFive.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             connectorSix.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             
             //Add Damage
             if(skill5HappenOnce)
             {
-            var temper = findPlayer.GetComponent<PlayerShoot>();
+            var temper = Player.GetComponent<PlayerShoot>();
             temper.fireRateChange(.05f);
             skill1HappenOnce = false;
             }
@@ -197,13 +202,13 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 //Adds Damage   
                 background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                 //Set SkillID to true
-                atm.updateSkillDataTrue(6);
+                atm.UnlockSkill(6);
                 connectorSeven.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             
                 //Add Damage
                 if(skill6HappenOnce)
                 {
-                var temper = findPlayer.GetComponent<PlayerShoot>();
+                var temper = Player.GetComponent<PlayerShoot>();
                 temper.fireRateChange(.05f);
                 skill6HappenOnce = false;
                 }
@@ -218,12 +223,12 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 //Adds Damage   
                 background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                 //Set SkillID to true
-                atm.updateSkillDataTrue(7);
+                atm.UnlockSkill(7);
             
                 //Add Damage
                 if(skill7HappenOnce)
                 {
-                var temper = findPlayer.GetComponent<PlayerShoot>();
+                var temper = Player.GetComponent<PlayerShoot>();
                 temper.fireRateChange(.05f);
                 skill7HappenOnce = false;
                 }
@@ -236,12 +241,12 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             //Adds Damage   
             background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             //Set SkillID to true
-            atm.updateSkillDataTrue(8);
+            atm.UnlockSkill(8);
             connectorEight.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             //Add Damage
             if(skill8HappenOnce)
             {
-            var temper = findPlayer.GetComponent<AttributesManager>();
+            var temper = Player.GetComponent<AttributesManager>();
             temper.addDamage(5);
             skill8HappenOnce = false;
             }
@@ -256,13 +261,13 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 //Adds Damage   
                 background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                 //Set SkillID to true
-                atm.updateSkillDataTrue(9);
+                atm.UnlockSkill(9);
                 connectorNine.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             
                 //Add Damage
                 if(skill9HappenOnce)
                 {
-                var temper = findPlayer.GetComponent<AttributesManager>();
+                var temper = Player.GetComponent<AttributesManager>();
                 temper.addDamage(5);
                 skill9HappenOnce = false;
                 }
@@ -277,13 +282,13 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 //Adds Damage   
                 background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                 //Set SkillID to true
-                atm.updateSkillDataTrue(10);
+                atm.UnlockSkill(10);
                 connectorTen.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             
                 //Add Damage
                 if(skill10HappenOnce)
                 {
-                var temper = findPlayer.GetComponent<AttributesManager>();
+                var temper = Player.GetComponent<AttributesManager>();
                 temper.addDamage(5);
                 skill10HappenOnce = false;
                 }
@@ -298,12 +303,12 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 //Adds Damage   
                 background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                 //Set SkillID to true
-                atm.updateSkillDataTrue(11);
+                atm.UnlockSkill(11);
             
                 //Add Damage
                 if(skill11HappenOnce)
                 {
-                var temper = findPlayer.GetComponent<AttributesManager>();
+                var temper = Player.GetComponent<AttributesManager>();
                 temper.addDamage(5);
                 skill11HappenOnce = false;
                 }
@@ -324,7 +329,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                 //Set SkillID to true
                
-                atm.updateSkillDataTrue(12);
+                atm.UnlockSkill(12);
                 GameObject Player = GameObject.FindWithTag("Player");
                 var playerScript = Player.GetComponent<AbilityHolder>();
                 playerScript.allowSkill1();
@@ -335,7 +340,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
              //Decoy
             else if(SkillID == 13 && hasBeenBought == true)
             {
-                  Debug.Log("Runs");
+                Debug.Log("Runs");
                 bool temp1 = atm.getSkilldata(12);
                 if(temp1 == true)
                 {
@@ -343,7 +348,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                 //Set SkillID to true
                  connectorEleven.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
-                atm.updateSkillDataTrue(13);
+                atm.UnlockSkill(13);
                 GameObject Player = GameObject.FindWithTag("Player");
                 var playerScript = Player.GetComponent<AbilityHolder>();
                 playerScript.allowSkill2();
@@ -363,33 +368,48 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnPointerEnter(PointerEventData eventData)
     {
         isHovered = true;
-          if(SkillID == 1)
+        if(SkillID == 1)
         {
             toolsTipHealth1.SetActive(true);
         }
-        // You can add your code here for when the button is hovered.
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         isHovered = false;
-        Debug.Log("Button is not being hovered.");
-        // You can add your code here for when the button is no longer hovered.
     }
 
     public void Buy()
     {
-      //  Debug.Log("Runs");
-        if (currency >= cost)
-        {
-          var temper = FindGamesManager.GetComponent<Currency>();
-          temper.subtractCurrency(cost);
-            hasBeenBought = true;
-          Debug.Log(SkillID);
-          
-        }
+        if (GetSkillPoints() < cost) return;
 
+        SpendSkillPoints(cost);
+        UpdateSkillPointText();
 
+        hasBeenBought = true;
+
+        PlayerPrefs.SetInt("hasBeenBought" + SkillID, hasBeenBought ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
+    private void UpdateSkillPointText()
+    {
+        GameObject SkillTreeOpener = GameObject.FindWithTag("SkillTreeOpener");
+        UI_SkillTreeOpener skillTreeOpenerScript = SkillTreeOpener.GetComponent<UI_SkillTreeOpener>();
+
+        skillTreeOpenerScript.UpdateSkillPointText();
+    }
+
+    private int GetSkillPoints()
+    {
+        SkillPoints skillPointsManager = GamesManager.GetComponent<SkillPoints>();
+        return skillPointsManager.GetSkillPoints();
+    }
+
+    private void SpendSkillPoints(int skillPoints)
+    {
+        SkillPoints skillPointsManager = GamesManager.GetComponent<SkillPoints>();
+        skillPointsManager.SpendSkillPoints(skillPoints);
     }
 
     public void skillHover()
@@ -460,43 +480,43 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void checkAvailabiltiy()
     {  
         var atm = getSkillTree.GetComponent<UI_SkillTree>();
-        if(atm.getSkilldata(1) == true && currency >= cost)
+        if(atm.getSkilldata(1) == true && GetSkillPoints() >= cost)
         {
             //For HP2
             Lock1.GetComponent<Image>().enabled = false;
         }
-         if(atm.getSkilldata(2) == true && currency >= cost)
+         if(atm.getSkilldata(2) == true && GetSkillPoints() >= cost)
         {
            //For HP3
              Lock2.GetComponent<Image>().enabled = false;
         }
-         if(atm.getSkilldata(3) == true && currency >= cost)
+         if(atm.getSkilldata(3) == true && GetSkillPoints() >= cost)
         {
             //For HP4
              Lock3.GetComponent<Image>().enabled = false;
         }
-         if(atm.getSkilldata(1) == true && atm.getSkilldata(5) == true && currency >= cost)
+         if(atm.getSkilldata(1) == true && atm.getSkilldata(5) == true && GetSkillPoints() >= cost)
         {
             Lock4.GetComponent<Image>().enabled = false;
 
         }
-         if(atm.getSkilldata(5) == true && currency >= cost)
+         if(atm.getSkilldata(5) == true && GetSkillPoints() >= cost)
         {
             Lock5.GetComponent<Image>().enabled = false;
         }
-          if(atm.getSkilldata(6) == true && currency >= cost) 
+          if(atm.getSkilldata(6) == true && GetSkillPoints() >= cost) 
         {
             Lock6.GetComponent<Image>().enabled = false;
         }
-          if(atm.getSkilldata(8) == true && currency >= cost)
+          if(atm.getSkilldata(8) == true && GetSkillPoints() >= cost)
         {
             Lock7.GetComponent<Image>().enabled = false;
         }
-          if(atm.getSkilldata(9) == true && currency >= cost)
+          if(atm.getSkilldata(9) == true && GetSkillPoints() >= cost)
         {
             Lock8.GetComponent<Image>().enabled = false;
         }
-          if(atm.getSkilldata(10) == true && currency >= cost)
+          if(atm.getSkilldata(10) == true && GetSkillPoints() >= cost)
         {
             Lock9.GetComponent<Image>().enabled = false;
         }

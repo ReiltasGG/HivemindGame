@@ -5,17 +5,14 @@ using Objective = ObjectivesManager.Objective;
 using Difficulty = ObjectivesManager.Difficulty;
 using System.Linq;
 
-public class Level1Objectives : MonoBehaviour
+public class Level2Objectives : MonoBehaviour
 {
-    private int EnemiesKilledGoal = 20;
-    private int TowersPlacedGoal = 3;
-
-//    private int HivesProtectedGoal = 3;
-//    private float HivesProtectedGoalTime = 90.0f;
+    private int EnemiesKilledGoal = 70;
+    private int HivesProtectedGoal = 3;
+    private float HivesProtectedGoalTime = 90.0f;
 
     public bool[] selectedChallengeObjectives = null;
     ObjectivesManager objectivesManager = null;
-
     private GameTimer timer = null;
 
     private const float MUTATE_MODIFIER = 0.3f;
@@ -62,7 +59,7 @@ public class Level1Objectives : MonoBehaviour
             else objectives[i] = challengeObjectives[i - baseObjectivesLength];
         }
 
-    //    StartCoroutine(ObjectiveCompletionTimer(HivesProtectedGoalTime, baseObjectives[1])); // Timer for time based objective
+        StartCoroutine(ObjectiveCompletionTimer(HivesProtectedGoalTime, baseObjectives[1])); // Timer for time based objective
 
         return objectives;
     }
@@ -74,23 +71,18 @@ public class Level1Objectives : MonoBehaviour
         baseObjectives[0] = new Objective(objectivesManager, () => { return $"Kill {objectivesManager.GetEnemiesLeftToKill(EnemiesKilledGoal)} Enemies"; },
             () => { return objectivesManager.GetEnemiesDead() >= EnemiesKilledGoal; }, Difficulty.Easy);
 
-        baseObjectives[1] = new Objective(objectivesManager, () => { return $"Place {objectivesManager.GetTowersLeftToPlace(TowersPlacedGoal)} Towers"; },
-            () => { return objectivesManager.GetTowersPlaced() >= TowersPlacedGoal; }, Difficulty.Easy);
-
-        
-
-    //    baseObjectives[1] = new Objective(objectivesManager, () => { return $"Protect {HivesProtectedGoal} Hives for {objectivesManager.GetTimeLeft(HivesProtectedGoalTime, timer)} seconds"; },
-    //        () => { return (objectivesManager.GetNumberOfHives() >= HivesProtectedGoal) && (timer == null || timer.GetTimePassed() >= HivesProtectedGoalTime); }, Difficulty.Medium);
+        baseObjectives[1] = new Objective(objectivesManager, () => { return $"Protect {HivesProtectedGoal} Hives for {objectivesManager.GetTimeLeft(HivesProtectedGoalTime, timer)} seconds"; },
+            () => { return (objectivesManager.GetNumberOfHives() >= HivesProtectedGoal) && (timer == null || timer.GetTimePassed() >= HivesProtectedGoalTime); }, Difficulty.Medium);
 
         return baseObjectives;
     }
     private Objective[] CreateChallengeObjectives()
     {
         Objective challengeObjective1 = new Objective(objectivesManager, () => { return $"Double Enemies Spawned"; },
-            () => { return true; }, Difficulty.Medium);
-
-        Objective challengeObjective2 = new Objective(objectivesManager, () => { return $"Survive with 1 HP"; },
             () => { return true; }, Difficulty.Hard);
+
+        Objective challengeObjective2 = new Objective(objectivesManager, () => { return $"More Explosive Enemies Spawned!"; },
+            () => { return true; }, Difficulty.Medium);
 
         // Return all objectives if nothing is passed in
         if (selectedChallengeObjectives == null || selectedChallengeObjectives.Length == 0) 
@@ -108,24 +100,18 @@ public class Level1Objectives : MonoBehaviour
             challengeObjectives[counter] = challengeObjective1;
             counter++;
         }
-        
+
         if (selectedChallengeObjectives[1] == true)
         {
-            GameObject Player = GameObject.FindWithTag("Player");
-            AttributesManager playerHP = Player.GetComponent<AttributesManager>();
-            if(playerHP != null)
-            {
-                Debug.Log("change player hp");
-                playerHP.takeDamage(99);
-            }
+            Waves wavesCode = GetComponent<Waves>();
+            wavesCode.SetMutateRateModifier(MUTATE_MODIFIER);
+
             challengeObjectives[counter] = challengeObjective2;
             counter++;
-            
         }
 
         return challengeObjectives;
     }
-    
 
     IEnumerator ObjectiveCompletionTimer(float timeInSeconds, Objective objective)
     {
@@ -136,7 +122,8 @@ public class Level1Objectives : MonoBehaviour
     }
 
     public int GetEnemiesKilledGoal() { return EnemiesKilledGoal; }
-    public int GetTowersPlaced() { return TowersPlacedGoal; }
+    public int GetHivesProtectedGoal() { return HivesProtectedGoal; }
+    public float GetHivesProtectedGoalTime() { return HivesProtectedGoalTime; }
     public int GetBaseObjectivesCount() { return CreateBaseObjectives().Length; }
     public int GetChallengeObjectivesCount() { return CreateChallengeObjectives().Length; }
     public Objective[] GetChallengeObjectives() { return CreateChallengeObjectives(); }

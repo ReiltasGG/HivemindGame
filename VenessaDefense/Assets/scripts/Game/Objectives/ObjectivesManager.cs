@@ -20,9 +20,13 @@ public class ObjectivesManager : MonoBehaviour
     // Keep track for objectives
     private int enemiesDead = 0;
     private int numberOfHives = 5;
+    private int towersPlaced = 0;
+
 
     private Waves wavesCode = null;
+    private TowerManager towerManageCode = null;
     private Level1Objectives level1Objectives = null;
+    private Level2Objectives level2Objectives = null;
     private Objective[] objectives = null;
 
     public enum Difficulty
@@ -62,8 +66,11 @@ public class ObjectivesManager : MonoBehaviour
         }
 
         public void completeObjective()
-        { 
+        {
+            if (completed) return;
+
             completed = true;
+            objectivesManager.GainSkillPoints((int)difficulty);
         }
 
         public void updateDescription()
@@ -90,6 +97,11 @@ public class ObjectivesManager : MonoBehaviour
 
         if (wavesCode == null)
             throw new Exception("Waves code is null when checking component");
+
+        towerManageCode = GetComponent<TowerManager>();
+
+        if (towerManageCode == null)
+            throw new Exception("Tower Manager code is null when checking component");
 
         DisplayObjectivesCanvas();
     }
@@ -130,6 +142,14 @@ public class ObjectivesManager : MonoBehaviour
 
             objectives = level1Objectives.CreateObjectives();
         }
+
+        else if (level == 2)
+        {
+            level2Objectives = gameObject.AddComponent<Level2Objectives>();
+            level2Objectives.Initialize(this, selectedChallengeObjectives);
+
+            objectives = level2Objectives.CreateObjectives();
+        }
         else
             throw new ArgumentException($"No Objectives created for level {level}");
 
@@ -143,6 +163,14 @@ public class ObjectivesManager : MonoBehaviour
 
             return level1Objectives.GetChallengeObjectives();
         }
+
+        else if (level == 2)
+        {
+            level2Objectives = gameObject.AddComponent<Level2Objectives>();
+            level2Objectives.Initialize(this);
+
+            return level2Objectives.GetChallengeObjectives();
+        }
         else throw new ArgumentException($"No Objectives created for level {level}");
     }
     public Objective[] GetRequiredObjectives(int level)
@@ -154,12 +182,33 @@ public class ObjectivesManager : MonoBehaviour
 
             return level1Objectives.GetBaseObjectives();
         }
+
+        if (level == 2)
+        {
+            level2Objectives = gameObject.AddComponent<Level2Objectives>();
+            level2Objectives.Initialize(this);
+
+            return level2Objectives.GetBaseObjectives();
+        }
         else throw new ArgumentException($"No Objectives created for level {level}");
     }
     private void CreateHandlers()
     {
         CreateEnemiesDeadHandler();
+        CreateTowersPlacedHandler();
     }
+    
+    private void CreateTowersPlacedHandler()
+    {
+        towerManageCode.towersPlacedUpdated += HandleTowersPlacedUpdated;
+    }
+
+    private void HandleTowersPlacedUpdated(int newTowerPlaced)
+    {
+        towersPlaced++;
+        UpdateObjectivesCompletionStatus();
+    }
+    
     private void CreateEnemiesDeadHandler()
     {
         wavesCode.OnEnemiesDeadUpdated += HandleEnemiesDeadUpdated; // adds this Action when enemies dead is updated
@@ -169,6 +218,8 @@ public class ObjectivesManager : MonoBehaviour
         enemiesDead++;
         UpdateObjectivesCompletionStatus();
     }
+
+
     
     private void CreateCanvasText()
     {
@@ -237,19 +288,57 @@ public class ObjectivesManager : MonoBehaviour
         NumberOfHivesPassesLevel(numberOfHives);
         UpdateObjectivesCompletionStatus();
     }
+
     private void NumberOfHivesPassesLevel(int numberOfHives)
     {
-        if (wavesCode.level == 1)
+        if (wavesCode.level == 2)
         {
-            Level1Objectives level1Objectives = new Level1Objectives();
+            Level2Objectives level2Objectives = new Level2Objectives();
 
-            if (numberOfHives < level1Objectives.GetHivesProtectedGoal())
+            if (numberOfHives < level2Objectives.GetHivesProtectedGoal())
                 CallGameOverScene();
 
         }
     }
 
+    /*
+    private void hasPlayerBeenHit()
+    {
+        if (wavesCode.level == 1)
+        {
+            Level1Objectives level1Objectives = new Level1Objectives();
+            if (level1Objectives.GetPlayerHurt())
+            {
+                CallGameOverScene();
+            }
+        }
+        
+    }
+    */
+    
+
+    public void GainSkillPoints(int numberOfSkillPoints)
+    {
+        SkillPoints skillPoints = FindGamesManager().GetComponent<SkillPoints>();
+        if (skillPoints == null)
+            throw new ArgumentNullException("Skill Points script must be attached to Games Manager");
+
+        skillPoints.GainSkillPoints(numberOfSkillPoints);
+    }
+
+    private GameObject FindGamesManager()
+    {
+        GameObject GamesManager = GameObject.FindWithTag("GamesManager");
+        if (GamesManager == null)
+            throw new ArgumentNullException("Games manager is not found");
+            
+       return GamesManager;
+    }
+
+
     public int GetNumberOfHives() { return numberOfHives; }
+    public int GetTowersPlaced() {return towersPlaced; }
+    public int GetTowersLeftToPlace(int goal) {return towersPlaced >= goal ? goal : goal - towersPlaced; }
     public int GetEnemiesDead() { return enemiesDead; }
     public int GetEnemiesLeftToKill(int goal) { return enemiesDead >= goal ? goal : goal - enemiesDead; }
     public float GetTimeLeft(float goal, GameTimer timer)

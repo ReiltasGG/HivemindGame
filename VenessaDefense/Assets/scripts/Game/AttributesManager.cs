@@ -18,19 +18,21 @@ public class AttributesManager : MonoBehaviour
 
     private float damageFlashDurationInSeconds = 0.2f;
     private Color spriteDefaultColor;
+    public bool playerHitOnce = false;
 
     private void Start()
     {
+        LoadPlayerStats();
         health = maxHealth;
         if (healthBar != null)
             healthBar.SetMaxHealth(maxHealth);
 
-        wavesFinder = FindGamesManager();
+        wavesFinder = GamesManager();
 
         spriteDefaultColor = GetSprite().color;
     }
 
-    private GameObject FindGamesManager()
+    private GameObject GamesManager()
     {
         GameObject gamesManager = GameObject.FindWithTag("GamesManager");
 
@@ -42,7 +44,7 @@ public class AttributesManager : MonoBehaviour
 
     private Waves FindWavesCode()
     {
-        GameObject gamesManager = FindGamesManager();
+        GameObject gamesManager = GamesManager();
         return gamesManager.GetComponent<Waves>();
     }
 
@@ -51,6 +53,7 @@ public class AttributesManager : MonoBehaviour
 
     public void takeDamage(int amount)
     {
+        
         StartCoroutine(DamageFlashAnimation());
 
         health -= amount;
@@ -104,6 +107,9 @@ public class AttributesManager : MonoBehaviour
 
     public void HandlePlayerDeath(GameObject enemy)
     {
+        SavePlayerStats();
+        maxHealth = PlayerPrefs.GetInt("PreviousScenePlayerMaxHealth", maxHealth);
+        attackDamage = PlayerPrefs.GetInt("PreviousScenePlayerAttackDamage", attackDamage);
         CallGameOverScene();
     }
 
@@ -128,7 +134,7 @@ public class AttributesManager : MonoBehaviour
         if (gameObject != null)
             Despawn();
 
-        GameObject gamesManager = FindGamesManager();
+        GameObject gamesManager = GamesManager();
         ObjectivesManager objectivesManager = gamesManager.GetComponent<ObjectivesManager>();
 
         objectivesManager.DestroyHive();
@@ -202,8 +208,30 @@ public class AttributesManager : MonoBehaviour
 
     private void PlayEnemyDieSound()
     {
-        SoundEffectManager soundEffectManager = FindGamesManager().GetComponent<SoundEffectManager>();
+        SoundEffectManager soundEffectManager = GamesManager().GetComponent<SoundEffectManager>();
 
         soundEffectManager.PlayEnemyDeathSound();
     }
+
+    public void SavePlayerStats()
+    {
+     if (gameObject.CompareTag("Player"))
+     {
+        PlayerPrefs.SetInt("PreviousScenePlayerMaxHealth", maxHealth);
+        PlayerPrefs.SetInt("PreviousScenePlayerAttackDamage", attackDamage);
+        PlayerPrefs.SetInt("PlayerMaxHealth", maxHealth);
+        PlayerPrefs.SetInt("PlayerAttackDamage", attackDamage);
+        PlayerPrefs.Save();
+     }
+    }
+
+   public void LoadPlayerStats()
+   {
+     if (gameObject.CompareTag("Player"))
+     {
+        maxHealth = PlayerPrefs.GetInt("PlayerMaxHealth", maxHealth);
+        attackDamage = PlayerPrefs.GetInt("PlayerAttackDamage", attackDamage);
+     }
+   }
+
 }

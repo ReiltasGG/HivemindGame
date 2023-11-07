@@ -15,6 +15,7 @@ TagManager:
   - Tower
   - Stinger
   - Interactable
+  - SkillTreeOpener
   layers:
   - Default
   - TransparentFX

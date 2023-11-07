@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class WaveTextCode : MonoBehaviour
 {
-    private const float TEXT_TIME = 10f;
+    private const float TEXT_TIME = 15f;
     public Text timeText;
     public float timeTicker = 0;
     public float time = TEXT_TIME;

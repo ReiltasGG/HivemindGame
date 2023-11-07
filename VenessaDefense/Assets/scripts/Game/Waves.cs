@@ -9,7 +9,7 @@ public class Waves : MonoBehaviour
     public event Action<int> OnEnemiesDeadUpdated;
 
     private float spawnInterval = 1.0f;
-    public float bufferTime = 10.0f;
+    public float bufferTime = 15.0f;
 
     private int currentWave = 0;
     public int enemiesDead = 0;
@@ -18,7 +18,7 @@ public class Waves : MonoBehaviour
     private bool waitToStartRound = true;
     private bool isWaveTextCreated = false;
 
-    public int level = 1;
+    public int level;
 
     private List<Transform> spawnerTransforms = new List<Transform>();
     public GameObject[] enemyPrefabs;
@@ -48,6 +48,39 @@ public class Waves : MonoBehaviour
     }
 
     public readonly List<EnemyWave> level1Waves = new List<EnemyWave>
+    {
+        new EnemyWave
+        {
+            waveNumber = 1,
+            enemyCounts = new Dictionary<Enemies, int>
+            {
+                { Enemies.Ant, 5 },
+            }
+        },
+        new EnemyWave
+        {
+            waveNumber = 2,
+            enemyCounts = new Dictionary<Enemies, int>
+            {
+                { Enemies.Ant, 8 },
+                { Enemies.Beetle, 2 },
+            }
+        },
+        new EnemyWave
+        {
+            waveNumber = 3,
+            enemyCounts = new Dictionary<Enemies, int>
+            {
+                { Enemies.Ant, 10 },
+                { Enemies.Beetle, 5 },
+            }
+        },
+        
+
+    };
+
+
+    public readonly List<EnemyWave> level2Waves = new List<EnemyWave>
     {
         new EnemyWave
         {
@@ -152,6 +185,7 @@ public class Waves : MonoBehaviour
     {
         isWaveInProgress = true;
         waitToStartRound = true;
+        isWaveTextCreated = false;
 
         StartCoroutine(StartWave(GetWave(level, currentWave)));
         currentWave++;
@@ -163,6 +197,11 @@ public class Waves : MonoBehaviour
         if (level == 1)
         {
             enemyWave = level1Waves[wave];
+        }
+
+        else if (level == 2)
+        {
+            enemyWave = level2Waves[wave];
         }
 
         else
@@ -208,7 +247,7 @@ public class Waves : MonoBehaviour
 
         return false;
     }
-    private bool CheckLevelCleared() { return (WaveFinished() && (currentWave > level1Waves.Count)); }
+    private bool CheckLevelCleared() { return (WaveFinished() && ((currentWave > level1Waves.Count) || (currentWave > level2Waves.Count))); }
 
     private IEnumerator StartWave(EnemyWave wave)
     {

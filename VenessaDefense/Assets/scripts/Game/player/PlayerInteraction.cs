@@ -37,6 +37,7 @@ public class PlayerInteraction : MonoBehaviour
             GameObject temp = GameObject.Find("SkillTreeOpener");
             var temper = temp.GetComponent<UI_SkillTreeOpener>();
             temper.ToggleTree();
+            Debug.Log("runs");
         }
     }
 

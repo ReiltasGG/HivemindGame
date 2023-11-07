@@ -13,6 +13,8 @@ public class ManageScenes : MonoBehaviour
     private const string GameOverSceneName = "GameOver";
     private const string DayClearedSceneName = "DayCleared";
     private const string MainMenuSceneName = "MainMenu";
+    private string NextDaySceneName;
+    private bool isSceneLoaded = false;
 
     public void ChangeSceneToMainMenu()
     {
@@ -29,11 +31,11 @@ public class ManageScenes : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(GameOverSceneName).completed += (AsyncOperation asyncOp) =>
         {
-            UpdateEnemiesKilledOnGameOverScrene();
+            UpdateEnemiesKilledOnGameOverScreen();
         };
     }
 
-    private void UpdateEnemiesKilledOnGameOverScrene()
+    private void UpdateEnemiesKilledOnGameOverScreen()
     {
         GameObject uiCanvas = GameObject.Find("UI");
 
@@ -50,9 +52,11 @@ public class ManageScenes : MonoBehaviour
         numberEnemiesKilledText.text = $"{enemiesKilled}";
     }
 
-    public void StartDayClearedScene(int enemiesKilled_)
+    public void StartDayClearedScene(int dayCleared_)
     {
-        enemiesKilled = enemiesKilled_;
+        dayCleared = dayCleared_;
+        NextDaySceneName = "Day " + (dayCleared + 1).ToString();
+        Debug.Log(NextDaySceneName);
         changeSceneToDayCleared();
     }
 
@@ -61,6 +65,7 @@ public class ManageScenes : MonoBehaviour
         SceneManager.LoadSceneAsync(DayClearedSceneName).completed += (AsyncOperation asyncOp) =>
         {
             UpdateDayClearedOnDayClearedScene();
+            isSceneLoaded = true;
         };
     }
 
@@ -71,14 +76,35 @@ public class ManageScenes : MonoBehaviour
         if (uiCanvas == null)
             throw new ArgumentNullException("No UI canvas on Game Cleared Scene");
 
-        Transform dayClaredUIElement = uiCanvas.transform.Find("Day Cleared Text");
+        Transform dayClearedUIElement = uiCanvas.transform.Find("Day Cleared");
 
-        if (dayClaredUIElement == null)
+        if (dayClearedUIElement == null)
             throw new ArgumentNullException("Couldn't find day cleared UI Element.");
 
-        TextMeshProUGUI dayClearedText = dayClaredUIElement.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI dayClearedText = dayClearedUIElement.GetComponent<TextMeshProUGUI>();
 
         dayClearedText.text = $"Day {dayCleared} Cleared";
+
+    }
+    /*
+    private void UpdateNextDayScene()
+    {
+        NextDaySceneName = "Day " + (dayCleared + 1).ToString();
+    }
+    */
+
+    public string GetNextDaySceneName()
+    {
+        return NextDaySceneName;
+    }
+    
+    public void SceneToNextDay()
+    {
+        SceneManager.LoadScene("Day 2");
+        /*
+        string temp = GetNextDaySceneName();
+        Debug.Log(temp);
+        */
     }
 
 }
