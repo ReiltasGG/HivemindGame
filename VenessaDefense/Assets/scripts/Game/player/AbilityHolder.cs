@@ -10,6 +10,8 @@ public class AbilityHolder : MonoBehaviour
     float activeTime;
     public bool skill1 = false;
     public bool skill2 = false;
+    public int skill1_ = 0;
+    public int skill2_ = 0;
 
     [SerializeField] private TrailRenderer tr;
 
@@ -28,7 +30,7 @@ public class AbilityHolder : MonoBehaviour
     void Update()
     {
        
-       if(skill1 == true)
+       if(skill1 == true && skill1_ == 1)
         {
         switch(state)
         {
@@ -71,7 +73,7 @@ public class AbilityHolder : MonoBehaviour
         }
             
         //Decoy Ability
-        if(skill2 == true)
+        if(skill2 == true && skill2_ == 1)
         {
 
         
@@ -130,12 +132,20 @@ public class AbilityHolder : MonoBehaviour
 
     public void allowSkill1()
     {
-        skill1= true;
-       // Debug.Log("Allowskill1 ran");
+        skill1 = true;
+        skill1_ = 1;
+        PlayerPrefs.SetInt("PlayerDashAbility", skill1_);
+        PlayerPrefs.Save();
+
     }
     
     public void allowSkill2()
     {
         skill2= true;
+        skill1_ = 1;
+        PlayerPrefs.SetInt("PlayerDecoyAbility", skill2_);
+        PlayerPrefs.Save();
     }
+
+
 }

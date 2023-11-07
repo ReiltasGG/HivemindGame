@@ -72,7 +72,7 @@ public class Waves : MonoBehaviour
             enemyCounts = new Dictionary<Enemies, int>
             {
                 { Enemies.Ant, 10 },
-                { Enemies.Beetle, 4 },
+                { Enemies.Beetle, 5 },
             }
         },
         

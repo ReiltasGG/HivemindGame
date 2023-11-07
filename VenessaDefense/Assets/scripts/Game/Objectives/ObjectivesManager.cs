@@ -22,6 +22,7 @@ public class ObjectivesManager : MonoBehaviour
     private int numberOfHives = 5;
     private int towersPlaced = 0;
 
+
     private Waves wavesCode = null;
     private TowerManager towerManageCode = null;
     private Level1Objectives level1Objectives = null;
@@ -98,8 +99,10 @@ public class ObjectivesManager : MonoBehaviour
             throw new Exception("Waves code is null when checking component");
 
         towerManageCode = GetComponent<TowerManager>();
+
         if (towerManageCode == null)
             throw new Exception("Tower Manager code is null when checking component");
+
         DisplayObjectivesCanvas();
     }
 
@@ -109,7 +112,6 @@ public class ObjectivesManager : MonoBehaviour
         CreateHandlers();
         CreateCanvasText();
         UpdateObjectivesCompletionStatus();
-        Debug.Log(wavesCode.level);
     }
 
     public void UpdateObjectivesCompletionStatus()
@@ -298,6 +300,22 @@ public class ObjectivesManager : MonoBehaviour
 
         }
     }
+
+    /*
+    private void hasPlayerBeenHit()
+    {
+        if (wavesCode.level == 1)
+        {
+            Level1Objectives level1Objectives = new Level1Objectives();
+            if (level1Objectives.GetPlayerHurt())
+            {
+                CallGameOverScene();
+            }
+        }
+        
+    }
+    */
+    
 
     public void GainSkillPoints(int numberOfSkillPoints)
     {

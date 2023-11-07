@@ -69,14 +69,12 @@ public class UI_SkillTree : MonoBehaviour {
 
     public bool getSkilldata(int whichSkill)
     {
-        //return listOfSkills[whichSkill-1].skillUnlocked;
         return SkillData.skillUnlocked[whichSkill-1];
     }
 
     public void UnlockSkill(int whichSkill)
     {
-        //listOfSkills[whichSkill-1].skillUnlocked = true;
-        SkillData.skillUnlocked[whichSkill] = true;
+        SkillData.skillUnlocked[whichSkill-1] = true;
     }
    
 }

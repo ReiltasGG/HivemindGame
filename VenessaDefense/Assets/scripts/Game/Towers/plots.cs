@@ -30,8 +30,11 @@ public class plots : MonoBehaviour
     private void OnMouseDown()
     {
         if (tower != null) return;
+        
 
         Tower towerToBuild = Builder.main.GetSelectedTower();
+
+        if(towerToBuild == null){return;}
 
         if(towerToBuild.cost > Currency.main.currency ) 
         {

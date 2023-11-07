@@ -18,6 +18,7 @@ public class AttributesManager : MonoBehaviour
 
     private float damageFlashDurationInSeconds = 0.2f;
     private Color spriteDefaultColor;
+    public bool playerHitOnce = false;
 
     private void Start()
     {
@@ -52,6 +53,7 @@ public class AttributesManager : MonoBehaviour
 
     public void takeDamage(int amount)
     {
+        
         StartCoroutine(DamageFlashAnimation());
 
         health -= amount;

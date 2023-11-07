@@ -340,7 +340,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
              //Decoy
             else if(SkillID == 13 && hasBeenBought == true)
             {
-                  Debug.Log("Runs");
+                Debug.Log("Runs");
                 bool temp1 = atm.getSkilldata(12);
                 if(temp1 == true)
                 {
