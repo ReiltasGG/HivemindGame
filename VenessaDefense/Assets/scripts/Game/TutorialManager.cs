@@ -191,6 +191,14 @@ public class TutorialManager : MonoBehaviour
             }
 
         }
+        else if (popUpIndex == 9) // Skills
+        {
+            popUps[popUpIndex].SetActive(true);
+            trainer.SetActive(true);
+            Time.timeScale = 1f;
+            
+
+        }
 
     }
     

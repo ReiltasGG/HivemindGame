@@ -8,6 +8,11 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Day 1");
     }
 
+    public void HowToPlay()
+    {
+        SceneManager.LoadScene("Day 0");
+    }
+
     public void QuitGame()
     {
         Debug.Log("Game has been quit");
