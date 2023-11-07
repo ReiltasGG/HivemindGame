@@ -319,6 +319,10 @@ public class Waves : MonoBehaviour
         enemiesDead++;
         OnEnemiesDeadUpdated?.Invoke(enemiesDead);
     }
+    public int getDeadEnemies()
+    {
+        return enemiesDead;
+    }
     public int GetNumberDeadEnemies(){ return enemiesDead; }
     public void SetSpawnRateModifier(float modifier) { spawnRateModifier = modifier; }
     public void SetMutateRateModifier(float modifier) { mutationRateModifier = modifier; }
