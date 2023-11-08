@@ -8,6 +8,8 @@ public class Wasp : MonoBehaviour
     public int health;
     public bool isInvul = false;
 
+    public float timeBetweenAbilities = 10.0f;
+    public float currentTimeBetweenAbilities;
 
     public Transform target; //The thing that the enemy is chasing
     public Vector2 targetLocation; //Where the enemy wants to go
@@ -47,9 +49,22 @@ public class Wasp : MonoBehaviour
     public GameObject stingerOffset;
     public float timerforbeam = 0.0f;
     private Vector3 direction;
+    public float laserBeamTimer = 5.0f;
+    public float currentLaserBeamTimer = 0.0f;
+    public GameObject createdLaser;
     //Movement
     public float dashSpeed = 200.0f;
+
+    //Water and Blinding stuff for boss effect 
+    public GameObject waterEffect;
+    public float timerForWater;
+    public float currentTimeForWater;
+    public bool isDomainActive = false;
+    public GameObject domainObject;
     public enum AIstate
+
+   
+
     {
        dashAttack,
        poisonAttack,
@@ -65,7 +80,7 @@ public class Wasp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       defaultState = AIstate.laserBeam;
+       defaultState = AIstate.defaultAttackPlayer;
         body = GetComponent<Rigidbody2D>();
         state = defaultState;
     }
@@ -76,6 +91,24 @@ public class Wasp : MonoBehaviour
     {
       //  Debug.Log(dashAttackTimer);
         UpdateAI();
+        waterCreation();
+
+    }
+
+    public void waterCreation()
+    {
+     var domainScript =  domainObject.GetComponent<DomainEffect>();
+     isDomainActive = domainScript.isDomainActive();
+     if(isDomainActive)
+     {
+      if(currentTimeForWater > timerForWater)
+      {
+        currentTimeForWater = 0.0f;
+        Instantiate(waterEffect, transform.position, Quaternion.identity);
+      }
+      currentTimeForWater+=Time.deltaTime;
+
+     }
     }
     
     public void  UpdateAI()
@@ -232,14 +265,27 @@ public class Wasp : MonoBehaviour
         if(state == AIstate.defaultAttackPlayer)
         {
           moveDefaultAttack();
+          if(currentTimeBetweenAbilities> timeBetweenAbilities)
+          {
+            int rand = Random.Range(1, 2);
+            if(rand == 1)
+              state = AIstate.laserBeam;
+            if(rand == 2)
+              state = AIstate.followLaser;
+            currentTimeBetweenAbilities = 0;
+          }
+          currentTimeBetweenAbilities+=Time.deltaTime;
+          
         }
 
 
         if(state == AIstate.laserBeam)
         {
+            body.velocity = body.velocity.normalized * 0.0f;
+            body.angularVelocity = 0.0f;
           if(laserbeamhappenOnce == true)
           {
-          GameObject createdLaser = Instantiate(LaserBeam, stingerOffset.transform.position , Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, 0, 180)));
+           createdLaser = Instantiate(LaserBeam, stingerOffset.transform.position , Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, 0, 180)));
 
           createdLaser.transform.SetParent(this.gameObject.transform);
           
@@ -252,7 +298,13 @@ public class Wasp : MonoBehaviour
             // Convert the angle to degrees and set the rotation
             transform.rotation = Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg + 90f);
           }
-          
+          if(laserBeamTimer < currentLaserBeamTimer)
+          {
+            currentLaserBeamTimer = 0.0f;
+            Destroy(createdLaser);
+            state = AIstate.defaultAttackPlayer;
+          }
+          currentLaserBeamTimer+=Time.deltaTime;
             GameObject playerObject = GameObject.FindWithTag("Player");
         Transform targetchange = playerObject != null ? playerObject.transform : null;
 

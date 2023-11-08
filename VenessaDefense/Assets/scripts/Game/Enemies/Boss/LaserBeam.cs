@@ -5,6 +5,9 @@ public class LaserBeam : MonoBehaviour
     public Transform laserOrigin;
     public float laserMaxLength = 100f;
     private LineRenderer lineRenderer;
+    public float timeBetweenDamage = .2f;
+    public float currentTime = 0.0f;
+    public int damage = 5;
 
     void Start()
     {
@@ -32,5 +35,14 @@ public class LaserBeam : MonoBehaviour
     {
         // Do something when a collision occurs, e.g., damage the hitObject or play an effect.
         // You can also destroy the laser if it hits an object, depending on your game logic.
+        if(currentTime > timeBetweenDamage)
+        {
+        var attMan = hitObject.GetComponent<AttributesManager>();
+        attMan.takeDamage(damage);
+        currentTime = 0.0f;
+        }
+        currentTime += Time.deltaTime;
+      
+
     }
 }

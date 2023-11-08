@@ -14,7 +14,15 @@ public class UI_SkillTreeOpener : MonoBehaviour
     public GameObject skillTreeBackground;
     [SerializeField] private GameObject SkillTreeText;
     public bool skillTreeIsOpen = false;
+    public KeyCode openKey;
 
+    public void Update()
+    {
+        if(Input.GetKeyDown(openKey))
+        {
+            ToggleTree();
+        }
+    }
     public void ToggleTree()
     {
         if (!skillTreeIsOpen)

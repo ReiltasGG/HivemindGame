@@ -44,9 +44,10 @@ GameObject:
   - component: {fileID: 5578947567778718135}
   - component: {fileID: 5566833647954976026}
   - component: {fileID: 7684605877566330851}
+  - component: {fileID: 2976433291728860122}
   m_Layer: 0
   m_Name: Wasp
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -195,6 +196,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   isInvul: 0
+  timeBetweenAbilities: 10
+  currentTimeBetweenAbilities: 0
   target: {fileID: 0}
   targetLocation: {x: 0, y: 0}
   state: 5
@@ -220,3 +223,27 @@ MonoBehaviour:
   stingerOffset: {fileID: 6126402023405121561}
   timerforbeam: 0
   dashSpeed: 50
+  waterEffect: {fileID: 6982923082744230639, guid: aefc480d981ce114193d325f993232a8, type: 3}
+  timerForWater: 3
+  currentTimeForWater: 0
+  isDomainActive: 0
+  domainObject: {fileID: 0}
+--- !u!114 &2976433291728860122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7086992147645849624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ef5c93031df4db7954aacdd25b4b31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1000
+  maxHealth: 1000
+  attackDamage: 0
+  healthBar: {fileID: 0}
+  iscurseActive: 0
+  currencyWorth: 0
+  playerHitOnce: 0
