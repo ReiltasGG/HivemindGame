@@ -12,6 +12,8 @@ public class DomainEffect : MonoBehaviour
     private Camera mainCamera; // Reference to the main camera
     public bool isDomain = false;
 
+    public bool waspCreatesDomain;
+
     void Start()
     {
         mainCamera = Camera.main;
@@ -25,6 +27,8 @@ public class DomainEffect : MonoBehaviour
 
     void Update()
     {
+
+        //Change it later
         if (Input.GetKeyDown(KeyCode.Alpha1) && !expanding)
         {
             StartExpanding();

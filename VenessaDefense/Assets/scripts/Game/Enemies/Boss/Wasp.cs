@@ -415,7 +415,7 @@ if (collision.gameObject.CompareTag("Player"))
     playerRigidbody.AddForce(leftRotation * pushDirection, ForceMode2D.Impulse);
     // or
     // playerRigidbody.AddForce(rightRotation * pushDirection, ForceMode.Impulse);
-    Debug.Log("works");
+ //   Debug.Log("works");
 }
 
      if (collision.gameObject.CompareTag("Tower"))
