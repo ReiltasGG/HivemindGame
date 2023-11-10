@@ -196,11 +196,13 @@ public class Waves : MonoBehaviour
 
         if (level == 1)
         {
+            if (wave >= level1Waves.Count) wave = level1Waves.Count - 1;
             enemyWave = level1Waves[wave];
         }
 
         else if (level == 2)
         {
+            if (wave >= level2Waves.Count) wave = level2Waves.Count - 1;
             enemyWave = level2Waves[wave];
         }
 
@@ -316,6 +318,10 @@ public class Waves : MonoBehaviour
     {
         enemiesDead++;
         OnEnemiesDeadUpdated?.Invoke(enemiesDead);
+    }
+    public int getDeadEnemies()
+    {
+        return enemiesDead;
     }
     public int GetNumberDeadEnemies(){ return enemiesDead; }
     public void SetSpawnRateModifier(float modifier) { spawnRateModifier = modifier; }

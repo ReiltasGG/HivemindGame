@@ -13,6 +13,10 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("CreditsScene");
     }
+    public void HowToPlay()
+    {
+        SceneManager.LoadScene("Day 0");
+    }
 
     public void QuitGame()
     {
