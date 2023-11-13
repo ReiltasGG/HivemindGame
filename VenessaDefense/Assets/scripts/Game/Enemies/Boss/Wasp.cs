@@ -6,6 +6,8 @@ public class Wasp : MonoBehaviour
 {
     //Health and important stuffs
     public int health;
+    public int halfHealth;
+    public int rageHealth;
     public bool isInvul = false;
 
     public float timeBetweenAbilities = 10.0f;
@@ -30,6 +32,7 @@ public class Wasp : MonoBehaviour
 
 
     public float dashAttackTimerCoolDown = 0.0f;
+    public bool doingDashAttack = false;
 
     //Stun Stuff
     public float stunTime = 5.0f;
@@ -42,6 +45,8 @@ public class Wasp : MonoBehaviour
     //Laser Stuff
     public GameObject laserBullet;
     public bool laserHappenOnce = true;
+    public float currentLaserTime = 0.0f;
+    public float laserFollowTime = 2.0f;
 
     //Laser Beam Stuff
     public GameObject LaserBeam;
@@ -55,14 +60,27 @@ public class Wasp : MonoBehaviour
     //Movement
     public float dashSpeed = 200.0f;
 
+
+    //Default attack stuff
+    public bool defaultAttacking = false;
+    public float meleeAttackRadius = 2.0f;
+    //public float attackCooldownTicker;
+    public float meleeAttackCooldown = 2.0f;
     //Water and Blinding stuff for boss effect 
     public GameObject waterEffect;
     public float timerForWater;
     public float currentTimeForWater;
     public bool isDomainActive = false;
+    public bool isDomainHappenOnce = true;
     public GameObject domainObject;
+
+    //Ability stuff
+    public float currentAbilityTimer= 0.0f;
+    public float AbilityTimer = 1.0f;
+    public GameObject disableObject;
     public enum AIstate
 
+    
    
 
     {
@@ -72,7 +90,8 @@ public class Wasp : MonoBehaviour
        followLaser,
        resetPos,
        defaultAttackPlayer,
-       laserBeam
+       laserBeam,
+       ability
        
     } //end enum AIstate
 
@@ -83,6 +102,9 @@ public class Wasp : MonoBehaviour
        defaultState = AIstate.defaultAttackPlayer;
         body = GetComponent<Rigidbody2D>();
         state = defaultState;
+         health = GetComponent<AttributesManager>().getHealth();
+          halfHealth = health/2;
+      rageHealth = health/10;
     }
 
     // Update is called once per frame
@@ -92,7 +114,13 @@ public class Wasp : MonoBehaviour
       //  Debug.Log(dashAttackTimer);
         UpdateAI();
         waterCreation();
+        updateHealth();
+    } 
 
+    public void updateHealth()
+    {
+      health = GetComponent<AttributesManager>().getHealth();
+    
     }
 
     public void waterCreation()
@@ -193,6 +221,7 @@ public class Wasp : MonoBehaviour
             dashAttackTimerCoolDown+= Time.deltaTime;
             if(dashAttackTimerCoolDown > 5.0f)
             {
+              doingDashAttack = false;
                 isAttacking = true;
                 dashAttackTimerCoolDown = 0.0f;
                 dashPos = true;
@@ -206,74 +235,98 @@ public class Wasp : MonoBehaviour
             if(stunOnce == true)
             {
             stunOnce = false;
-           int randomNumber = Random.Range(1, 5); // Generates a random integer between 1 (inclusive) and 4 (inclusive)
+          // int randomNumber = Random.Range(1, 5); // Generates a random integer between 1 (inclusive) and 4 (inclusive)
             body.velocity = body.velocity.normalized * 0.0f;
             body.angularVelocity = 0.0f;
             body.isKinematic = true;
            
              // transform.position = new Vector3(0, 0, 0);
-           if(randomNumber == 1)
-           {
-            transform.position = new Vector3(0, 0, 0);
-           
-           }
-           else if(randomNumber == 2)
-           {
-            transform.position = new Vector3(-10, 1, 0);
-           }
-           else if(randomNumber == 3)
-           {
-             transform.position = new Vector3(2, -6, 0);
-           }
-           else if(randomNumber == 4)
-           {
-             transform.position = new Vector3(-6, -6, 0);
-           }
-           else if(randomNumber == 5)
-           {
-             transform.position = new Vector3(9, -6, 0);
-           }
+        transform.position = new Vector3(20,20, 20);
         
         }
+        
             currentStunTime += Time.deltaTime;
         if(currentStunTime>= stunTime)
         {
             currentStunTime = 0.0f;
             stunOnce = true;
-            state = AIstate.followLaser;
+             state = AIstate.dashAttack;
         }
+        
+       
         laserHappenOnce = true;
       }
 
         if(state == AIstate.followLaser)
         {
-          transform.position = new Vector3(5,5, 0);
-          if(laserHappenOnce == true)
-          {
-            
-
-            //Code so that it faces the player
-             Vector2 directionToPlayer = (Vector2)target.position;
+              Vector2 directionToPlayer = (Vector2)target.position;
             float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle+90));
+            if(laserHappenOnce)
+            {
+            body.velocity = body.velocity.normalized * 0.0f;
+            //Code so that it faces the player
+         
             Instantiate(laserBullet, transform.position, Quaternion.identity);
             laserHappenOnce = false;
-          }
+            }
+            if(currentLaserTime > laserFollowTime)
+            {
+            laserHappenOnce = true;
+            currentLaserTime = 0.0f;
+            state = AIstate.defaultAttackPlayer;
+          
+
+            }
+            currentLaserTime +=Time.deltaTime; 
+          
        
         }
 
         if(state == AIstate.defaultAttackPlayer)
         {
           moveDefaultAttack();
+          defaultAttackPlayer();
+          meleeAttackCooldown -= Time.deltaTime;
+          if(health <= rageHealth)
+          state = AIstate.resetPos;
+          if(health < halfHealth && isDomainActive == false && isDomainHappenOnce)
+          {
+            Debug.Log("This runs");
+            isDomainHappenOnce = false;
+            state = AIstate.ability;
+            
+          }
           if(currentTimeBetweenAbilities> timeBetweenAbilities)
           {
-            int rand = Random.Range(1, 2);
+            if(health > halfHealth || isDomainActive == false )
+            {
+            int rand = Random.Range(1, 3);
+        
             if(rand == 1)
               state = AIstate.laserBeam;
             if(rand == 2)
               state = AIstate.followLaser;
             currentTimeBetweenAbilities = 0;
-          }
+            }
+            
+            else if(health <= halfHealth || isDomainActive == true)
+            {
+               int rand = Random.Range(1, 4);
+        
+            if(rand == 1)
+              state = AIstate.laserBeam;
+            if(rand == 2)
+              state = AIstate.followLaser;
+            if(rand == 3)
+              state = AIstate.ability;
+              
+            }
+            
+                 currentTimeBetweenAbilities = 0;
+            }
+          
+
           currentTimeBetweenAbilities+=Time.deltaTime;
           
         }
@@ -301,6 +354,7 @@ public class Wasp : MonoBehaviour
           if(laserBeamTimer < currentLaserBeamTimer)
           {
             currentLaserBeamTimer = 0.0f;
+            laserbeamhappenOnce = true;
             Destroy(createdLaser);
             state = AIstate.defaultAttackPlayer;
           }
@@ -320,6 +374,27 @@ if (targetchange != null)
 }
 
         }
+    if(state == AIstate.ability)
+      {
+        transform.position = new Vector3(0, 0, 0);
+        if(AbilityTimer< currentAbilityTimer)
+        {
+        var tempScript = GameObject.Find("Domain").GetComponent<DomainEffect>();
+        tempScript.changeDomain();
+        currentAbilityTimer = 0.0f;
+           Vector3 spawnPosition = new Vector3(
+            Random.Range(-10f, 10f), // Adjust these values based on the desired X-axis range
+            Random.Range(-5f, 5f),   // Adjust these values based on the desired Y-axis range
+            0f                        // Assuming a 2D game, so Z-axis is 0
+        );
+
+        // Instantiate the object at the random position
+        Instantiate(disableObject, spawnPosition, Quaternion.identity);
+        state = AIstate.defaultAttackPlayer;
+
+        }
+        currentAbilityTimer +=Time.deltaTime;
+      }
     }
       public void moveDefaultAttack()
       {
@@ -371,16 +446,75 @@ if (targetchange != null)
         {
             body.velocity += new Vector2(targetMove.x * -0.05f, targetMove.y * -0.05f);
         }
-      }
+        GameObject player = GameObject.FindWithTag("Player");
 
+        if (player != null)
+        {
+            Vector2 directionToPlayer = (Vector2)(player.transform.position - transform.position);
+            float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
+            Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angle + 90));
+            transform.rotation = targetRotation;
+        }
+
+      }
     public void defaultAttackPlayer()
     {
 
+       if (!defaultAttacking && meleeAttackCooldown <= 0)
+        {
+            Debug.Log("Works Here");
+            //Check the distance to the target
+            Vector3 targetOffset = target.GetComponent<Collider2D>().offset;
+            Vector3 myOffset = GetComponent<Collider2D>().offset;
+            float distance = Vector2.Distance(target.position + targetOffset, transform.position + myOffset);
+
+            //If the target is in range, start a melee attack
+            if (distance <= meleeAttackRadius)
+            {
+                //The animation will call the Attack() method for the blob
+                //The animation will call the EndAttack() method to exit isAttacking
+
+                defaultAttacking = true;
+                defaultAttackPlayerAnim();
+
+            }
+        }//end melee check
     }
 
+    public void defaultAttackPlayerAnim()
+    {
+      //Do Through Anim
+       //Search for players within the meleeAttackRadius
+            Collider2D[] things = Physics2D.OverlapCircleAll(transform.position, meleeAttackRadius);
+            foreach (Collider2D item in things)
+            {
+                if (item.gameObject.CompareTag("Player"))
+                {
+                    //If it's a player, deal melee damage to it
+                    var attributeScript = item.gameObject.GetComponent<AttributesManager>();
+
+                    //Calculate the direction of force
+                   // Vector2 hitForce = (item.transform.position - transform.position).normalized * meleeAttackKnockback * 10.0f;
+
+                    //Apply Knockback and damage to player
+                    attributeScript.takeDamage(10);
+                    EndAttack();
+                 
+                }
+            } //end of searching for Players
+
+            defaultAttacking = true;
+            meleeAttackCooldown = 2.0f;
+    }
+  
+    public void EndAttack()
+    {
+        isAttacking = false;
+    }
 
    public void DoDashAttack()
 {//Code
+    doingDashAttack = true;
     // Calculate the Vector to the targetLocation.
     targetDirectionVector = targetLocation - (Vector2)transform.position;
     // Normalize this to a unit vector (magnitude of 1).
@@ -416,6 +550,10 @@ if (collision.gameObject.CompareTag("Player"))
     // or
     // playerRigidbody.AddForce(rightRotation * pushDirection, ForceMode.Impulse);
  //   Debug.Log("works");
+ if(doingDashAttack)
+ {
+  collision.gameObject.GetComponent<AttributesManager>().takeDamage(10);
+ }
 }
 
      if (collision.gameObject.CompareTag("Tower"))
