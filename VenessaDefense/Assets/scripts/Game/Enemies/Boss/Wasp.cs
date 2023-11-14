@@ -73,19 +73,29 @@ public class Wasp : MonoBehaviour
     public bool isDomainActive = false;
     public bool isDomainHappenOnce = true;
     public GameObject domainObject;
+    
 
     //Ability stuff
     public float currentAbilityTimer= 0.0f;
     public float AbilityTimer = 1.0f;
     public GameObject disableObject;
-    public enum AIstate
-
     
-   
+
+    //Grab Attack Stuff
+    public GameObject grabAttackHitBox;
+    public bool grabHappenOnceForce = true;
+     public float burstSpeed = 3f; // Adjust the burst speed as needed
+    public float pauseDuration = 0.5f; // Duration to pause before the burst
+    public float grabInitalLast = .5f;
+    
+
+
+
+    public enum AIstate
 
     {
        dashAttack,
-       poisonAttack,
+       grabAttack,
        stun,
        followLaser,
        resetPos,
@@ -141,6 +151,12 @@ public class Wasp : MonoBehaviour
     
     public void  UpdateAI()
     {
+
+      //Code for grab attack
+      if(state == AIstate.grabAttack)
+      {
+        doGrabAttack();
+      }
       //Code for dash attack AI state
         if(state == AIstate.dashAttack)
         {
@@ -462,7 +478,7 @@ if (targetchange != null)
 
        if (!defaultAttacking && meleeAttackCooldown <= 0)
         {
-            Debug.Log("Works Here");
+         //   Debug.Log("Works Here");
             //Check the distance to the target
             Vector3 targetOffset = target.GetComponent<Collider2D>().offset;
             Vector3 myOffset = GetComponent<Collider2D>().offset;
@@ -532,7 +548,39 @@ if (targetchange != null)
     happenOnceAgain = 1;
 }
 
+  //Code for grab attack
+  public void doGrabAttack()
+  {
+    bool temp = grabAttackHitBox.GetComponent<grabHurtBox>().hasTouchedPlayer();
+    if(grabHappenOnceForce)
+      {
+        grabHappenOnceForce = false;
+        body.velocity = body.velocity * 4.0f;
+      }
+      if(grabInitalLast < 0)
+      {
+        body.velocity = body.velocity/4.0f;
+        grabInitalLast = .5f;
+        if(!temp)
+        {
+          state = AIstate.defaultAttackPlayer;
+        }
+      }
+      grabInitalLast -=Time.deltaTime;
 
+    
+    if(temp)
+    {
+      grabActive();
+    }
+    
+  
+  }
+
+  public void grabActive()
+  {
+    Debug.Log("Grab Happened");
+  }
     void OnCollisionEnter2D(Collision2D collision)
 {
 if (collision.gameObject.CompareTag("Player"))
