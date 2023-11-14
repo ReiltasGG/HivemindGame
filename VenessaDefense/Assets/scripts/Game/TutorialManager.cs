@@ -14,7 +14,7 @@ public class TutorialManager : MonoBehaviour
     public GameObject healthbar;
     public GameObject shop;
     public GameObject plot;
-    public GameObject trainer;
+    
     //public GameObject welcome;
     //public static event Action closeButton;
     private int popUpIndex = 0;
@@ -44,7 +44,7 @@ public class TutorialManager : MonoBehaviour
         ant2.SetActive(false);
         shop.SetActive(false);
         plot.SetActive(false);
-        trainer.SetActive(false); 
+        
     }
 
     // Update is called once per frame and studd
@@ -181,7 +181,7 @@ public class TutorialManager : MonoBehaviour
         else if (popUpIndex == 8) // Skills
         {
             popUps[popUpIndex].SetActive(true);
-            trainer.SetActive(true);
+            
             Time.timeScale = 1f;
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -191,10 +191,10 @@ public class TutorialManager : MonoBehaviour
             }
 
         }
-        else if (popUpIndex == 9) // Skills
+        else if (popUpIndex == 9) // final
         {
             popUps[popUpIndex].SetActive(true);
-            trainer.SetActive(true);
+            
             Time.timeScale = 1f;
             
 
