@@ -8,7 +8,7 @@ public class PlayerInteraction : MonoBehaviour
   //  public SpriteRenderer eKey;
     public GameObject textPopUp;
     public KeyCode keyChoice;
-
+    public GameObject collidedObject;
     private bool isInRange = false;
     // Start is called before the first frame update
     void Start()
@@ -34,24 +34,27 @@ public class PlayerInteraction : MonoBehaviour
         }
         if(Input.GetKeyDown(keyChoice) && isInRange)
         {
-            GameObject temp = GameObject.Find("SkillTreeOpener");
-            var temper = temp.GetComponent<UI_SkillTreeOpener>();
-            temper.ToggleTree();
-            Debug.Log("runs");
+            Debug.Log("Ran");
+            GameObject temp = GameObject.Find("Domain");
+            var temper = temp.GetComponent<DomainEffect>();
+            temper.changeDomain();
+            Destroy(collidedObject);
+            //Debug.Log("runs");
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Interactable"))
         {
+            collidedObject = other.gameObject;
            textPopUp.SetActive(true);
            isInRange = true;
          
         }
     }
 
-    private void OnCollisionExit2D(Collision2D other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Interactable"))
         {

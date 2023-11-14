@@ -13,6 +13,7 @@ public class DomainEffect : MonoBehaviour
     public bool isDomain = false;
 
     public bool waspCreatesDomain;
+    public bool doDomain = false;
 
     void Start()
     {
@@ -27,18 +28,19 @@ public class DomainEffect : MonoBehaviour
 
     void Update()
     {
-
+        //Debug.Log(expanding);
         //Change it later
-        if (Input.GetKeyDown(KeyCode.Alpha1) && !expanding)
+        if (doDomain && !expanding)
         {
             StartExpanding();
             isDomain = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2) && !expanding)
+        if (!doDomain)
         {
             StartCollapsing();
             isDomain = false;
+            circleImage.enabled = false;
         }
 
         if (expanding)
@@ -63,50 +65,48 @@ public class DomainEffect : MonoBehaviour
 
     void StartCollapsing()
     {
-        expanding = true;
-
-        // Set the initial scale of the circle to a small value
-        circleImage.rectTransform.localScale = initialScale;
-
-        // Set the initial position of the circle to the "wasp" GameObject's position
-        circleImage.rectTransform.position = waspTransform.position;
+        circleImage.enabled = false;
+        expanding = false;
     }
 
-    void ExpandToScreenSize()
-    {
-        // Calculate the Canvas dimensions
-        Canvas canvas = circleImage.canvas;
-        float canvasWidth = canvas.pixelRect.width;
-        float canvasHeight = canvas.pixelRect.height;
+  void ExpandToScreenSize()
+{
+    // Calculate the Canvas dimensions
+    Canvas canvas = circleImage.canvas;
+    float canvasWidth = canvas.pixelRect.width;
+    float canvasHeight = canvas.pixelRect.height;
 
-        // Calculate the target scale to match the screen size when the circle is enabled
-        Vector3 targetScale = new Vector3(
-            canvasWidth / circleImage.rectTransform.sizeDelta.x,
-            canvasHeight / circleImage.rectTransform.sizeDelta.y,
-            1f
-        );
+    // Calculate the target scale to match the screen size when the circle is enabled
+    Vector3 targetScale = new Vector3(
+        canvasWidth / circleImage.rectTransform.sizeDelta.x,
+        canvasHeight / circleImage.rectTransform.sizeDelta.y,
+        1f
+    );
 
-        // Smoothly expand or collapse the circle to the screen size
-        circleImage.rectTransform.localScale = Vector3.Lerp(circleImage.rectTransform.localScale, targetScale, Time.deltaTime * expansionSpeed);
+  
+    // Check if the expansion or collapse is complete
+  
+    
+      // Smoothly expand or collapse the circle to the screen size
+    circleImage.rectTransform.localScale = Vector3.Lerp(circleImage.rectTransform.localScale, targetScale, Time.deltaTime * expansionSpeed);
 
-        // Check if the expansion or collapse is complete
-        if (Vector3.Distance(circleImage.rectTransform.localScale, targetScale) < 0.01f)
-        {
-            expanding = false;
+}
 
-            // Ensure the circle reaches the exact target scale
-            circleImage.rectTransform.localScale = targetScale;
 
-            if (targetScale == initialScale)
-            {
-                // Disable the circle Image when it has collapsed
-                circleImage.enabled = false;
-            }
-        }
-    }
 
     public bool isDomainActive()
     {
         return isDomain;
     }
+
+    public void changeDomain()
+    {
+        if(doDomain)
+            doDomain = false;
+        else
+            doDomain = true;
+
+           
+    }
+
 }

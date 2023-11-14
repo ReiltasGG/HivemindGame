@@ -234,4 +234,9 @@ public class AttributesManager : MonoBehaviour
      }
    }
 
+   public int getHealth()
+   {
+    return health;
+   }
+
 }
