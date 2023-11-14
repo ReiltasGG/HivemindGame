@@ -4168,7 +4168,9 @@ PrefabInstance:
       propertyPath: towers.Array.data[3].prefab
       value: 
       objectReference: {fileID: 8445940507173157326, guid: d7758b80f49739544a024bd275290fb3, type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1928105852871214247, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
+    - {fileID: 7658604053485126848, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
