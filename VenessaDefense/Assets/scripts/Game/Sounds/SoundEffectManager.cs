@@ -11,6 +11,7 @@ public class SoundEffectManager : MonoBehaviour
     private const string GUN_SHOOT_FILE_NAME = "gun_shoot";
     private const string ROUND_START_FILE_NAME = "Round-Start";
     private const string OBJECTIVE_COMPLETED_FILE_NAME = "ObjectiveCompleted";
+    private const string BUTTON_CLICK_FILE_NAME = "Button_Click";
     private const string SOUNDS_FOLDER = "Sounds/";
 
     public void ChangeSoundEffectVolume(float volume_)
@@ -25,6 +26,7 @@ public class SoundEffectManager : MonoBehaviour
     public void PlayEnemyDeathSound() { PlaySoundEffect(GetSoundEffect(ENEMY_DEATH_FILE_NAME), 0.7f); }
     public void PlayGunShootSound() { PlaySoundEffect(GetSoundEffect(GUN_SHOOT_FILE_NAME)); }
     public void PlayObjectiveCompletedSound() { PlaySoundEffect(GetSoundEffect(OBJECTIVE_COMPLETED_FILE_NAME)); }
+    public void PlayButtonClickSound() { PlaySoundEffect(GetSoundEffect(BUTTON_CLICK_FILE_NAME)); }
 
     private AudioClip GetSoundEffect(string soundFileName)
     {
