@@ -467,6 +467,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2028852188}
+        m_TargetAssemblyTypeName: SoundEffectManager, Assembly-CSharp
+        m_MethodName: PlayButtonClickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &203410419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1548,11 +1560,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49218813e6ff7934791c3d403970100f, type: 3}
---- !u!1 &664038331 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 292566631465442774, guid: 49218813e6ff7934791c3d403970100f, type: 3}
-  m_PrefabInstance: {fileID: 614854933}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &682227596
 GameObject:
   m_ObjectHideFlags: 0
@@ -1640,6 +1647,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1576952665}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: Resume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2028852188}
+        m_TargetAssemblyTypeName: SoundEffectManager, Assembly-CSharp
+        m_MethodName: PlayButtonClickSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2581,85 +2600,9 @@ PrefabInstance:
       value: Game Manager
       objectReference: {fileID: 0}
     - target: {fileID: 3717051226447820630, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      propertyPath: level
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3717051226447820630, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
       propertyPath: uiCanvas
       value: 
       objectReference: {fileID: 1086269316}
-    - target: {fileID: 3717051226447820630, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      propertyPath: bufferTime
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 6862812631611939685, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      propertyPath: time
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 7676885091910954471, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      propertyPath: towers.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7676885091910954471, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      propertyPath: towers.Array.data[0].cost
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7676885091910954471, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      propertyPath: towers.Array.data[0].name
-      value: Battle Bee
-      objectReference: {fileID: 0}
-    - target: {fileID: 7676885091910954471, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      propertyPath: towers.Array.data[1].cost
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7676885091910954471, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      propertyPath: towers.Array.data[1].name
-      value: Shaman Bee
-      objectReference: {fileID: 0}
-    - target: {fileID: 7676885091910954471, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      propertyPath: towers.Array.data[2].cost
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 7676885091910954471, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      propertyPath: towers.Array.data[2].name
-      value: Healing Bee
-      objectReference: {fileID: 0}
-    - target: {fileID: 7676885091910954471, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      propertyPath: towers.Array.data[3].cost
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7676885091910954471, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      propertyPath: towers.Array.data[3].name
-      value: Battle Bee
-      objectReference: {fileID: 0}
-    - target: {fileID: 7676885091910954471, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      propertyPath: towers.Array.data[0].prefab
-      value: 
-      objectReference: {fileID: 7227727104995871528, guid: 276437bd4de41ff468bfe488a53c92fa, type: 3}
-    - target: {fileID: 7676885091910954471, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      propertyPath: towers.Array.data[1].prefab
-      value: 
-      objectReference: {fileID: 4153649241375141767, guid: 9d4a70aff7a2fb946bbabff3a9a23ad6, type: 3}
-    - target: {fileID: 7676885091910954471, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      propertyPath: towers.Array.data[2].prefab
-      value: 
-      objectReference: {fileID: 9096252030911634990, guid: 066d8d5dadb16fe44a69af8738490f4b, type: 3}
-    - target: {fileID: 7676885091910954471, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      propertyPath: towers.Array.data[3].prefab
-      value: 
-      objectReference: {fileID: 7227727104995871528, guid: 276437bd4de41ff468bfe488a53c92fa, type: 3}
-    - target: {fileID: 9207750962738071944, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      propertyPath: towerInfo
-      value: 
-      objectReference: {fileID: 664038331}
-    - target: {fileID: 9207750962738071944, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      propertyPath: textComponent
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 9207750962738071944, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      propertyPath: towerStatsText
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3114,6 +3057,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1576952665}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2028852188}
+        m_TargetAssemblyTypeName: SoundEffectManager, Assembly-CSharp
+        m_MethodName: PlayButtonClickSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
