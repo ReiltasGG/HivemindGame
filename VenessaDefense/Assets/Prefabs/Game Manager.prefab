@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 9207750962738071944}
   - component: {fileID: 6266040779267382658}
   - component: {fileID: 5387216479069621640}
-  - component: {fileID: 1928105852871214247}
   - component: {fileID: 7420650952861146886}
   m_Layer: 0
   m_Name: Game Manager
@@ -322,18 +321,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalTowersPlaced: 0
---- !u!114 &1928105852871214247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2465936462903521182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e45eebba41c6f0346b0aa446cf364c9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7420650952861146886
 MonoBehaviour:
   m_ObjectHideFlags: 0
