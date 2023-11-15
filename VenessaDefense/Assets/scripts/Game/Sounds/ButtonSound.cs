@@ -6,7 +6,7 @@ public class ButtonSound : MonoBehaviour
 {
     public SoundEffectManager SoundEffectManager;
 
-    private void Awake()
+    private void Start()
     {
         Button[] buttons = FindObjectsOfType<Button>();
 
