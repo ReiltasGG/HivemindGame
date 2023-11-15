@@ -192,7 +192,20 @@ public class TutorialManager : MonoBehaviour
             }
 
         }
-        else if (popUpIndex == 9) // Finally
+        else if (popUpIndex == 9) //Special Skills
+        {
+            popUps[popUpIndex].SetActive(true);
+            //trainer.SetActive(true);  
+            Time.timeScale = 1f;
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                popUps[popUpIndex].SetActive(false);
+                popUpIndex++;
+                //popUps[popUpIndex].SetActive(true);
+            }
+
+        }
+        else if (popUpIndex == 10) // Finally
         {
             popUps[popUpIndex].SetActive(true);
             
