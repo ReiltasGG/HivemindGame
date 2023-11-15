@@ -148,7 +148,6 @@ public class TutorialManager : MonoBehaviour
         {
             popUps[popUpIndex].SetActive(true);
             var num = 1;
-            Debug.Log(waves.getDeadEnemies());
             Time.timeScale = 1f;
             if (ant2 != null)
             {
@@ -181,7 +180,8 @@ public class TutorialManager : MonoBehaviour
         else if (popUpIndex == 8) // Skills
         {
             popUps[popUpIndex].SetActive(true);
-            GainSkillPoints(20);
+            if (GetSkillPoints() == 0)
+                GainSkillPoints(20);
             
             Time.timeScale = 1f;
             if (Input.GetKeyDown(KeyCode.Space))
@@ -230,6 +230,15 @@ public class TutorialManager : MonoBehaviour
             throw new ArgumentNullException("Skill Points script must be attached to Games Manager");
 
         skillPoints.GainSkillPoints(numberOfSkillPoints);
+    }
+
+    public int  GetSkillPoints()
+    {
+        SkillPoints skillPoints = FindGamesManager().GetComponent<SkillPoints>();
+        if (skillPoints == null)
+            throw new ArgumentNullException("Skill Points script must be attached to Games Manager");
+
+        return skillPoints.GetSkillPoints();
     }
 
     private GameObject FindGamesManager()
