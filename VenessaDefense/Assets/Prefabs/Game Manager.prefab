@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 9207750962738071944}
   - component: {fileID: 6266040779267382658}
   - component: {fileID: 5387216479069621640}
-  - component: {fileID: 7658604053485126848}
   - component: {fileID: 1928105852871214247}
+  - component: {fileID: 7420650952861146886}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: GamesManager
@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bufferTime: 15
   enemiesDead: 0
-  level: 1
+  level: 2
   enemyPrefabs:
   - {fileID: 2536126099874761892, guid: 49620c6cadba9bb49a8b05fe58afd19b, type: 3}
   - {fileID: 5627538231725734138, guid: ff8c78b1dd4c0214cb4bda9a1460b008, type: 3}
@@ -239,9 +239,6 @@ MonoBehaviour:
   - name: Battle Bee
     cost: 20
     prefab: {fileID: 7227727104995871528, guid: 276437bd4de41ff468bfe488a53c92fa, type: 3}
-  - name: Honey Bee
-    cost: 15
-    prefab: {fileID: 8445940507173157326, guid: d7758b80f49739544a024bd275290fb3, type: 3}
   - name: Shaman Bee
     cost: 25
     prefab: {fileID: 4153649241375141767, guid: 9d4a70aff7a2fb946bbabff3a9a23ad6, type: 3}
@@ -325,7 +322,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalTowersPlaced: 0
---- !u!114 &7658604053485126848
 --- !u!114 &1928105852871214247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,3 +334,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e45eebba41c6f0346b0aa446cf364c9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7420650952861146886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2465936462903521182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b3f1a8c4733ab640974001f467cdfe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundEffectManager: {fileID: 2354926615363303997}
