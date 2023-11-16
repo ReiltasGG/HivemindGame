@@ -87,7 +87,11 @@ public class Wasp : MonoBehaviour
      public float burstSpeed = 3f; // Adjust the burst speed as needed
     public float pauseDuration = 0.5f; // Duration to pause before the burst
     public float grabInitalLast = .5f;
-    
+    private bool tempHasHappened = false;
+    public GameObject MashingBar;
+    public GameObject mashText;
+    public int grabDamagePerSec = 5;
+    public float grabIntervalDamageSec = 1.0f;
 
 
 
@@ -115,6 +119,9 @@ public class Wasp : MonoBehaviour
          health = GetComponent<AttributesManager>().getHealth();
           halfHealth = health/2;
       rageHealth = health/10;
+      MashingBar.SetActive(false);
+      mashText.SetActive(false);
+      grabAttackHitBox.SetActive(false);
     }
 
     // Update is called once per frame
@@ -122,6 +129,10 @@ public class Wasp : MonoBehaviour
     public virtual void Update()
     {
       //  Debug.Log(dashAttackTimer);
+      if(health == 60)
+      {
+        state = AIstate.stun;
+      }
         UpdateAI();
         waterCreation();
         updateHealth();
@@ -155,7 +166,12 @@ public class Wasp : MonoBehaviour
       //Code for grab attack
       if(state == AIstate.grabAttack)
       {
+        grabAttackHitBox.SetActive(true);
         doGrabAttack();
+        if(tempHasHappened == true)
+        {
+        grabActive();
+        }
       }
       //Code for dash attack AI state
         if(state == AIstate.dashAttack)
@@ -308,7 +324,7 @@ public class Wasp : MonoBehaviour
           state = AIstate.resetPos;
           if(health < halfHealth && isDomainActive == false && isDomainHappenOnce)
           {
-            Debug.Log("This runs");
+           // Debug.Log("This runs");
             isDomainHappenOnce = false;
             state = AIstate.ability;
             
@@ -320,9 +336,9 @@ public class Wasp : MonoBehaviour
             int rand = Random.Range(1, 3);
         
             if(rand == 1)
-              state = AIstate.laserBeam;
+              state = AIstate.grabAttack;
             if(rand == 2)
-              state = AIstate.followLaser;
+              state = AIstate.grabAttack;
             currentTimeBetweenAbilities = 0;
             }
             
@@ -551,35 +567,85 @@ if (targetchange != null)
   //Code for grab attack
   public void doGrabAttack()
   {
+   
     bool temp = grabAttackHitBox.GetComponent<grabHurtBox>().hasTouchedPlayer();
+    // Debug.Log(temp);
     if(grabHappenOnceForce)
       {
         grabHappenOnceForce = false;
         body.velocity = body.velocity * 4.0f;
       }
+         if(temp)
+    {
+      tempHasHappened = true;
+      //Debug.Log("This ran");
+    }
       if(grabInitalLast < 0)
       {
         body.velocity = body.velocity/4.0f;
         grabInitalLast = .5f;
-        if(!temp)
+        if(!tempHasHappened)
         {
           state = AIstate.defaultAttackPlayer;
         }
+      
       }
       grabInitalLast -=Time.deltaTime;
 
     
-    if(temp)
-    {
-      grabActive();
-    }
+ 
     
   
   }
 
   public void grabActive()
   {
-    Debug.Log("Grab Happened");
+    //Debug.Log("Grab Happened");
+    //Freeze Player and Enemy
+     body.velocity = body.velocity.normalized * 0.0f;
+    body.angularVelocity = 0.0f;
+
+    //Setactive the bar
+    MashingBar.SetActive(true);
+    mashText.SetActive(true);
+
+    //If bar is max then they get out of grab
+    float tempValue = MashingBar.GetComponent<MashingBar>().getSliderValue();
+    if(tempValue >= 100)
+    {
+      state = AIstate.defaultAttackPlayer;
+      tempHasHappened = false;
+      MashingBar.GetComponent<MashingBar>().restartMash();
+      MashingBar.SetActive(false);
+      mashText.SetActive(false);
+      grabAttackHitBox.SetActive(false);
+      grabIntervalDamageSec = 1.0f;
+      GameObject findPlayer = GameObject.FindWithTag("Player");
+      var playerScript = findPlayer.GetComponent<PlayerMovement>();
+      playerScript.changeGrabFalse();
+
+    }
+    else
+    {
+      GameObject findPlayer = GameObject.FindWithTag("Player");
+      var playerScript = findPlayer.GetComponent<PlayerMovement>();
+      playerScript.changeGrabTrue();
+      if(grabIntervalDamageSec <= 0)
+      {
+        GameObject PlayerTemp = GameObject.FindWithTag("Player");
+        var atMan = PlayerTemp.GetComponent<AttributesManager>();
+        atMan.takeDamage(grabDamagePerSec);
+        grabIntervalDamageSec = 1.0f;
+      }
+    }
+    //As they are trapped they lose 5 hp per second
+    grabIntervalDamageSec -=Time.deltaTime;
+    //At end of GrabActive()
+  }
+
+  public void endGrabAnim()
+  {
+    tempHasHappened = false;
   }
     void OnCollisionEnter2D(Collision2D collision)
 {

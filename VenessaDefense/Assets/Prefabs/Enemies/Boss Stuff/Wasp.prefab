@@ -1,5 +1,96 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5049578334678904284
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8048952668889753427}
+  - component: {fileID: 8716393622558224030}
+  - component: {fileID: 9134189710354338068}
+  m_Layer: 0
+  m_Name: GrabAttackHitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8048952668889753427
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049578334678904284}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5305872421953132818}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &8716393622558224030
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049578334678904284}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.8979702}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.3282986}
+  m_EdgeRadius: 0
+--- !u!114 &9134189710354338068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049578334678904284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a5163435f2395d41a7f67879e19e8c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  touchedPlayer: 0
 --- !u!1 &6126402023405121561
 GameObject:
   m_ObjectHideFlags: 0
@@ -66,6 +157,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5738057864273037324}
+  - {fileID: 8048952668889753427}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1479604454891243456
@@ -195,6 +287,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
+  halfHealth: 0
+  rageHealth: 0
   isInvul: 0
   timeBetweenAbilities: 10
   currentTimeBetweenAbilities: 0
@@ -212,22 +306,43 @@ MonoBehaviour:
   dashForce: 100000
   dashPos: 1
   dashAttackTimerCoolDown: 0
+  doingDashAttack: 0
   stunTime: 5
   currentStunTime: 0
   stunOnce: 1
   currentWarningRectangle: {fileID: 0}
   laserBullet: {fileID: 1548464504782346203, guid: f285af3c7e9c821438e19fd5231699c6, type: 3}
   laserHappenOnce: 1
+  currentLaserTime: 0
+  laserFollowTime: 2
   LaserBeam: {fileID: 345608069187846714, guid: bc0c0d98536c6214baeb1229a10767cd, type: 3}
   laserbeamhappenOnce: 1
   stingerOffset: {fileID: 6126402023405121561}
   timerforbeam: 0
+  laserBeamTimer: 5
+  currentLaserBeamTimer: 0
+  createdLaser: {fileID: 0}
   dashSpeed: 50
+  defaultAttacking: 0
+  meleeAttackRadius: 2
+  meleeAttackCooldown: 2
   waterEffect: {fileID: 6982923082744230639, guid: aefc480d981ce114193d325f993232a8, type: 3}
   timerForWater: 3
   currentTimeForWater: 0
   isDomainActive: 0
+  isDomainHappenOnce: 1
   domainObject: {fileID: 0}
+  currentAbilityTimer: 0
+  AbilityTimer: 1
+  disableObject: {fileID: 928172893697446224, guid: 2d4bd22c9bda88a418e27da77cb92c4a, type: 3}
+  grabAttackHitBox: {fileID: 5049578334678904284}
+  grabHappenOnceForce: 1
+  burstSpeed: 3
+  pauseDuration: 0.5
+  grabInitalLast: 0.5
+  MashingBar: {fileID: 0}
+  grabDamagePerSec: 5
+  grabIntervalDamageSec: 1
 --- !u!114 &2976433291728860122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,8 +355,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ef5c93031df4db7954aacdd25b4b31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1000
-  maxHealth: 1000
+  health: 100
+  maxHealth: 100
   attackDamage: 0
   healthBar: {fileID: 0}
   iscurseActive: 0

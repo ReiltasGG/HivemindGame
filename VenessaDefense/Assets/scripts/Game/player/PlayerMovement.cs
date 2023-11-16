@@ -89,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float slowAmount = 3f;
     public bool slowPlayerBool = false;
+    public bool hasBeenGrabbed = false;
 
 
       private Vector2 _smoothedMovementInput;
@@ -114,7 +115,8 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         
-       
+       if(!hasBeenGrabbed)
+       {
         _smoothedMovementInput = Vector2.SmoothDamp(
                 _smoothedMovementInput,
                 movementInput,
@@ -140,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
            
-
+       }
     }
 
        public void slowPlayer()
@@ -160,5 +162,15 @@ public class PlayerMovement : MonoBehaviour
 
             rb.MoveRotation(rotation);
         }
+    }
+    public void changeGrabFalse()
+    {
+        hasBeenGrabbed = false;
+        
+    }
+     public void changeGrabTrue()
+    {
+        hasBeenGrabbed = true;
+        
     }
 }
