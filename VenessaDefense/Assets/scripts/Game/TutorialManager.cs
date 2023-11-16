@@ -13,8 +13,8 @@ public class TutorialManager : MonoBehaviour
     public Waves waves;
     public GameObject healthbar;
     public GameObject shop;
-    public GameObject plot;
-    public GameObject trainer;
+    public GameObject plot; //joe mama
+    
     //public GameObject welcome;
     //public static event Action closeButton;
     private int popUpIndex = 0;
@@ -44,7 +44,7 @@ public class TutorialManager : MonoBehaviour
         ant2.SetActive(false);
         shop.SetActive(false);
         plot.SetActive(false);
-        trainer.SetActive(false); 
+        
     }
 
     // Update is called once per frame and studd
@@ -148,7 +148,6 @@ public class TutorialManager : MonoBehaviour
         {
             popUps[popUpIndex].SetActive(true);
             var num = 1;
-            Debug.Log(waves.getDeadEnemies());
             Time.timeScale = 1f;
             if (ant2 != null)
             {
@@ -165,7 +164,7 @@ public class TutorialManager : MonoBehaviour
             }
 
         }
-        else if (popUpIndex == 7) // Skills
+        else if (popUpIndex == 7) //tower description
         {
             popUps[popUpIndex].SetActive(true);
             //trainer.SetActive(true);  
@@ -181,7 +180,9 @@ public class TutorialManager : MonoBehaviour
         else if (popUpIndex == 8) // Skills
         {
             popUps[popUpIndex].SetActive(true);
-            trainer.SetActive(true);
+            if (GetSkillPoints() == 0)
+                GainSkillPoints(20);
+            
             Time.timeScale = 1f;
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -191,10 +192,23 @@ public class TutorialManager : MonoBehaviour
             }
 
         }
-        else if (popUpIndex == 9) // Skills
+        else if (popUpIndex == 9) //Special Skills
         {
             popUps[popUpIndex].SetActive(true);
-            trainer.SetActive(true);
+            //trainer.SetActive(true);  
+            Time.timeScale = 1f;
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                popUps[popUpIndex].SetActive(false);
+                popUpIndex++;
+                //popUps[popUpIndex].SetActive(true);
+            }
+
+        }
+        else if (popUpIndex == 10) // Finally
+        {
+            popUps[popUpIndex].SetActive(true);
+            
             Time.timeScale = 1f;
             
 
@@ -209,7 +223,33 @@ public class TutorialManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
             shootCount++;
         }
+    public void GainSkillPoints(int numberOfSkillPoints)
+    {
+        SkillPoints skillPoints = FindGamesManager().GetComponent<SkillPoints>();
+        if (skillPoints == null)
+            throw new ArgumentNullException("Skill Points script must be attached to Games Manager");
+
+        skillPoints.GainSkillPoints(numberOfSkillPoints);
+    }
+
+    public int  GetSkillPoints()
+    {
+        SkillPoints skillPoints = FindGamesManager().GetComponent<SkillPoints>();
+        if (skillPoints == null)
+            throw new ArgumentNullException("Skill Points script must be attached to Games Manager");
+
+        return skillPoints.GetSkillPoints();
+    }
+
+    private GameObject FindGamesManager()
+    {
+        GameObject GamesManager = GameObject.FindWithTag("GamesManager");
+        if (GamesManager == null)
+            throw new ArgumentNullException("Games manager is not found");
+
+        return GamesManager;
+    }
 
 
-    
+
 }

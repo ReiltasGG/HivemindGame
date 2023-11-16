@@ -828,7 +828,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae4228e84604ef4c90e6053f4efb66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NextDaySceneName: 
 --- !u!1 &633444703
 GameObject:
   m_ObjectHideFlags: 0
@@ -2200,6 +2199,8 @@ GameObject:
   - component: {fileID: 1619309424}
   - component: {fileID: 1619309423}
   - component: {fileID: 1619309427}
+  - component: {fileID: 1619309429}
+  - component: {fileID: 1619309428}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -2308,6 +2309,32 @@ MonoBehaviour:
   songs:
   - {fileID: 8300000, guid: fa17ca4c98fe0ea4f96806ceef175640, type: 3}
   volume: 1
+--- !u!114 &1619309428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619309422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d63a83525ad50f45a092ef421b775fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volume: 1
+--- !u!114 &1619309429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619309422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b3f1a8c4733ab640974001f467cdfe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundEffectManager: {fileID: 1619309428}
 --- !u!1 &1661552027
 GameObject:
   m_ObjectHideFlags: 0

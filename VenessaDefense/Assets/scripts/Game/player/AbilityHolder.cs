@@ -142,8 +142,8 @@ public class AbilityHolder : MonoBehaviour
     public void allowSkill2()
     {
         skill2= true;
-        skill1_ = 1;
-        PlayerPrefs.SetInt("PlayerDecoyAbility", skill2_);
+        skill2_ = 1;
+         PlayerPrefs.SetInt("PlayerDecoyAbility", skill2_);
         PlayerPrefs.Save();
     }
 

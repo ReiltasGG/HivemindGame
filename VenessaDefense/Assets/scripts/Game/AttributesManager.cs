@@ -18,6 +18,7 @@ public class AttributesManager : MonoBehaviour
 
     private float damageFlashDurationInSeconds = 0.2f;
     private Color spriteDefaultColor;
+    private Color prefabSpriteDefaultColor;
     public bool playerHitOnce = false;
 
     private void Start()
@@ -30,6 +31,20 @@ public class AttributesManager : MonoBehaviour
         wavesFinder = GamesManager();
 
         spriteDefaultColor = GetSprite().color;
+        prefabSpriteDefaultColor = spriteDefaultColor;
+    }
+
+    public void SetSpriteDefaultColor(Color color)
+    {
+        spriteDefaultColor = color;
+    }
+    public Color GetSpriteDefaultColor()
+    {
+        return spriteDefaultColor;
+    }
+    public void ResetSpriteDefaultColor()
+    {
+        spriteDefaultColor = prefabSpriteDefaultColor;
     }
 
     private GameObject GamesManager()
@@ -79,13 +94,13 @@ public class AttributesManager : MonoBehaviour
         sprite.color = Color.red;
     }
 
-    private void ResetColorToDefault()
+    public void ResetColorToDefault()
     {
         SpriteRenderer sprite = GetSprite();
         sprite.color = spriteDefaultColor;
     }
 
-    private SpriteRenderer GetSprite()
+    public SpriteRenderer GetSprite()
     {
         return GetComponent<SpriteRenderer>() != null ? GetComponent<SpriteRenderer>() : transform.Find("Graphics").GetComponent<SpriteRenderer>();
     }

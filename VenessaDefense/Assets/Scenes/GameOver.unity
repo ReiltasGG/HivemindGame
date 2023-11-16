@@ -1930,6 +1930,8 @@ GameObject:
   - component: {fileID: 1619309424}
   - component: {fileID: 1619309423}
   - component: {fileID: 1619309427}
+  - component: {fileID: 1619309429}
+  - component: {fileID: 1619309428}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -2038,6 +2040,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   songs:
   - {fileID: 8300000, guid: daaaafe7388906140a957ae45e74498f, type: 3}
+  volume: 1
+--- !u!114 &1619309428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619309422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b3f1a8c4733ab640974001f467cdfe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundEffectManager: {fileID: 1619309429}
+--- !u!114 &1619309429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619309422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d63a83525ad50f45a092ef421b775fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   volume: 1
 --- !u!1 &1806255874
 GameObject:
@@ -2194,6 +2222,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1619309426}
     m_Modifications:
+    - target: {fileID: 1960181728745355759, guid: afbbab6f12a02794284644e2b744d0ce, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1960181728745355759, guid: afbbab6f12a02794284644e2b744d0ce, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1960181728745355759, guid: afbbab6f12a02794284644e2b744d0ce, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1960181728745355759, guid: afbbab6f12a02794284644e2b744d0ce, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3528530639240842444, guid: afbbab6f12a02794284644e2b744d0ce, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
