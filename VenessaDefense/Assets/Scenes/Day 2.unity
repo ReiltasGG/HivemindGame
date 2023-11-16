@@ -1311,6 +1311,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Settings Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5589143295309540393, guid: 86f99bcd9ba4b264ead31b8bf7dc9ae6, type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1424428861}
+    - target: {fileID: 8633279307106267497, guid: 86f99bcd9ba4b264ead31b8bf7dc9ae6, type: 3}
+      propertyPath: musicManager
+      value: 
+      objectReference: {fileID: 1424428862}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1503,6 +1511,28 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
+--- !u!114 &1424428861 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2354926615363303997, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
+  m_PrefabInstance: {fileID: 1424428860}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d63a83525ad50f45a092ef421b775fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1424428862 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8180090245841580398, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
+  m_PrefabInstance: {fileID: 1424428860}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40831f69d9da32241a2265d417e16289, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1483412180
 PrefabInstance:
   m_ObjectHideFlags: 0
