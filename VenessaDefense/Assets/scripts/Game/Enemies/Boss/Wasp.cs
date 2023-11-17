@@ -563,6 +563,10 @@ if (targetchange != null)
                     var attributeScript = item.gameObject.GetComponent<AttributesManager>();
 
                     //Calculate the direction of force
+                    float angle = 45.0f; // Set the desired angle
+
+                   // Rotate the direction vector by the specified angle
+                    Quaternion rotation = Quaternion.Euler(0, 0, angle);
                     Vector2 hitForce = (item.transform.position - transform.position).normalized * meleeAttackKnockback * 10.0f;
                     item.gameObject.GetComponent<PlayerInteraction>().addKnockBack(hitForce);
                     //Apply Knockback and damage to player
@@ -710,8 +714,16 @@ if (collision.gameObject.CompareTag("Player"))
  if(doingDashAttack)
  {
   collision.gameObject.GetComponent<AttributesManager>().takeDamage(10);
-   Vector2 hitForce = (collision.transform.position - transform.position).normalized * 30.0f * 10.0f;
-                    collision.gameObject.GetComponent<PlayerInteraction>().addKnockBack(hitForce);
+                   Vector2 hitDirection = (collision.transform.position - transform.position).normalized;
+                float angle = 45.0f; // Set the desired angle
+
+                // Rotate the direction vector by the specified angle
+                Quaternion rotation = Quaternion.Euler(0, 0, angle);
+                Vector2 rotatedDirection = rotation * hitDirection;
+
+                // Calculate the knockback force
+                Vector2 hitForce = rotatedDirection * meleeAttackKnockback * 30.0f;
+                collision.gameObject.GetComponent<PlayerInteraction>().addKnockBack(hitForce);
  }
 }
 
