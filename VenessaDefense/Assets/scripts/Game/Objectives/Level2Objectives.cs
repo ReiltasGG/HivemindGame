@@ -7,7 +7,7 @@ using System.Linq;
 
 public class Level2Objectives : MonoBehaviour
 {
-    private int EnemiesKilledGoal = 140;
+    private int EnemiesKilledGoal = 150;
     private int HivesProtectedGoal = 3;
     private float HivesProtectedGoalTime = 90.0f;
 
