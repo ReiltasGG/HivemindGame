@@ -301,22 +301,6 @@ public class ObjectivesManager : MonoBehaviour
         }
     }
 
-    /*
-    private void hasPlayerBeenHit()
-    {
-        if (wavesCode.level == 1)
-        {
-            Level1Objectives level1Objectives = new Level1Objectives();
-            if (level1Objectives.GetPlayerHurt())
-            {
-                CallGameOverScene();
-            }
-        }
-        
-    }
-    */
-    
-
     public void GainSkillPoints(int numberOfSkillPoints)
     {
         SkillPoints skillPoints = FindGamesManager().GetComponent<SkillPoints>();
