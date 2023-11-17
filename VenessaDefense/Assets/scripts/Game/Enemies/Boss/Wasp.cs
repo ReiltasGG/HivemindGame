@@ -208,7 +208,7 @@ public class Wasp : MonoBehaviour
            }
            else if(randomNumber == 3)
            {
-             transform.position = new Vector3(-23, 0, 0);
+             transform.position = new Vector3(-30, 0, 0);
            }
            else if(randomNumber == 4)
            {
