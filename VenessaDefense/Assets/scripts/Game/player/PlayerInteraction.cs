@@ -15,7 +15,7 @@ public class PlayerInteraction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        textPopUp = GameObject.Find("InteractText");
+        //textPopUp = GameObject.Find("InteractText");
      //   eKey.enabled = false;
      textPopUp.SetActive(false);
      body = GetComponent<Rigidbody2D>();

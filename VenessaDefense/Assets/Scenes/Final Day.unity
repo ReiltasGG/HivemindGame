@@ -722,10 +722,17 @@ PrefabInstance:
       propertyPath: domainObject
       value: 
       objectReference: {fileID: 1569387243}
+    - target: {fileID: 7684605877566330851, guid: 9f861368de69173408ffafc872a37d64, type: 3}
+      propertyPath: timeBetweenAbilities
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7086992147645849624, guid: 9f861368de69173408ffafc872a37d64, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1945309602}
   m_SourcePrefab: {fileID: 100100000, guid: 9f861368de69173408ffafc872a37d64, type: 3}
 --- !u!1 &966192771
 GameObject:
@@ -1575,7 +1582,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 100
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1831,6 +1838,26 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d22d7a62931149b43b660f47ad036042, type: 3}
+--- !u!1 &1945309595 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7086992147645849624, guid: 9f861368de69173408ffafc872a37d64, type: 3}
+  m_PrefabInstance: {fileID: 964751101}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1945309602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945309595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcf2495d3b33ddf42b64c9c8b54cc342, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damagePerTick: 5
+  tickRateInSeconds: 1
+  poisonDurationInSeconds: 5
 --- !u!1001 &8316486364738650335
 PrefabInstance:
   m_ObjectHideFlags: 0

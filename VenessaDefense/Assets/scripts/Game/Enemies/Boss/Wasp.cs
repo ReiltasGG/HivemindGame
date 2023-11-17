@@ -354,9 +354,9 @@ public class Wasp : MonoBehaviour
             int rand = Random.Range(1, 4);
         
             if(rand == 1)
-              state = AIstate.laserBeam;
+              state = AIstate.grabAttack;
             if(rand == 2)
-              state = AIstate.followLaser;
+              state = AIstate.grabAttack;
             if(rand == 3)
             {
               state = AIstate.grabAttack;
@@ -659,7 +659,10 @@ if (targetchange != null)
     //If bar is max then they get out of grab
     float tempValue = MashingBar.GetComponent<MashingBar>().getSliderValue();
     if(tempValue >= 100)
-    {   tempHasHappened = false;
+    {   
+      var tempPoison = GetComponent<PoisonManager>();
+      tempPoison.ApplyPoison(GameObject.FindWithTag("Player"));
+      tempHasHappened = false;
       MashingBar.GetComponent<MashingBar>().restartMash();
       MashingBar.SetActive(false);
       mashText.SetActive(false);
