@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Wasp : MonoBehaviour
 {
+  public bool tempStunOnce = true;
+    //Knockback
+    public float meleeAttackKnockback = 4f;
     //Health and important stuffs
     public int health;
     public int halfHealth;
@@ -35,9 +38,10 @@ public class Wasp : MonoBehaviour
     public bool doingDashAttack = false;
 
     //Stun Stuff
-    public float stunTime = 5.0f;
+    public float stunTime = 2.0f;
     public float currentStunTime = 0.0f;
     public bool stunOnce = true;
+    public float actualStunTime = 5.0f;
 
 
     public GameObject currentWarningRectangle;
@@ -95,6 +99,8 @@ public class Wasp : MonoBehaviour
 
 
 
+    private Animator anim;
+
     public enum AIstate
 
     {
@@ -121,7 +127,8 @@ public class Wasp : MonoBehaviour
       rageHealth = health/10;
       MashingBar.SetActive(false);
       mashText.SetActive(false);
-      grabAttackHitBox.SetActive(false);
+      anim = GetComponent<Animator>();
+      //grabAttackHitBox.SetActive(false);
     }
 
     // Update is called once per frame
@@ -129,10 +136,7 @@ public class Wasp : MonoBehaviour
     public virtual void Update()
     {
       //  Debug.Log(dashAttackTimer);
-      if(health == 60)
-      {
-        state = AIstate.stun;
-      }
+    
         UpdateAI();
         waterCreation();
         updateHealth();
@@ -163,6 +167,18 @@ public class Wasp : MonoBehaviour
     public void  UpdateAI()
     {
 
+      if(state == AIstate.stun)
+      {
+          body.velocity = body.velocity.normalized * 0.0f;
+            body.angularVelocity = 0.0f;
+            anim.SetTrigger("Stun");
+        if(actualStunTime < 0)
+        {
+          actualStunTime = 5.0f;
+          state = AIstate.defaultAttackPlayer;
+        }
+        actualStunTime-=Time.deltaTime;
+      }
       //Code for grab attack
       if(state == AIstate.grabAttack)
       {
@@ -176,34 +192,35 @@ public class Wasp : MonoBehaviour
       //Code for dash attack AI state
         if(state == AIstate.dashAttack)
         {
+          anim.SetTrigger("Dive");
             if(dashPos == true)
             {
-                  int randomNumber = Random.Range(1, 5);
+                  int randomNumber = Random.Range(1, 6);
                 dashPos = false;
             if(randomNumber == 1)
            {
-            transform.position = new Vector3(10, 10, 0);
+            transform.position = new Vector3(30, 30, 0);
            
            }
            else if(randomNumber == 2)
            {
-            transform.position = new Vector3(-10, -10, 0);
+            transform.position = new Vector3(-25, -25, 0);
            }
            else if(randomNumber == 3)
            {
-             transform.position = new Vector3(-20, 0, 0);
+             transform.position = new Vector3(-23, 0, 0);
            }
            else if(randomNumber == 4)
            {
-             transform.position = new Vector3(25, 0, 0);
+             transform.position = new Vector3(30, 0, 0);
            }
            else if(randomNumber == 5)
            {
-             transform.position = new Vector3(0, -15, 0);
+             transform.position = new Vector3(0, -35, 0);
            }
 
             }
-            body.isKinematic = false;
+          //  body.isKinematic = false;
             if(isAttacking == true)
             {
            
@@ -273,7 +290,7 @@ public class Wasp : MonoBehaviour
             body.isKinematic = true;
            
              // transform.position = new Vector3(0, 0, 0);
-        transform.position = new Vector3(20,20, 20);
+        transform.position = new Vector3(30,30, 30);
         
         }
         
@@ -317,14 +334,15 @@ public class Wasp : MonoBehaviour
 
         if(state == AIstate.defaultAttackPlayer)
         {
+          anim.SetTrigger("Fly");
           moveDefaultAttack();
           defaultAttackPlayer();
-          meleeAttackCooldown -= Time.deltaTime;
+        
           if(health <= rageHealth)
           state = AIstate.resetPos;
           if(health < halfHealth && isDomainActive == false && isDomainHappenOnce)
           {
-           // Debug.Log("This runs");
+          //  Debug.Log("This runs");
             isDomainHappenOnce = false;
             state = AIstate.ability;
             
@@ -333,25 +351,41 @@ public class Wasp : MonoBehaviour
           {
             if(health > halfHealth || isDomainActive == false )
             {
-            int rand = Random.Range(1, 3);
-        
-            if(rand == 1)
-              state = AIstate.grabAttack;
-            if(rand == 2)
-              state = AIstate.grabAttack;
-            currentTimeBetweenAbilities = 0;
-            }
-            
-            else if(health <= halfHealth || isDomainActive == true)
-            {
-               int rand = Random.Range(1, 4);
+            int rand = Random.Range(1, 4);
         
             if(rand == 1)
               state = AIstate.laserBeam;
             if(rand == 2)
               state = AIstate.followLaser;
             if(rand == 3)
+            {
+              state = AIstate.grabAttack;
+            }
+            }
+            
+            else if(health <= halfHealth && isDomainActive == false)
+            {
+               int rand = Random.Range(1, 5);
+              //Debug.Log("i access this");
+            if(rand == 1)
+              state = AIstate.laserBeam;
+            if(rand == 2)
+              state = AIstate.followLaser;
+            if(rand == 3)
               state = AIstate.ability;
+            if(rand == 4)
+              state = AIstate.grabAttack;
+              
+            } else if(health <= halfHealth && isDomainActive == true)
+            {
+               int rand = Random.Range(1, 4);
+              Debug.Log("i access this");
+            if(rand == 1)
+              state = AIstate.laserBeam;
+            if(rand == 2)
+              state = AIstate.followLaser;
+            if(rand == 3)
+              state = AIstate.grabAttack;
               
             }
             
@@ -408,10 +442,12 @@ if (targetchange != null)
         }
     if(state == AIstate.ability)
       {
+        transform.rotation = Quaternion.identity;
         transform.position = new Vector3(0, 0, 0);
         if(AbilityTimer< currentAbilityTimer)
         {
         var tempScript = GameObject.Find("Domain").GetComponent<DomainEffect>();
+        
         tempScript.changeDomain();
         currentAbilityTimer = 0.0f;
            Vector3 spawnPosition = new Vector3(
@@ -491,6 +527,7 @@ if (targetchange != null)
       }
     public void defaultAttackPlayer()
     {
+        meleeAttackCooldown -= Time.deltaTime;
 
        if (!defaultAttacking && meleeAttackCooldown <= 0)
         {
@@ -499,15 +536,15 @@ if (targetchange != null)
             Vector3 targetOffset = target.GetComponent<Collider2D>().offset;
             Vector3 myOffset = GetComponent<Collider2D>().offset;
             float distance = Vector2.Distance(target.position + targetOffset, transform.position + myOffset);
-
+            //Debug.Log(distance);
             //If the target is in range, start a melee attack
             if (distance <= meleeAttackRadius)
             {
                 //The animation will call the Attack() method for the blob
+                anim.SetTrigger("defaultAttack");
                 //The animation will call the EndAttack() method to exit isAttacking
 
                 defaultAttacking = true;
-                defaultAttackPlayerAnim();
 
             }
         }//end melee check
@@ -526,26 +563,29 @@ if (targetchange != null)
                     var attributeScript = item.gameObject.GetComponent<AttributesManager>();
 
                     //Calculate the direction of force
-                   // Vector2 hitForce = (item.transform.position - transform.position).normalized * meleeAttackKnockback * 10.0f;
-
+                    Vector2 hitForce = (item.transform.position - transform.position).normalized * meleeAttackKnockback * 10.0f;
+                    item.gameObject.GetComponent<PlayerInteraction>().addKnockBack(hitForce);
                     //Apply Knockback and damage to player
                     attributeScript.takeDamage(10);
-                    EndAttack();
+                    //EndAttack();
                  
                 }
             } //end of searching for Players
 
-            defaultAttacking = true;
+           
             meleeAttackCooldown = 2.0f;
     }
   
     public void EndAttack()
     {
         isAttacking = false;
+        defaultAttacking = false;
     }
 
    public void DoDashAttack()
 {//Code
+  body.isKinematic = true;
+        body.useFullKinematicContacts = true;
     doingDashAttack = true;
     // Calculate the Vector to the targetLocation.
     targetDirectionVector = targetLocation - (Vector2)transform.position;
@@ -582,10 +622,12 @@ if (targetchange != null)
     }
       if(grabInitalLast < 0)
       {
-        body.velocity = body.velocity/4.0f;
-        grabInitalLast = .5f;
+       // body.velocity = body.velocity/4.0f;
+        grabInitalLast = 1.0f;
+        
         if(!tempHasHappened)
         {
+          grabHappenOnceForce = true;
           state = AIstate.defaultAttackPlayer;
         }
       
@@ -600,6 +642,7 @@ if (targetchange != null)
 
   public void grabActive()
   {
+    //Debug.Log("Grab Active");
     //Debug.Log("Grab Happened");
     //Freeze Player and Enemy
      body.velocity = body.velocity.normalized * 0.0f;
@@ -612,17 +655,18 @@ if (targetchange != null)
     //If bar is max then they get out of grab
     float tempValue = MashingBar.GetComponent<MashingBar>().getSliderValue();
     if(tempValue >= 100)
-    {
-      state = AIstate.defaultAttackPlayer;
-      tempHasHappened = false;
+    {   tempHasHappened = false;
       MashingBar.GetComponent<MashingBar>().restartMash();
       MashingBar.SetActive(false);
       mashText.SetActive(false);
-      grabAttackHitBox.SetActive(false);
+      //grabAttackHitBox.SetActive(false);
       grabIntervalDamageSec = 1.0f;
       GameObject findPlayer = GameObject.FindWithTag("Player");
       var playerScript = findPlayer.GetComponent<PlayerMovement>();
       playerScript.changeGrabFalse();
+      grabHappenOnceForce = true;
+      state = AIstate.defaultAttackPlayer;
+   
 
     }
     else
@@ -659,14 +703,15 @@ if (collision.gameObject.CompareTag("Player"))
     // Apply a force to the player
     Rigidbody2D playerRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
 
-    // You can choose either left or right direction for the push
-    playerRigidbody.AddForce(leftRotation * pushDirection, ForceMode2D.Impulse);
+
     // or
     // playerRigidbody.AddForce(rightRotation * pushDirection, ForceMode.Impulse);
  //   Debug.Log("works");
  if(doingDashAttack)
  {
   collision.gameObject.GetComponent<AttributesManager>().takeDamage(10);
+   Vector2 hitForce = (collision.transform.position - transform.position).normalized * 30.0f * 10.0f;
+                    collision.gameObject.GetComponent<PlayerInteraction>().addKnockBack(hitForce);
  }
 }
 
