@@ -293,6 +293,8 @@ public class ObjectivesManager : MonoBehaviour
     {
         if (wavesCode.level == 2)
         {
+            if (objectives[1].getCompleted() == true) { return; }
+
             Level2Objectives level2Objectives = new Level2Objectives();
 
             if (numberOfHives < level2Objectives.GetHivesProtectedGoal())
@@ -300,7 +302,6 @@ public class ObjectivesManager : MonoBehaviour
 
         }
     }
-    
     public void GainSkillPoints(int numberOfSkillPoints)
     {
         SkillPoints skillPoints = FindGamesManager().GetComponent<SkillPoints>();

@@ -54,7 +54,7 @@ public class Waves : MonoBehaviour
             waveNumber = 1,
             enemyCounts = new Dictionary<Enemies, int>
             {
-                { Enemies.Ant, 5 },
+                { Enemies.Ant, 1 },
             }
         },
         new EnemyWave
@@ -72,10 +72,10 @@ public class Waves : MonoBehaviour
             enemyCounts = new Dictionary<Enemies, int>
             {
                 { Enemies.Ant, 10 },
-                { Enemies.Beetle, 5 },
+                { Enemies.Beetle, 4 },
             }
         },
-        
+
 
     };
 
@@ -160,13 +160,6 @@ public class Waves : MonoBehaviour
     void Update()
     {
         if (!WaveFinished()) return;
-        if (CheckLevelCleared())
-        {
-            ManageScenes manageScenes = new ManageScenes();
-            manageScenes.StartDayClearedScene(level);
-            return;
-        }
-
         if (!waitToStartRound)
         {
             Debug.Log($"Starting wave {currentWave}");
@@ -193,21 +186,22 @@ public class Waves : MonoBehaviour
     private EnemyWave GetWave(int level, int wave)
     {
         EnemyWave enemyWave = null;
-
+        List<EnemyWave> enemyWaves = null;
         if (level == 1)
         {
-            if (wave >= level1Waves.Count) wave = level1Waves.Count - 1;
-            enemyWave = level1Waves[wave];
+            enemyWaves = level1Waves;
         }
-
         else if (level == 2)
         {
-            if (wave >= level2Waves.Count) wave = level2Waves.Count - 1;
-            enemyWave = level2Waves[wave];
+            enemyWaves = level2Waves;
         }
-
         else
             throw new ArgumentException($"{level} does not have waves setup");
+
+        if (wave >= enemyWaves.Count)
+            enemyWave = enemyWaves[enemyWaves.Count - 1];
+        else
+            enemyWave = enemyWaves[wave];
 
         return enemyWave;
     }
@@ -249,7 +243,6 @@ public class Waves : MonoBehaviour
 
         return false;
     }
-    private bool CheckLevelCleared() { return (WaveFinished() && ((currentWave > level1Waves.Count) || (currentWave > level2Waves.Count))); }
 
     private IEnumerator StartWave(EnemyWave wave)
     {
@@ -266,8 +259,7 @@ public class Waves : MonoBehaviour
 
         isWaveInProgress = false;
     }
-    private IEnumerator Delay(float seconds)
-    { yield return new WaitForSeconds(seconds); }
+
     private IEnumerator StartWaveText(float seconds)
     {
         isWaveTextCreated = true;
@@ -293,7 +285,6 @@ public class Waves : MonoBehaviour
     }
     private Enemies MutatedEnemy(Enemies enemy)
     {
-        Debug.Log("Enemy mutated");
         if (enemy == Enemies.Ant)
             return Enemies.ExplodingAnt;
 
