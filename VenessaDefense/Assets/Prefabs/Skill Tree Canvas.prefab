@@ -3135,7 +3135,6 @@ MonoBehaviour:
   countClicks: 0
   skillTreeBackground: {fileID: 2104606546652037876}
   SkillTreeText: {fileID: 8156721464520234204}
-  SkillTreeText: {fileID: 8643746305381323762}
   skillTreeIsOpen: 0
   openKey: 116
 --- !u!1 &2264493213541626514

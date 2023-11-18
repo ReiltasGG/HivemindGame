@@ -92,7 +92,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             connectorFour.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             
             //Add Damage
-            if(skill1HappenOnce)
+            if(skill1HappenOnce == true)
             {
             int hpAdded = 10;
             var attributeManager = Player.GetComponent<AttributesManager>();
@@ -136,8 +136,6 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             //Set SkillID to true
             atm.UnlockSkill(3);
             connectorThree.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
-            
-         
             
             //Add Health
                if(skill3HappenOnce)
@@ -185,7 +183,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             connectorSix.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             
             //Add Damage
-            if(skill5HappenOnce)
+            if(skill5HappenOnce == true)
             {
             var temper = Player.GetComponent<PlayerShoot>();
             temper.fireRateChange(.05f);
@@ -206,7 +204,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 connectorSeven.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             
                 //Add Damage
-                if(skill6HappenOnce)
+                if(skill6HappenOnce == true)
                 {
                 var temper = Player.GetComponent<PlayerShoot>();
                 temper.fireRateChange(.05f);
@@ -226,7 +224,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 atm.UnlockSkill(7);
             
                 //Add Damage
-                if(skill7HappenOnce)
+                if(skill7HappenOnce == true)
                 {
                 var temper = Player.GetComponent<PlayerShoot>();
                 temper.fireRateChange(.05f);

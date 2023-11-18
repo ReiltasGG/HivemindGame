@@ -356,6 +356,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8643746305381323762, guid: 98f4aa24cd771514c997eee10abce236, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 8888223934172082030, guid: 98f4aa24cd771514c997eee10abce236, type: 3}
@@ -1673,6 +1677,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2465936462903521182, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
+      propertyPath: m_Name
+      value: Game Manager
+      objectReference: {fileID: 0}
     - target: {fileID: 1120441512401083735, guid: fcd0eea75b9570a40bb17e420eede933, type: 3}
       propertyPath: m_Name
       value: Stone (3)
@@ -1716,10 +1724,6 @@ PrefabInstance:
     - target: {fileID: 3564446499394958641, guid: fcd0eea75b9570a40bb17e420eede933, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2465936462903521182, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      propertyPath: m_Name
-      value: Game Manager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

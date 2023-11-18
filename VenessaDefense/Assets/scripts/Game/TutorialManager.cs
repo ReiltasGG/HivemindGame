@@ -210,9 +210,12 @@ public class TutorialManager : MonoBehaviour
             popUps[popUpIndex].SetActive(true);
             
             Time.timeScale = 1f;
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
             
-
         }
+        PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
 
     }
     
