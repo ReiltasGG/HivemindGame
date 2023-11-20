@@ -1,10 +1,11 @@
 using UnityEngine;
 using TMPro;
 
-public class testFlicker : MonoBehaviour
+public class textFlicker : MonoBehaviour
 {
     public float flickerSpeed = 1f;
     private TextMeshProUGUI textMeshPro;
+    private bool isTextVisible = true;
 
     void Start()
     {
@@ -16,16 +17,16 @@ public class testFlicker : MonoBehaviour
             return;
         }
 
-        // Start the color flickering coroutine
-        InvokeRepeating("FlickerRainbow", 0f, 0.05f);
+        // Start the flickering coroutine
+        InvokeRepeating("FlickerText", 0f, flickerSpeed);
     }
 
-    void FlickerRainbow()
+    void FlickerText()
     {
-        // Calculate rainbow color based on time
-        Color rainbowColor = Color.HSVToRGB(Time.time * flickerSpeed % 1f, 1f, 1f);
+        // Toggle visibility
+        isTextVisible = !isTextVisible;
 
-        // Apply the rainbow color to the text
-        textMeshPro.color = rainbowColor;
+        // Set the text visibility
+        textMeshPro.enabled = isTextVisible;
     }
 }
