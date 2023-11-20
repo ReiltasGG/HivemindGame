@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 2976433291728860122}
   - component: {fileID: 8810639187161017643}
   - component: {fileID: 7593522643610515635}
+  - component: {fileID: 6813917153730884522}
   m_Layer: 0
   m_Name: Wasp
   m_TagString: Enemy
@@ -288,7 +289,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aafa05dfd1d3304fab2c23b7bd5e9b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tempStunOnce: 1
   meleeAttackKnockback: 7
   health: 0
   halfHealth: 0
@@ -391,6 +391,21 @@ Animator:
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &7593522643610515635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7086992147645849624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcf2495d3b33ddf42b64c9c8b54cc342, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damagePerTick: 5
+  tickRateInSeconds: 1
+  poisonDurationInSeconds: 5
+--- !u!114 &6813917153730884522
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
