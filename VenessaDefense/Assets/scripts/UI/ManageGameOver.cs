@@ -86,17 +86,20 @@ public class ManageScenes : MonoBehaviour
         dayClearedText.text = $"Day {dayCleared} Cleared";
 
     }
+    
     /*
     private void UpdateNextDayScene()
     {
         NextDaySceneName = "Day " + (dayCleared + 1).ToString();
     }
-    */
+    
 
     public string GetNextDaySceneName()
     {
         return NextDaySceneName;
     }
+
+    */
     
     public void SceneToNextDay()
     {

@@ -215,7 +215,7 @@ public class TutorialManager : MonoBehaviour
             
         }
         PlayerPrefs.DeleteAll();
-            PlayerPrefs.Save();
+        PlayerPrefs.Save();
 
     }
     

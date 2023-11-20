@@ -29,6 +29,8 @@ public class ObjectivesManager : MonoBehaviour
     private Level2Objectives level2Objectives = null;
     private Objective[] objectives = null;
 
+    public static int CurrentDay = 1;
+
     public enum Difficulty
     {
         Easy = 1,
