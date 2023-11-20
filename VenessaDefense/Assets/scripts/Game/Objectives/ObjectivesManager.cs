@@ -293,6 +293,8 @@ public class ObjectivesManager : MonoBehaviour
     {
         if (wavesCode.level == 2)
         {
+            if (objectives[1].getCompleted() == true) { return; }
+
             Level2Objectives level2Objectives = new Level2Objectives();
 
             if (numberOfHives < level2Objectives.GetHivesProtectedGoal())
@@ -300,22 +302,6 @@ public class ObjectivesManager : MonoBehaviour
 
         }
     }
-
-    /*
-    private void hasPlayerBeenHit()
-    {
-        if (wavesCode.level == 1)
-        {
-            Level1Objectives level1Objectives = new Level1Objectives();
-            if (level1Objectives.GetPlayerHurt())
-            {
-                CallGameOverScene();
-            }
-        }
-        
-    }
-    */
-    
 
     public void GainSkillPoints(int numberOfSkillPoints)
     {
