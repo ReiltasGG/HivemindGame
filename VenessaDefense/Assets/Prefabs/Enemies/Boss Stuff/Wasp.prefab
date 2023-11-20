@@ -65,7 +65,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.06497383, y: -0.8979702}
+  m_Offset: {x: -0.010068893, y: 0.66683304}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -76,7 +76,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7611275, y: 1.3282986}
+  m_Size: {x: 0.88264084, y: 1.6028254}
   m_EdgeRadius: 0
 --- !u!114 &9134189710354338068
 MonoBehaviour:
@@ -116,7 +116,7 @@ Transform:
   m_GameObject: {fileID: 6126402023405121561}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalPosition: {x: 0, y: -3.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 7684605877566330851}
   - component: {fileID: 2976433291728860122}
   - component: {fileID: 8810639187161017643}
+  - component: {fileID: 7593522643610515635}
   m_Layer: 0
   m_Name: Wasp
   m_TagString: Enemy
@@ -272,8 +273,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00002527237, y: 0.06205225}
-  m_Size: {x: 1.8000498, y: 8.262088}
+  m_Offset: {x: 0.00002527237, y: 0.007146597}
+  m_Size: {x: 1.8000498, y: 5.6266303}
   m_Direction: 0
 --- !u!114 &7684605877566330851
 MonoBehaviour:
@@ -287,12 +288,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aafa05dfd1d3304fab2c23b7bd5e9b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tempStunOnce: 1
   meleeAttackKnockback: 7
   health: 0
   halfHealth: 0
   rageHealth: 0
   isInvul: 0
-  timeBetweenAbilities: 15
+  timeBetweenAbilities: 5
   currentTimeBetweenAbilities: 0
   target: {fileID: 0}
   targetLocation: {x: 0, y: 0}
@@ -327,7 +329,7 @@ MonoBehaviour:
   createdLaser: {fileID: 0}
   dashSpeed: 50
   defaultAttacking: 0
-  meleeAttackRadius: 5
+  meleeAttackRadius: 3.5
   meleeAttackCooldown: 2
   waterEffect: {fileID: 6982923082744230639, guid: aefc480d981ce114193d325f993232a8, type: 3}
   timerForWater: 3
@@ -338,6 +340,7 @@ MonoBehaviour:
   currentAbilityTimer: 0
   AbilityTimer: 1
   disableObject: {fileID: 928172893697446224, guid: 2d4bd22c9bda88a418e27da77cb92c4a, type: 3}
+  hintText: {fileID: 0}
   grabAttackHitBox: {fileID: 5049578334678904284}
   grabHappenOnceForce: 1
   burstSpeed: 3
@@ -387,3 +390,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7593522643610515635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7086992147645849624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcf2495d3b33ddf42b64c9c8b54cc342, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damagePerTick: 5
+  tickRateInSeconds: 1
+  poisonDurationInSeconds: 5

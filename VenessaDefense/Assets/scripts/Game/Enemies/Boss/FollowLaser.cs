@@ -9,6 +9,7 @@ public class FollowLaser : MonoBehaviour
     private Transform player;
     public GameObject blindingEffect;
     public Volume bloomVolume; // Assign the Post-Processing Volume in the Unity editor.
+    public float letExistTimer = 1.0f;
 
     void Start()
     {
@@ -31,6 +32,7 @@ public class FollowLaser : MonoBehaviour
             // Move the laser towards the player
             transform.position += direction * moveSpeed * Time.deltaTime;
         }
+        letExistTimer -= Time.deltaTime;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -48,6 +50,19 @@ public class FollowLaser : MonoBehaviour
             if (bloomVolume != null)
             {
                 bloomVolume.enabled = true;
+            }
+        }
+
+        if(other.CompareTag("Enemy"))
+        {
+            if(letExistTimer <= 0.0f)
+            {
+            GameObject temp = other.gameObject;
+            var waspScript = temp.GetComponent<Wasp>();
+            waspScript.makeStun();
+            Destroy(this.gameObject);
+             var waspAttMan = temp.GetComponent<AttributesManager>();
+            waspAttMan.takeDamage(5);
             }
         }
     }

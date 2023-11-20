@@ -14,6 +14,8 @@ public class DomainEffect : MonoBehaviour
 
     public bool waspCreatesDomain;
     public bool doDomain = false;
+    public int amountToChangeDom = 0;
+    public GameObject hintText;
 
     void Start()
     {
@@ -107,6 +109,17 @@ public class DomainEffect : MonoBehaviour
             doDomain = true;
 
            
+    }
+
+    public void changeDomainAbility()
+    {
+        amountToChangeDom++;
+        if(amountToChangeDom == 4)
+        {
+            hintText.SetActive(false);
+            amountToChangeDom = 0;
+            changeDomain();
+        }
     }
 
 }

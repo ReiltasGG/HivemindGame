@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Wasp : MonoBehaviour
 {
-  public bool tempStunOnce = true;
+  //public bool tempStunOnce = true;
+
     //Knockback
     public float meleeAttackKnockback = 4f;
     //Health and important stuffs
@@ -83,6 +84,7 @@ public class Wasp : MonoBehaviour
     public float currentAbilityTimer= 0.0f;
     public float AbilityTimer = 1.0f;
     public GameObject disableObject;
+    public GameObject hintText;
     
 
     //Grab Attack Stuff
@@ -119,6 +121,7 @@ public class Wasp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+      hintText.SetActive(false);
        defaultState = AIstate.defaultAttackPlayer;
         body = GetComponent<Rigidbody2D>();
         state = defaultState;
@@ -316,7 +319,7 @@ public class Wasp : MonoBehaviour
             body.velocity = body.velocity.normalized * 0.0f;
             //Code so that it faces the player
          
-            Instantiate(laserBullet, transform.position, Quaternion.identity);
+            Instantiate(laserBullet, stingerOffset.transform.position, Quaternion.identity);
             laserHappenOnce = false;
             }
             if(currentLaserTime > laserFollowTime)
@@ -356,10 +359,10 @@ public class Wasp : MonoBehaviour
             if(rand == 1)
               state = AIstate.grabAttack;
             if(rand == 2)
-              state = AIstate.grabAttack;
+              state = AIstate.followLaser;
             if(rand == 3)
             {
-              state = AIstate.grabAttack;
+              state = AIstate.laserBeam;
             }
             }
             
@@ -379,7 +382,7 @@ public class Wasp : MonoBehaviour
             } else if(health <= halfHealth && isDomainActive == true)
             {
                int rand = Random.Range(1, 4);
-              Debug.Log("i access this");
+             // Debug.Log("i access this");
             if(rand == 1)
               state = AIstate.laserBeam;
             if(rand == 2)
@@ -442,6 +445,7 @@ if (targetchange != null)
         }
     if(state == AIstate.ability)
       {
+        hintText.SetActive(true);
         transform.rotation = Quaternion.identity;
         transform.position = new Vector3(0, 0, 0);
         if(AbilityTimer< currentAbilityTimer)
@@ -450,14 +454,29 @@ if (targetchange != null)
         
         tempScript.changeDomain();
         currentAbilityTimer = 0.0f;
+        /*
            Vector3 spawnPosition = new Vector3(
             Random.Range(-10f, 10f), // Adjust these values based on the desired X-axis range
             Random.Range(-5f, 5f),   // Adjust these values based on the desired Y-axis range
             0f                        // Assuming a 2D game, so Z-axis is 0
         );
-
+        */
         // Instantiate the object at the random position
-        Instantiate(disableObject, spawnPosition, Quaternion.identity);
+          // Calculate screen dimensions
+        float screenWidth = Screen.width;
+        float screenHeight = Screen.height;
+
+        // Calculate world coordinates for each corner
+        Vector3 topLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, screenHeight, 0));
+        Vector3 topRight = Camera.main.ScreenToWorldPoint(new Vector3(screenWidth, screenHeight, 0));
+        Vector3 bottomLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
+        Vector3 bottomRight = Camera.main.ScreenToWorldPoint(new Vector3(screenWidth, 0, 0));
+
+        // Instantiate objects at each corner
+        Instantiate(disableObject, topLeft, Quaternion.identity);
+        Instantiate(disableObject, topRight, Quaternion.identity);
+        Instantiate(disableObject, bottomLeft, Quaternion.identity);
+        Instantiate(disableObject, bottomRight, Quaternion.identity);
         state = AIstate.defaultAttackPlayer;
 
         }
@@ -697,6 +716,12 @@ if (targetchange != null)
   public void endGrabAnim()
   {
     tempHasHappened = false;
+  }
+
+  public void makeStun()
+  {
+    state = AIstate.stun;
+    
   }
     void OnCollisionEnter2D(Collision2D collision)
 {

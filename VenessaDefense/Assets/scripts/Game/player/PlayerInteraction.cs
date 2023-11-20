@@ -40,7 +40,7 @@ public class PlayerInteraction : MonoBehaviour
             Debug.Log("Ran");
             GameObject temp = GameObject.Find("Domain");
             var temper = temp.GetComponent<DomainEffect>();
-            temper.changeDomain();
+            temper.changeDomainAbility();
             Destroy(collidedObject);
             //Debug.Log("runs");
         }
