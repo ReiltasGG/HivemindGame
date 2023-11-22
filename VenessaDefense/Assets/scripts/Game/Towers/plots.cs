@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class plots : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class plots : MonoBehaviour
     [Header("References")]
     [SerializeField] private SpriteRenderer sr;
     private GameObject tower;
+    private GameObject playerHUD;
+    private Transform notEnoughCoins;
+
     private Color startColor;
 
     private Color hoverColor = Color.red;
@@ -17,7 +21,10 @@ public class plots : MonoBehaviour
     private void Start()
     {
         startColor = sr.color;
+        playerHUD = GameObject.Find("PlayerHUD with shop");
+        notEnoughCoins = playerHUD.transform.Find("Shop").Find("NotEnoughCoinsText");
     }
+
     private void OnMouseEnter()
     {
         sr.color = hoverColor;
@@ -36,8 +43,10 @@ public class plots : MonoBehaviour
 
         if(towerToBuild == null){return;}
 
-        if(towerToBuild.cost > Currency.main.currency ) 
-        {
+        if(towerToBuild.cost > Currency.main.currency ) {
+            TextMeshProUGUI insufficientCoins = notEnoughCoins.GetComponent<TextMeshProUGUI>();
+            insufficientCoins.text = "Not Enough Coins!";
+            StartCoroutine(FadeText(insufficientCoins, 1.0f));
             return; 
         }
 
@@ -48,5 +57,25 @@ public class plots : MonoBehaviour
         GameObject gameManager = GameObject.FindWithTag("GamesManager");
         TowerManager towerManager = gameManager.GetComponent<TowerManager>();
         towerManager.AddTower();
+        Builder.main.SetSelectedTower(-1);
     }
+
+    private IEnumerator FadeText(TextMeshProUGUI text, float duration){
+        StopCoroutine(FadeText(text, duration));
+
+        float startTime = Time.time;
+        float startAlpha = text.color.a;
+        float endAlpha = 0; // Fade out to fully transparent
+
+        while (Time.time < startTime + duration){
+            float t = (Time.time - startTime) / duration;
+            text.color = new Color(text.color.r, text.color.g, text.color.b, Mathf.Lerp(startAlpha, endAlpha, t));
+            yield return null;
+        }
+   // Ensure the text is fully transparent
+        text.color = new Color(text.color.r, text.color.g, text.color.b, endAlpha);
+        text.text = "";
+        text.color = new Color(text.color.r, text.color.g, text.color.b, startAlpha);
+    }
+
 }

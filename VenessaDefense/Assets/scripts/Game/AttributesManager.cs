@@ -159,7 +159,7 @@ public class AttributesManager : MonoBehaviour
     {
         ManageScenes manageScenes = new ManageScenes();
         Waves wavesCode = FindWavesCode();
-
+        manageScenes.CurrentDayScene(wavesCode.level);
         manageScenes.StartGameOverScene(wavesCode.enemiesDead);
     }
 

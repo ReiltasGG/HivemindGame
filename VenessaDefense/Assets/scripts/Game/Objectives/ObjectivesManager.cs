@@ -29,7 +29,7 @@ public class ObjectivesManager : MonoBehaviour
     private Level2Objectives level2Objectives = null;
     private Objective[] objectives = null;
 
-    public static int CurrentDay = 1;
+    public static int currentDay = 1;
 
     public enum Difficulty
     {
@@ -100,11 +100,22 @@ public class ObjectivesManager : MonoBehaviour
         if (wavesCode == null)
             throw new Exception("Waves code is null when checking component");
 
+        if(wavesCode.level == 1)
+        {
+            currentDay = 1;
+        }
+
+        else if (wavesCode.level == 2)
+        {
+            currentDay = 2;
+        }
+
         towerManageCode = GetComponent<TowerManager>();
 
         if (towerManageCode == null)
             throw new Exception("Tower Manager code is null when checking component");
 
+        Debug.Log($"Current Day is {currentDay}");
         DisplayObjectivesCanvas();
     }
 
@@ -220,8 +231,6 @@ public class ObjectivesManager : MonoBehaviour
         enemiesDead++;
         UpdateObjectivesCompletionStatus();
     }
-
-
     
     private void CreateCanvasText()
     {
@@ -275,11 +284,14 @@ public class ObjectivesManager : MonoBehaviour
     private void CallGameOverScene()
     {
         ManageScenes manageScenes = new ManageScenes();
+        manageScenes.CurrentDayScene(wavesCode.level);
         manageScenes.StartGameOverScene(wavesCode.enemiesDead);
     }
     private void CallDayClearedScene()
     {
+        PlayerPrefs.Save();
         ManageScenes manageScenes = new ManageScenes();
+        manageScenes.NextDayScene(wavesCode.level);
         manageScenes.StartDayClearedScene(wavesCode.level);
     }
 
@@ -336,5 +348,6 @@ public class ObjectivesManager : MonoBehaviour
 
         return (float)Math.Round(timeLeft, 0);
     }
+    public int GetCurrentDay() {return currentDay;}
 
 }

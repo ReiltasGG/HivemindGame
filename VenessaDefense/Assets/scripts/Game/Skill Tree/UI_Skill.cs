@@ -187,7 +187,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
             var temper = Player.GetComponent<PlayerShoot>();
             temper.fireRateChange(.05f);
-            skill1HappenOnce = false;
+            skill5HappenOnce = false;
             }
 
 
@@ -356,8 +356,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         }
         
-        
-        hasBeenBought = false;
+        hasBeenBought = PlayerPrefs.GetInt("hasBeenBought" + SkillID, 0) == 1;
     
 
     checkAvailabiltiy();
@@ -389,6 +388,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         PlayerPrefs.SetInt("hasBeenBought" + SkillID, hasBeenBought ? 1 : 0);
         PlayerPrefs.Save();
     }
+    
 
     private void UpdateSkillPointText()
     {

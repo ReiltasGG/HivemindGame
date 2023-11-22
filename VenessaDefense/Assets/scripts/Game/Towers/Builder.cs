@@ -12,7 +12,7 @@ public class Builder : MonoBehaviour
     //[SerializeField] private GameObject[] towerPrefabs;
     [SerializeField] private Tower[] towers;
 
-    private int SelectedTower;
+    private int SelectedTower = -1;
 
     private void Awake()
     {
@@ -20,10 +20,15 @@ public class Builder : MonoBehaviour
     }
     public Tower GetSelectedTower()
     {
-        return towers[SelectedTower];
+        if (SelectedTower != -1 && SelectedTower < towers.Length){
+            return towers[SelectedTower];
+        }
+        //return towers[SelectedTower];
+        return null;
     }
-    public void SetSlectedTower(int _selectedTower)
+    public void SetSelectedTower(int _selectedTower)
     {
         SelectedTower = _selectedTower;
     }
+
 }

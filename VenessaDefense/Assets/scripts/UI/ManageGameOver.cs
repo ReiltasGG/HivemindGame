@@ -13,7 +13,8 @@ public class ManageScenes : MonoBehaviour
     private const string GameOverSceneName = "GameOver";
     private const string DayClearedSceneName = "DayCleared";
     private const string MainMenuSceneName = "MainMenu";
-    private string NextDaySceneName;
+    private static string NextDaySceneName;
+    private static string CurrentDaySceneName;
     private bool isSceneLoaded = false;
 
     public void ChangeSceneToMainMenu()
@@ -55,8 +56,6 @@ public class ManageScenes : MonoBehaviour
     public void StartDayClearedScene(int dayCleared_)
     {
         dayCleared = dayCleared_;
-        NextDaySceneName = "Day " + (dayCleared + 1).ToString();
-        Debug.Log(NextDaySceneName);
         changeSceneToDayCleared();
     }
 
@@ -87,27 +86,27 @@ public class ManageScenes : MonoBehaviour
 
     }
     
-    /*
-    private void UpdateNextDayScene()
+    public void CurrentDayScene(int currentDay)
     {
-        NextDaySceneName = "Day " + (dayCleared + 1).ToString();
-    }
-    
-
-    public string GetNextDaySceneName()
-    {
-        return NextDaySceneName;
+        CurrentDaySceneName = $"Day {currentDay}";
+        Debug.Log(CurrentDaySceneName);
     }
 
-    */
+    public void NextDayScene(int currentDay)
+    {
+        currentDay++;
+        NextDaySceneName = $"Day {currentDay}";
+        Debug.Log(NextDaySceneName);
+    }
     
     public void SceneToNextDay()
     {
-        SceneManager.LoadScene("Day 2");
-        /*
-        string temp = GetNextDaySceneName();
-        Debug.Log(temp);
-        */
+        SceneManager.LoadScene(NextDaySceneName);
+    }
+
+    public void RetryDay()
+    {
+        SceneManager.LoadScene(CurrentDaySceneName);
     }
 
 }
