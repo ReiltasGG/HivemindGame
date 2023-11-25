@@ -289,7 +289,9 @@ public class ObjectivesManager : MonoBehaviour
     }
     private void CallDayClearedScene()
     {
-        PlayerPrefs.Save();
+        GameObject Player = GameObject.FindWithTag("Player");
+        Player.GetComponent<AttributesManager>().SavePlayerStats();
+        PlayerPrefs.SetInt("CurrentDay", wavesCode.level + 1);
         ManageScenes manageScenes = new ManageScenes();
         manageScenes.NextDayScene(wavesCode.level);
         manageScenes.StartDayClearedScene(wavesCode.level);

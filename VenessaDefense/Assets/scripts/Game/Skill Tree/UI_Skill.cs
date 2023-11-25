@@ -10,7 +10,6 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public int SkillID;
     public int cost;
 
-
     public Image connectorOne;
     public Image connectorTwo;
     public Image connectorThree;
@@ -39,19 +38,9 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public bool hasBeenBought = false;
 
-    public bool skill1HappenOnce = true;
-    public bool skill2HappenOnce = true;
-    public bool skill3HappenOnce = true;
-    public bool skill4HappenOnce = true;
-    public bool skill5HappenOnce = true;
-    public bool skill6HappenOnce = true;
-    public bool skill7HappenOnce = true;
-    public bool skill8HappenOnce = true;
-    public bool skill9HappenOnce = true;
-    public bool skill10HappenOnce = true;
-    public bool skill11HappenOnce = true;
-    public bool skill12HappenOnce = true;
-    public bool skill13HappenOnce = true;
+    public bool skill12HappenOnce = false;
+    public bool skill13HappenOnce = false;
+
 
     private GameObject Player;
     private GameObject GamesManager;
@@ -61,12 +50,6 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     
     public bool isHovered = false;
     public bool isAvailable = false;
-
-    private class Skill
-    {
-        int SkillID;
-    }
-
 
     void Start()
     {
@@ -78,251 +61,237 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     void Update()
     {
-
         var atm = getSkillTree.GetComponent<UI_SkillTree>();
         //This will be for HP Upgrades 1-4
 
         if (SkillID == 1 && hasBeenBought == true)
         {
-            //Adds Damage   
             background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             //Set SkillID to true
             atm.UnlockSkill(1);
             connectorOne.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             connectorFour.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             
-            //Add Damage
-            if(skill1HappenOnce == true)
-            {
-            int hpAdded = 10;
-            var attributeManager = Player.GetComponent<AttributesManager>();
-            attributeManager.addHealth(hpAdded);
-            skill1HappenOnce = false;
+            //Add Health
+            if(!PlayerPrefs.HasKey("SkillLogicExecuted" + SkillID)){
+
+                int hpAdded = 10;
+                var attributeManager = Player.GetComponent<AttributesManager>();
+                attributeManager.addHealth(hpAdded);
+                
+                PlayerPrefs.SetInt("SkillLogicExecuted" + SkillID, 1);
+                PlayerPrefs.Save();
             }
-
-
         }
+
         else if(SkillID == 2 && hasBeenBought == true)
         {
             bool temp = atm.getSkilldata(1);
-            if(temp == true)
-            {
+            if(temp == true){
             //Adds Health
-            background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+                background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             //Set SkillID to true
-            atm.UnlockSkill(2);
-            connectorTwo.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
-            
-         
+                atm.UnlockSkill(2);
+                connectorTwo.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             
             //Add Health
-               if(skill2HappenOnce)
-              {
-                int hpAdded = 10;
-              var attributeManager = Player.GetComponent<AttributesManager>();
-              attributeManager.addHealth(hpAdded);
-              skill2HappenOnce = false;
+                if(!PlayerPrefs.HasKey("SkillLogicExecuted" + SkillID)){
+                    int hpAdded = 10;
+                    var attributeManager = Player.GetComponent<AttributesManager>();
+                    attributeManager.addHealth(hpAdded);
+                    
+                    PlayerPrefs.SetInt("SkillLogicExecuted" + SkillID, 1);
+                    PlayerPrefs.Save();
                 }
             }
-         
         }
-          else if(SkillID == 3 && hasBeenBought == true)
+
+        else if(SkillID == 3 && hasBeenBought == true)
         {
             bool temp = atm.getSkilldata(2);
-            if(temp == true)
-            {
+            if(temp == true){
             //Adds Health
-            background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+                background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             //Set SkillID to true
-            atm.UnlockSkill(3);
-            connectorThree.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
+                atm.UnlockSkill(3);
+                connectorThree.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             
             //Add Health
-               if(skill3HappenOnce)
-              {
-                int hpAdded = 10;
-              var attributeManager = Player.GetComponent<AttributesManager>();
-              attributeManager.addHealth(hpAdded);
-              skill3HappenOnce = false;
+                if(!PlayerPrefs.HasKey("SkillLogicExecuted" + SkillID)){
+                    int hpAdded = 10;
+                    var attributeManager = Player.GetComponent<AttributesManager>();
+                    attributeManager.addHealth(hpAdded);
+                    
+                    PlayerPrefs.SetInt("SkillLogicExecuted" + SkillID, 1);
+                    PlayerPrefs.Save();
                 }
             }
          
         }
-            else if(SkillID == 4 && hasBeenBought == true)
+
+        else if(SkillID == 4 && hasBeenBought == true)
         {
             bool temp = atm.getSkilldata(3);
-            if(temp == true)
-            {
+            if(temp == true){
             //Adds Health
-            background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+                background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             //Set SkillID to true
-            atm.UnlockSkill(4);
-            connectorFour.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
-            
-         
+                atm.UnlockSkill(4);
+                connectorFour.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             
             //Add Health
-               if(skill4HappenOnce)
-              {
-                int hpAdded = 10;
-              var attributeManager = Player.GetComponent<AttributesManager>();
-              attributeManager.addHealth(hpAdded);
-              skill4HappenOnce = false;
+                if(!PlayerPrefs.HasKey("SkillLogicExecuted" + SkillID)){
+                    int hpAdded = 10;
+                    var attributeManager = Player.GetComponent<AttributesManager>();
+                    attributeManager.addHealth(hpAdded);
+                    
+                    PlayerPrefs.SetInt("SkillLogicExecuted" + SkillID, 1);
+                    PlayerPrefs.Save();
                 }
             }
-         
         }
+
         //Skills for Attack Speed Increase (1-3)
         else if (SkillID == 5 && hasBeenBought == true)
         {
-            //Adds Damage   
             background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             //Set SkillID to true
             atm.UnlockSkill(5);
             connectorFive.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             connectorSix.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             
-            //Add Damage
-            if(skill5HappenOnce == true)
-            {
-            var temper = Player.GetComponent<PlayerShoot>();
-            temper.fireRateChange(.05f);
-            skill5HappenOnce = false;
+            //increase bullet speed
+            if(!PlayerPrefs.HasKey("SkillLogicExecuted" + SkillID)){
+                var temper = Player.GetComponent<PlayerShoot>();
+                temper.fireRateChange(.05f);
+                
+                PlayerPrefs.SetInt("SkillLogicExecuted" + SkillID, 1);
+                PlayerPrefs.Save();
             }
-
-
         }
+
          else if (SkillID == 6 && hasBeenBought == true)
         {
             bool temp = atm.getSkilldata(5);
-            if(temp == true)
-            {
-                //Adds Damage   
+            if(temp == true){ 
                 background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                 //Set SkillID to true
                 atm.UnlockSkill(6);
                 connectorSeven.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
-            
-                //Add Damage
-                if(skill6HappenOnce == true)
-                {
-                var temper = Player.GetComponent<PlayerShoot>();
-                temper.fireRateChange(.05f);
-                skill6HappenOnce = false;
-                }
 
+                //bullet speed
+                if(!PlayerPrefs.HasKey("SkillLogicExecuted" + SkillID)){
+                    var temper = Player.GetComponent<PlayerShoot>();
+                    temper.fireRateChange(.05f);
+                
+                    PlayerPrefs.SetInt("SkillLogicExecuted" + SkillID, 1);
+                    PlayerPrefs.Save();
+                }
             }
         }
-         else if (SkillID == 7 && hasBeenBought == true)
+
+        else if (SkillID == 7 && hasBeenBought == true)
         {
             bool temp = atm.getSkilldata(6);
-            if(temp == true)
-            {
-                //Adds Damage   
+            if(temp == true){ 
                 background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                 //Set SkillID to true
                 atm.UnlockSkill(7);
             
-                //Add Damage
-                if(skill7HappenOnce == true)
-                {
-                var temper = Player.GetComponent<PlayerShoot>();
-                temper.fireRateChange(.05f);
-                skill7HappenOnce = false;
+                //Add Bullet speed
+                if(!PlayerPrefs.HasKey("SkillLogicExecuted" + SkillID)){
+                    var temper = Player.GetComponent<PlayerShoot>();
+                    temper.fireRateChange(.05f);
+                    
+                    PlayerPrefs.SetInt("SkillLogicExecuted" + SkillID, 1);
+                    PlayerPrefs.Save();
                 }
-
             }
         }
+
         //Skills for Damage (1-4)
         else if (SkillID == 8 && hasBeenBought == true)
         {
-            //Adds Damage   
             background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             //Set SkillID to true
             atm.UnlockSkill(8);
             connectorEight.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             //Add Damage
-            if(skill8HappenOnce)
-            {
-            var temper = Player.GetComponent<AttributesManager>();
-            temper.addDamage(5);
-            skill8HappenOnce = false;
-            }
+            if(!PlayerPrefs.HasKey("SkillLogicExecuted" + SkillID)){
+                var temper = Player.GetComponent<AttributesManager>();
+                temper.addDamage(5);
 
-            
+                PlayerPrefs.SetInt("SkillLogicExecuted" + SkillID, 1);
+                PlayerPrefs.Save();
+            } 
         }
+
         else if (SkillID == 9 && hasBeenBought == true)
         {
             bool temp = atm.getSkilldata(8);
-            if(temp == true)
-            {
-                //Adds Damage   
+            if(temp == true){
                 background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                 //Set SkillID to true
                 atm.UnlockSkill(9);
                 connectorNine.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             
                 //Add Damage
-                if(skill9HappenOnce)
-                {
-                var temper = Player.GetComponent<AttributesManager>();
-                temper.addDamage(5);
-                skill9HappenOnce = false;
-                }
+                if(!PlayerPrefs.HasKey("SkillLogicExecuted" + SkillID)){
+                    var temper = Player.GetComponent<AttributesManager>();
+                    temper.addDamage(5);
 
+                    PlayerPrefs.SetInt("SkillLogicExecuted" + SkillID, 1);
+                    PlayerPrefs.Save();
+                }
             }
         }
-         else if (SkillID == 10 && hasBeenBought == true)
+
+        else if (SkillID == 10 && hasBeenBought == true)
         {
             bool temp = atm.getSkilldata(9);
-            if(temp == true)
-            {
-                //Adds Damage   
+            if(temp == true){  
                 background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                 //Set SkillID to true
                 atm.UnlockSkill(10);
                 connectorTen.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
             
                 //Add Damage
-                if(skill10HappenOnce)
-                {
-                var temper = Player.GetComponent<AttributesManager>();
-                temper.addDamage(5);
-                skill10HappenOnce = false;
+                if(!PlayerPrefs.HasKey("SkillLogicExecuted" + SkillID)){
+                    var temper = Player.GetComponent<AttributesManager>();
+                    temper.addDamage(5);
+                    
+                    PlayerPrefs.SetInt("SkillLogicExecuted" + SkillID, 1);
+                    PlayerPrefs.Save();
                 }
 
             }
         }
-         else if (SkillID == 11 && hasBeenBought == true)
+
+        else if (SkillID == 11 && hasBeenBought == true)
         {
             bool temp = atm.getSkilldata(10);
-            if(temp == true)
-            {
-                //Adds Damage   
+            if(temp == true){
                 background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                 //Set SkillID to true
                 atm.UnlockSkill(11);
             
                 //Add Damage
-                if(skill11HappenOnce)
-                {
-                var temper = Player.GetComponent<AttributesManager>();
-                temper.addDamage(5);
-                skill11HappenOnce = false;
+                if(!PlayerPrefs.HasKey("SkillLogicExecuted" + SkillID)){
+                    var temper = Player.GetComponent<AttributesManager>();
+                    temper.addDamage(5);
+                    
+                    PlayerPrefs.SetInt("SkillLogicExecuted" + SkillID, 1);
+                    PlayerPrefs.Save();
                 }
-
             }
         }
-        //Dash
+        //Dash && Decoy
         else if(SkillID == 12 && hasBeenBought == true)
         {
-           //  Debug.Log("Skill3 found me");
             bool temp = atm.getSkilldata(1);
             bool temp2 = atm.getSkilldata(5);
-            //bool temp3 = atm.getSkilldata(9);
 
-            if (temp == true && temp2 == true)
-            {
+            if (temp == true && temp2 == true){
                 //Player gets dodge move
                 background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                 //Set SkillID to true
@@ -331,7 +300,6 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 GameObject Player = GameObject.FindWithTag("Player");
                 var playerScript = Player.GetComponent<AbilityHolder>();
                 playerScript.allowSkill1();
-                
             }
            
             }
@@ -340,28 +308,23 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 Debug.Log("Runs");
                 bool temp1 = atm.getSkilldata(12);
-                if(temp1 == true)
-                {
-              
-                background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+                if(temp1 == true){
+                    background.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                 //Set SkillID to true
-                 connectorEleven.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
-                atm.UnlockSkill(13);
-                GameObject Player = GameObject.FindWithTag("Player");
-                var playerScript = Player.GetComponent<AbilityHolder>();
-                playerScript.allowSkill2();
+                    connectorEleven.GetComponent<Image>().color = new Color32(253, 255, 0, 255);
+                    atm.UnlockSkill(13);
+                    GameObject Player = GameObject.FindWithTag("Player");
+                    var playerScript = Player.GetComponent<AbilityHolder>();
+                    playerScript.allowSkill2();
                 }
-            else 
-                hasBeenBought = false;
 
+                else {hasBeenBought = false;}
         }
         
-        hasBeenBought = PlayerPrefs.GetInt("hasBeenBought" + SkillID, 0) == 1;
-    
-
-    checkAvailabiltiy();
-        
+    hasBeenBought = PlayerPrefs.GetInt("hasBeenBought" + SkillID, 0) == 1;
+    checkAvailabiltiy();   
     }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         isHovered = true;
@@ -384,10 +347,11 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         UpdateSkillPointText();
 
         hasBeenBought = true;
-
         PlayerPrefs.SetInt("hasBeenBought" + SkillID, hasBeenBought ? 1 : 0);
         PlayerPrefs.Save();
     }
+
+
     
 
     private void UpdateSkillPointText()
@@ -441,9 +405,8 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         else if(SkillID == 13)
             toolsTipHealth13.SetActive(true);
             
-        
-      
     }
+
     public void skillHoverOff()
     {
         if(SkillID == 1)
@@ -472,53 +435,51 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             toolsTipHealth12.SetActive(false);
         if(SkillID == 13)
             toolsTipHealth13.SetActive(false);
-            
     }
     
     public void checkAvailabiltiy()
     {  
         var atm = getSkillTree.GetComponent<UI_SkillTree>();
-        if(atm.getSkilldata(1) == true && GetSkillPoints() >= cost)
+        if(atm.getSkilldata(1) == true && GetSkillPoints() >= cost && PlayerPrefs.GetInt("hasBeenBought" + 1, 0) == 1)
         {
             //For HP2
             Lock1.GetComponent<Image>().enabled = false;
         }
-         if(atm.getSkilldata(2) == true && GetSkillPoints() >= cost)
+         if(atm.getSkilldata(2) == true && GetSkillPoints() >= cost && PlayerPrefs.GetInt("hasBeenBought" + 2, 0) == 1)
         {
            //For HP3
              Lock2.GetComponent<Image>().enabled = false;
         }
-         if(atm.getSkilldata(3) == true && GetSkillPoints() >= cost)
+         if(atm.getSkilldata(3) == true && GetSkillPoints() >= cost && PlayerPrefs.GetInt("hasBeenBought" + 3, 0) == 1)
         {
             //For HP4
              Lock3.GetComponent<Image>().enabled = false;
         }
-         if(atm.getSkilldata(1) == true && atm.getSkilldata(5) == true && GetSkillPoints() >= cost)
+         if(atm.getSkilldata(1) == true && atm.getSkilldata(5) == true && GetSkillPoints() >= cost && (PlayerPrefs.GetInt("hasBeenBought" + 1, 0) == 1 && PlayerPrefs.GetInt("hasBeenBought" + 5, 0) == 1))
         {
             Lock4.GetComponent<Image>().enabled = false;
-
         }
-         if(atm.getSkilldata(5) == true && GetSkillPoints() >= cost)
+         if(atm.getSkilldata(5) == true && GetSkillPoints() >= cost && PlayerPrefs.GetInt("hasBeenBought" + 5, 0) == 1)
         {
             Lock5.GetComponent<Image>().enabled = false;
         }
-          if(atm.getSkilldata(6) == true && GetSkillPoints() >= cost) 
+          if(atm.getSkilldata(6) == true && GetSkillPoints() >= cost && PlayerPrefs.GetInt("hasBeenBought" + 6, 0) == 1) 
         {
             Lock6.GetComponent<Image>().enabled = false;
         }
-          if(atm.getSkilldata(8) == true && GetSkillPoints() >= cost)
+          if(atm.getSkilldata(8) == true && GetSkillPoints() >= cost && PlayerPrefs.GetInt("hasBeenBought" + 8, 0) == 1)
         {
             Lock7.GetComponent<Image>().enabled = false;
         }
-          if(atm.getSkilldata(9) == true && GetSkillPoints() >= cost)
+          if(atm.getSkilldata(9) == true && GetSkillPoints() >= cost && PlayerPrefs.GetInt("hasBeenBought" + 9, 0) == 1)
         {
             Lock8.GetComponent<Image>().enabled = false;
         }
-          if(atm.getSkilldata(10) == true && GetSkillPoints() >= cost)
+          if(atm.getSkilldata(10) == true && GetSkillPoints() >= cost && PlayerPrefs.GetInt("hasBeenBought" + 10, 0) == 1)
         {
             Lock9.GetComponent<Image>().enabled = false;
         }
-        if(atm.getSkilldata(12) == true)
+        if(atm.getSkilldata(12) == true && PlayerPrefs.GetInt("hasBeenBought" + 12, 0) == 1)
         {
             Lock10.GetComponent<Image>().enabled = false;
         }

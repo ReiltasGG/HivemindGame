@@ -58,4 +58,14 @@ public class PlayerShoot : MonoBehaviour
     {
         _timeBetweenShots = _timeBetweenShots - change;
     }
+
+    public float fireRateReturn()
+    {
+        return _timeBetweenShots;
+    }
+
+    public void fireRateSet(float set)
+    {
+        _timeBetweenShots = set;
+    }
 }

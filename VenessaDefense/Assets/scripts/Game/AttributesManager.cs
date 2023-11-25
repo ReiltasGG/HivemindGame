@@ -9,7 +9,9 @@ public class AttributesManager : MonoBehaviour
     public int health;
     public int maxHealth;
     public int attackDamage;
+
     private GameObject wavesFinder;
+    private UI_SkillTree skillTree;
 
     public HealthBar healthBar;
     public bool iscurseActive = false;
@@ -123,6 +125,12 @@ public class AttributesManager : MonoBehaviour
     public void HandlePlayerDeath(GameObject enemy)
     {
         SavePlayerStats();
+
+        PlayerShoot playerBullet = gameObject.GetComponent<PlayerShoot>();
+        float bulletSpeed = playerBullet.fireRateReturn();
+        float previousbulletSpeed = PlayerPrefs.GetFloat("PreviousScenePlayerBulletSpeed", bulletSpeed);
+
+        playerBullet.fireRateSet(previousbulletSpeed);
         maxHealth = PlayerPrefs.GetInt("PreviousScenePlayerMaxHealth", maxHealth);
         attackDamage = PlayerPrefs.GetInt("PreviousScenePlayerAttackDamage", attackDamage);
         CallGameOverScene();
@@ -157,6 +165,10 @@ public class AttributesManager : MonoBehaviour
     }
     private void CallGameOverScene()
     {
+        Transform findSkillTree = GameObject.Find("Skill Tree Canvas")?.transform.Find("Skill Tree");
+        skillTree = findSkillTree.GetComponent<UI_SkillTree>();
+        skillTree.ResetSkillsOnGameOver();
+
         ManageScenes manageScenes = new ManageScenes();
         Waves wavesCode = FindWavesCode();
         manageScenes.CurrentDayScene(wavesCode.level);
@@ -207,6 +219,11 @@ public class AttributesManager : MonoBehaviour
         health+=addHealth;
         maxHealth+=addHealth;
     }
+
+    public void addHealthSkill(int addHealth)
+    {
+        maxHealth += addHealth;
+    }
     
     public void curseActive()
     {
@@ -232,8 +249,14 @@ public class AttributesManager : MonoBehaviour
     {
      if (gameObject.CompareTag("Player"))
      {
+        PlayerShoot playerBullet = gameObject.GetComponent<PlayerShoot>();
+        float bulletSpeed = playerBullet.fireRateReturn();
+
+        PlayerPrefs.SetFloat("PreviousScenePlayerBulletSpeed", bulletSpeed);
         PlayerPrefs.SetInt("PreviousScenePlayerMaxHealth", maxHealth);
         PlayerPrefs.SetInt("PreviousScenePlayerAttackDamage", attackDamage);
+
+        PlayerPrefs.SetFloat("PlayerBulletSpeed", bulletSpeed);
         PlayerPrefs.SetInt("PlayerMaxHealth", maxHealth);
         PlayerPrefs.SetInt("PlayerAttackDamage", attackDamage);
         PlayerPrefs.Save();
@@ -244,6 +267,11 @@ public class AttributesManager : MonoBehaviour
    {
      if (gameObject.CompareTag("Player"))
      {
+        PlayerShoot playerBullet = gameObject.GetComponent<PlayerShoot>();
+        float bulletSpeed = playerBullet.fireRateReturn();
+        float bullet = PlayerPrefs.GetFloat("PlayerBulletSpeed", bulletSpeed);
+
+        playerBullet.fireRateSet(bullet);
         maxHealth = PlayerPrefs.GetInt("PlayerMaxHealth", maxHealth);
         attackDamage = PlayerPrefs.GetInt("PlayerAttackDamage", attackDamage);
      }
