@@ -14,6 +14,7 @@ public class TutorialManager : MonoBehaviour
     public GameObject healthbar;
     public GameObject shop;
     public GameObject plot; //joe mama
+    public UI_SkillTreeOpener skillTreeOpener;
     
     //public GameObject welcome;
     //public static event Action closeButton;
@@ -50,7 +51,7 @@ public class TutorialManager : MonoBehaviour
     // Update is called once per frame and studd
     void Update()
     {
-
+        
 
 
         if (popUpIndex == 0) // weclcome
@@ -62,7 +63,14 @@ public class TutorialManager : MonoBehaviour
 
                 popUps[popUpIndex].SetActive(false);
                 popUpIndex++;
-                Time.timeScale = 1f;
+                if (skillTreeOpener.skillTreeIsOpen == false)
+                {
+                    Time.timeScale = 1f;
+                }
+                else
+                {
+                    Time.timeScale = 0f;
+                }
                 //popUps[popUpIndex].SetActive(true);
             }
 
@@ -80,7 +88,14 @@ public class TutorialManager : MonoBehaviour
 
                 popUps[popUpIndex].SetActive(false);
                 popUpIndex++;
-                Time.timeScale = 1f;
+                if (skillTreeOpener.skillTreeIsOpen == false)
+                {
+                    Time.timeScale = 1f;
+                }
+                else
+                {
+                    Time.timeScale = 0f;
+                }
                 //popUps[popUpIndex].SetActive(true);
             }
 
@@ -90,7 +105,14 @@ public class TutorialManager : MonoBehaviour
         else if (popUpIndex == 2) // shoot
         {
             popUps[popUpIndex].SetActive(true);
-            Time.timeScale = 1f;
+            if (skillTreeOpener.skillTreeIsOpen == false)
+            {
+                Time.timeScale = 1f;
+            }
+            else
+            {
+                Time.timeScale = 0f;
+            }
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 popUps[popUpIndex].SetActive(false);
@@ -105,7 +127,14 @@ public class TutorialManager : MonoBehaviour
             popUps[popUpIndex].SetActive(true);
             healthbar.SetActive(true);
             shop.SetActive(true);
-            Time.timeScale = 1f;
+            if (skillTreeOpener.skillTreeIsOpen == false)
+            {
+                Time.timeScale = 1f;
+            }
+            else
+            {
+                Time.timeScale = 0f;
+            }
             if (ant != null)
             {
                 ant.SetActive(true);
@@ -123,7 +152,14 @@ public class TutorialManager : MonoBehaviour
         else if (popUpIndex == 4) // currency
         {
             popUps[popUpIndex].SetActive(true);
-            Time.timeScale = 1f;
+            if (skillTreeOpener.skillTreeIsOpen == false)
+            {
+                Time.timeScale = 1f;
+            }
+            else
+            {
+                Time.timeScale = 0f;
+            }
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 popUps[popUpIndex].SetActive(false);
@@ -136,7 +172,14 @@ public class TutorialManager : MonoBehaviour
         {
             popUps[popUpIndex].SetActive(true);
             plot.SetActive(true);
-            Time.timeScale = 1f;
+            if (skillTreeOpener.skillTreeIsOpen == false)
+            {
+                Time.timeScale = 1f;
+            }
+            else
+            {
+                Time.timeScale = 0f;
+            }
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 popUps[popUpIndex].SetActive(false);
@@ -148,7 +191,14 @@ public class TutorialManager : MonoBehaviour
         {
             popUps[popUpIndex].SetActive(true);
             var num = 1;
-            Time.timeScale = 1f;
+            if (skillTreeOpener.skillTreeIsOpen == false)
+            {
+                Time.timeScale = 1f;
+            }
+            else
+            {
+                Time.timeScale = 0f;
+            }
             if (ant2 != null)
             {
                 ant2.SetActive(true);
@@ -168,7 +218,14 @@ public class TutorialManager : MonoBehaviour
         {
             popUps[popUpIndex].SetActive(true);
             //trainer.SetActive(true);  
-            Time.timeScale = 1f;
+            if (skillTreeOpener.skillTreeIsOpen == false)
+            {
+                Time.timeScale = 1f;
+            }
+            else
+            {
+                Time.timeScale = 0f;
+            }
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 popUps[popUpIndex].SetActive(false);
@@ -182,8 +239,15 @@ public class TutorialManager : MonoBehaviour
             popUps[popUpIndex].SetActive(true);
             if (GetSkillPoints() == 0)
                 GainSkillPoints(20);
-            
-            Time.timeScale = 1f;
+
+            if (skillTreeOpener.skillTreeIsOpen == false)
+            {
+                Time.timeScale = 1f;
+            }
+            else
+            {
+                Time.timeScale = 0f;
+            }
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 popUps[popUpIndex].SetActive(false);
@@ -196,7 +260,14 @@ public class TutorialManager : MonoBehaviour
         {
             popUps[popUpIndex].SetActive(true);
             //trainer.SetActive(true);  
-            Time.timeScale = 1f;
+            if (skillTreeOpener.skillTreeIsOpen == false)
+            {
+                Time.timeScale = 1f;
+            }
+            else
+            {
+                Time.timeScale = 0f;
+            }
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 popUps[popUpIndex].SetActive(false);
@@ -213,6 +284,17 @@ public class TutorialManager : MonoBehaviour
             PlayerPrefs.DeleteAll();
             PlayerPrefs.Save();
             
+
+            if (skillTreeOpener.skillTreeIsOpen == false)
+            {
+                Time.timeScale = 1f;
+            }
+            else
+            {
+                Time.timeScale = 0f;
+            }
+
+
         }
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();

@@ -42,5 +42,15 @@ public class MashingBar : MonoBehaviour
 
         // Apply the smoothed value to the slider
         slider.value = targetValue;
+
+    }
+    public void restartMash()
+    {
+        slider.value = 0;
+    }
+
+    public float getSliderValue()
+    {
+        return slider.value;
     }
 }

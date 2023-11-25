@@ -35,13 +35,17 @@ public class LaserBeam : MonoBehaviour
     {
         // Do something when a collision occurs, e.g., damage the hitObject or play an effect.
         // You can also destroy the laser if it hits an object, depending on your game logic.
-        if(currentTime > timeBetweenDamage)
+        if(hitObject!= null)
+        {
+             if(currentTime > timeBetweenDamage)
         {
         var attMan = hitObject.GetComponent<AttributesManager>();
         attMan.takeDamage(damage);
         currentTime = 0.0f;
         }
         currentTime += Time.deltaTime;
+        }
+       
       
 
     }

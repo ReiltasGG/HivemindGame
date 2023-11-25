@@ -10,12 +10,15 @@ public class PlayerInteraction : MonoBehaviour
     public KeyCode keyChoice;
     public GameObject collidedObject;
     private bool isInRange = false;
+    //Rb for knock back
+    public Rigidbody2D body;
     // Start is called before the first frame update
     void Start()
     {
-        textPopUp = GameObject.Find("InteractText");
+        //textPopUp = GameObject.Find("InteractText");
      //   eKey.enabled = false;
      textPopUp.SetActive(false);
+     body = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -37,7 +40,7 @@ public class PlayerInteraction : MonoBehaviour
             Debug.Log("Ran");
             GameObject temp = GameObject.Find("Domain");
             var temper = temp.GetComponent<DomainEffect>();
-            temper.changeDomain();
+            temper.changeDomainAbility();
             Destroy(collidedObject);
             //Debug.Log("runs");
         }
@@ -62,5 +65,12 @@ public class PlayerInteraction : MonoBehaviour
             textPopUp.SetActive(false);
         
         }
+    }
+
+    public void addKnockBack(Vector2 forceDirection)
+    {
+         //Apply the knockback force
+        body.AddForce(forceDirection, ForceMode2D.Impulse);
+
     }
 }

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Wasp : MonoBehaviour
 {
+  //public bool tempStunOnce = true;
+
+    //Knockback
+    public float meleeAttackKnockback = 4f;
     //Health and important stuffs
     public int health;
     public int halfHealth;
@@ -35,9 +39,10 @@ public class Wasp : MonoBehaviour
     public bool doingDashAttack = false;
 
     //Stun Stuff
-    public float stunTime = 5.0f;
+    public float stunTime = 2.0f;
     public float currentStunTime = 0.0f;
     public bool stunOnce = true;
+    public float actualStunTime = 5.0f;
 
 
     public GameObject currentWarningRectangle;
@@ -79,6 +84,7 @@ public class Wasp : MonoBehaviour
     public float currentAbilityTimer= 0.0f;
     public float AbilityTimer = 1.0f;
     public GameObject disableObject;
+    public GameObject hintText;
     
 
     //Grab Attack Stuff
@@ -87,9 +93,15 @@ public class Wasp : MonoBehaviour
      public float burstSpeed = 3f; // Adjust the burst speed as needed
     public float pauseDuration = 0.5f; // Duration to pause before the burst
     public float grabInitalLast = .5f;
-    
+    private bool tempHasHappened = false;
+    public GameObject MashingBar;
+    public GameObject mashText;
+    public int grabDamagePerSec = 5;
+    public float grabIntervalDamageSec = 1.0f;
 
 
+
+    private Animator anim;
 
     public enum AIstate
 
@@ -109,12 +121,17 @@ public class Wasp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+      hintText.SetActive(false);
        defaultState = AIstate.defaultAttackPlayer;
         body = GetComponent<Rigidbody2D>();
         state = defaultState;
          health = GetComponent<AttributesManager>().getHealth();
           halfHealth = health/2;
       rageHealth = health/10;
+      MashingBar.SetActive(false);
+      mashText.SetActive(false);
+      anim = GetComponent<Animator>();
+      //grabAttackHitBox.SetActive(false);
     }
 
     // Update is called once per frame
@@ -122,6 +139,7 @@ public class Wasp : MonoBehaviour
     public virtual void Update()
     {
       //  Debug.Log(dashAttackTimer);
+    
         UpdateAI();
         waterCreation();
         updateHealth();
@@ -152,42 +170,60 @@ public class Wasp : MonoBehaviour
     public void  UpdateAI()
     {
 
+      if(state == AIstate.stun)
+      {
+          body.velocity = body.velocity.normalized * 0.0f;
+            body.angularVelocity = 0.0f;
+            anim.SetTrigger("Stun");
+        if(actualStunTime < 0)
+        {
+          actualStunTime = 5.0f;
+          state = AIstate.defaultAttackPlayer;
+        }
+        actualStunTime-=Time.deltaTime;
+      }
       //Code for grab attack
       if(state == AIstate.grabAttack)
       {
+        grabAttackHitBox.SetActive(true);
         doGrabAttack();
+        if(tempHasHappened == true)
+        {
+        grabActive();
+        }
       }
       //Code for dash attack AI state
         if(state == AIstate.dashAttack)
         {
+          anim.SetTrigger("Dive");
             if(dashPos == true)
             {
-                  int randomNumber = Random.Range(1, 5);
+                  int randomNumber = Random.Range(1, 6);
                 dashPos = false;
             if(randomNumber == 1)
            {
-            transform.position = new Vector3(10, 10, 0);
+            transform.position = new Vector3(30, 30, 0);
            
            }
            else if(randomNumber == 2)
            {
-            transform.position = new Vector3(-10, -10, 0);
+            transform.position = new Vector3(-25, -25, 0);
            }
            else if(randomNumber == 3)
            {
-             transform.position = new Vector3(-20, 0, 0);
+             transform.position = new Vector3(-30, 0, 0);
            }
            else if(randomNumber == 4)
            {
-             transform.position = new Vector3(25, 0, 0);
+             transform.position = new Vector3(30, 0, 0);
            }
            else if(randomNumber == 5)
            {
-             transform.position = new Vector3(0, -15, 0);
+             transform.position = new Vector3(0, -35, 0);
            }
 
             }
-            body.isKinematic = false;
+          //  body.isKinematic = false;
             if(isAttacking == true)
             {
            
@@ -257,7 +293,7 @@ public class Wasp : MonoBehaviour
             body.isKinematic = true;
            
              // transform.position = new Vector3(0, 0, 0);
-        transform.position = new Vector3(20,20, 20);
+        transform.position = new Vector3(30,30, 30);
         
         }
         
@@ -283,7 +319,7 @@ public class Wasp : MonoBehaviour
             body.velocity = body.velocity.normalized * 0.0f;
             //Code so that it faces the player
          
-            Instantiate(laserBullet, transform.position, Quaternion.identity);
+            Instantiate(laserBullet, stingerOffset.transform.position, Quaternion.identity);
             laserHappenOnce = false;
             }
             if(currentLaserTime > laserFollowTime)
@@ -301,14 +337,15 @@ public class Wasp : MonoBehaviour
 
         if(state == AIstate.defaultAttackPlayer)
         {
+          anim.SetTrigger("Fly");
           moveDefaultAttack();
           defaultAttackPlayer();
-          meleeAttackCooldown -= Time.deltaTime;
+        
           if(health <= rageHealth)
           state = AIstate.resetPos;
           if(health < halfHealth && isDomainActive == false && isDomainHappenOnce)
           {
-            Debug.Log("This runs");
+          //  Debug.Log("This runs");
             isDomainHappenOnce = false;
             state = AIstate.ability;
             
@@ -317,25 +354,41 @@ public class Wasp : MonoBehaviour
           {
             if(health > halfHealth || isDomainActive == false )
             {
-            int rand = Random.Range(1, 3);
+            int rand = Random.Range(1, 4);
         
             if(rand == 1)
-              state = AIstate.laserBeam;
+              state = AIstate.grabAttack;
             if(rand == 2)
               state = AIstate.followLaser;
-            currentTimeBetweenAbilities = 0;
+            if(rand == 3)
+            {
+              state = AIstate.laserBeam;
+            }
             }
             
-            else if(health <= halfHealth || isDomainActive == true)
+            else if(health <= halfHealth && isDomainActive == false)
             {
-               int rand = Random.Range(1, 4);
-        
+               int rand = Random.Range(1, 5);
+              //Debug.Log("i access this");
             if(rand == 1)
               state = AIstate.laserBeam;
             if(rand == 2)
               state = AIstate.followLaser;
             if(rand == 3)
               state = AIstate.ability;
+            if(rand == 4)
+              state = AIstate.grabAttack;
+              
+            } else if(health <= halfHealth && isDomainActive == true)
+            {
+               int rand = Random.Range(1, 4);
+             // Debug.Log("i access this");
+            if(rand == 1)
+              state = AIstate.laserBeam;
+            if(rand == 2)
+              state = AIstate.followLaser;
+            if(rand == 3)
+              state = AIstate.grabAttack;
               
             }
             
@@ -392,20 +445,38 @@ if (targetchange != null)
         }
     if(state == AIstate.ability)
       {
+        hintText.SetActive(true);
+        transform.rotation = Quaternion.identity;
         transform.position = new Vector3(0, 0, 0);
         if(AbilityTimer< currentAbilityTimer)
         {
         var tempScript = GameObject.Find("Domain").GetComponent<DomainEffect>();
+        
         tempScript.changeDomain();
         currentAbilityTimer = 0.0f;
+        /*
            Vector3 spawnPosition = new Vector3(
             Random.Range(-10f, 10f), // Adjust these values based on the desired X-axis range
             Random.Range(-5f, 5f),   // Adjust these values based on the desired Y-axis range
             0f                        // Assuming a 2D game, so Z-axis is 0
         );
-
+        */
         // Instantiate the object at the random position
-        Instantiate(disableObject, spawnPosition, Quaternion.identity);
+          // Calculate screen dimensions
+        float screenWidth = Screen.width;
+        float screenHeight = Screen.height;
+
+        // Calculate world coordinates for each corner
+        Vector3 topLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, screenHeight, 0));
+        Vector3 topRight = Camera.main.ScreenToWorldPoint(new Vector3(screenWidth, screenHeight, 0));
+        Vector3 bottomLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
+        Vector3 bottomRight = Camera.main.ScreenToWorldPoint(new Vector3(screenWidth, 0, 0));
+
+        // Instantiate objects at each corner
+        Instantiate(disableObject, topLeft, Quaternion.identity);
+        Instantiate(disableObject, topRight, Quaternion.identity);
+        Instantiate(disableObject, bottomLeft, Quaternion.identity);
+        Instantiate(disableObject, bottomRight, Quaternion.identity);
         state = AIstate.defaultAttackPlayer;
 
         }
@@ -475,6 +546,7 @@ if (targetchange != null)
       }
     public void defaultAttackPlayer()
     {
+        meleeAttackCooldown -= Time.deltaTime;
 
        if (!defaultAttacking && meleeAttackCooldown <= 0)
         {
@@ -483,15 +555,15 @@ if (targetchange != null)
             Vector3 targetOffset = target.GetComponent<Collider2D>().offset;
             Vector3 myOffset = GetComponent<Collider2D>().offset;
             float distance = Vector2.Distance(target.position + targetOffset, transform.position + myOffset);
-
+            //Debug.Log(distance);
             //If the target is in range, start a melee attack
             if (distance <= meleeAttackRadius)
             {
                 //The animation will call the Attack() method for the blob
+                anim.SetTrigger("defaultAttack");
                 //The animation will call the EndAttack() method to exit isAttacking
 
                 defaultAttacking = true;
-                defaultAttackPlayerAnim();
 
             }
         }//end melee check
@@ -510,26 +582,33 @@ if (targetchange != null)
                     var attributeScript = item.gameObject.GetComponent<AttributesManager>();
 
                     //Calculate the direction of force
-                   // Vector2 hitForce = (item.transform.position - transform.position).normalized * meleeAttackKnockback * 10.0f;
+                    float angle = 45.0f; // Set the desired angle
 
+                   // Rotate the direction vector by the specified angle
+                    Quaternion rotation = Quaternion.Euler(0, 0, angle);
+                    Vector2 hitForce = (item.transform.position - transform.position).normalized * meleeAttackKnockback * 10.0f;
+                    item.gameObject.GetComponent<PlayerInteraction>().addKnockBack(hitForce);
                     //Apply Knockback and damage to player
                     attributeScript.takeDamage(10);
-                    EndAttack();
+                    //EndAttack();
                  
                 }
             } //end of searching for Players
 
-            defaultAttacking = true;
+           
             meleeAttackCooldown = 2.0f;
     }
   
     public void EndAttack()
     {
         isAttacking = false;
+        defaultAttacking = false;
     }
 
    public void DoDashAttack()
 {//Code
+  body.isKinematic = true;
+        body.useFullKinematicContacts = true;
     doingDashAttack = true;
     // Calculate the Vector to the targetLocation.
     targetDirectionVector = targetLocation - (Vector2)transform.position;
@@ -551,35 +630,98 @@ if (targetchange != null)
   //Code for grab attack
   public void doGrabAttack()
   {
+   
     bool temp = grabAttackHitBox.GetComponent<grabHurtBox>().hasTouchedPlayer();
+    // Debug.Log(temp);
     if(grabHappenOnceForce)
       {
         grabHappenOnceForce = false;
         body.velocity = body.velocity * 4.0f;
       }
+         if(temp)
+    {
+      tempHasHappened = true;
+      //Debug.Log("This ran");
+    }
       if(grabInitalLast < 0)
       {
-        body.velocity = body.velocity/4.0f;
-        grabInitalLast = .5f;
-        if(!temp)
+       // body.velocity = body.velocity/4.0f;
+        grabInitalLast = 1.0f;
+        
+        if(!tempHasHappened)
         {
+          grabHappenOnceForce = true;
           state = AIstate.defaultAttackPlayer;
         }
+      
       }
       grabInitalLast -=Time.deltaTime;
 
     
-    if(temp)
-    {
-      grabActive();
-    }
+ 
     
   
   }
 
   public void grabActive()
   {
-    Debug.Log("Grab Happened");
+    //Debug.Log("Grab Active");
+    //Debug.Log("Grab Happened");
+    //Freeze Player and Enemy
+     body.velocity = body.velocity.normalized * 0.0f;
+    body.angularVelocity = 0.0f;
+
+    //Setactive the bar
+    MashingBar.SetActive(true);
+    mashText.SetActive(true);
+
+    //If bar is max then they get out of grab
+    float tempValue = MashingBar.GetComponent<MashingBar>().getSliderValue();
+    if(tempValue >= 100)
+    {   
+      var tempPoison = GetComponent<PoisonManager>();
+      tempPoison.ApplyPoison(GameObject.FindWithTag("Player"));
+      tempHasHappened = false;
+      MashingBar.GetComponent<MashingBar>().restartMash();
+      MashingBar.SetActive(false);
+      mashText.SetActive(false);
+      //grabAttackHitBox.SetActive(false);
+      grabIntervalDamageSec = 1.0f;
+      GameObject findPlayer = GameObject.FindWithTag("Player");
+      var playerScript = findPlayer.GetComponent<PlayerMovement>();
+      playerScript.changeGrabFalse();
+      grabHappenOnceForce = true;
+      state = AIstate.defaultAttackPlayer;
+   
+
+    }
+    else
+    {
+      GameObject findPlayer = GameObject.FindWithTag("Player");
+      var playerScript = findPlayer.GetComponent<PlayerMovement>();
+      playerScript.changeGrabTrue();
+      if(grabIntervalDamageSec <= 0)
+      {
+        GameObject PlayerTemp = GameObject.FindWithTag("Player");
+        var atMan = PlayerTemp.GetComponent<AttributesManager>();
+        atMan.takeDamage(grabDamagePerSec);
+        grabIntervalDamageSec = 1.0f;
+      }
+    }
+    //As they are trapped they lose 5 hp per second
+    grabIntervalDamageSec -=Time.deltaTime;
+    //At end of GrabActive()
+  }
+
+  public void endGrabAnim()
+  {
+    tempHasHappened = false;
+  }
+
+  public void makeStun()
+  {
+    state = AIstate.stun;
+    
   }
     void OnCollisionEnter2D(Collision2D collision)
 {
@@ -593,14 +735,23 @@ if (collision.gameObject.CompareTag("Player"))
     // Apply a force to the player
     Rigidbody2D playerRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
 
-    // You can choose either left or right direction for the push
-    playerRigidbody.AddForce(leftRotation * pushDirection, ForceMode2D.Impulse);
+
     // or
     // playerRigidbody.AddForce(rightRotation * pushDirection, ForceMode.Impulse);
  //   Debug.Log("works");
  if(doingDashAttack)
  {
   collision.gameObject.GetComponent<AttributesManager>().takeDamage(10);
+                   Vector2 hitDirection = (collision.transform.position - transform.position).normalized;
+                float angle = 45.0f; // Set the desired angle
+
+                // Rotate the direction vector by the specified angle
+                Quaternion rotation = Quaternion.Euler(0, 0, angle);
+                Vector2 rotatedDirection = rotation * hitDirection;
+
+                // Calculate the knockback force
+                Vector2 hitForce = rotatedDirection * meleeAttackKnockback * 30.0f;
+                collision.gameObject.GetComponent<PlayerInteraction>().addKnockBack(hitForce);
  }
 }
 
