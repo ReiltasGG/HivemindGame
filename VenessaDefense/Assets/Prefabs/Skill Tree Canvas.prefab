@@ -981,17 +981,6 @@ MonoBehaviour:
   background: {fileID: 3169407913393194213}
   getSkillTree: {fileID: 516695363513707688}
   hasBeenBought: 0
-  skill1HappenOnce: 1
-  skill2HappenOnce: 1
-  skill3HappenOnce: 1
-  skill4HappenOnce: 1
-  skill5HappenOnce: 1
-  skill6HappenOnce: 1
-  skill7HappenOnce: 1
-  skill8HappenOnce: 1
-  skill9HappenOnce: 1
-  skill10HappenOnce: 1
-  skill11HappenOnce: 1
   skill12HappenOnce: 1
   skill13HappenOnce: 1
   toolsTipHealth1: {fileID: 4378360771629841549}
@@ -2369,17 +2358,6 @@ MonoBehaviour:
   background: {fileID: 2404685226612976037}
   getSkillTree: {fileID: 516695363513707688}
   hasBeenBought: 0
-  skill1HappenOnce: 1
-  skill2HappenOnce: 1
-  skill3HappenOnce: 1
-  skill4HappenOnce: 1
-  skill5HappenOnce: 1
-  skill6HappenOnce: 1
-  skill7HappenOnce: 1
-  skill8HappenOnce: 1
-  skill9HappenOnce: 1
-  skill10HappenOnce: 1
-  skill11HappenOnce: 1
   skill12HappenOnce: 1
   skill13HappenOnce: 1
   toolsTipHealth1: {fileID: 4378360771629841549}
@@ -2577,17 +2555,6 @@ MonoBehaviour:
   background: {fileID: 4671205158536630336}
   getSkillTree: {fileID: 516695363513707688}
   hasBeenBought: 0
-  skill1HappenOnce: 1
-  skill2HappenOnce: 1
-  skill3HappenOnce: 1
-  skill4HappenOnce: 1
-  skill5HappenOnce: 1
-  skill6HappenOnce: 1
-  skill7HappenOnce: 1
-  skill8HappenOnce: 1
-  skill9HappenOnce: 1
-  skill10HappenOnce: 1
-  skill11HappenOnce: 1
   skill12HappenOnce: 1
   skill13HappenOnce: 1
   toolsTipHealth1: {fileID: 4378360771629841549}
@@ -3133,7 +3100,7 @@ MonoBehaviour:
   skillTreeFinder: {fileID: 516695363513707688}
   countClicks: 0
   skillTreeBackground: {fileID: 2104606546652037876}
-  SkillTreeText: {fileID: 8156721464520234204}
+  SkillTreeText: {fileID: 8643746305381323762}
   skillTreeIsOpen: 0
   openKey: 116
 --- !u!1 &2264493213541626514
@@ -4313,17 +4280,6 @@ MonoBehaviour:
   background: {fileID: 3365333140305692344}
   getSkillTree: {fileID: 516695363513707688}
   hasBeenBought: 0
-  skill1HappenOnce: 1
-  skill2HappenOnce: 1
-  skill3HappenOnce: 1
-  skill4HappenOnce: 1
-  skill5HappenOnce: 1
-  skill6HappenOnce: 1
-  skill7HappenOnce: 1
-  skill8HappenOnce: 1
-  skill9HappenOnce: 1
-  skill10HappenOnce: 1
-  skill11HappenOnce: 1
   skill12HappenOnce: 1
   skill13HappenOnce: 1
   toolsTipHealth1: {fileID: 4378360771629841549}
@@ -4841,17 +4797,6 @@ MonoBehaviour:
   background: {fileID: 3975598902229951381}
   getSkillTree: {fileID: 516695363513707688}
   hasBeenBought: 0
-  skill1HappenOnce: 1
-  skill2HappenOnce: 1
-  skill3HappenOnce: 1
-  skill4HappenOnce: 1
-  skill5HappenOnce: 1
-  skill6HappenOnce: 1
-  skill7HappenOnce: 1
-  skill8HappenOnce: 1
-  skill9HappenOnce: 1
-  skill10HappenOnce: 1
-  skill11HappenOnce: 1
   skill12HappenOnce: 1
   skill13HappenOnce: 1
   toolsTipHealth1: {fileID: 4378360771629841549}
@@ -5501,17 +5446,6 @@ MonoBehaviour:
   background: {fileID: 3705464022888965852}
   getSkillTree: {fileID: 516695363513707688}
   hasBeenBought: 0
-  skill1HappenOnce: 1
-  skill2HappenOnce: 1
-  skill3HappenOnce: 1
-  skill4HappenOnce: 1
-  skill5HappenOnce: 1
-  skill6HappenOnce: 1
-  skill7HappenOnce: 1
-  skill8HappenOnce: 1
-  skill9HappenOnce: 1
-  skill10HappenOnce: 1
-  skill11HappenOnce: 1
   skill12HappenOnce: 1
   skill13HappenOnce: 1
   toolsTipHealth1: {fileID: 4378360771629841549}
@@ -6205,17 +6139,6 @@ MonoBehaviour:
   background: {fileID: 8554788252875012473}
   getSkillTree: {fileID: 516695363513707688}
   hasBeenBought: 0
-  skill1HappenOnce: 1
-  skill2HappenOnce: 1
-  skill3HappenOnce: 1
-  skill4HappenOnce: 1
-  skill5HappenOnce: 1
-  skill6HappenOnce: 1
-  skill7HappenOnce: 1
-  skill8HappenOnce: 1
-  skill9HappenOnce: 1
-  skill10HappenOnce: 1
-  skill11HappenOnce: 1
   skill12HappenOnce: 1
   skill13HappenOnce: 1
   toolsTipHealth1: {fileID: 4378360771629841549}
@@ -6744,17 +6667,6 @@ MonoBehaviour:
   background: {fileID: 8592877630385178414}
   getSkillTree: {fileID: 516695363513707688}
   hasBeenBought: 0
-  skill1HappenOnce: 1
-  skill2HappenOnce: 1
-  skill3HappenOnce: 1
-  skill4HappenOnce: 1
-  skill5HappenOnce: 1
-  skill6HappenOnce: 1
-  skill7HappenOnce: 1
-  skill8HappenOnce: 1
-  skill9HappenOnce: 1
-  skill10HappenOnce: 1
-  skill11HappenOnce: 1
   skill12HappenOnce: 1
   skill13HappenOnce: 1
   toolsTipHealth1: {fileID: 4378360771629841549}
@@ -7027,17 +6939,6 @@ MonoBehaviour:
   background: {fileID: 5623154424472146208}
   getSkillTree: {fileID: 516695363513707688}
   hasBeenBought: 0
-  skill1HappenOnce: 1
-  skill2HappenOnce: 1
-  skill3HappenOnce: 1
-  skill4HappenOnce: 1
-  skill5HappenOnce: 1
-  skill6HappenOnce: 1
-  skill7HappenOnce: 1
-  skill8HappenOnce: 1
-  skill9HappenOnce: 1
-  skill10HappenOnce: 1
-  skill11HappenOnce: 1
   skill12HappenOnce: 1
   skill13HappenOnce: 1
   toolsTipHealth1: {fileID: 4378360771629841549}
@@ -7309,17 +7210,6 @@ MonoBehaviour:
   background: {fileID: 6188641660902736781}
   getSkillTree: {fileID: 516695363513707688}
   hasBeenBought: 0
-  skill1HappenOnce: 1
-  skill2HappenOnce: 1
-  skill3HappenOnce: 1
-  skill4HappenOnce: 1
-  skill5HappenOnce: 1
-  skill6HappenOnce: 1
-  skill7HappenOnce: 1
-  skill8HappenOnce: 1
-  skill9HappenOnce: 1
-  skill10HappenOnce: 1
-  skill11HappenOnce: 1
   skill12HappenOnce: 1
   skill13HappenOnce: 1
   toolsTipHealth1: {fileID: 4378360771629841549}
@@ -8671,17 +8561,6 @@ MonoBehaviour:
   background: {fileID: 2798819715487844496}
   getSkillTree: {fileID: 516695363513707688}
   hasBeenBought: 0
-  skill1HappenOnce: 1
-  skill2HappenOnce: 1
-  skill3HappenOnce: 1
-  skill4HappenOnce: 1
-  skill5HappenOnce: 1
-  skill6HappenOnce: 1
-  skill7HappenOnce: 1
-  skill8HappenOnce: 1
-  skill9HappenOnce: 1
-  skill10HappenOnce: 1
-  skill11HappenOnce: 1
   skill12HappenOnce: 1
   skill13HappenOnce: 1
   toolsTipHealth1: {fileID: 4378360771629841549}
@@ -10397,17 +10276,6 @@ MonoBehaviour:
   background: {fileID: 6625848343845347753}
   getSkillTree: {fileID: 516695363513707688}
   hasBeenBought: 0
-  skill1HappenOnce: 1
-  skill2HappenOnce: 1
-  skill3HappenOnce: 1
-  skill4HappenOnce: 1
-  skill5HappenOnce: 1
-  skill6HappenOnce: 1
-  skill7HappenOnce: 1
-  skill8HappenOnce: 1
-  skill9HappenOnce: 1
-  skill10HappenOnce: 1
-  skill11HappenOnce: 1
   skill12HappenOnce: 1
   skill13HappenOnce: 1
   toolsTipHealth1: {fileID: 4378360771629841549}
@@ -13276,17 +13144,6 @@ MonoBehaviour:
   background: {fileID: 8666032892014507367}
   getSkillTree: {fileID: 516695363513707688}
   hasBeenBought: 0
-  skill1HappenOnce: 1
-  skill2HappenOnce: 1
-  skill3HappenOnce: 1
-  skill4HappenOnce: 1
-  skill5HappenOnce: 1
-  skill6HappenOnce: 1
-  skill7HappenOnce: 1
-  skill8HappenOnce: 1
-  skill9HappenOnce: 1
-  skill10HappenOnce: 1
-  skill11HappenOnce: 1
   skill12HappenOnce: 1
   skill13HappenOnce: 1
   toolsTipHealth1: {fileID: 4378360771629841549}

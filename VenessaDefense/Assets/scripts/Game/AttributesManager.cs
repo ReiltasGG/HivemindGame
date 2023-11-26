@@ -125,7 +125,6 @@ public class AttributesManager : MonoBehaviour
     public void HandlePlayerDeath(GameObject enemy)
     {
         SavePlayerStats();
-
         PlayerShoot playerBullet = gameObject.GetComponent<PlayerShoot>();
         float bulletSpeed = playerBullet.fireRateReturn();
         float previousbulletSpeed = PlayerPrefs.GetFloat("PreviousScenePlayerBulletSpeed", bulletSpeed);
