@@ -2171,6 +2171,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Domain
       objectReference: {fileID: 0}
+    - target: {fileID: 6795045663995823587, guid: 79eb814278525024789b5c1ae46d9b65, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8165460415159824898, guid: 79eb814278525024789b5c1ae46d9b65, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -507.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8165460415159824898, guid: 79eb814278525024789b5c1ae46d9b65, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -33
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
