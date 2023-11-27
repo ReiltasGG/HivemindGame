@@ -29,7 +29,8 @@ public class AbilityHolder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+       key = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DashKey", "Q"));
+       key2 = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DecoyKey", "C"));
        if(skill1 == true && skill1_ == 1)
         {
         switch(state)

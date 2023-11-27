@@ -12,7 +12,7 @@ public class ManageScenes : MonoBehaviour
 
     private const string GameOverSceneName = "GameOver";
     private const string DayClearedSceneName = "DayCleared";
-    private const string MainMenuSceneName = "MainMenu";
+    private const string MainMenuSceneName = "MainMenuWithLevelSelect";
     private static string NextDaySceneName;
     private static string CurrentDaySceneName;
     private bool isSceneLoaded = false;

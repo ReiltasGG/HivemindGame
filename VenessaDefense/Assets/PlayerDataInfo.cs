@@ -7,6 +7,6 @@ public class PlayerDataInfo : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
-        PlayerPrefs.DeleteAll();
+       // PlayerPrefs.DeleteAll();
     }
 }

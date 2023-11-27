@@ -18,6 +18,7 @@ public class UI_SkillTreeOpener : MonoBehaviour
 
     public void Update()
     {
+        openKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("SkillTreeOpen", "T"));
         if(Input.GetKeyDown(openKey))
         {
             ToggleTree();

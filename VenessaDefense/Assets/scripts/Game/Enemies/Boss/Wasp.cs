@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Wasp : MonoBehaviour
 {
+  public int defaultAttackDamage = 5;
   //public bool tempStunOnce = true;
 
     //Knockback
@@ -139,7 +141,7 @@ public class Wasp : MonoBehaviour
     public virtual void Update()
     {
       //  Debug.Log(dashAttackTimer);
-    
+
         UpdateAI();
         waterCreation();
         updateHealth();
@@ -148,6 +150,12 @@ public class Wasp : MonoBehaviour
     public void updateHealth()
     {
       health = GetComponent<AttributesManager>().getHealth();
+      if(health <= 0)
+      {
+         PlayerPrefs.SetInt("CurrentDay", PlayerPrefs.GetInt("CurrentDay" + 1)+1);
+            UnityEngine.SceneManagement.SceneManager.LoadScene("DayCleared");
+
+      }
     
     }
 
@@ -589,7 +597,7 @@ if (targetchange != null)
                     Vector2 hitForce = (item.transform.position - transform.position).normalized * meleeAttackKnockback * 10.0f;
                     item.gameObject.GetComponent<PlayerInteraction>().addKnockBack(hitForce);
                     //Apply Knockback and damage to player
-                    attributeScript.takeDamage(10);
+                    attributeScript.takeDamage(defaultAttackDamage);
                     //EndAttack();
                  
                 }
@@ -630,6 +638,7 @@ if (targetchange != null)
   //Code for grab attack
   public void doGrabAttack()
   {
+    anim.SetTrigger("Grab");
    
     bool temp = grabAttackHitBox.GetComponent<grabHurtBox>().hasTouchedPlayer();
     // Debug.Log(temp);
@@ -679,6 +688,7 @@ if (targetchange != null)
     float tempValue = MashingBar.GetComponent<MashingBar>().getSliderValue();
     if(tempValue >= 100)
     {   
+      state = AIstate.defaultAttackPlayer;
       var tempPoison = GetComponent<PoisonManager>();
       tempPoison.ApplyPoison(GameObject.FindWithTag("Player"));
       tempHasHappened = false;
@@ -691,7 +701,7 @@ if (targetchange != null)
       var playerScript = findPlayer.GetComponent<PlayerMovement>();
       playerScript.changeGrabFalse();
       grabHappenOnceForce = true;
-      state = AIstate.defaultAttackPlayer;
+      
    
 
     }

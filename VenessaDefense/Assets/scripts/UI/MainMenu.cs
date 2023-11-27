@@ -3,7 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    
+    public GameObject buttonConfig;
+    public GameObject mainMenuButton;
+    void Start()
+    {
+        buttonConfig.SetActive(false);
+    }
     public void PlayGame()
     {
         PlayerPrefs.DeleteKey("SkillPoints");
@@ -38,5 +43,15 @@ public class MainMenu : MonoBehaviour
 
         Application.Quit();
     }
-    
+    public void ButtonConfiguration()
+    {
+        buttonConfig.SetActive(true);
+        mainMenuButton.SetActive(false);
+    }
+    public void closeButtonConfig()
+    {
+         buttonConfig.SetActive(false);
+        mainMenuButton.SetActive(true);
+    }
+
 }
