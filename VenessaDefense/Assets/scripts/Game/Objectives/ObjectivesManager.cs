@@ -216,12 +216,7 @@ public class ObjectivesManager : MonoBehaviour
     }
     void unlockNewLevel()
     {
-        if (SceneManager.GetActiveScene().buildIndex >= PlayerPrefs.GetInt("ReachedIndex"))
-        {
-            PlayerPrefs.SetInt("ReachedIndex", SceneManager.GetActiveScene().buildIndex + 2);
-            PlayerPrefs.SetInt("Unlocked Level", PlayerPrefs.GetInt("Unlocked Level", 1) + 1);
-            PlayerPrefs.Save();
-        }
+     GameObject.FindWithTag("KeyData").GetComponent<KeyBindData>().LevelSelect();
 
     }
     private void CreateTowersPlacedHandler()
@@ -363,13 +358,7 @@ public class ObjectivesManager : MonoBehaviour
 
         return (float)Math.Round(timeLeft, 0);
     }
-    void Awake()
-    {
-
-
-        DontDestroyOnLoad(gameObject);
-
-    }
+   
     public int GetCurrentDay() {return currentDay;}
 
 }

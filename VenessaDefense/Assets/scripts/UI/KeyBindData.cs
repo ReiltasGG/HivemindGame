@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class KeyBindData : MonoBehaviour
 {
@@ -39,6 +40,15 @@ public class KeyBindData : MonoBehaviour
     }
 
     PlayerPrefs.Save(); // Ensure to save changes immediately
+    }
+    public void LevelSelect()
+    {
+           if (SceneManager.GetActiveScene().buildIndex >= PlayerPrefs.GetInt("ReachedIndex"))
+        {
+            PlayerPrefs.SetInt("ReachedIndex", SceneManager.GetActiveScene().buildIndex + 2);
+            PlayerPrefs.SetInt("Unlocked Level", PlayerPrefs.GetInt("Unlocked Level", 1) + 1);
+            PlayerPrefs.Save();
+        }
     }
 
 }

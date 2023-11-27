@@ -16,6 +16,7 @@ TagManager:
   - Stinger
   - Interactable
   - SkillTreeOpener
+  - KeyData
   layers:
   - Default
   - TransparentFX
