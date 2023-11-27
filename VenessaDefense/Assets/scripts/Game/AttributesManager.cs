@@ -137,6 +137,7 @@ public class AttributesManager : MonoBehaviour
 
     public void HandleEnemyDeath(GameObject enemy)
     {
+        
         IncrementDeadEnamies();
         Currency.main.addCurrency(currencyWorth);
         PlayEnemyDieSound();
@@ -189,6 +190,7 @@ public class AttributesManager : MonoBehaviour
 
     public void Despawn()
     {
+        if(gameObject.name != "Wasp")
         Destroy(this.gameObject);
     }
 

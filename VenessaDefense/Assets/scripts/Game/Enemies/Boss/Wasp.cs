@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Wasp : MonoBehaviour
 {
@@ -140,7 +141,7 @@ public class Wasp : MonoBehaviour
     public virtual void Update()
     {
       //  Debug.Log(dashAttackTimer);
-    
+
         UpdateAI();
         waterCreation();
         updateHealth();
@@ -149,6 +150,12 @@ public class Wasp : MonoBehaviour
     public void updateHealth()
     {
       health = GetComponent<AttributesManager>().getHealth();
+      if(health <= 0)
+      {
+         PlayerPrefs.SetInt("CurrentDay", PlayerPrefs.GetInt("CurrentDay" + 1)+1);
+            UnityEngine.SceneManagement.SceneManager.LoadScene("DayCleared");
+
+      }
     
     }
 
