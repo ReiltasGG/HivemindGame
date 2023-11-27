@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class ObjectivesManager : MonoBehaviour
 {
@@ -142,7 +143,10 @@ public class ObjectivesManager : MonoBehaviour
         }
 
         if (allObjectivesCompleted)
+        {
+            unlockNewLevel();
             CallDayClearedScene();
+        }
         else
             UpdateCanvasText();
     }
@@ -210,7 +214,16 @@ public class ObjectivesManager : MonoBehaviour
         CreateEnemiesDeadHandler();
         CreateTowersPlacedHandler();
     }
-    
+    void unlockNewLevel()
+    {
+        if (SceneManager.GetActiveScene().buildIndex >= PlayerPrefs.GetInt("ReachedIndex"))
+        {
+            PlayerPrefs.SetInt("ReachedIndex", SceneManager.GetActiveScene().buildIndex + 2);
+            PlayerPrefs.SetInt("Unlocked Level", PlayerPrefs.GetInt("Unlocked Level", 1) + 1);
+            PlayerPrefs.Save();
+        }
+
+    }
     private void CreateTowersPlacedHandler()
     {
         towerManageCode.towersPlacedUpdated += HandleTowersPlacedUpdated;
@@ -349,6 +362,13 @@ public class ObjectivesManager : MonoBehaviour
         float timeLeft = timer.GetTimePassed() >= goal ? goal : goal - timer.GetTimePassed();
 
         return (float)Math.Round(timeLeft, 0);
+    }
+    void Awake()
+    {
+
+
+        DontDestroyOnLoad(gameObject);
+
     }
     public int GetCurrentDay() {return currentDay;}
 
