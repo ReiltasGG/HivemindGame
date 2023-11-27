@@ -51,6 +51,6 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
-        SceneManager.LoadScene("MainMenuWithLevelSelect");
+        SceneManager.LoadScene("MainMenu");
     }
 }
