@@ -341,7 +341,7 @@ public class UI_Skill :MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void Buy()
     {
-        if (GetSkillPoints() < cost) return;
+        if (GetSkillPoints() < cost || hasBeenBought == true) return;
 
         SpendSkillPoints(cost);
         UpdateSkillPointText();
