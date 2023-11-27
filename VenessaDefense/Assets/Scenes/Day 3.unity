@@ -1380,6 +1380,55 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1524271754 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6732237723551190641, guid: 823b21927289ff94f9d0ccd140ff2235, type: 3}
+  m_PrefabInstance: {fileID: 1555324689}
+  m_PrefabAsset: {fileID: 0}
+--- !u!68 &1524271755
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524271754}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 961.59625, y: 538.03174}
+  - {x: 965.2466, y: -540.6821}
+  - {x: -958.49225, y: -541.0073}
+  - {x: -953.372, y: 540.6448}
+  - {x: 957.2952, y: 540.6822}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1001 &1555324689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1484,10 +1533,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: d24a8d8af73e45d40b54fa64c1279ad4, type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 542011143105946423, guid: 823b21927289ff94f9d0ccd140ff2235, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6732237723551190641, guid: 823b21927289ff94f9d0ccd140ff2235, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1524271755}
   m_SourcePrefab: {fileID: 100100000, guid: 823b21927289ff94f9d0ccd140ff2235, type: 3}
 --- !u!1 &1569387243 stripped
 GameObject:
