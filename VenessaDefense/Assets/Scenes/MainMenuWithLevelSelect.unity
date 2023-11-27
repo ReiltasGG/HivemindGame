@@ -2923,7 +2923,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: b925bab82ede7d94ea34e39ddcb56383, type: 3}
+  m_Texture: {fileID: 2800000, guid: ace9e577a0d675e40a9a623644f9ecc5, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -2939,9 +2939,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1021855427}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bdef6d28a100474da878bb458bcf087, type: 3}
+  m_Script: {fileID: 11500000, guid: d068de6bfad0d5242a3d068f651349a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _img: {fileID: 1021855431}
+  _x: 0.05
+  _y: 0.05
 --- !u!1 &1132703076
 GameObject:
   m_ObjectHideFlags: 0
