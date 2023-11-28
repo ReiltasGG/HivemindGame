@@ -19,16 +19,16 @@ public class LaserBeam : MonoBehaviour
     {
         Vector3 endPosition = laserOrigin.position + laserOrigin.up * laserMaxLength;
         lineRenderer.SetPosition(0, laserOrigin.position);
-
+       
         RaycastHit2D hit = Physics2D.Raycast(laserOrigin.position, laserOrigin.up, laserMaxLength);
 
-        if (hit.collider != null)
+        if (hit.collider.CompareTag("Player"))
         {
             endPosition = hit.point;
             HandleCollision(hit.collider.gameObject);
         }
-
         lineRenderer.SetPosition(1, endPosition);
+        
     }
 
     void HandleCollision(GameObject hitObject)
