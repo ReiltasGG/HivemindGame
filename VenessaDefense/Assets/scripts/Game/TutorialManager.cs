@@ -160,7 +160,7 @@ public class TutorialManager : MonoBehaviour
             {
                 Time.timeScale = 0f;
             }
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && skillTreeOpener.skillTreeIsOpen == false)
             {
                 popUps[popUpIndex].SetActive(false);
                 popUpIndex++;
@@ -180,7 +180,7 @@ public class TutorialManager : MonoBehaviour
             {
                 Time.timeScale = 0f;
             }
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && skillTreeOpener.skillTreeIsOpen == false)
             {
                 popUps[popUpIndex].SetActive(false);
                 popUpIndex++;
@@ -226,7 +226,7 @@ public class TutorialManager : MonoBehaviour
             {
                 Time.timeScale = 0f;
             }
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && skillTreeOpener.skillTreeIsOpen == false)
             {
                 popUps[popUpIndex].SetActive(false);
                 popUpIndex++;
@@ -248,7 +248,7 @@ public class TutorialManager : MonoBehaviour
             {
                 Time.timeScale = 0f;
             }
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && skillTreeOpener.skillTreeIsOpen == false)
             {
                 popUps[popUpIndex].SetActive(false);
                 popUpIndex++;
@@ -268,7 +268,7 @@ public class TutorialManager : MonoBehaviour
             {
                 Time.timeScale = 0f;
             }
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && skillTreeOpener.skillTreeIsOpen == false)
             {
                 popUps[popUpIndex].SetActive(false);
                 popUpIndex++;
