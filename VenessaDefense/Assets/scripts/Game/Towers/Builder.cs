@@ -34,6 +34,10 @@ public class Builder : MonoBehaviour
     {
         return towers[SelectedTower];
     }
+    public int GetSelectedTowerNumber()
+    {
+        return SelectedTower;
+    }
     public void SetSelectedTower(int _selectedTower)
     {
         while (_selectedTower < 0)

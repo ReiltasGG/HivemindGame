@@ -18,6 +18,7 @@ public class plots : MonoBehaviour
     private Color hoverColor = Color.red;
 
     private GameObject hoveredTower = null;
+    private int hoveredTowerNumber = 0;
 
 
     private void Start()
@@ -25,6 +26,8 @@ public class plots : MonoBehaviour
         startColor = sr.color;
         playerHUD = GameObject.Find("PlayerHUD with shop");
         notEnoughCoins = playerHUD.transform.Find("Shop").Find("NotEnoughCoinsText");
+
+        hoveredTowerNumber = Builder.main.GetSelectedTowerNumber();
     }
 
     private void OnMouseEnter()
@@ -44,6 +47,9 @@ public class plots : MonoBehaviour
 
     private void OnMouseOver()
     {
+        if (hoveredTowerNumber != Builder.main.GetSelectedTowerNumber())
+            UpdateHoveredTower();
+
         if (!Input.GetMouseButtonDown(1)) return;
         
         if (tower != null) return;
@@ -66,6 +72,13 @@ public class plots : MonoBehaviour
         towerManager.AddTower();
     }
 
+    private void UpdateHoveredTower()
+    {
+        DeleteHoveredTower();
+        CreateHoveredTower();
+        hoveredTowerNumber = Builder.main.GetSelectedTowerNumber();
+    }
+
     private Tower GetTowerToBuild()
     {
         return Builder.main.GetSelectedTower();
@@ -83,14 +96,13 @@ public class plots : MonoBehaviour
 
         float startTime = Time.time;
         float startAlpha = text.color.a;
-        float endAlpha = 0; // Fade out to fully transparent
+        float endAlpha = 0; 
 
         while (Time.time < startTime + duration){
             float t = (Time.time - startTime) / duration;
             text.color = new Color(text.color.r, text.color.g, text.color.b, Mathf.Lerp(startAlpha, endAlpha, t));
             yield return null;
         }
-   // Ensure the text is fully transparent
         text.color = new Color(text.color.r, text.color.g, text.color.b, endAlpha);
         text.text = "";
         text.color = new Color(text.color.r, text.color.g, text.color.b, startAlpha);
@@ -111,7 +123,6 @@ public class plots : MonoBehaviour
             sprite.color = highlightColor;
         }
     }
-
     private void DeleteHoveredTower()
     {
         if (hoveredTower != null)
@@ -119,6 +130,7 @@ public class plots : MonoBehaviour
             Destroy(hoveredTower);
         }
     }
+
     private void RemoveAllComponentsExceptSpriteAndTransform(GameObject obj)
     {
         Component[] components = obj.GetComponents<Component>();
