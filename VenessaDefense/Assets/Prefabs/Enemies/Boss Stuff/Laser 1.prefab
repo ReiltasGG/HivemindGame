@@ -152,5 +152,5 @@ MonoBehaviour:
   laserOrigin: {fileID: 1714250760901309199}
   laserMaxLength: 100000
   timeBetweenDamage: 0.4
-  currentTime: 0
+  currentTime: 0.3
   damage: 5

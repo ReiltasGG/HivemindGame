@@ -258,7 +258,9 @@ public class Wasp : MonoBehaviour
 
                     // Instantiate the warning rectangle at the calculated position
                      currentWarningRectangle = Instantiate(warningEffect, warningPosition, Quaternion.identity);
-
+                      var temp = GameObject.FindWithTag("MainCamera");
+      var shakeScript = temp.GetComponent<ShakeEffect>();
+      shakeScript.changeStartShakeFalse();
                       // Rotate the warning rectangle to face the player
 
                      Vector2 directionToPlayer = (Vector2)target.position - warningPosition;
@@ -356,7 +358,7 @@ public class Wasp : MonoBehaviour
           moveDefaultAttack();
           defaultAttackPlayer();
         
-          if(health <= rageHealth)
+          if(health <= 100)
           state = AIstate.resetPos;
           if(health < halfHealth && isDomainActive == false && isDomainHappenOnce)
           {
@@ -622,6 +624,9 @@ if (targetchange != null)
 
    public void DoDashAttack()
 {//Code
+  var temp = GameObject.FindWithTag("MainCamera");
+      var shakeScript = temp.GetComponent<ShakeEffect>();
+      shakeScript.changeStartShakeTrue();
   body.isKinematic = true;
         body.useFullKinematicContacts = true;
     doingDashAttack = true;
@@ -695,6 +700,7 @@ if (targetchange != null)
     float tempValue = MashingBar.GetComponent<MashingBar>().getSliderValue();
     if(tempValue >= 100)
     {   
+      
       state = AIstate.defaultAttackPlayer;
       var tempPoison = GetComponent<PoisonManager>();
       tempPoison.ApplyPoison(GameObject.FindWithTag("Player"));
@@ -714,6 +720,7 @@ if (targetchange != null)
     }
     else
     {
+    
       GameObject findPlayer = GameObject.FindWithTag("Player");
       var playerScript = findPlayer.GetComponent<PlayerMovement>();
       playerScript.changeGrabTrue();
@@ -758,6 +765,7 @@ if (collision.gameObject.CompareTag("Player"))
  //   Debug.Log("works");
  if(doingDashAttack)
  {
+  
   collision.gameObject.GetComponent<AttributesManager>().takeDamage(10);
                    Vector2 hitDirection = (collision.transform.position - transform.position).normalized;
                 float angle = 45.0f; // Set the desired angle
