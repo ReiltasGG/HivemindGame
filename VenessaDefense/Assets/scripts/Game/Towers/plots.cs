@@ -16,7 +16,9 @@ public class plots : MonoBehaviour
     private Color startColor;
 
     private Color hoverColor = Color.red;
-    
+
+    private GameObject hoveredTower = null;
+
 
     private void Start()
     {
@@ -28,10 +30,30 @@ public class plots : MonoBehaviour
     private void OnMouseEnter()
     {
         sr.color = hoverColor;
+
+        Tower highlighedTower = GetTowerToBuild();
+        hoveredTower = Instantiate(highlighedTower.prefab, transform.position + new Vector3(0, 0, -5), Quaternion.identity);
+        RemoveAllComponentsExceptSprite(hoveredTower);
+
+        SpriteRenderer sprite = hoveredTower.GetComponent<SpriteRenderer>();
+        if (sprite != null)
+        {
+            Color originalColor = sprite.color;
+            Color highlightColor = new Color(originalColor.r, originalColor.g, originalColor.b, 0.75f);
+
+            sprite.color = highlightColor;
+        }
+
     }
+
     private void OnMouseExit()
     {
         sr.color = startColor;
+
+        if (hoveredTower != null)
+        {
+            Destroy(hoveredTower);
+        }
     }
 
     private void OnMouseOver()
@@ -41,7 +63,7 @@ public class plots : MonoBehaviour
         if (tower != null) return;
         
 
-        Tower towerToBuild = Builder.main.GetSelectedTower();
+        Tower towerToBuild = GetTowerToBuild();
         if(towerToBuild == null) return;
 
         if(towerToBuild.cost > Currency.main.currency ) {
@@ -56,6 +78,11 @@ public class plots : MonoBehaviour
         GameObject gameManager = GameObject.FindWithTag("GamesManager");
         TowerManager towerManager = gameManager.GetComponent<TowerManager>();
         towerManager.AddTower();
+    }
+
+    private Tower GetTowerToBuild()
+    {
+        return Builder.main.GetSelectedTower();
     }
 
     private void DisplayNotEnoughCoins()
@@ -83,4 +110,16 @@ public class plots : MonoBehaviour
         text.color = new Color(text.color.r, text.color.g, text.color.b, startAlpha);
     }
 
+    private void RemoveAllComponentsExceptSprite(GameObject obj)
+    {
+        Component[] components = obj.GetComponents<Component>();
+
+        foreach (Component component in components)
+        {
+            if (!(component is SpriteRenderer))
+            {
+                Destroy(component);
+            }
+        }
+    }
 }
