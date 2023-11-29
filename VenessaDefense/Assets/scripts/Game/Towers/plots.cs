@@ -34,19 +34,18 @@ public class plots : MonoBehaviour
         sr.color = startColor;
     }
 
-    private void OnMouseDown()
+    private void OnMouseOver()
     {
+        if (!Input.GetMouseButtonDown(1)) return;
+        
         if (tower != null) return;
         
 
         Tower towerToBuild = Builder.main.GetSelectedTower();
-
-        if(towerToBuild == null){return;}
+        if(towerToBuild == null) return;
 
         if(towerToBuild.cost > Currency.main.currency ) {
-            TextMeshProUGUI insufficientCoins = notEnoughCoins.GetComponent<TextMeshProUGUI>();
-            insufficientCoins.text = "Not Enough Coins!";
-            StartCoroutine(FadeText(insufficientCoins, 1.0f));
+            DisplayNotEnoughCoins();
             return; 
         }
 
@@ -57,7 +56,13 @@ public class plots : MonoBehaviour
         GameObject gameManager = GameObject.FindWithTag("GamesManager");
         TowerManager towerManager = gameManager.GetComponent<TowerManager>();
         towerManager.AddTower();
-        Builder.main.SetSelectedTower(-1);
+    }
+
+    private void DisplayNotEnoughCoins()
+    {
+        TextMeshProUGUI insufficientCoins = notEnoughCoins.GetComponent<TextMeshProUGUI>();
+        insufficientCoins.text = "Not Enough Coins!";
+        StartCoroutine(FadeText(insufficientCoins, 1.0f));
     }
 
     private IEnumerator FadeText(TextMeshProUGUI text, float duration){

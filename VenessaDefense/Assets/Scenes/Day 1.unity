@@ -131,6 +131,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 12614198715535989, guid: d22d7a62931149b43b660f47ad036042, type: 3}
+      propertyPath: m_IsActive
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1401325210007401888, guid: 1c322e56cb3ade5429e6c578744ca75b, type: 3}
       propertyPath: m_Name
       value: Plots (4)
@@ -174,10 +178,6 @@ PrefabInstance:
     - target: {fileID: 1401325210007401889, guid: 1c322e56cb3ade5429e6c578744ca75b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 12614198715535989, guid: d22d7a62931149b43b660f47ad036042, type: 3}
-      propertyPath: m_IsActive
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -689,6 +689,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7597682761308497393, guid: d22d7a62931149b43b660f47ad036042, type: 3}
+    - {fileID: 12614198715535989, guid: d22d7a62931149b43b660f47ad036042, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d22d7a62931149b43b660f47ad036042, type: 3}
@@ -1667,6 +1668,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2465936462903521182, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
+      propertyPath: m_Name
+      value: Game Manager
+      objectReference: {fileID: 0}
     - target: {fileID: 1120441512401083735, guid: fcd0eea75b9570a40bb17e420eede933, type: 3}
       propertyPath: m_Name
       value: Stone (3)
@@ -1710,10 +1715,6 @@ PrefabInstance:
     - target: {fileID: 3564446499394958641, guid: fcd0eea75b9570a40bb17e420eede933, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2465936462903521182, guid: 1ff9692be082a8347ba55b77ca08210e, type: 3}
-      propertyPath: m_Name
-      value: Game Manager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
