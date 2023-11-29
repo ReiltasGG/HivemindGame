@@ -40,8 +40,9 @@ public class Builder : MonoBehaviour
     }
     public void SetSelectedTower(int _selectedTower)
     {
+        Debug.Log($"{towers.Length}, selected: {_selectedTower}");
         while (_selectedTower < 0)
-            _selectedTower = towers.Length - _selectedTower;
+            _selectedTower = towers.Length + _selectedTower;
 
         while (_selectedTower >= towers.Length)
             _selectedTower -= towers.Length;
