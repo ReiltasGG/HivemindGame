@@ -553,7 +553,8 @@ MonoBehaviour:
   attackDamage: 0
   healthBar: {fileID: 7692247264468673730}
   iscurseActive: 0
-  currencyWorth: 0
+  currencyWorth: 7
+  playerHitOnce: 0
 --- !u!95 &7711629299777487840
 Animator:
   serializedVersion: 5

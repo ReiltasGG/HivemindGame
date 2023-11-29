@@ -345,7 +345,9 @@ MonoBehaviour:
   maxHealth: 50
   attackDamage: 10
   healthBar: {fileID: 1498968102506164288}
-  currencyWorth: 0
+  iscurseActive: 0
+  currencyWorth: 10
+  playerHitOnce: 0
 --- !u!114 &3209657154124223943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,7 +367,6 @@ MonoBehaviour:
   patrolSpeedModifier: 0.5
   waypointList: []
   healthMax: 30
-  deathEffect: {fileID: 0}
   preferRanged: 1
   meleeAttackRadius: 0.9
   meleeAttackDamage: 10
@@ -377,6 +378,7 @@ MonoBehaviour:
   defaultState: 0
   aggroRadius: 5
   towerAttackRadius: 2
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
   defaultFacing: {x: 0, y: -1}
 --- !u!95 &5703954338358989576
 Animator:
