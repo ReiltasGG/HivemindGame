@@ -32,10 +32,16 @@ public class Builder : MonoBehaviour
     }
     public Tower GetSelectedTower()
     {
-        return towers[SelectedTower % towers.Length];
+        return towers[SelectedTower];
     }
     public void SetSelectedTower(int _selectedTower)
     {
+        while (_selectedTower < 0)
+            _selectedTower = towers.Length - _selectedTower;
+
+        while (_selectedTower >= towers.Length)
+            _selectedTower -= towers.Length;
+     
         SelectedTower = _selectedTower;
     }
 
