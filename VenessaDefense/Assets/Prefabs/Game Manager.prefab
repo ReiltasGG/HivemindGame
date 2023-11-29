@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 6266040779267382658}
   - component: {fileID: 5387216479069621640}
   - component: {fileID: 7420650952861146886}
+  - component: {fileID: 3326065770043028665}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: GamesManager
@@ -334,3 +335,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SoundEffectManager: {fileID: 2354926615363303997}
+--- !u!114 &3326065770043028665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2465936462903521182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bac6dcfee001b342bd26e6159494af9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextPrefab: {fileID: 5038810254415926133, guid: 5522abc7a46945d4c826ee20a8798d4d, type: 3}

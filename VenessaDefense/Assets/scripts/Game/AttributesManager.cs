@@ -139,8 +139,30 @@ public class AttributesManager : MonoBehaviour
     {
         
         IncrementDeadEnamies();
+
+        ShowCurrency(enemy.transform.position, currencyWorth);
         Currency.main.addCurrency(currencyWorth);
+
         PlayEnemyDieSound();
+    }
+
+    private void ShowCurrency(Vector3 position, int currencyWorth)
+    {
+        CurrencyDropText currencyDrop = GetCurrencyDropText();
+        currencyDrop.ShowCurrency(position, currencyWorth);
+    }
+    private CurrencyDropText GetCurrencyDropText()
+    {
+        GameObject gameManager = GameObject.FindWithTag("GamesManager");
+
+        if (gameManager == null)
+        {
+            Debug.LogError("GameManager not found in the scene.");
+            return null;
+        }
+
+        return gameManager.GetComponent<CurrencyDropText>();
+
     }
 
     public void HandleTowerDeath(GameObject tower)
