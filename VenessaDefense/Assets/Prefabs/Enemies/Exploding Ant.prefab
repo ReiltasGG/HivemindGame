@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 8643837358882078013}
   - component: {fileID: 5584794976014824104}
   - component: {fileID: 5283903167814633355}
-  - component: {fileID: 6975003444813835177}
   - component: {fileID: 6276440319677252225}
+  - component: {fileID: 2173972659629493953}
   m_Layer: 3
   m_Name: Exploding Ant
   m_TagString: Enemy
@@ -153,27 +153,6 @@ MonoBehaviour:
   iscurseActive: 0
   currencyWorth: 7
   playerHitOnce: 0
---- !u!95 &6975003444813835177
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 64518308753263262}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a35184593b66e804884d2cdc81ffa075, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &6276440319677252225
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -226,6 +205,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &2173972659629493953
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64518308753263262}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9ceb08d30d3958b41a0f5f00168682f3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6163548218281742553
 GameObject:
   m_ObjectHideFlags: 0
