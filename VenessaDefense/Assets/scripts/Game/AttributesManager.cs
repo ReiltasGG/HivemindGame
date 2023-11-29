@@ -141,6 +141,7 @@ public class AttributesManager : MonoBehaviour
         IncrementDeadEnamies();
         Currency.main.addCurrency(currencyWorth);
         PlayEnemyDieSound();
+        
     }
 
     public void HandleTowerDeath(GameObject tower)
@@ -281,6 +282,11 @@ public class AttributesManager : MonoBehaviour
    public int getHealth()
    {
     return health;
+   }
+
+   public int getCurrency()
+   {
+    return currencyWorth;
    }
 
 }

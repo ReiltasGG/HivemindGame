@@ -116,7 +116,7 @@ Transform:
   m_GameObject: {fileID: 6126402023405121561}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.7, z: 0}
+  m_LocalPosition: {x: 0, y: -3.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -138,7 +138,6 @@ GameObject:
   - component: {fileID: 2976433291728860122}
   - component: {fileID: 8810639187161017643}
   - component: {fileID: 7593522643610515635}
-  - component: {fileID: 6813917153730884522}
   m_Layer: 0
   m_Name: Wasp
   m_TagString: Enemy
@@ -289,6 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aafa05dfd1d3304fab2c23b7bd5e9b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultAttackDamage: 5
   meleeAttackKnockback: 7
   health: 0
   halfHealth: 0
@@ -301,6 +301,7 @@ MonoBehaviour:
   state: 5
   defaultState: 5
   targetDirectionVector: {x: 0, y: 0}
+  moveSpeed: 5
   body: {fileID: 0}
   warningEffect: {fileID: 9016911362315183919, guid: 385483fccdc96fe488cd79ccd3567617, type: 3}
   isWarning: 1
@@ -332,7 +333,7 @@ MonoBehaviour:
   meleeAttackRadius: 3.5
   meleeAttackCooldown: 2
   waterEffect: {fileID: 6982923082744230639, guid: aefc480d981ce114193d325f993232a8, type: 3}
-  timerForWater: 3
+  timerForWater: 2
   currentTimeForWater: 0
   isDomainActive: 0
   isDomainHappenOnce: 1
@@ -362,8 +363,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ef5c93031df4db7954aacdd25b4b31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  maxHealth: 100
+  health: 4500
+  maxHealth: 4500
   attackDamage: 0
   healthBar: {fileID: 0}
   iscurseActive: 0
@@ -402,21 +403,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcf2495d3b33ddf42b64c9c8b54cc342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePerTick: 5
+  damagePerTick: 3
   tickRateInSeconds: 1
-  poisonDurationInSeconds: 5
---- !u!114 &6813917153730884522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7086992147645849624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcf2495d3b33ddf42b64c9c8b54cc342, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damagePerTick: 5
-  tickRateInSeconds: 1
-  poisonDurationInSeconds: 5
+  poisonDurationInSeconds: 3

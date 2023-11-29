@@ -28,5 +28,8 @@ public class textFlicker : MonoBehaviour
 
         // Set the text visibility
         textMeshPro.enabled = isTextVisible;
+        int temp = GameObject.Find("Domain").GetComponent<DomainEffect>().getAmountToChange();
+        textMeshPro.text = "Go to the 4 corners of the screen\n" + temp + "/4.";
+       // textMeshPro.alignment = TextAlignmentOptions.Center;
     }
 }

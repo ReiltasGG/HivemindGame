@@ -16,6 +16,7 @@ public class HealingBee : MonoBehaviour
     [SerializeField] private int healingAmount = 20;
     [SerializeField] private GameObject healingCircle;
     private AttributesManager playerAttributesManager;
+    private Animator anim;
 
 
     private List<GameObject> cursedEnemies = new List<GameObject>();
@@ -23,6 +24,7 @@ public class HealingBee : MonoBehaviour
 
     private void Start()
     {
+        anim = GetComponent<Animator>();
         timePassedSinceHeal = healCooldownInSeconds;
     }
     private void Update()
@@ -31,10 +33,16 @@ public class HealingBee : MonoBehaviour
 
         if (timePassedSinceHeal >= healCooldownInSeconds)
         {
+            anim.SetTrigger("Full");
             ShowCircle();
             HealPlayer();
         }
-        else HideCircle();
+        else 
+        {
+        HideCircle();
+        anim.SetTrigger("Empty");
+        }
+       
             
     }
     private void HealPlayer()

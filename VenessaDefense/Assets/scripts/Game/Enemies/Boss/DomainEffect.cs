@@ -121,5 +121,9 @@ public class DomainEffect : MonoBehaviour
             changeDomain();
         }
     }
+    public int getAmountToChange()
+    {
+        return amountToChangeDom;
+    }
 
 }

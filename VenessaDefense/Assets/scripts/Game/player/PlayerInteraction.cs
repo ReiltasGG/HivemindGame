@@ -37,7 +37,7 @@ public class PlayerInteraction : MonoBehaviour
         }
         if(Input.GetKeyDown(keyChoice) && isInRange)
         {
-            Debug.Log("Ran");
+          //  Debug.Log("Ran");
             GameObject temp = GameObject.Find("Domain");
             var temper = temp.GetComponent<DomainEffect>();
             temper.changeDomainAbility();

@@ -24,6 +24,8 @@ public class Wasp : MonoBehaviour
     public AIstate state;
     public AIstate defaultState = AIstate.defaultAttackPlayer;
     public Vector2 targetDirectionVector;
+    public float moveSpeed = 5.0f;
+    
 
     public Rigidbody2D body;
 
@@ -141,7 +143,12 @@ public class Wasp : MonoBehaviour
     public virtual void Update()
     {
       //  Debug.Log(dashAttackTimer);
-
+        if(isDomainActive)
+        {
+          moveSpeed = 3.0f;
+        }
+        else
+        moveSpeed = 5.0f;
         UpdateAI();
         waterCreation();
         updateHealth();
@@ -360,10 +367,10 @@ public class Wasp : MonoBehaviour
           }
           if(currentTimeBetweenAbilities> timeBetweenAbilities)
           {
-            if(health > halfHealth || isDomainActive == false )
+            if(health > halfHealth && isDomainActive == false )
             {
             int rand = Random.Range(1, 4);
-        
+          //    Debug.Log("i access this 1");
             if(rand == 1)
               state = AIstate.grabAttack;
             if(rand == 2)
@@ -377,7 +384,7 @@ public class Wasp : MonoBehaviour
             else if(health <= halfHealth && isDomainActive == false)
             {
                int rand = Random.Range(1, 5);
-              //Debug.Log("i access this");
+              //Debug.Log("i access this 2");
             if(rand == 1)
               state = AIstate.laserBeam;
             if(rand == 2)
@@ -390,7 +397,7 @@ public class Wasp : MonoBehaviour
             } else if(health <= halfHealth && isDomainActive == true)
             {
                int rand = Random.Range(1, 4);
-             // Debug.Log("i access this");
+            //  Debug.Log("i access this 3");
             if(rand == 1)
               state = AIstate.laserBeam;
             if(rand == 2)
@@ -502,7 +509,7 @@ if (targetchange != null)
 
         //Calculate Distance to the targetLocation, to prevent overshooting it
         float distance = Vector2.Distance(targetLocation, transform.position);
-        Vector2 targetMove = targetDirectionVector * 5.0f;
+        Vector2 targetMove = targetDirectionVector * moveSpeed;
 
         if (distance < targetMove.magnitude)
             targetMove = targetLocation - (Vector2)transform.position;
@@ -531,8 +538,8 @@ if (targetchange != null)
             //Move the monster
             body.velocity += new Vector2(targetMove.x * 0.2f, targetMove.y * 0.2f);
             //Check to see if the monster is moving too fast
-            if (body.velocity.magnitude > 5.0f)
-                body.velocity = body.velocity.normalized * 5.0f;
+            if (body.velocity.magnitude > moveSpeed)
+                body.velocity = body.velocity.normalized * moveSpeed;
 
             //Old Way
             //body.MovePosition(body.position + targetMove);

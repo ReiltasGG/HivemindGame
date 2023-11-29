@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cace097cbdeab6c41bed0fd6f7fe2ec9, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.1458025, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -164,3 +164,5 @@ MonoBehaviour:
   moveSpeed: 6
   blindingEffect: {fileID: 0}
   bloomVolume: {fileID: 0}
+  letExistTimer: 1
+  damageToPlayer: 10

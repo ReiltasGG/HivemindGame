@@ -10,6 +10,7 @@ public class FollowLaser : MonoBehaviour
     public GameObject blindingEffect;
     public Volume bloomVolume; // Assign the Post-Processing Volume in the Unity editor.
     public float letExistTimer = 1.0f;
+    public int damageToPlayer = 10;
 
     void Start()
     {
@@ -41,16 +42,10 @@ public class FollowLaser : MonoBehaviour
         {
             GameObject temp = other.gameObject;
             var playerAttributeMan = temp.GetComponent<AttributesManager>();
-            playerAttributeMan.takeDamage(20);
+            playerAttributeMan.takeDamage(damageToPlayer);
             Destroy(this.gameObject);
 
-            Instantiate(blindingEffect, transform.position, transform.rotation);
 
-            // Activate the bloom effect by enabling the Post-Processing Volume.
-            if (bloomVolume != null)
-            {
-                bloomVolume.enabled = true;
-            }
         }
 
         if(other.CompareTag("Enemy"))

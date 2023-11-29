@@ -98,8 +98,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.06632781, g: 1, b: 0, a: 1}
-      key1: {r: 0.18212235, g: 0.51165366, b: 0.15871254, a: 1}
+      key0: {r: 1, g: 0.048383236, b: 0, a: 1}
+      key1: {r: 1, g: 0.061129764, b: 0, a: 1}
       key2: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -151,6 +151,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laserOrigin: {fileID: 1714250760901309199}
   laserMaxLength: 100000
-  timeBetweenDamage: 0.2
+  timeBetweenDamage: 0.4
   currentTime: 0
   damage: 5
