@@ -159,8 +159,13 @@ public class Wasp : MonoBehaviour
       health = GetComponent<AttributesManager>().getHealth();
       if(health <= 0)
       {
-         PlayerPrefs.SetInt("CurrentDay", PlayerPrefs.GetInt("CurrentDay" + 1)+1);
-            UnityEngine.SceneManagement.SceneManager.LoadScene("DayCleared");
+
+         GameObject Player = GameObject.FindWithTag("Player");
+        Player.GetComponent<AttributesManager>().SavePlayerStats();
+        PlayerPrefs.SetInt("CurrentDay", 3);
+        ManageScenes manageScenes = new ManageScenes();
+        manageScenes.NextDayScene(3);
+        manageScenes.StartDayClearedScene(3);
 
       }
     
