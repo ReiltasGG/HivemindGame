@@ -26,7 +26,14 @@ public class AbilityHolder : MonoBehaviour
     public KeyCode key;
     public KeyCode key2;
     
-    // Update is called once per frame
+    void Start()
+    {
+        skill1 = PlayerPrefs.GetInt("hasBeenBought" + 12, 0) == 1;
+        skill2 = PlayerPrefs.GetInt("hasBeenBought" + 13, 0) == 1;
+        skill1_ = PlayerPrefs.GetInt("PlayerDashAbility", 0) == 1 ? 1 : 0;
+        skill2_ = PlayerPrefs.GetInt("PlayerDecoyAbility", 0) == 1 ? 1 : 0;
+    }
+
     void Update()
     {
        key = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DashKey", "Q"));
@@ -144,7 +151,7 @@ public class AbilityHolder : MonoBehaviour
     {
         skill2= true;
         skill2_ = 1;
-         PlayerPrefs.SetInt("PlayerDecoyAbility", skill2_);
+        PlayerPrefs.SetInt("PlayerDecoyAbility", skill2_);
         PlayerPrefs.Save();
     }
 
